@@ -90,6 +90,11 @@ separability as an adequate finished simulation. The remaining residual can
 include spectral/color coupling, local inter-reflection, defocus, clipping,
 homography interpolation or camera response; published images do not identify
 which cause dominates. Details: `outputs/03_过程模拟/CompenNet整包审计与投影前向反证_2026-09-25.md`.
+On four fixed setups and 50 held-out texture IDs, the full LUT's error is
+1.64-2.64 times higher in the source's highest versus lowest gradient decile;
+a train-selected Gaussian blur reduces macro MAE from 0.04323 to 0.03725.
+This establishes a spatial-context residual, but the published homography
+warp prevents assigning it uniquely to physical projector/camera optics.
 
 ## Falsification order
 

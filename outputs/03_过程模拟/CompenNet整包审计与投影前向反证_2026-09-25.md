@@ -30,6 +30,8 @@
 
 完整 3D LUT 直接保存每个位置对 125 种均匀输入的响应；在色块节点上可精确重现标定图。它是**容量很高的局部输入—输出对照**，不是物理前向过程；即便如此，对未见纹理仍留下 0.03907 MAE，说明均匀色块测量不足以预测所有空间/上下文变化。
 
+为定位这一残差，又固定选取四种设置、各取测试编号 0001–0050：完整 LUT 在训练图选出的模糊尺度下，四设置平均 MAE **0.03725**；不作模糊为 **0.04323**。在每张图内部 224×224 区域，源图梯度最高十分位的预测误差是最低十分位的 **1.64–2.64 倍**；图像边缘 16 像素与内部的平均误差接近。高频内容是明显难点，单靠黑边或饱和区解释不了这些观察。不过对齐/插值、投影和相机光学、相机 ISP 都可能导致边缘残差，**不能把 0.9 像素拟合值直接称作真实光学模糊**。逐图统计见 `work/projector_residual_diagnosis.json`。
+
 ## 3. 反证比“赢线性 baseline”更重要
 
 紧凑的黑底×表面增益模型在 **21/24** 组设置中优于逐像素仿射，对全部设置的平均 MAE 从 0.09321 降为 0.07683。但完整 3D LUT 在 **24/24** 组设置中都优于紧凑模型。例如 `light1/pos1/stripes`：紧凑模型 **0.0970**，仿射 **0.0605**，完整 LUT **0.0346**。所以“表面纹理乘上一个全局颜色曲线”遗漏了明显的局部输入颜色作用；条纹设置尤其容易反证它。
@@ -67,6 +69,7 @@ uv run python -m work.probe_projector_channel_basis --all
 uv run python -m work.probe_projector_full_lut --all
 uv run python -m work.probe_projector_transfer
 uv run python -m work.probe_projector_channel_transfer
+uv run python -m work.diagnose_projector_residuals
 ```
 
-逐设置、逐测试图 MAE、训练尺度选择、档案 SHA 与完整审计分别落在 `work/compennet_full_audit.json`、`work/projector_chart_probe.json`、`work/projector_channel_basis_probe.json`、`work/projector_full_lut_probe.json`、`work/projector_transfer_probe.json` 和 `work/projector_channel_transfer_probe.json`。这些 JSON 是本机中间计算记录；上述程序和 E 盘档案提供可复算入口。已有[物理顺序与证据边界](../../docs/projector_camera_model_contract.md)进一步区分投影、表面、相机与发布处理。
+逐设置、逐测试图 MAE、训练尺度选择、档案 SHA 与完整审计分别落在 `work/compennet_full_audit.json`、`work/projector_chart_probe.json`、`work/projector_channel_basis_probe.json`、`work/projector_full_lut_probe.json`、`work/projector_transfer_probe.json`、`work/projector_channel_transfer_probe.json` 和 `work/projector_residual_diagnosis.json`。这些 JSON 是本机中间计算记录；上述程序和 E 盘档案提供可复算入口。已有[物理顺序与证据边界](../../docs/projector_camera_model_contract.md)进一步区分投影、表面、相机与发布处理。
