@@ -141,3 +141,28 @@ def test_presampling_optical_blur_suppresses_lattice_alias():
         amplitudes.append(float(spectrum[round(.15 * 128)]))
     assert amplitudes[0] > 10 * amplitudes[1]
     assert amplitudes[1] > 100 * amplitudes[2]
+
+
+def test_optional_post_tone_luma_sharpening_changes_rgb_not_raw():
+    display = np.empty((40, 40, 3), dtype=np.float32)
+    display[:] = (.15, .25, .35)
+    display[:, 15:] = (.35, .45, .55)
+    common = dict(sensor_to_display=np.array([[.5, 0, 5], [0, .5, 5], [0, 0, 1]]),
+                  fill_fraction=1, display_gamma=1)
+    baseline = render_screen_capture(display, (32, 32), ScreenCaptureParameters(**common),
+                                     samples_per_sensor_pixel=16)
+    enhanced = render_screen_capture(
+        display, (32, 32),
+        ScreenCaptureParameters(**common, isp_luma_sharpen_amount=.5,
+                                isp_luma_sharpen_sigma_pixels=1),
+        samples_per_sensor_pixel=16)
+    assert np.array_equal(baseline.raw_mosaic, enhanced.raw_mosaic)
+    assert np.array_equal(baseline.srgb, enhanced.srgb_before_sharpen)
+    assert np.array_equal(baseline.srgb, baseline.srgb_before_sharpen)
+    assert np.max(np.abs(enhanced.srgb - baseline.srgb)) > .001
+    delta = enhanced.srgb - enhanced.srgb_before_sharpen
+    unclipped = ((enhanced.srgb > .01) & (enhanced.srgb < .99)).all(axis=2)
+    assert np.max(np.abs(delta[unclipped, 0] - delta[unclipped, 1])) < 1e-6
+    assert np.max(np.abs(delta[unclipped, 1] - delta[unclipped, 2])) < 1e-6
+    with np.testing.assert_raises_regex(ValueError, "sharpening"):
+        ScreenCaptureParameters(**common, isp_luma_sharpen_amount=-.1)

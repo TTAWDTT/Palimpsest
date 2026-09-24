@@ -50,7 +50,9 @@ def main() -> None:
     if args.intermediates:
         np.savez_compressed(npz_path, irradiance=result.irradiance,
                             noiseless_mosaic=result.noiseless_mosaic,
-                            raw_mosaic=result.raw_mosaic, row_exposure_gain=result.row_exposure_gain)
+                            raw_mosaic=result.raw_mosaic,
+                            srgb_before_sharpen=result.srgb_before_sharpen,
+                            row_exposure_gain=result.row_exposure_gain)
     report = {
         "schema": "screen-forward-output-v1",
         "input_file": str(args.input), "input_sha256": sha256(args.input),

@@ -34,6 +34,8 @@ class ScreenCaptureParameters:
     exposure_time_s: float | None = None
     sensor_row_interval_s: float = 0.0
     pwm_phase_cycles: float = 0.0
+    isp_luma_sharpen_amount: float = 0.0
+    isp_luma_sharpen_sigma_pixels: float = 1.0
 
     def __post_init__(self) -> None:
         transform = np.asarray(self.sensor_to_display, dtype=np.float64)
@@ -49,6 +51,7 @@ class ScreenCaptureParameters:
             self.full_well_electrons, self.read_noise_electrons,
             self.pwm_duty_cycle, self.pwm_off_level,
             self.sensor_row_interval_s, self.pwm_phase_cycles,
+            self.isp_luma_sharpen_amount, self.isp_luma_sharpen_sigma_pixels,
         )
         if not np.isfinite(scalars).all():
             raise ValueError("screen and sensor parameters must be finite")
@@ -82,6 +85,8 @@ class ScreenCaptureParameters:
             raise ValueError("PWM duty must be in (0, 1] and off level in [0, 1]")
         if self.sensor_row_interval_s < 0 or not 0 <= self.pwm_phase_cycles < 1:
             raise ValueError("row interval must be nonnegative and PWM phase in [0, 1)")
+        if self.isp_luma_sharpen_amount < 0 or self.isp_luma_sharpen_sigma_pixels <= 0:
+            raise ValueError("ISP luma sharpening amount must be nonnegative and sigma positive")
         if self.exposure_time_s is not None and (
                 not np.isfinite(self.exposure_time_s) or self.exposure_time_s <= 0):
             raise ValueError("exposure_time_s must be positive and finite")
@@ -101,6 +106,7 @@ class ScreenCaptureResult:
     irradiance: np.ndarray
     noiseless_mosaic: np.ndarray
     raw_mosaic: np.ndarray
+    srgb_before_sharpen: np.ndarray
     srgb: np.ndarray
     row_exposure_gain: np.ndarray
 
@@ -306,6 +312,16 @@ def _linear_to_srgb(linear: np.ndarray) -> np.ndarray:
     ).astype(np.float32)
 
 
+def _isp_luma_unsharp(srgb: np.ndarray, amount: float, sigma_pixels: float) -> np.ndarray:
+    """Optional post-tone luma edge enhancement; not a calibrated camera ISP."""
+    if amount == 0:
+        return srgb
+    luma = (srgb[..., 0] * .2126 + srgb[..., 1] * .7152 + srgb[..., 2] * .0722)
+    lowpass = gaussian_filter(luma, sigma_pixels, mode="reflect")
+    delta = amount * (luma - lowpass)
+    return np.clip(srgb + delta[..., None], 0, 1).astype(np.float32)
+
+
 def _minimum_samples_for_projection(
     transform: np.ndarray, sensor_shape: tuple[int, int], fill_fraction: float
 ) -> int:
@@ -380,7 +396,8 @@ def render_screen_capture(
     The output is an unencoded crop. Optional temporal PWM/rolling exposure
     uses one square-wave global screen luminance signal and row start times.
     Spectral response, measured PSF, lens distortion, real ISP and JPEG remain
-    outside this model. Parameters are virtual until fitted to device data.
+    outside this model. Optional luma sharpening is an ISP hypothesis, not an
+    identified device parameter. Parameters are virtual until fitted to data.
     """
     frame = np.asarray(frame, dtype=np.float32)
     if frame.ndim != 3 or frame.shape[2] != 3 or not np.isfinite(frame).all():
@@ -445,10 +462,14 @@ def render_screen_capture(
         raw_mosaic = np.clip(electrons / parameters.full_well_electrons, 0, 1).astype(np.float32)
 
     linear_rgb = _demosaic_bilinear(raw_mosaic, masks)
+    srgb_before_sharpen = _linear_to_srgb(linear_rgb)
     return ScreenCaptureResult(
         irradiance=irradiance,
         noiseless_mosaic=noiseless_mosaic,
         raw_mosaic=raw_mosaic,
-        srgb=_linear_to_srgb(linear_rgb),
+        srgb_before_sharpen=srgb_before_sharpen,
+        srgb=_isp_luma_unsharp(srgb_before_sharpen,
+                              parameters.isp_luma_sharpen_amount,
+                              parameters.isp_luma_sharpen_sigma_pixels),
         row_exposure_gain=row_exposure_gain,
     )
