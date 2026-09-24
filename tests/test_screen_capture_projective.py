@@ -41,8 +41,8 @@ def test_rolling_exposure_and_pwm_generate_rows_only_when_temporally_aliasing():
                                    exposure_time_s=.01, sensor_row_interval_s=.002)
     moving = render_screen_capture(display, (12, 12), short)
     averaged = render_screen_capture(display, (12, 12), long)
-    assert np.allclose(moving.row_exposure_gain[:5], [4, 1, 0, 0, 0])
-    assert np.allclose(averaged.row_exposure_gain, 1)
+    assert np.allclose(moving.row_exposure_gain[:5], [1, .25, 0, 0, 0])
+    assert np.allclose(averaged.row_exposure_gain, .25)
     assert np.allclose(moving.irradiance.mean(axis=(1, 2))[:5], moving.row_exposure_gain[:5] / 3)
     with np.testing.assert_raises_regex(ValueError, "PWM requires"):
         ScreenCaptureParameters(sensor_to_display=homography, pwm_frequency_hz=100)
@@ -82,11 +82,26 @@ def test_shutter_duration_couples_photon_count_to_pwm_integration():
                                   ScreenCaptureParameters(**common, exposure_time_s=.01))
     long = render_screen_capture(display, (20, 20),
                                  ScreenCaptureParameters(**common, exposure_time_s=.02))
-    assert np.allclose(short.row_exposure_gain, 1)
-    assert np.allclose(long.row_exposure_gain, 1)
+    assert np.allclose(short.row_exposure_gain, .5)
+    assert np.allclose(long.row_exposure_gain, .5)
     assert np.isclose(long.noiseless_mosaic.mean(), 2 * short.noiseless_mosaic.mean())
     with np.testing.assert_raises_regex(ValueError, "either integrated electrons or electron rate"):
         ScreenCaptureParameters(**common, exposure_time_s=.01, exposure_electrons_per_unit=1000)
+
+
+def test_pwm_duty_reduces_photons_for_fixed_peak_radiance():
+    display = np.ones((40, 40, 3), dtype=np.float32)
+    homography = np.array([[.25, 0, 5], [0, .25, 5], [0, 0, 1]])
+    common = dict(sensor_to_display=homography, fill_fraction=1,
+                  pwm_frequency_hz=100, exposure_time_s=.01,
+                  electron_rate_per_unit_s=100_000, full_well_electrons=10_000)
+    always = render_screen_capture(display, (12, 12),
+                                   ScreenCaptureParameters(**common, pwm_duty_cycle=1))
+    quarter = render_screen_capture(display, (12, 12),
+                                    ScreenCaptureParameters(**common, pwm_duty_cycle=.25))
+    assert np.allclose(always.row_exposure_gain, 1)
+    assert np.allclose(quarter.row_exposure_gain, .25)
+    assert np.isclose(quarter.noiseless_mosaic.mean(), always.noiseless_mosaic.mean() / 4)
 
 
 def test_display_lattice_alias_frequency_tracks_projected_pixel_scale():

@@ -198,6 +198,12 @@ def _homography_jacobian(transform: np.ndarray, x: float, y: float) -> np.ndarra
 
 
 def _pwm_row_gain(height: int, parameters: ScreenCaptureParameters) -> np.ndarray:
+    """Fraction of peak-on display radiance collected during each row exposure.
+
+    The display input and electron-rate parameters refer to the emitter's
+    *on-state* radiance. Lower duty therefore collects fewer photons over a
+    complete PWM cycle; no compensation for perceived brightness is assumed.
+    """
     if parameters.pwm_frequency_hz is None:
         return np.ones(height, dtype=np.float32)
     frequency = parameters.pwm_frequency_hz
@@ -212,8 +218,7 @@ def _pwm_row_gain(height: int, parameters: ScreenCaptureParameters) -> np.ndarra
         return whole * duty + np.minimum(t - whole, duty)
 
     bright_fraction = (bright_cycles(row_end_cycles) - bright_cycles(row_start_cycles)) / (duration * frequency)
-    mean_level = parameters.pwm_off_level + (1 - parameters.pwm_off_level) * duty
-    gain = (parameters.pwm_off_level + (1 - parameters.pwm_off_level) * bright_fraction) / mean_level
+    gain = parameters.pwm_off_level + (1 - parameters.pwm_off_level) * bright_fraction
     return gain.astype(np.float32)
 
 
