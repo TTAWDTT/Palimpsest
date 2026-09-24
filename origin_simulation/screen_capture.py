@@ -21,6 +21,7 @@ from scipy.sparse import csr_matrix
 class ScreenCaptureParameters:
     sensor_to_display: np.ndarray
     fill_fraction: float = 0.85
+    emitter_layout: str = "vertical_rgb"
     display_gamma: float = 2.2
     optical_blur_sigma_sensor_pixels: float = 0.0
     diffraction_f_number: float | None = None
@@ -71,6 +72,8 @@ class ScreenCaptureParameters:
             raise ValueError("choose either integrated electrons or electron rate")
         if not 0 < self.fill_fraction <= 1:
             raise ValueError("fill_fraction must be in (0, 1]")
+        if self.emitter_layout not in ("vertical_rgb", "co_spatial_rgb_control"):
+            raise ValueError("unsupported emitter_layout")
         if self.display_gamma <= 0 or self.optical_blur_sigma_sensor_pixels < 0:
             raise ValueError("display gamma must be positive and blur nonnegative")
         if self.diffraction_f_number is not None:
@@ -155,14 +158,19 @@ def _screen_radiance(
             safe_row = np.clip(row, 0, height - 1)
             safe_column = np.clip(column, 0, width - 1)
             for channel in range(3):
-                emitter_left = column + (channel + gap) / 3
-                emitter_right = column + (channel + 1 - gap) / 3
+                if parameters.emitter_layout == "vertical_rgb":
+                    emitter_left = column + (channel + gap) / 3
+                    emitter_right = column + (channel + 1 - gap) / 3
+                else:
+                    emitter_left = column + gap
+                    emitter_right = column + 1 - gap
                 column_weight = np.maximum(
                     0, np.minimum(right, emitter_right) - np.maximum(left, emitter_left)
                 ) / cell_width
                 radiance[..., channel] += (
                     valid * row_weight * column_weight *
-                    frame[safe_row, safe_column, channel]
+                    frame[safe_row, safe_column, channel] *
+                    (1 if parameters.emitter_layout == "vertical_rgb" else 1 / 3)
                 )
     return radiance
 
@@ -191,8 +199,13 @@ def _screen_radiance_projective(
     active_y = (phase_y >= gap) & (phase_y < 1 - gap) & valid
     radiance = np.zeros(display_x.shape + (3,), dtype=np.float32)
     for channel in range(3):
-        active_x = (phase_x >= (channel + gap) / 3) & (phase_x < (channel + 1 - gap) / 3)
-        radiance[..., channel] = active_y * active_x * frame[safe_y, safe_x, channel]
+        if parameters.emitter_layout == "vertical_rgb":
+            active_x = (phase_x >= (channel + gap) / 3) & (phase_x < (channel + 1 - gap) / 3)
+            factor = 1
+        else:
+            active_x = (phase_x >= gap) & (phase_x < 1 - gap)
+            factor = 1 / 3
+        radiance[..., channel] = active_y * active_x * frame[safe_y, safe_x, channel] * factor
     return radiance
 
 
@@ -288,9 +301,11 @@ def _spatial_axis_analytic(emitted_frame: np.ndarray,
     for channel in range(3):
         horizontal = _axis_emitter_matrix(sensor_w, display_w, transform[0, 0],
                                           transform[0, 2], parameters.fill_fraction,
-                                          sigma, channel)
+                                          sigma, channel if parameters.emitter_layout == "vertical_rgb" else None)
         intermediate = vertical @ emitted_frame[..., channel]
         result[..., channel] = (horizontal @ intermediate.T).T
+        if parameters.emitter_layout == "co_spatial_rgb_control":
+            result[..., channel] /= 3
     return result
 
 

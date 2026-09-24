@@ -234,3 +234,24 @@ def test_projective_polygon_area_reference_matches_independent_axis_integral():
                                         (8, 8), setup.sensor_to_display,
                                         setup.fill_fraction)
     np.testing.assert_allclose(polygon, analytic.irradiance, atol=1e-7, rtol=0)
+
+
+def test_co_spatial_emitter_control_holds_average_flux_but_removes_rgb_phase():
+    display = np.ones((72, 72, 3), dtype=np.float32)
+    common = dict(sensor_to_display=np.array([[.62, 0, 8.17], [0, .71, 7.39], [0, 0, 1]]),
+                  fill_fraction=.85, optical_blur_sigma_sensor_pixels=.4)
+    striped = render_screen_capture(display, (64, 64),
+                                    ScreenCaptureParameters(**common),
+                                    spatial_method="analytic")
+    smooth_setup = ScreenCaptureParameters(**common,
+                                           emitter_layout="co_spatial_rgb_control")
+    smooth = render_screen_capture(display, (64, 64), smooth_setup,
+                                   spatial_method="analytic")
+    inner = np.s_[5:-5, 5:-5]
+    assert abs(striped.irradiance[inner].mean() - smooth.irradiance[inner].mean()) < .005
+    assert np.max(np.abs(striped.irradiance[inner] - smooth.irradiance[inner])) > .01
+    np.testing.assert_allclose(smooth.irradiance[..., 0], smooth.irradiance[..., 1], atol=1e-7)
+    fine = render_screen_capture(display, (20, 20), smooth_setup,
+                                 samples_per_sensor_pixel=32)
+    np.testing.assert_allclose(fine.irradiance[4:-4, 4:-4],
+                               smooth.irradiance[4:16, 4:16], atol=.003)
