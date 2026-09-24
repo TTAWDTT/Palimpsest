@@ -220,3 +220,17 @@ def test_effective_spectral_mix_precedes_bayer_sampling():
         ScreenCaptureParameters(**common, sensor_spectral_mix_rgb=((1, 0, 0),
                                                                      (-.1, 1, 0),
                                                                      (0, 0, 1)))
+
+
+def test_projective_polygon_area_reference_matches_independent_axis_integral():
+    from work.projective_area_reference import projective_area_reference
+
+    display = np.random.default_rng(7).random((12, 12, 3), dtype=np.float32)
+    setup = ScreenCaptureParameters(
+        sensor_to_display=np.array([[.8, 0, 2.13], [0, .7, 2.31], [0, 0, 1]]),
+        fill_fraction=.83)
+    analytic = render_screen_capture(display, (8, 8), setup, spatial_method="analytic")
+    polygon = projective_area_reference(np.power(display, setup.display_gamma),
+                                        (8, 8), setup.sensor_to_display,
+                                        setup.fill_fraction)
+    np.testing.assert_allclose(polygon, analytic.irradiance, atol=1e-7, rtol=0)

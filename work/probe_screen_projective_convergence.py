@@ -7,6 +7,7 @@ from pathlib import Path
 import numpy as np
 
 from origin_simulation.screen_capture import ScreenCaptureParameters, render_screen_capture
+from work.projective_area_reference import projective_area_reference
 
 
 OUTPUT = Path("work/screen_projective_convergence.json")
@@ -43,7 +44,7 @@ def main() -> None:
                 )
                 runs[samples] = (result, time.perf_counter() - start)
             reference = runs[128][0].irradiance
-            records.append({
+            record = {
                 "perspective": perspective,
                 "gaussian_sigma_sensor_pixels": sigma,
                 "transform": parameters.sensor_to_display.tolist(),
@@ -61,7 +62,21 @@ def main() -> None:
                         "max_absolute": float(np.abs(runs[n][0].srgb - runs[128][0].srgb).max()),
                     } for n in (32, 64)
                 },
-            })
+            }
+            if sigma == 0:
+                start = time.perf_counter()
+                area_reference = projective_area_reference(
+                    np.power(frame, parameters.display_gamma), (20, 20),
+                    parameters.sensor_to_display, parameters.fill_fraction,
+                )
+                record["exact_area_seconds"] = time.perf_counter() - start
+                record["irradiance_error_to_exact_area"] = {
+                    str(n): {
+                        "mean_absolute": float(np.abs(runs[n][0].irradiance - area_reference).mean()),
+                        "max_absolute": float(np.abs(runs[n][0].irradiance - area_reference).max()),
+                    } for n in (32, 64, 128)
+                }
+            records.append(record)
     output = {"scope": "20x20 virtual sensor, 56x56 random display frame, two tilted poses and two blur settings",
               "seed": 20260925, "runs": records}
     OUTPUT.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
