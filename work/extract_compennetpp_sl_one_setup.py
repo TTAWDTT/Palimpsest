@@ -7,9 +7,11 @@ All image payloads remain on E:; the manifest is in work/.
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import io
 import json
+import shutil
 import time
 import zlib
 import zipfile
@@ -36,22 +38,35 @@ def valid_local(path: Path, info: zipfile.ZipInfo) -> bool:
 
 
 def main() -> None:
-    FOLDER.mkdir(parents=True, exist_ok=True)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--setup", default=SETUP)
+    parser.add_argument("--folder", type=Path, default=FOLDER)
+    parser.add_argument("--manifest", type=Path, default=OUT)
+    parser.add_argument("--reuse-source-folder", type=Path, default=None,
+                        help="CRC-verify and reuse the same 42 projector inputs already extracted for another setup")
+    args = parser.parse_args()
+    setup, folder, manifest_path = args.setup, args.folder, args.manifest
+    folder.mkdir(parents=True, exist_ok=True)
     remote = ChunkedRangeFile(confirmed_url(), SIZE)
     rows = []
     started = time.perf_counter()
     with zipfile.ZipFile(remote) as archive:
         expected = [(kind, index,
                      f"sl/img_{index:04d}.png" if kind == "source" else
-                     f"{SETUP}/cam/raw/sl/img_{index:04d}.png")
+                     f"{setup}/cam/raw/sl/img_{index:04d}.png")
                     for index in range(1, 43) for kind in ("source", "capture")]
         for kind, index, member in expected:
             info = archive.getinfo(member)
-            destination = FOLDER / f"{kind}_{index:04d}.png"
+            destination = folder / f"{kind}_{index:04d}.png"
             if not valid_local(destination, info):
-                data = read_member(remote, info)
                 temp = destination.with_suffix(".png.tmp")
-                temp.write_bytes(data)
+                if kind == "source" and args.reuse_source_folder is not None:
+                    shared = args.reuse_source_folder / f"source_{index:04d}.png"
+                    if not valid_local(shared, info):
+                        raise ValueError(f"shared projected source does not match official ZIP CRC: {shared}")
+                    shutil.copyfile(shared, temp)
+                else:
+                    temp.write_bytes(read_member(remote, info))
                 temp.replace(destination)
             data = destination.read_bytes()
             with Image.open(io.BytesIO(data)) as image:
@@ -67,7 +82,7 @@ def main() -> None:
             if index % 4 == 0 and kind == "capture":
                 print(f"CRC checked {len(rows)}/84 members; elapsed {time.perf_counter()-started:.0f}s",
                       flush=True)
-            OUT.write_text(json.dumps({"setup": SETUP, "archive_bytes": SIZE,
+            manifest_path.write_text(json.dumps({"setup": setup, "archive_bytes": SIZE,
                                        "whole_archive_crc_checked": False,
                                        "pairs_complete": len(rows) == 84,
                                        "range_requests": remote.request_count,

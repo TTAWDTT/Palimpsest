@@ -7,6 +7,7 @@ not world depth. Only run after 84 selected members pass ZIP CRC.
 
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 
@@ -21,9 +22,13 @@ OUT = Path(__file__).with_name("compennetpp_sl_decoding.json")
 VIS = Path(__file__).with_name("compennetpp_sl_decoding_preview.png")
 
 
-def load(kind: str, index: int) -> np.ndarray:
-    with Image.open(FOLDER / f"{kind}_{index:04d}.png") as image:
+def load_at(folder: Path, kind: str, index: int) -> np.ndarray:
+    with Image.open(folder / f"{kind}_{index:04d}.png") as image:
         return np.asarray(image.convert("RGB"), dtype=np.float32) / 255
+
+
+def load(kind: str, index: int) -> np.ndarray:
+    return load_at(FOLDER, kind, index)
 
 
 def gray(image: np.ndarray) -> np.ndarray:
@@ -31,7 +36,8 @@ def gray(image: np.ndarray) -> np.ndarray:
 
 
 def decode_axis(kind: str, first: int, count: int,
-                source_shape: tuple[int, int], axis: int) -> tuple[np.ndarray, np.ndarray, dict]:
+                source_shape: tuple[int, int], axis: int,
+                image_loader=load) -> tuple[np.ndarray, np.ndarray, dict]:
     h, w = source_shape
     source_codes = np.zeros(w if axis == 1 else h, dtype=np.uint16)
     captured_codes = None
@@ -41,8 +47,8 @@ def decode_axis(kind: str, first: int, count: int,
     for bit in range(count):
         pos_idx = first + 2 * bit
         neg_idx = pos_idx + 1
-        pos_source = gray(load("source", pos_idx))
-        neg_source = gray(load("source", neg_idx))
+        pos_source = gray(image_loader("source", pos_idx))
+        neg_source = gray(image_loader("source", neg_idx))
         if axis == 1:
             line = pos_source[h // 2] > neg_source[h // 2]
             invariant.append(bool(np.all((pos_source > neg_source) == line[None, :])))
@@ -51,8 +57,8 @@ def decode_axis(kind: str, first: int, count: int,
             invariant.append(bool(np.all((pos_source > neg_source) == line[:, None])))
         complement.append(float(np.mean(np.abs(pos_source + neg_source - 1))))
         source_codes |= line.astype(np.uint16) << bit
-        pos_camera = gray(load("capture", pos_idx))
-        neg_camera = gray(load("capture", neg_idx))
+        pos_camera = gray(image_loader("capture", pos_idx))
+        neg_camera = gray(image_loader("capture", neg_idx))
         diff = pos_camera - neg_camera
         if captured_codes is None:
             captured_codes = np.zeros(pos_camera.shape, dtype=np.uint16)
@@ -94,15 +100,19 @@ def geometry(x: np.ndarray, y: np.ndarray, mask: np.ndarray) -> dict:
                                                                 [.1, .5, .9]).tolist()}
 
 
-def main() -> None:
-    manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+def decode_setup(manifest_path: Path, folder: Path, output_path: Path,
+                 preview_path: Path) -> dict:
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     if not manifest["pairs_complete"] or len(manifest["rows"]) != 84:
         raise ValueError("selected structured-light pairs are not fully CRC verified")
-    source_shape = load("source", 1).shape[:2]
-    x, contrast_x, xinfo = decode_axis("x", 3, 10, source_shape, axis=1)
-    y, contrast_y, yinfo = decode_axis("y", 23, 10, source_shape, axis=0)
-    white = gray(load("capture", 1))
-    black = gray(load("capture", 2))
+    image_loader = lambda kind, index: load_at(folder, kind, index)
+    source_shape = image_loader("source", 1).shape[:2]
+    x, contrast_x, xinfo = decode_axis("x", 3, 10, source_shape, axis=1,
+                                       image_loader=image_loader)
+    y, contrast_y, yinfo = decode_axis("y", 23, 10, source_shape, axis=0,
+                                       image_loader=image_loader)
+    white = gray(image_loader("capture", 1))
+    black = gray(image_loader("capture", 2))
     illuminated = (white - black) > .12
     valid_base = illuminated & (x >= 0) & (y >= 0)
     thresholds = [0.0, .01, .02, .04]
@@ -117,13 +127,24 @@ def main() -> None:
               "valid_fraction_of_white_black_mask_by_min_pair_contrast":
                   {key: float(mask.sum() / illuminated.sum()) for key, mask in masks.items()},
               "geometry_at_0_02_contrast": geometry(x, y, masks["0.02"])}
-    OUT.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    output_path.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     preview = np.zeros((*x.shape, 3), dtype=np.uint8)
     mask = masks["0.02"]
     preview[..., 0][mask] = np.clip(x[mask] / (source_shape[1] - 1) * 255, 0, 255).astype(np.uint8)
     preview[..., 1][mask] = np.clip(y[mask] / (source_shape[0] - 1) * 255, 0, 255).astype(np.uint8)
     preview[..., 2][mask] = 128
-    Image.fromarray(preview).save(VIS)
+    Image.fromarray(preview).save(preview_path)
+    return result
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--manifest", type=Path, default=MANIFEST)
+    parser.add_argument("--folder", type=Path, default=FOLDER)
+    parser.add_argument("--output-json", type=Path, default=OUT)
+    parser.add_argument("--preview", type=Path, default=VIS)
+    args = parser.parse_args()
+    result = decode_setup(args.manifest, args.folder, args.output_json, args.preview)
     print(json.dumps({key: value for key, value in result.items()
                       if key not in ("source_axis_x", "source_axis_y")},
                      ensure_ascii=False, indent=2), flush=True)

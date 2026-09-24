@@ -7,6 +7,7 @@ incorrect structured-light bits and foreground/background boundaries remain.
 
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 
@@ -14,7 +15,7 @@ import cv2
 import numpy as np
 
 from work.decode_compennetpp_sl_one_setup import (
-    MANIFEST, OUT as DECODING, decode_axis, gray, load,
+    FOLDER, MANIFEST, decode_axis, gray, load_at,
 )
 
 
@@ -56,13 +57,19 @@ def summarize(prediction: np.ndarray, target: np.ndarray) -> dict:
 
 
 def main() -> None:
-    manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--manifest", type=Path, default=MANIFEST)
+    parser.add_argument("--folder", type=Path, default=FOLDER)
+    parser.add_argument("--output-json", type=Path, default=OUT)
+    args = parser.parse_args()
+    image_loader = lambda kind, index: load_at(args.folder, kind, index)
+    manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     if not manifest["pairs_complete"] or len(manifest["rows"]) != 84:
         raise ValueError("structured-light selected members not completely CRC verified")
-    shape = load("source", 1).shape[:2]
-    x, cx, _ = decode_axis("x", 3, 10, shape, axis=1)
-    y, cy, _ = decode_axis("y", 23, 10, shape, axis=0)
-    contrast = gray(load("capture", 1)) - gray(load("capture", 2))
+    shape = image_loader("source", 1).shape[:2]
+    x, cx, _ = decode_axis("x", 3, 10, shape, axis=1, image_loader=image_loader)
+    y, cy, _ = decode_axis("y", 23, 10, shape, axis=0, image_loader=image_loader)
+    contrast = gray(image_loader("capture", 1)) - gray(image_loader("capture", 2))
     yy, xx = np.nonzero((contrast > .12) & (x >= 0) & (y >= 0) &
                         (cx > CONTRAST) & (cy > CONTRAST))
     camera = np.column_stack([xx, yy]).astype(np.float32)
@@ -94,7 +101,7 @@ def main() -> None:
               "homography_train_inlier_fraction": float(inliers.mean()),
               "heldout": {name: summarize(pred, test_prj)
                           for name, pred in predictions.items()}}
-    OUT.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    args.output_json.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(result, ensure_ascii=False, indent=2), flush=True)
 
 
