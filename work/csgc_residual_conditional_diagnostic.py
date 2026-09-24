@@ -72,7 +72,24 @@ global_bias = global_sum / global_n
 bit_bias = np.divide(bit_sum, bit_n, out=np.full(32, global_bias), where=bit_n > 0)
 local_bias = np.divide(local_sum, local_n, out=np.full(8192, global_bias), where=local_n > 0)
 
-scores = {name: [] for name in ("uncorrected", "global_bias", "bit_phase", "local3x3_phase")}
+# Additive neighborhood model: a compact 3x3 linear response at each output
+# phase. A general 512-pattern table also captures interactions; the gap
+# between the two is a diagnostic, not a physical attribution.
+patterns = np.arange(512, dtype=np.int32)
+design = np.column_stack([np.ones(512),
+                          np.stack([((patterns >> bit) & 1) for bit in range(9)], axis=1)])
+linear_bias = np.empty(8192, dtype=np.float64)
+linear_coefficients = []
+for phase in range(16):
+    index = patterns * 16 + phase
+    weight = np.sqrt(local_n[index].astype(np.float64))
+    beta = np.linalg.lstsq(design * weight[:, None], local_bias[index] * weight,
+                           rcond=None)[0]
+    linear_bias[index] = design @ beta
+    linear_coefficients.append(beta.tolist())
+
+scores = {name: [] for name in ("uncorrected", "global_bias", "bit_phase",
+                                "linear3x3_phase", "local3x3_phase")}
 with zipfile.ZipFile(ARCHIVE) as z:
     for item in range(101, 951):
         source, pred, real = pair(z, item)
@@ -83,6 +100,7 @@ with zipfile.ZipFile(ARCHIVE) as z:
             "uncorrected": pred,
             "global_bias": np.clip(pred - global_bias, 0, 1),
             "bit_phase": np.clip(pred - bit_bias[bit_group].reshape(pred.shape), 0, 1),
+            "linear3x3_phase": np.clip(pred - linear_bias[local_group].reshape(pred.shape), 0, 1),
             "local3x3_phase": np.clip(pred - local_bias[local_group].reshape(pred.shape), 0, 1),
         }
         for name, trial in proposals.items():
@@ -111,6 +129,7 @@ report = {
     "per_code": per_code,
     "local_group_count_min": int(local_n.min()),
     "local_group_count_median": float(np.median(local_n)),
+    "linear_model_coefficients_by_phase": linear_coefficients,
     "methods": {
         name: {metric: {str(q): float(np.quantile([r[metric] for r in values], q))
                         for q in (.05, .5, .95)}
