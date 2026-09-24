@@ -21,8 +21,10 @@ try {
         $current = if (Test-Path -LiteralPath $partialPath) { (Get-Item -LiteralPath $partialPath).Length } else { 0 }
         if ($current -eq $expectedBytes) { break }
         if ($current -gt $expectedBytes) { throw "Partial file too large: $current" }
+        $ErrorActionPreference = 'Continue'
         & curl.exe --location --continue-at - --connect-timeout 30 --speed-limit 1024 --speed-time 60 --silent --show-error --output $partialPath $sourceUrl 2>> $logPath
         $exitStatus = $LASTEXITCODE
+        $ErrorActionPreference = 'Stop'
         $current = (Get-Item -LiteralPath $partialPath).Length
         Add-Content -LiteralPath $logPath -Value "$(Get-Date -Format o) attempt=$attempt exit=$exitStatus bytes=$current"
         if ($current -eq $expectedBytes) { break }
