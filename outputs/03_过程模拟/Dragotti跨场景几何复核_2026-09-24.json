@@ -1,0 +1,301 @@
+{
+  "date": "2026-09-24",
+  "scope": "three different scenes from one original camera, two recapture cameras; selected ZIP members only",
+  "archive_verified": false,
+  "member_verification": "length, ZIP CRC-32, SHA-256",
+  "registration": {
+    "method": "SIFT + 0.75 ratio + RANSAC homography",
+    "longest_edge_for_features": 1200,
+    "ransac_threshold_px": 3,
+    "conditional_pitch_formula": "center vertical homography scale * source_height / 1080",
+    "conditional_pitch_assumptions": [
+      "source aspect ratio preserved and fills 1080 display rows",
+      "published recapture only cropped, never resized"
+    ]
+  },
+  "samples": [
+    {
+      "source_key": "D40-015",
+      "scene": "indoor shelf, chart and fruit",
+      "original": {
+        "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\original_D40_015.jpg",
+        "bytes": 2664018,
+        "sha256": "c6b389d3486ee469b9eb6879837287f5e996b32060f5018c786cb27b591ae41b"
+      },
+      "recaptured": [
+        {
+          "zip_member": "RecapturedImages/600D/DS-05-R%EOS600D%EA232WMI%D40-015.png",
+          "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\D40-015\\DS-05-R%EOS600D%EA232WMI%D40-015.png",
+          "bytes": 3481393,
+          "crc32": "e77a18dd",
+          "sha256": "98873f7e3467463f35a5362926cc4158c11def2fae6895806bb131fd71fc028a",
+          "camera": "EOS600D",
+          "width": 2130,
+          "height": 1420,
+          "png_info_keys": [
+            "dpi"
+          ],
+          "registration": {
+            "sift_ratio_matches": 1621,
+            "ransac_inliers": 1487,
+            "inlier_fraction": 0.9173349784083898,
+            "median_reprojection_px_at_1200": 0.24402980506420135
+          },
+          "center_horizontal_scale_output_per_source_px": 0.7166542106618407,
+          "center_vertical_scale_output_per_source_px": 0.716661561505849,
+          "horizontal_to_vertical_scale_ratio": 0.9999897429352944,
+          "conditional_projected_screen_pitch_if_fit_1080_rows": 1.3271510398256463,
+          "projected_source_corners": [
+            [
+              -13.449999809265137,
+              -9.109999656677246
+            ],
+            [
+              2141.989990234375,
+              -9.220000267028809
+            ],
+            [
+              2141.469970703125,
+              1423.3299560546875
+            ],
+            [
+              -13.050000190734863,
+              1423.56005859375
+            ]
+          ]
+        },
+        {
+          "zip_member": "RecapturedImages/D3200/DS-05-R%D3200%EA232WMI%D40-015.png",
+          "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\D40-015\\DS-05-R%D3200%EA232WMI%D40-015.png",
+          "bytes": 3543540,
+          "crc32": "dcd2ca61",
+          "sha256": "e61869f4bcea2a75a72ed3df292cd609904fc3098fbd5b39477c0c12559541aa",
+          "camera": "D3200",
+          "width": 2148,
+          "height": 1428,
+          "png_info_keys": [
+            "dpi"
+          ],
+          "registration": {
+            "sift_ratio_matches": 1510,
+            "ransac_inliers": 1395,
+            "inlier_fraction": 0.9238410596026491,
+            "median_reprojection_px_at_1200": 0.18637819588184357
+          },
+          "center_horizontal_scale_output_per_source_px": 0.7205590058353786,
+          "center_vertical_scale_output_per_source_px": 0.7207269275689474,
+          "horizontal_to_vertical_scale_ratio": 0.9997670106011783,
+          "conditional_projected_screen_pitch_if_fit_1080_rows": 1.3346794954980508,
+          "projected_source_corners": [
+            [
+              -11.0,
+              -5.71999979019165
+            ],
+            [
+              2156.590087890625,
+              -6.090000152587891
+            ],
+            [
+              2155.919921875,
+              1434.68994140625
+            ],
+            [
+              -9.9399995803833,
+              1434.969970703125
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "source_key": "D40-025",
+      "scene": "outdoor fountain",
+      "original": {
+        "zip_member": "SingleCaptureImages/D40/DS-05-0025-S%D40.JPG",
+        "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\D40-025\\DS-05-0025-S%D40.JPG",
+        "bytes": 3337456,
+        "crc32": "9d643fc8",
+        "sha256": "93f8352c1764e83927fa6282f067f73b374ea43f1d912cdb3d010b55c99b5b3c"
+      },
+      "recaptured": [
+        {
+          "zip_member": "RecapturedImages/600D/DS-05-R%EOS600D%EA232WMI%D40-025.png",
+          "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\D40-025\\DS-05-R%EOS600D%EA232WMI%D40-025.png",
+          "bytes": 4723779,
+          "crc32": "ca9e567f",
+          "sha256": "e143c10937345c80a54293820ac38657a54649481fc219c53d2c168a65122a2c",
+          "camera": "EOS600D",
+          "width": 2130,
+          "height": 1420,
+          "png_info_keys": [
+            "dpi"
+          ],
+          "registration": {
+            "sift_ratio_matches": 1587,
+            "ransac_inliers": 1555,
+            "inlier_fraction": 0.9798361688720857,
+            "median_reprojection_px_at_1200": 0.3242890238761902
+          },
+          "center_horizontal_scale_output_per_source_px": 0.7165997516630228,
+          "center_vertical_scale_output_per_source_px": 0.716523746312185,
+          "horizontal_to_vertical_scale_ratio": 1.0001060751318138,
+          "conditional_projected_screen_pitch_if_fit_1080_rows": 1.3268958265040462,
+          "projected_source_corners": [
+            [
+              -15.34000015258789,
+              -10.5600004196167
+            ],
+            [
+              2140.72998046875,
+              -8.989999771118164
+            ],
+            [
+              2139.56005859375,
+              1422.300048828125
+            ],
+            [
+              -14.010000228881836,
+              1422.8299560546875
+            ]
+          ]
+        },
+        {
+          "zip_member": "RecapturedImages/D3200/DS-05-R%D3200%EA232WMI%D40-025.png",
+          "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\D40-025\\DS-05-R%D3200%EA232WMI%D40-025.png",
+          "bytes": 4247533,
+          "crc32": "10fa0b79",
+          "sha256": "d452a2cd7204b18cbb7710c9aba10b8196eaebd3ce181671b10dca78c468b9ef",
+          "camera": "D3200",
+          "width": 2148,
+          "height": 1428,
+          "png_info_keys": [
+            "dpi"
+          ],
+          "registration": {
+            "sift_ratio_matches": 2153,
+            "ransac_inliers": 2133,
+            "inlier_fraction": 0.990710636321412,
+            "median_reprojection_px_at_1200": 0.18603186309337616
+          },
+          "center_horizontal_scale_output_per_source_px": 0.7204178784739943,
+          "center_vertical_scale_output_per_source_px": 0.72061320302333,
+          "horizontal_to_vertical_scale_ratio": 0.999728946751855,
+          "conditional_projected_screen_pitch_if_fit_1080_rows": 1.3344688944876482,
+          "projected_source_corners": [
+            [
+              -10.649999618530273,
+              -5.78000020980835
+            ],
+            [
+              2156.429931640625,
+              -6.010000228881836
+            ],
+            [
+              2155.93994140625,
+              1434.719970703125
+            ],
+            [
+              -9.579999923706055,
+              1434.510009765625
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "source_key": "D40-034",
+      "scene": "museum whale exhibit",
+      "original": {
+        "zip_member": "SingleCaptureImages/D40/DS-05-0034-S%D40.JPG",
+        "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\D40-034\\DS-05-0034-S%D40.JPG",
+        "bytes": 2408698,
+        "crc32": "7f878422",
+        "sha256": "ef83aae24643cd87ffd75f04eb98f9f035df07a7ea5c305312f48733f4901aab"
+      },
+      "recaptured": [
+        {
+          "zip_member": "RecapturedImages/600D/DS-05-R%EOS600D%EA232WMI%D40-034.png",
+          "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\D40-034\\DS-05-R%EOS600D%EA232WMI%D40-034.png",
+          "bytes": 3469326,
+          "crc32": "6af0a3f5",
+          "sha256": "3bee606f5e66e635751c092a9d5acda64850ab6f934fc0d2d03df6fb82b8b929",
+          "camera": "EOS600D",
+          "width": 2130,
+          "height": 1420,
+          "png_info_keys": [
+            "dpi"
+          ],
+          "registration": {
+            "sift_ratio_matches": 1875,
+            "ransac_inliers": 1814,
+            "inlier_fraction": 0.9674666666666667,
+            "median_reprojection_px_at_1200": 0.3723350167274475
+          },
+          "center_horizontal_scale_output_per_source_px": 0.7161188304316808,
+          "center_vertical_scale_output_per_source_px": 0.7164555386176209,
+          "horizontal_to_vertical_scale_ratio": 0.9995300361742059,
+          "conditional_projected_screen_pitch_if_fit_1080_rows": 1.326769515958557,
+          "projected_source_corners": [
+            [
+              -14.109999656677246,
+              -9.0600004196167
+            ],
+            [
+              2140.280029296875,
+              -9.970000267028809
+            ],
+            [
+              2139.929931640625,
+              1422.5799560546875
+            ],
+            [
+              -12.420000076293945,
+              1422.780029296875
+            ]
+          ]
+        },
+        {
+          "zip_member": "RecapturedImages/D3200/DS-05-R%D3200%EA232WMI%D40-034.png",
+          "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\D40-034\\DS-05-R%D3200%EA232WMI%D40-034.png",
+          "bytes": 3274335,
+          "crc32": "8ca4d88c",
+          "sha256": "69dfb252b0b78e74a640b65286bfd2b2ba58f76bf191357ac6abd9ae7300b293",
+          "camera": "D3200",
+          "width": 2148,
+          "height": 1428,
+          "png_info_keys": [
+            "dpi"
+          ],
+          "registration": {
+            "sift_ratio_matches": 1965,
+            "ransac_inliers": 1910,
+            "inlier_fraction": 0.9720101781170484,
+            "median_reprojection_px_at_1200": 0.2639020085334778
+          },
+          "center_horizontal_scale_output_per_source_px": 0.7202267828129107,
+          "center_vertical_scale_output_per_source_px": 0.7204355243106578,
+          "horizontal_to_vertical_scale_ratio": 0.9997102565174769,
+          "conditional_projected_screen_pitch_if_fit_1080_rows": 1.3341398598345515,
+          "projected_source_corners": [
+            [
+              -10.270000457763672,
+              -5.559999942779541
+            ],
+            [
+              2156.22998046875,
+              -6.190000057220459
+            ],
+            [
+              2155.840087890625,
+              1434.449951171875
+            ],
+            [
+              -9.109999656677246,
+              1434.1099853515625
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}
