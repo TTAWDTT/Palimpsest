@@ -31,6 +31,21 @@
 
 **在这两个文件内，未识别出可独立验证的曝光、增益或传感器序列号字段。**38 字节结构仅为本次实包的经验拆解，不是作者公开的正式二进制规范；不能据此断言全库或其他元数据包都没有这些字段，也不能把零值尾缀猜作具体物理量。相机曝光/增益目前仍是待证据约束的参数。
 
+## 最小 ISP 映射的跨内容压力测试
+
+为检验“RAW→ISP-RGB 可先用简单相机链近似”这一假设，固定两条录制的首帧及各自 Tag 几何：把 Bayer RAW 双线性去马赛克、轻度模糊并投到 RGB 坐标；仅在 automobile 首帧拟合一个带偏置的 3×3 颜色矩阵，分别试直接映射到编码 RGB 和先映射到线性光再施加标准 sRGB 曲线。四种 Bayer 代码枚举但**只按 automobile 显示内容块误差选择**；airplane 首帧完全留出。内容块是预先固定的 RGB 坐标 `x=225:400,y=185:365`，外部黑区不计入误差。
+
+| 假设 | Automobile 内容块 MAE / 255 | Airplane 内容块 MAE / 255 | Airplane 全有效区 MAE / 255 |
+|---|---:|---:|---:|
+| 编码 RGB 上的 3×3＋偏置 | 21.94 | 21.58 | 12.32 |
+| 线性光 3×3＋偏置，再转 sRGB | **21.02** | **20.93** | **9.41** |
+
+![airplane 实际 ISP-RGB 与由 automobile 拟合 RAW 映射的内容块](Raw2Event_ISP跨内容对照_2026-09-25.png)
+
+线性光形式跨内容略好，但内容块仍有约 **21/255** 的平均通道绝对误差；大面积浅色背景使全有效区指标显得更好，不能拿它掩盖图像内容误差。残差混合了 Tag 角点/平面插值误差、真实 ISP 的白平衡/色调/降噪/锐化，以及未测的相机设置；**无法从这两个视频中独立归因**。这项检验仅说明低维映射可以迁移部分颜色，不是实际 ISP 的辨识结果。
+
+更重要的是一个严格的**不可辨识性**：若允许自由的 3×3 颜色矩阵，互换 RAW 去马赛克的红蓝通道，可由矩阵反向交换而获得完全相同的预测。实测 `RG` 对 `BG`、`GR` 对 `GB` 的 airplane 内容块 MAE 最大差仅约 $1.1\times10^{-12}$/255。故前文的 Bayer 周期观察不能被这项拟合“确认相位”；需要独立色块/设备说明或受约束的光谱响应。复算结果在 `work/raw2event_isp_transfer.json`，代码为 `work/probe_raw2event_isp_transfer.py`。
+
 ## 对过程 simulation 的具体作用和限制
 
 | 可做 | 尚不能做 |
@@ -39,7 +54,7 @@
 | 把同一设备的部分录制前缀分为校准／整段留出，评估模拟 RAW/ISP 噪声、色彩和局部结构。 | 用这一条录制推断所有手机相机、不同屏幕或距离×角度×曝光干预网格。 |
 | 形成“CFA→ISP”机制的独立证据，供 Chimera 拍屏反证后定位缺失环节。 | 用 CIFAR-10 类别声称 AI／自然摄影判别能力，或从这批 RAW 直接解释 Chimera 的 B-Free 分数下降。 |
 
-**下一实验入口：**先确认 CFA 相位和影像配准在不同前缀、不同画面上是否稳定，再在校准前缀上估计黑电平、噪声—信号关系及低维 ISP 映射；以未参与拟合的前缀检验 RAW/RGB 像素统计和时间变化。只有找到真实数字显示帧及可靠物理设置记录，才能进一步约束完整“数字源→显示→镜头→RAW→ISP→发布”链。Chimera 的 840 个 reserved 来源继续不用于参数挑选。
+**下一实验入口：**用独立色块或设备规格先约束 CFA/有效色彩响应，再扩大到多前缀、不同内容和运动状态；估计黑电平、噪声—信号关系、局部 ISP 残差并在未拟合前缀上验收。只有找到真实数字显示帧及可靠物理设置记录，才能进一步约束完整“数字源→显示→镜头→RAW→ISP→发布”链。Chimera 的 840 个 reserved 来源继续不用于参数挑选。
 
 ## 复算
 
@@ -48,6 +63,7 @@ python work/fetch_raw2event_pair.py
 python work/audit_raw2event_probe.py
 python work/fetch_raw2event_pair.py --prefix 1000_airplane_1_9934_20251222_161953 --audit work/raw2event_probe_airplane_download_audit.json
 python work/audit_raw2event_probe.py --prefix 1000_airplane_1_9934_20251222_161953 --out-dir work/raw2event_probe_airplane --report work/raw2event_probe_airplane_pixel_audit.json
+python -m work.probe_raw2event_isp_transfer
 ```
 
 抽帧、PTS、Tag 角点、亮度对照和经验元数据结构记录在 `work/raw2event_probe_pixel_audit.json` 与 `work/raw2event_probe_airplane_pixel_audit.json`；示意图源帧位于各自的 `work/raw2event_probe*/`。脚本为只读核查，不执行来源检测器推理。
