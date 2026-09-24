@@ -44,7 +44,10 @@ def flattest_source_center(source: np.ndarray) -> tuple[float, float]:
 
 
 def native_patches(source_id: str, condition: str, warp: np.ndarray) -> tuple[np.ndarray, dict[str, np.ndarray]]:
-    source = load_gray(ROOT / "stylegan2_orig" / source_id)
+    source_bgr = cv2.imread(str(ROOT / "stylegan2_orig" / source_id), cv2.IMREAD_COLOR)
+    if source_bgr is None:
+        raise RuntimeError(f"cannot decode source: {source_id}")
+    source = cv2.cvtColor(source_bgr, cv2.COLOR_BGR2GRAY).astype(np.float32) / 255
     native = load_gray(ROOT / condition / source_id)
     expected = (1026, 1026) if condition == "recap_mac" else (765, 765)
     if native.shape != expected:
@@ -58,7 +61,8 @@ def native_patches(source_id: str, condition: str, warp: np.ndarray) -> tuple[np
     top = int(np.clip(top, 0, native.shape[0] - PATCH))
 
     # Same fixed post-crop warp and digital upsampling as a no-camera control.
-    digital256 = cv2.warpAffine(source, warp, (256, 256), flags=cv2.INTER_LINEAR,
+    digital256 = cv2.warpAffine(source_bgr.astype(np.float32) / 255, warp, (256, 256),
+                                flags=cv2.INTER_LINEAR,
                                 borderMode=cv2.BORDER_REFLECT)
     digital_native = cv2.resize(digital256, (native.shape[1], native.shape[0]),
                                 interpolation=cv2.INTER_LANCZOS4)
@@ -71,10 +75,16 @@ def native_patches(source_id: str, condition: str, warp: np.ndarray) -> tuple[np
     for name, interpolation in (("direct_linear", cv2.INTER_LINEAR),
                                 ("direct_cubic", cv2.INTER_CUBIC),
                                 ("direct_lanczos", cv2.INTER_LANCZOS4)):
-        controls[name] = cv2.warpAffine(source, native_warp, (native.shape[1], native.shape[0]),
+        controls[name] = cv2.warpAffine(source_bgr.astype(np.float32) / 255, native_warp,
+                                       (native.shape[1], native.shape[0]),
                                        flags=interpolation, borderMode=cv2.BORDER_REFLECT)
     crop = lambda image: image[top:top + PATCH, left:left + PATCH]
-    return crop(native), {name: crop(image) for name, image in controls.items()}
+    def publish_rgb8(image: np.ndarray) -> np.ndarray:
+        # True published PNGs are 8-bit. A floating-point control would have
+        # an artificially low high-frequency floor after digital upsampling.
+        bgr = np.rint(np.clip(image, 0, 1) * 255).astype(np.uint8)
+        return cv2.cvtColor(bgr, cv2.COLOR_BGR2GRAY).astype(np.float32) / 255
+    return crop(native), {name: publish_rgb8(crop(image)) for name, image in controls.items()}
 
 
 def spectrum(patch: np.ndarray, ring_indices: np.ndarray, valid: np.ndarray,
@@ -107,7 +117,7 @@ def main() -> None:
     window = np.outer(np.hanning(PATCH), np.hanning(PATCH)).astype(np.float32)
     result = {
         "scope": "native published recapture resolution; frozen source-level calibration/development",
-        "negative_control": "same original digitally warped/upscaled with five interpolation-and-blur variants, without display or camera",
+        "negative_control": "same original digitally warped/upscaled with five interpolation-and-blur variants, quantized to 8-bit, without display or camera",
         "warning": "calibration peak is a capture/publication periodicity candidate, not screen-subpixel ground truth",
         "conditions": {},
     }
