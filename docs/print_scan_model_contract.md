@@ -2,8 +2,11 @@
 
 Status: research design plus restricted monochrome and color structural
 prototypes in `origin_simulation/print_scan.py` and
-`origin_simulation/color_print_scan.py`. The color model has no device-specific
-ICC/RIP or spectral calibration. Publication-stage crop, resampling and codec
+`origin_simulation/color_print_scan.py`. A separate continuous-tone photo-paper
+surface hypothesis lives in `origin_simulation/photo_paper.py`: effective
+exposure spot, developed dye density, physical dye spread and frozen paper
+granularity. Neither color surface has device-specific ICC/RIP, spectral,
+chemical or optical calibration. Publication-stage crop, resampling and codec
 are separately represented in `origin_simulation/publication.py`. A composite channel has been fitted on 100
 CSGC binary codes and evaluated on 850 unseen codes, but the printer, paper,
 scanner and publication-stage effects have not been individually calibrated.
@@ -32,6 +35,11 @@ lighting and Lambertian paper only; real lab photo paper, specular BRDF,
 phone ISP and original camera settings remain uncalibrated. Public DIV2K-SCAN
 iPhone XR test PNGs are real print-phone captures but have already undergone
 perspective correction/alignment, so they constrain only the published output.
+The alternate `simulate_photo_paper_surface()` can feed the same camera chain.
+This is a separate **hypothesis**, since DIV2K-SCAN says only "professional
+photo lab" and does not identify its print technology. A physically valid
+family cannot be selected by tuning its final brightness or texture to three
+published phone PNGs.
 
 For a monochrome controlled patch, a minimal model can be written as:
 
