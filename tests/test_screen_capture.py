@@ -1,6 +1,8 @@
 import numpy as np
 
-from origin_simulation.screen_capture import ScreenCaptureParameters, render_screen_capture
+from origin_simulation.screen_capture import (
+    ScreenCaptureParameters, _airy_kernel, render_screen_capture,
+)
 
 
 def parameters(display_pixels_per_sensor_pixel: float, blur_sigma: float = 0.0):
@@ -40,6 +42,36 @@ def test_defocus_suppresses_grid_without_moving_its_frequency():
     assert abs(dominant_horizontal_frequency(sharp.irradiance) -
                dominant_horizontal_frequency(blurred.irradiance)) < 0.01
     assert blurred_line.std() < sharp_line.std() * 0.65
+
+
+def test_circular_aperture_diffraction_psf_and_grid_response():
+    narrow = _airy_kernel(30, 5.0)
+    wide = _airy_kernel(60, 10.0)
+    assert np.isclose(narrow.sum(), 1, atol=1e-6)
+    assert np.isclose(wide.sum(), 1, atol=1e-6)
+    assert wide[60, 60] < narrow[30, 30]
+
+    display = np.ones((100, 100, 3), dtype=np.float32)
+    sharp = render_screen_capture(display, (96, 96), parameters(0.25),
+                                  samples_per_sensor_pixel=8)
+    setup = ScreenCaptureParameters(
+        sensor_to_display=parameters(0.25).sensor_to_display,
+        diffraction_f_number=11,
+        sensor_pixel_pitch_um=4.30652,
+    )
+    diffracted = render_screen_capture(display, (96, 96), setup,
+                                       samples_per_sensor_pixel=8)
+    assert np.isfinite(diffracted.irradiance).all()
+    assert diffracted.irradiance.min() >= 0
+    assert abs(dominant_horizontal_frequency(sharp.irradiance) -
+               dominant_horizontal_frequency(diffracted.irradiance)) < 0.02
+    assert diffracted.irradiance[..., 1].mean(axis=0).std() < \
+        sharp.irradiance[..., 1].mean(axis=0).std() * 0.8
+
+
+def test_diffraction_needs_physical_scale():
+    with np.testing.assert_raises_regex(ValueError, "pixel pitch"):
+        ScreenCaptureParameters(sensor_to_display=np.eye(3), diffraction_f_number=11)
 
 
 def test_sensor_noise_is_seeded_and_signal_dependent():

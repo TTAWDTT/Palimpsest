@@ -12,6 +12,7 @@ from dataclasses import dataclass
 import numpy as np
 from scipy.ndimage import convolve, gaussian_filter
 from scipy.signal import fftconvolve
+from scipy.special import j1
 
 
 @dataclass(frozen=True)
@@ -20,6 +21,9 @@ class ScreenCaptureParameters:
     fill_fraction: float = 0.85
     display_gamma: float = 2.2
     optical_blur_sigma_sensor_pixels: float = 0.0
+    diffraction_f_number: float | None = None
+    sensor_pixel_pitch_um: float | None = None
+    rgb_effective_wavelengths_nm: tuple[float, float, float] = (610.0, 540.0, 460.0)
     exposure_electrons_per_unit: float | None = None
     electron_rate_per_unit_s: float | None = None
     full_well_electrons: float = 10000.0
@@ -59,6 +63,15 @@ class ScreenCaptureParameters:
             raise ValueError("fill_fraction must be in (0, 1]")
         if self.display_gamma <= 0 or self.optical_blur_sigma_sensor_pixels < 0:
             raise ValueError("display gamma must be positive and blur nonnegative")
+        if self.diffraction_f_number is not None:
+            if (not np.isfinite(self.diffraction_f_number) or self.diffraction_f_number <= 0 or
+                    self.sensor_pixel_pitch_um is None or
+                    not np.isfinite(self.sensor_pixel_pitch_um) or self.sensor_pixel_pitch_um <= 0):
+                raise ValueError("diffraction requires positive f-number and sensor pixel pitch")
+        if (len(self.rgb_effective_wavelengths_nm) != 3 or
+                not np.isfinite(self.rgb_effective_wavelengths_nm).all() or
+                min(self.rgb_effective_wavelengths_nm) <= 0):
+            raise ValueError("RGB effective wavelengths must be three finite positive values")
         if ((self.exposure_electrons_per_unit is not None and self.exposure_electrons_per_unit < 0)
                 or self.full_well_electrons <= 0 or self.read_noise_electrons < 0):
             raise ValueError("exposure/read noise must be nonnegative and full well positive")
@@ -221,6 +234,45 @@ def _optical_blur(fine_radiance: np.ndarray, sigma: float) -> np.ndarray:
     return blurred[radius:-radius, radius:-radius].astype(np.float32)
 
 
+def _airy_radius_sensor_pixels(parameters: ScreenCaptureParameters) -> float:
+    """Largest first-zero radius for the assumed RGB monochromatic bands."""
+    if parameters.diffraction_f_number is None:
+        return 0.0
+    return (1.22 * max(parameters.rgb_effective_wavelengths_nm) * 1e-3 *
+            parameters.diffraction_f_number / parameters.sensor_pixel_pitch_um)
+
+
+def _airy_kernel(radius_fine: int, first_zero_fine: float) -> np.ndarray:
+    """Normalized circular-aperture intensity PSF, truncated at 4 first zeros."""
+    grid = np.arange(-radius_fine, radius_fine + 1, dtype=np.float64)
+    xx, yy = np.meshgrid(grid, grid)
+    # The first zero of J1 occurs at 3.8317 = pi * 1.21967.
+    argument = np.pi * 1.22 * np.hypot(xx, yy) / first_zero_fine
+    amplitude = np.ones_like(argument)
+    np.divide(2 * j1(argument), argument, out=amplitude, where=argument != 0)
+    kernel = amplitude * amplitude
+    kernel /= kernel.sum()
+    return kernel.astype(np.float32)
+
+
+def _diffraction_blur(fine_radiance: np.ndarray, parameters: ScreenCaptureParameters,
+                      oversampling: int) -> np.ndarray:
+    if parameters.diffraction_f_number is None:
+        return fine_radiance
+    blurred = np.empty_like(fine_radiance)
+    for channel, wavelength_nm in enumerate(parameters.rgb_effective_wavelengths_nm):
+        first_zero_fine = (1.22 * wavelength_nm * 1e-3 * parameters.diffraction_f_number /
+                           parameters.sensor_pixel_pitch_um * oversampling)
+        radius = int(np.ceil(4 * first_zero_fine))
+        if radius > 512:
+            raise ValueError("diffraction PSF support exceeds 512 fine cells; reduce oversampling")
+        kernel = _airy_kernel(radius, first_zero_fine)
+        padded = np.pad(fine_radiance[..., channel], radius, mode="symmetric")
+        convolution = fftconvolve(padded, kernel, mode="same")
+        blurred[..., channel] = np.maximum(convolution[radius:-radius, radius:-radius], 0)
+    return blurred
+
+
 def _bayer_masks(shape: tuple[int, int]) -> np.ndarray:
     rows, columns = np.indices(shape)
     masks = np.zeros(shape + (3,), dtype=np.float32)
@@ -279,9 +331,9 @@ def _spatial_tile(
     """Render one sensor rectangle with enough halo for the Gaussian PSF."""
     height, width = sensor_shape
     y0, y1, x0, x1 = bounds
-    halo = int(np.ceil(4 * parameters.optical_blur_sigma_sensor_pixels)) + (
-        1 if parameters.optical_blur_sigma_sensor_pixels > 0 else 0
-    )
+    halo = (int(np.ceil(4 * parameters.optical_blur_sigma_sensor_pixels)) +
+            int(np.ceil(4 * _airy_radius_sensor_pixels(parameters))) +
+            (1 if parameters.optical_blur_sigma_sensor_pixels > 0 else 0))
     extended_y0, extended_y1 = max(0, y0 - halo), min(height, y1 + halo)
     extended_x0, extended_x1 = max(0, x0 - halo), min(width, x1 + halo)
     extended_height = extended_y1 - extended_y0
@@ -301,6 +353,7 @@ def _spatial_tile(
         fine_radiance = _screen_radiance(emitted_frame, parameters, display_x, display_y, oversampling)
     else:
         fine_radiance = _screen_radiance_projective(emitted_frame, parameters, display_x, display_y)
+    fine_radiance = _diffraction_blur(fine_radiance, parameters, oversampling)
     sigma = parameters.optical_blur_sigma_sensor_pixels * oversampling
     if sigma > 0:
         fine_radiance = _optical_blur(fine_radiance, sigma)
@@ -346,9 +399,9 @@ def render_screen_capture(
         raise ValueError(
             f"underresolved emitter: use at least {required_samples} samples per sensor pixel"
         )
-    halo = int(np.ceil(4 * parameters.optical_blur_sigma_sensor_pixels)) + (
-        1 if parameters.optical_blur_sigma_sensor_pixels > 0 else 0
-    )
+    halo = (int(np.ceil(4 * parameters.optical_blur_sigma_sensor_pixels)) +
+            int(np.ceil(4 * _airy_radius_sensor_pixels(parameters))) +
+            (1 if parameters.optical_blur_sigma_sensor_pixels > 0 else 0))
     safe_side = int(np.floor(np.sqrt(12_000_000) / oversampling)) - 2 * halo
     if safe_side < 1:
         raise ValueError("oversampling and optical blur exceed tile memory limit")
