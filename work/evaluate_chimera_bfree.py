@@ -80,8 +80,9 @@ def paired_metrics(original: dict[str, dict], processed: dict[str, dict],
     scene_strata = [np.flatnonzero(np.array([src.startswith(f"{scene}/") for src in source_ids]) &
                                     (labels == truth))
                     for scene in ("cat", "church", "horse") for truth in (False, True)]
-    if any(len(indices) != 200 for indices in scene_strata):
-        raise RuntimeError("expected six balanced 200-source scene/label strata")
+    stratum_sizes = {len(indices) for indices in scene_strata}
+    if len(stratum_sizes) != 1 or 0 in stratum_sizes:
+        raise RuntimeError("expected six nonempty balanced scene/label strata")
     bootstrap = []
     bootstrap_auc = []
     for _ in range(2000):
