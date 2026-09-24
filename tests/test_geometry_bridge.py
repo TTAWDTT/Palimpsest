@@ -29,12 +29,18 @@ def test_bridge_marks_only_geometry_as_measured_and_checks_crop():
     }
     base = {
         "schema": "screen-forward-config-v1", "sensor_shape": [16, 16],
+        "samples_per_sensor_pixel": 24,
         "parameters": {"sensor_to_display": np.eye(3).tolist(), "fill_fraction": .85},
     }
     converted = make_geometry_config(measurement, base, (20, 30, 60, 70), measurement_sha256="measured")
     assert converted["sensor_shape"] == [40, 40]
-    assert "appearance parameters virtual" in converted["parameter_status"]
+    assert "physical panel pixel mapping and appearance uncalibrated" in converted["parameter_status"]
     assert converted["geometry_provenance"]["crop_xyxy_camera_pixels"] == [20, 30, 60, 70]
+    assert "samples_per_sensor_pixel" not in converted
     assert base["sensor_shape"] == [16, 16]
     with pytest.raises(ValueError, match="exceeds"):
         make_geometry_config(measurement, base, (20, 30, 220, 70), measurement_sha256="measured")
+    with pytest.raises(ValueError, match="horizon"):
+        sensor_to_display_from_measurement(
+            np.array([[1, 0, 0], [0, 1, 0], [.1, 0, 1.]]), (0, 0, 20, 10)
+        )

@@ -36,6 +36,13 @@ def sensor_to_display_from_measurement(
         [0.0, 0.0, 1.0],
     ])
     result = np.linalg.inv(H) @ sensor_continuous_to_camera_centers
+    if abs(result[2, 2]) < 1e-12:
+        raise ValueError("crop origin lies on the homography horizon")
+    x_span, y_span = x1 - x0, y1 - y0
+    corners = np.array([[0, x_span, 0, x_span], [0, 0, y_span, y_span], [1, 1, 1, 1]])
+    denominators = (result @ corners)[2]
+    if np.min(denominators) <= 0 <= np.max(denominators):
+        raise ValueError("crop crosses the homography horizon")
     return result / result[2, 2]
 
 
@@ -60,7 +67,12 @@ def make_geometry_config(
     config = json.loads(json.dumps(base_config))
     config["sensor_shape"] = [y1 - y0, x1 - x0]
     config["parameters"]["sensor_to_display"] = transform.tolist()
-    config["parameter_status"] = "measured checkerboard geometry; appearance parameters virtual and uncalibrated"
+    # The virtual example's explicit quadrature rate may undersample the
+    # measured projection. Let the renderer derive the safe minimum anew.
+    config.pop("samples_per_sensor_pixel", None)
+    config["parameter_status"] = (
+        "measured digital-stimulus geometry; physical panel pixel mapping and appearance uncalibrated"
+    )
     config["geometry_provenance"] = {
         "measurement_json_sha256": measurement_sha256,
         "camera_file": measurement.get("camera_file"),
@@ -68,6 +80,7 @@ def make_geometry_config(
         "crop_xyxy_camera_pixels": list(crop_xyxy),
         "median_reprojection_error_px": measurement.get("median_reprojection_error_px"),
         "coordinate_contract": "display boundaries to OpenCV camera centers; renderer centers at sensor +0.5",
+        "physical_panel_pixel_mapping": "unverified; requires 1:1 stimulus-to-panel presentation",
     }
     return config
 

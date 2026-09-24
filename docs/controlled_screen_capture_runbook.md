@@ -67,7 +67,7 @@ uv run python -m origin_simulation.capture_kit validate --kit-dir E:\ai_image_or
 uv run --extra analysis python -m origin_simulation.geometry_measure --kit-dir E:\ai_image_origin_research\data\derived\controlled_screen_capture\kit_1920x1080_v2 --image E:\ai_image_origin_research\data\raw\screen_capture_sessions\pilot_001\camera_originals\pilot_001_001.jpg --output-json E:\ai_image_origin_research\data\derived\controlled_screen_capture\pilot_001_001_geometry.json
 ```
 
-把已测的二维投影接入模拟器时，使用 `geometry_bridge`。`--crop-xyxy` 是原生相机图像的左上/右下像素边界，右下不包含；必须与后续用于对比的真实照片裁切一致。桥接程序仅替换 `sensor_to_display` 和输出尺寸，其他显示、光学、传感器参数仍来自未标定基准配置；生成配置会明确标注这一点。不能据此宣称整条链已经校准。
+把已测的二维投影接入模拟器时，使用 `geometry_bridge`。`--crop-xyxy` 是原生相机图像的左上/右下像素边界，右下不包含；必须与后续用于对比的真实照片裁切一致。桥接程序仅替换 `sensor_to_display` 和输出尺寸，并重新由投影尺度决定过采样率；其他显示、光学、传感器参数仍来自未标定基准配置。棋盘测出的是**数字刺激图案**的投影；只有确认图案以 1:1 映射到面板原生像素，才可把同一坐标当作物理子像素格。生成配置会明确标注这一点。不能据此宣称整条链已经校准。
 
 ```powershell
 uv run python -m origin_simulation.geometry_bridge --geometry-json E:\ai_image_origin_research\data\derived\controlled_screen_capture\pilot_001_001_geometry.json --base-config docs\virtual_screen_example.json --crop-xyxy 800 400 1056 656 --output-config E:\ai_image_origin_research\data\derived\controlled_screen_capture\pilot_001_001_geometry_only.json
