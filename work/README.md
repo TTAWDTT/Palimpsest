@@ -9,5 +9,6 @@
 | 真实扫描配对审计 | `audit_descan_pairs.py`、`audit_descan_near_duplicates.py` |
 | 早期 simulation 原型 | `rr_simulator_v0.py`、`materialize_rr_transfer_simulation.py`、`evaluate_rr_simulator_critic.py` |
 | 下载与断点恢复 | `download_verified.ps1`、`continue_rr_bfree.ps1`、`download_descan_calibration.py` |
+| Dragotti 官方 ZIP 小样本审计 | `probe_dragotti_range.py`、`analyze_dragotti_probe.py`、`build_dragotti_audit_bundle.py`；机器可读结果见 `outputs/03_过程模拟/`。 |
 
 这是历史代码导航，不代表所有脚本都是当前推荐方法。新物理过程模块在完成受控测量协议后另建稳定入口，避免继续把研究版脚本堆在此目录。

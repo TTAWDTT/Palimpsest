@@ -1,0 +1,510 @@
+{
+  "date": "2026-09-24",
+  "status": "selected official ZIP members only; full ZIP hashes not audited",
+  "original_archive_url": "https://www.commsp.ee.ic.ac.uk/~pld/research/Rewind/Recapture/TestImages/SingleCaptureImages.zip",
+  "original_archive_bytes_from_HTTP_Range": 3213198364,
+  "registration": {
+    "method": "SIFT + 0.75 ratio + RANSAC homography",
+    "longest_edge_for_features": 1200,
+    "ransac_threshold_px": 3,
+    "conditional_pitch_formula": "center vertical homography scale * source_height / 1080",
+    "conditional_pitch_assumptions": [
+      "source aspect ratio preserved and fills 1080 display rows",
+      "published recapture only cropped, never resized"
+    ]
+  },
+  "samples": [
+    {
+      "source_key": "D40-015",
+      "original": {
+        "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\original_D40_015.jpg",
+        "bytes": 2664018,
+        "sha256": "c6b389d3486ee469b9eb6879837287f5e996b32060f5018c786cb27b591ae41b"
+      },
+      "recapture_archive_url": "https://www.commsp.ee.ic.ac.uk/~pld/research/Rewind/Recapture/TestImages/RecapturedImages.zip",
+      "recapture_archive_bytes_from_HTTP_Range": 5224454019,
+      "recaptured": [
+        {
+          "zip_member": "RecapturedImages/600D/DS-05-R%EOS600D%EA232WMI%D40-015.png",
+          "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\D40-015\\DS-05-R%EOS600D%EA232WMI%D40-015.png",
+          "bytes": 3481393,
+          "crc32": "e77a18dd",
+          "sha256": "98873f7e3467463f35a5362926cc4158c11def2fae6895806bb131fd71fc028a",
+          "camera": "EOS600D",
+          "width": 2130,
+          "height": 1420,
+          "png_info_keys": [
+            "dpi"
+          ],
+          "registration": {
+            "sift_ratio_matches": 1621,
+            "ransac_inliers": 1487,
+            "inlier_fraction": 0.9173349784083898,
+            "median_reprojection_px_at_1200": 0.24402980506420135
+          },
+          "center_vertical_scale_output_per_source_px": 0.716661561505849,
+          "conditional_projected_screen_pitch_if_fit_1080_rows": 1.3271510398256463,
+          "projected_source_corners": [
+            [
+              -13.449999809265137,
+              -9.109999656677246
+            ],
+            [
+              2141.989990234375,
+              -9.220000267028809
+            ],
+            [
+              2141.469970703125,
+              1423.3299560546875
+            ],
+            [
+              -13.050000190734863,
+              1423.56005859375
+            ]
+          ]
+        },
+        {
+          "zip_member": "RecapturedImages/60D/DS-05-R%EOS60D%EA232WMI%D40-015.png",
+          "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\D40-015\\DS-05-R%EOS60D%EA232WMI%D40-015.png",
+          "bytes": 3035617,
+          "crc32": "e16e3b51",
+          "sha256": "9e9fb4892f0a86d36fc2dd202f4817b9a4727a226beaa21ed8c84d07e268fe5f",
+          "camera": "EOS60D",
+          "width": 2002,
+          "height": 1326,
+          "png_info_keys": [
+            "dpi"
+          ],
+          "registration": {
+            "sift_ratio_matches": 1553,
+            "ransac_inliers": 1419,
+            "inlier_fraction": 0.9137153895685769,
+            "median_reprojection_px_at_1200": 0.22816897928714752
+          },
+          "center_vertical_scale_output_per_source_px": 0.6706536938945798,
+          "conditional_projected_screen_pitch_if_fit_1080_rows": 1.2419512849899628,
+          "projected_source_corners": [
+            [
+              -12.0,
+              -4.960000038146973
+            ],
+            [
+              2004.989990234375,
+              -10.930000305175781
+            ],
+            [
+              2008.3299560546875,
+              1329.77001953125
+            ],
+            [
+              -7.369999885559082,
+              1335.5999755859375
+            ]
+          ]
+        },
+        {
+          "zip_member": "RecapturedImages/D3200/DS-05-R%D3200%EA232WMI%D40-015.png",
+          "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\D40-015\\DS-05-R%D3200%EA232WMI%D40-015.png",
+          "bytes": 3543540,
+          "crc32": "dcd2ca61",
+          "sha256": "e61869f4bcea2a75a72ed3df292cd609904fc3098fbd5b39477c0c12559541aa",
+          "camera": "D3200",
+          "width": 2148,
+          "height": 1428,
+          "png_info_keys": [
+            "dpi"
+          ],
+          "registration": {
+            "sift_ratio_matches": 1510,
+            "ransac_inliers": 1395,
+            "inlier_fraction": 0.9238410596026491,
+            "median_reprojection_px_at_1200": 0.18637819588184357
+          },
+          "center_vertical_scale_output_per_source_px": 0.7207269275689474,
+          "conditional_projected_screen_pitch_if_fit_1080_rows": 1.3346794954980508,
+          "projected_source_corners": [
+            [
+              -11.0,
+              -5.71999979019165
+            ],
+            [
+              2156.590087890625,
+              -6.090000152587891
+            ],
+            [
+              2155.919921875,
+              1434.68994140625
+            ],
+            [
+              -9.9399995803833,
+              1434.969970703125
+            ]
+          ]
+        },
+        {
+          "zip_member": "RecapturedImages/D70s/DS-05-R%D70S%EA232WMI%D40-015.png",
+          "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\D40-015\\DS-05-R%D70S%EA232WMI%D40-015.png",
+          "bytes": 3793685,
+          "crc32": "9931e341",
+          "sha256": "e5ef851b1324ed7d2d759d82eb31baa6df91ee20d746dc6788eb4861061f679c",
+          "camera": "D70S",
+          "width": 2142,
+          "height": 1418,
+          "png_info_keys": [
+            "dpi"
+          ],
+          "registration": {
+            "sift_ratio_matches": 1804,
+            "ransac_inliers": 1673,
+            "inlier_fraction": 0.9273835920177383,
+            "median_reprojection_px_at_1200": 0.25857749581336975
+          },
+          "center_vertical_scale_output_per_source_px": 0.7214673903278908,
+          "conditional_projected_screen_pitch_if_fit_1080_rows": 1.3360507228294272,
+          "projected_source_corners": [
+            [
+              -11.789999961853027,
+              -13.300000190734863
+            ],
+            [
+              2160.610107421875,
+              -13.010000228881836
+            ],
+            [
+              2151.39990234375,
+              1437.1800537109375
+            ],
+            [
+              -14.029999732971191,
+              1421.02001953125
+            ]
+          ]
+        },
+        {
+          "zip_member": "RecapturedImages/EPM2/DS-05-R%EPM2%EA232WMI%D40-015.png",
+          "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\D40-015\\DS-05-R%EPM2%EA232WMI%D40-015.png",
+          "bytes": 3731312,
+          "crc32": "b0dc39f3",
+          "sha256": "d08c3434dba35c546cdf95c73e05813df6dd7e9a24002330ae02b144be3098f1",
+          "camera": "EPM2",
+          "width": 2260,
+          "height": 1500,
+          "png_info_keys": [
+            "dpi"
+          ],
+          "registration": {
+            "sift_ratio_matches": 1472,
+            "ransac_inliers": 1360,
+            "inlier_fraction": 0.9239130434782609,
+            "median_reprojection_px_at_1200": 0.23121057450771332
+          },
+          "center_vertical_scale_output_per_source_px": 0.7555060590292743,
+          "conditional_projected_screen_pitch_if_fit_1080_rows": 1.399085294498656,
+          "projected_source_corners": [
+            [
+              -7.170000076293945,
+              -6.210000038146973
+            ],
+            [
+              2267.659912109375,
+              -3.1600000858306885
+            ],
+            [
+              2266.340087890625,
+              1504.2900390625
+            ],
+            [
+              -4.309999942779541,
+              1506.8699951171875
+            ]
+          ]
+        },
+        {
+          "zip_member": "RecapturedImages/RX100/DS-05-R%RX100%EA232WMI%D40-015.png",
+          "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\D40-015\\DS-05-R%RX100%EA232WMI%D40-015.png",
+          "bytes": 2978222,
+          "crc32": "a49cec9b",
+          "sha256": "894bd413f4dfec021191cfd089c8d007b825d8fe85ab450981092252f204f02f",
+          "camera": "RX100",
+          "width": 2012,
+          "height": 1338,
+          "png_info_keys": [
+            "dpi"
+          ],
+          "registration": {
+            "sift_ratio_matches": 1822,
+            "ransac_inliers": 1711,
+            "inlier_fraction": 0.9390779363336992,
+            "median_reprojection_px_at_1200": 0.18475928902626038
+          },
+          "center_vertical_scale_output_per_source_px": 0.6724696296053834,
+          "conditional_projected_screen_pitch_if_fit_1080_rows": 1.245314128898858,
+          "projected_source_corners": [
+            [
+              -6.960000038146973,
+              -2.0399999618530273
+            ],
+            [
+              2015.260009765625,
+              -3.8399999141693115
+            ],
+            [
+              2017.3800048828125,
+              1339.6500244140625
+            ],
+            [
+              -5.900000095367432,
+              1343.0
+            ]
+          ]
+        },
+        {
+          "zip_member": "RecapturedImages/TZ10/DS-05-R%TZ10%EA232WMI%D40-015.png",
+          "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\D40-015\\DS-05-R%TZ10%EA232WMI%D40-015.png",
+          "bytes": 3522791,
+          "crc32": "772a276d",
+          "sha256": "a4b7505499e619442af719378f84d514aa00a692955487cf69a3de637f21362d",
+          "camera": "TZ10",
+          "width": 2286,
+          "height": 1522,
+          "png_info_keys": [
+            "dpi"
+          ],
+          "registration": {
+            "sift_ratio_matches": 1600,
+            "ransac_inliers": 1464,
+            "inlier_fraction": 0.915,
+            "median_reprojection_px_at_1200": 0.21531438827514648
+          },
+          "center_vertical_scale_output_per_source_px": 0.7701555128739284,
+          "conditional_projected_screen_pitch_if_fit_1080_rows": 1.426213912729497,
+          "projected_source_corners": [
+            [
+              -9.84000015258789,
+              -10.119999885559082
+            ],
+            [
+              2303.02001953125,
+              -4.630000114440918
+            ],
+            [
+              2300.050048828125,
+              1536.0699462890625
+            ],
+            [
+              -16.170000076293945,
+              1528.25
+            ]
+          ]
+        },
+        {
+          "zip_member": "RecapturedImages/TZ7/DS-05-R%TZ7%EA232WMI%D40-015.png",
+          "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\D40-015\\DS-05-R%TZ7%EA232WMI%D40-015.png",
+          "bytes": 3345206,
+          "crc32": "c9be847b",
+          "sha256": "288dec29e121b39b1b3fd3335c5a605ea339db3ca0c84e4a7b383dd433fa02b3",
+          "camera": "TZ7",
+          "width": 2164,
+          "height": 1440,
+          "png_info_keys": [
+            "dpi"
+          ],
+          "registration": {
+            "sift_ratio_matches": 1772,
+            "ransac_inliers": 1635,
+            "inlier_fraction": 0.922686230248307,
+            "median_reprojection_px_at_1200": 0.24297885596752167
+          },
+          "center_vertical_scale_output_per_source_px": 0.7276522738636968,
+          "conditional_projected_screen_pitch_if_fit_1080_rows": 1.3475042108586979,
+          "projected_source_corners": [
+            [
+              -8.770000457763672,
+              -7.960000038146973
+            ],
+            [
+              2176.030029296875,
+              -1.7000000476837158
+            ],
+            [
+              2173.219970703125,
+              1452.93994140625
+            ],
+            [
+              -14.899999618530273,
+              1446.5400390625
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "source_key": "D40-016",
+      "original": {
+        "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\D40-016\\DS-05-0016-S%D40.JPG",
+        "bytes": 2785379,
+        "sha256": "62dd652d0ce5ec80145ad148062f84f27aaf51d7b310a2a03f30734bdccf4d89"
+      },
+      "recapture_archive_url": "https://www.commsp.ee.ic.ac.uk/~pld/research/Rewind/Recapture/TestImages/RecapturedImages.zip",
+      "recapture_archive_bytes_from_HTTP_Range": 5224454019,
+      "recaptured": [
+        {
+          "zip_member": "RecapturedImages/600D/DS-05-R%EOS600D%EA232WMI%D40-016.png",
+          "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\D40-016\\DS-05-R%EOS600D%EA232WMI%D40-016.png",
+          "bytes": 3476953,
+          "crc32": "5714c9c4",
+          "sha256": "90733d52af61d87a7bc0441962d9c0f3c68ff22e5bd26de752c0552106704ceb",
+          "camera": "EOS600D",
+          "width": 2130,
+          "height": 1420,
+          "png_info_keys": [
+            "dpi"
+          ],
+          "registration": {
+            "sift_ratio_matches": 1582,
+            "ransac_inliers": 1437,
+            "inlier_fraction": 0.9083438685208597,
+            "median_reprojection_px_at_1200": 0.2550458312034607
+          },
+          "center_vertical_scale_output_per_source_px": 0.7165550160800476,
+          "conditional_projected_screen_pitch_if_fit_1080_rows": 1.3269537334815698,
+          "projected_source_corners": [
+            [
+              -13.699999809265137,
+              -9.34000015258789
+            ],
+            [
+              2141.719970703125,
+              -9.010000228881836
+            ],
+            [
+              2141.179931640625,
+              1423.050048828125
+            ],
+            [
+              -13.079999923706055,
+              1423.3800048828125
+            ]
+          ]
+        },
+        {
+          "zip_member": "RecapturedImages/60D/DS-05-R%EOS60D%EA232WMI%D40-016.png",
+          "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\D40-016\\DS-05-R%EOS60D%EA232WMI%D40-016.png",
+          "bytes": 3024147,
+          "crc32": "549bd279",
+          "sha256": "24790736aa91938d5103e5ccb2c489fc37a6f340d5b742d3402935ce3e4d345d",
+          "camera": "EOS60D",
+          "width": 2002,
+          "height": 1326,
+          "png_info_keys": [
+            "dpi"
+          ],
+          "registration": {
+            "sift_ratio_matches": 1537,
+            "ransac_inliers": 1395,
+            "inlier_fraction": 0.907612231620039,
+            "median_reprojection_px_at_1200": 0.22883744537830353
+          },
+          "center_vertical_scale_output_per_source_px": 0.6705582668291495,
+          "conditional_projected_screen_pitch_if_fit_1080_rows": 1.2417745682021286,
+          "projected_source_corners": [
+            [
+              -12.149999618530273,
+              -4.860000133514404
+            ],
+            [
+              2004.9100341796875,
+              -11.029999732971191
+            ],
+            [
+              2007.97998046875,
+              1329.3900146484375
+            ],
+            [
+              -6.610000133514404,
+              1335.5999755859375
+            ]
+          ]
+        },
+        {
+          "zip_member": "RecapturedImages/D3200/DS-05-R%D3200%EA232WMI%D40-016.png",
+          "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\D40-016\\DS-05-R%D3200%EA232WMI%D40-016.png",
+          "bytes": 3540602,
+          "crc32": "3559790c",
+          "sha256": "780d1f728dd7992a6c98d0941d875d4cfeb231d5215e5797800a40de56ca74da",
+          "camera": "D3200",
+          "width": 2148,
+          "height": 1428,
+          "png_info_keys": [
+            "dpi"
+          ],
+          "registration": {
+            "sift_ratio_matches": 1575,
+            "ransac_inliers": 1447,
+            "inlier_fraction": 0.9187301587301587,
+            "median_reprojection_px_at_1200": 0.1877964586019516
+          },
+          "center_vertical_scale_output_per_source_px": 0.7205846690630775,
+          "conditional_projected_screen_pitch_if_fit_1080_rows": 1.3344160538205139,
+          "projected_source_corners": [
+            [
+              -11.170000076293945,
+              -5.880000114440918
+            ],
+            [
+              2156.489990234375,
+              -5.949999809265137
+            ],
+            [
+              2155.52001953125,
+              1434.5
+            ],
+            [
+              -9.720000267028809,
+              1434.5699462890625
+            ]
+          ]
+        },
+        {
+          "zip_member": "RecapturedImages/TZ10/DS-05-R%TZ10%EA232WMI%D40-016.png",
+          "file": "E:\\ai_image_origin_research\\data\\derived\\dragotti_probe\\D40-016\\DS-05-R%TZ10%EA232WMI%D40-016.png",
+          "bytes": 3527291,
+          "crc32": "1b16204a",
+          "sha256": "72103ea49c289877e52f5a71903c3da2e4ad31dc46a8a42750c4dffb5d549278",
+          "camera": "TZ10",
+          "width": 2286,
+          "height": 1522,
+          "png_info_keys": [
+            "dpi"
+          ],
+          "registration": {
+            "sift_ratio_matches": 1592,
+            "ransac_inliers": 1451,
+            "inlier_fraction": 0.9114321608040201,
+            "median_reprojection_px_at_1200": 0.21886217594146729
+          },
+          "center_vertical_scale_output_per_source_px": 0.7703330461847568,
+          "conditional_projected_screen_pitch_if_fit_1080_rows": 1.4265426781199202,
+          "projected_source_corners": [
+            [
+              -9.5,
+              -9.8100004196167
+            ],
+            [
+              2302.949951171875,
+              -4.179999828338623
+            ],
+            [
+              2300.389892578125,
+              1536.22998046875
+            ],
+            [
+              -16.8799991607666,
+              1529.5400390625
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}
