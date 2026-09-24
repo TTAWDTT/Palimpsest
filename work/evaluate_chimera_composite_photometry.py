@@ -96,6 +96,37 @@ def evaluate_map(condition: str, warp: np.ndarray, coefficient: np.ndarray,
     return errors
 
 
+def residual_diagnostics(condition: str, warp: np.ndarray, coefficient: np.ndarray,
+                         development: list[dict]) -> dict:
+    flat, edge, oracle_alignment, fixed_alignment = [], [], [], []
+    for item in development:
+        source = item["src"]
+        original = load_rgb(ROOT / "stylegan2_orig" / source)
+        recapture = load_rgb(CONTROL / condition / source)
+        prediction = np.clip((design(original) @ coefficient).reshape(256, 256, 3), 0, 1)
+        aligned_fixed = align_rgb(recapture, warp)
+        aligned_oracle = align_rgb(recapture, np.asarray(item["warp"], dtype=np.float32))
+        inner = (slice(16, 240), slice(16, 240))
+        fixed_error = np.abs(prediction[inner] - aligned_fixed[inner]).mean(axis=2)
+        oracle_error = np.abs(prediction[inner] - aligned_oracle[inner]).mean(axis=2)
+        gray = cv2.cvtColor(original, cv2.COLOR_RGB2GRAY)
+        gradient = np.hypot(cv2.Sobel(gray, cv2.CV_32F, 1, 0) / 8,
+                            cv2.Sobel(gray, cv2.CV_32F, 0, 1) / 8)[inner]
+        low, high = np.quantile(gradient, [.25, .75])
+        flat.append(float(fixed_error[gradient <= low].mean()))
+        edge.append(float(fixed_error[gradient >= high].mean()))
+        fixed_alignment.append(float(fixed_error.mean()))
+        oracle_alignment.append(float(oracle_error.mean()))
+    return {
+        "flat_quartile_mae": summarize(flat),
+        "edge_quartile_mae": summarize(edge),
+        "edge_over_flat_mean_ratio": float(np.mean(edge) / np.mean(flat)),
+        "fixed_geometry_mae": summarize(fixed_alignment),
+        "per_pair_oracle_geometry_mae": summarize(oracle_alignment),
+        "oracle_improves_count": int((np.asarray(oracle_alignment) < np.asarray(fixed_alignment)).sum()),
+    }
+
+
 def main() -> None:
     geometry = json.loads(GEOMETRY.read_text(encoding="utf-8"))
     registration = json.loads(AUDIT.read_text(encoding="utf-8"))
@@ -157,6 +188,8 @@ def main() -> None:
             leave_one_scene_out[scene] = {"train_sources": 160, "test_sources": 40,
                                           "test_mae": summarize(errors)}
         results[condition]["leave_one_scene_out"] = leave_one_scene_out
+        results[condition]["residual_diagnostics"] = residual_diagnostics(
+            condition, warp, coefficient, development)
 
     for condition in ("recap_mac", "recap_monitor"):
         other = "recap_monitor" if condition == "recap_mac" else "recap_mac"
