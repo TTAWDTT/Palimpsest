@@ -107,3 +107,22 @@ def test_display_lattice_alias_frequency_tracks_projected_pixel_scale():
         measured = np.argmax(spectrum) / 128
         expected = abs(scale - round(scale))
         assert abs(measured - expected) <= 1 / 128
+
+
+def test_presampling_optical_blur_suppresses_lattice_alias():
+    display = np.ones((128, 512, 3), dtype=np.float32)
+    H = np.array([[.85, 0, 50.33], [0, .18, 50.25], [0, 0, 1.]])
+    amplitudes = []
+    for blur_sigma in (0, .5, 1.0):
+        setup = ScreenCaptureParameters(sensor_to_display=H,
+                                        optical_blur_sigma_sensor_pixels=blur_sigma)
+        rendered = render_screen_capture(display, (4, 256), setup,
+                                         samples_per_sensor_pixel=32,
+                                         tile_size_sensor_pixels=32)
+        # Ignore global crop boundaries: a finite reflected PSF can create
+        # artificial edge energy unrelated to the interior screen lattice.
+        signal = rendered.irradiance[:, :, 1].mean(axis=0)[64:192]
+        spectrum = np.abs(np.fft.rfft(signal - signal.mean()))
+        amplitudes.append(float(spectrum[round(.15 * 128)]))
+    assert amplitudes[0] > 10 * amplitudes[1]
+    assert amplitudes[1] > 100 * amplitudes[2]
