@@ -45,12 +45,16 @@ def image_stats(data: bytes) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
+    parser.add_argument("--setup", default=SETUP)
+    parser.add_argument("--destination", type=Path)
     parser.add_argument("--ref-numbers", nargs="*", type=int, default=list(NUMBERS))
     parser.add_argument("--test-numbers", nargs="*", type=int, default=list(TEST_NUMBERS))
     parser.add_argument("--train-numbers", nargs="*", type=int, default=[])
     parser.add_argument("--output-json", type=Path, default=OUT)
     args = parser.parse_args()
-    DEST.mkdir(parents=True, exist_ok=True)
+    destination = args.destination or (DEST if args.setup == SETUP else
+        DEST.with_name("compennetpp_raw_ref_probe_" + args.setup.replace("/", "_")))
+    destination.mkdir(parents=True, exist_ok=True)
     remote = ChunkedRangeFile(confirmed_url(), SIZE)
     rows = []
     counts = {}
@@ -59,20 +63,20 @@ def main() -> None:
         for category in ("ref", "train", "test"):
             counts[category] = {
                 "source": len([name for name in all_names if name.startswith(f"{category}/")]),
-                "raw_camera": len([name for name in all_names if name.startswith(f"{SETUP}/cam/raw/{category}/")]),
+                "raw_camera": len([name for name in all_names if name.startswith(f"{args.setup}/cam/raw/{category}/")]),
             }
             numbers = (args.ref_numbers if category == "ref" else
                        args.test_numbers if category == "test" else args.train_numbers)
             for number in numbers:
                 for role, name in (
                     ("source", f"{category}/img_{number:04d}.png"),
-                    ("camera", f"{SETUP}/cam/raw/{category}/img_{number:04d}.png"),
+                    ("camera", f"{args.setup}/cam/raw/{category}/img_{number:04d}.png"),
                 ):
                     if name not in all_names:
                         raise RuntimeError(f"missing ZIP member {name}")
                     info = archive.getinfo(name)
                     data = read_member(remote, info)
-                    target = DEST / name.replace("/", "__")
+                    target = destination / name.replace("/", "__")
                     target.write_bytes(data)
                     row = {"name": name, "category": category, "number": number,
                            "role": role, "size": len(data),
@@ -82,7 +86,7 @@ def main() -> None:
                     rows.append(row)
                     print(category, number, role, row["dimensions"],
                           row["rgb_mean"], row["unique_rgb_count"], flush=True)
-    result = {"setup": SETUP, "archive_bytes": SIZE,
+    result = {"setup": args.setup, "archive_bytes": SIZE,
               "full_zip_verified": False, "sample_member_crc_verified": True,
               "archive_pair_counts": counts, "sample_pairs": rows,
               "range_requests": remote.request_count,
