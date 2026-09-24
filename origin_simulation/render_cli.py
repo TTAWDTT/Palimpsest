@@ -43,6 +43,7 @@ def main() -> None:
         frame, sensor_shape, setup, seed=int(configuration.get("seed", 0)),
         samples_per_sensor_pixel=configuration.get("samples_per_sensor_pixel"),
         tile_size_sensor_pixels=configuration.get("tile_size_sensor_pixels"),
+        spatial_method=configuration.get("spatial_method", "fine"),
     )
     elapsed = time.perf_counter() - start
     prefix.parent.mkdir(parents=True, exist_ok=True)
@@ -61,6 +62,7 @@ def main() -> None:
         "intermediates_npz": str(npz_path) if args.intermediates else None,
         "intermediates_npz_sha256": sha256(npz_path) if args.intermediates else None,
         "sensor_shape": list(sensor_shape), "seconds_render_only": elapsed,
+        "spatial_method": configuration.get("spatial_method", "fine"),
         "parameter_status": configuration.get("parameter_status", "unspecified"),
         "geometry_provenance": configuration.get("geometry_provenance"),
         "interpretation": "forward-model output; physical fidelity requires device calibration and held-out real captures",

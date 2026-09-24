@@ -166,3 +166,29 @@ def test_optional_post_tone_luma_sharpening_changes_rgb_not_raw():
     assert np.max(np.abs(delta[unclipped, 1] - delta[unclipped, 2])) < 1e-6
     with np.testing.assert_raises_regex(ValueError, "sharpening"):
         ScreenCaptureParameters(**common, isp_luma_sharpen_amount=-.1)
+
+
+def test_analytic_axis_rectangle_integral_matches_fine_reference():
+    display = np.random.default_rng(31).random((48, 52, 3), dtype=np.float32)
+    transform = np.array([[.65, 0, 9.13], [0, .58, 8.27], [0, 0, 1]])
+    setup = ScreenCaptureParameters(sensor_to_display=transform, fill_fraction=.82,
+                                    display_gamma=1.8)
+    fine = render_screen_capture(display, (24, 26), setup, samples_per_sensor_pixel=32)
+    analytic = render_screen_capture(display, (24, 26), setup, spatial_method="analytic")
+    assert np.max(np.abs(fine.irradiance - analytic.irradiance)) < 2e-6
+    assert np.max(np.abs(fine.srgb - analytic.srgb)) < 2e-5
+
+
+def test_analytic_axis_gaussian_matches_fine_in_sensor_interior():
+    display = np.random.default_rng(32).random((64, 64, 3), dtype=np.float32)
+    transform = np.array([[.7, 0, 10.19], [0, .63, 9.41], [0, 0, 1]])
+    setup = ScreenCaptureParameters(sensor_to_display=transform,
+                                    optical_blur_sigma_sensor_pixels=.55)
+    fine = render_screen_capture(display, (32, 32), setup, samples_per_sensor_pixel=32)
+    analytic = render_screen_capture(display, (32, 32), setup, spatial_method="analytic")
+    inner = np.s_[4:-4, 4:-4]
+    assert np.max(np.abs(fine.irradiance[inner] - analytic.irradiance[inner])) < .004
+    with np.testing.assert_raises_regex(ValueError, "axis alignment"):
+        tilted = ScreenCaptureParameters(sensor_to_display=np.array(
+            [[.7, .01, 10], [0, .7, 10], [0, 0, 1]]))
+        render_screen_capture(display, (8, 8), tilted, spatial_method="analytic")

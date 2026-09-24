@@ -8,11 +8,13 @@ Gaussian optical PSF, and an RGGB sensor are hypotheses, not calibrated facts.
 """
 
 from dataclasses import dataclass
+from math import ceil, floor, sqrt, pi
 
 import numpy as np
 from scipy.ndimage import convolve, gaussian_filter
 from scipy.signal import fftconvolve
-from scipy.special import j1
+from scipy.special import j1, ndtr
+from scipy.sparse import csr_matrix
 
 
 @dataclass(frozen=True)
@@ -187,6 +189,97 @@ def _is_axis_aligned_positive(transform: np.ndarray) -> bool:
         np.allclose(transform[[0, 1, 2, 2], [1, 0, 0, 1]], 0, atol=1e-12, rtol=0)
         and transform[0, 0] > 0 and transform[1, 1] > 0
     )
+
+
+def _normal_cdf_antiderivative(z: np.ndarray) -> np.ndarray:
+    """F'(z)=Phi(z), with Phi the standard-normal CDF."""
+    return z * ndtr(z) + np.exp(-.5 * z * z) / sqrt(2 * pi)
+
+
+def _emitter_pixel_weight(left: float, right: float,
+                          emitter_left: np.ndarray, emitter_right: np.ndarray,
+                          sigma: float) -> np.ndarray:
+    """Mean Gaussian-blurred rectangle irradiance over one sensor footprint.
+
+    All coordinates and sigma are in display-pixel units. At sigma=0 this is
+    the exact rectangle overlap; positive sigma integrates the Gaussian CDF
+    over the sensor pixel, rather than point-sampling the optical image.
+    """
+    width = right - left
+    if sigma == 0:
+        return np.maximum(0, np.minimum(right, emitter_right) -
+                          np.maximum(left, emitter_left)) / width
+    u = _normal_cdf_antiderivative
+    weight = sigma / width * (
+        u((emitter_right - left) / sigma) - u((emitter_right - right) / sigma)
+        - u((emitter_left - left) / sigma) + u((emitter_left - right) / sigma)
+    )
+    return np.clip(weight, 0, 1)
+
+
+def _axis_emitter_matrix(sensor_length: int, display_length: int,
+                         scale: float, offset: float, fill_fraction: float,
+                         sigma_sensor: float, channel: int | None) -> csr_matrix:
+    """Sparse exact area+Gaussian transfer along one axis.
+
+    channel=None integrates the common vertical display-pixel fill. Other
+    values select an RGB stripe in a horizontal display pixel.
+    """
+    gap = (1 - fill_fraction) / 2
+    sigma = sigma_sensor * scale
+    rows: list[int] = []
+    columns: list[int] = []
+    data: list[float] = []
+    for sensor_index in range(sensor_length):
+        left = scale * sensor_index + offset
+        right = left + scale
+        support = 6 * sigma
+        first = max(0, floor(left - support) - 1)
+        last = min(display_length, ceil(right + support) + 1)
+        if first >= last:
+            continue
+        indices = np.arange(first, last, dtype=np.int32)
+        if channel is None:
+            emitter_left = indices + gap
+            emitter_right = indices + 1 - gap
+        else:
+            emitter_left = indices + (channel + gap) / 3
+            emitter_right = indices + (channel + 1 - gap) / 3
+        weights = _emitter_pixel_weight(left, right, emitter_left, emitter_right, sigma)
+        keep = weights > 1e-9
+        rows.extend([sensor_index] * int(keep.sum()))
+        columns.extend(indices[keep].tolist())
+        data.extend(weights[keep].tolist())
+    return csr_matrix((np.asarray(data, dtype=np.float32),
+                       (np.asarray(rows), np.asarray(columns))),
+                      shape=(sensor_length, display_length), dtype=np.float32)
+
+
+def _spatial_axis_analytic(emitted_frame: np.ndarray,
+                           sensor_shape: tuple[int, int],
+                           parameters: ScreenCaptureParameters) -> np.ndarray:
+    """Exact rectangle/Gaussian/pixel integral for front-facing display.
+
+    Outside the finite source frame radiance is zero. Optical support extends
+    beyond the sensor crop, so no artificial reflection at crop boundaries is
+    imposed. The optional Airy diffraction kernel is not covered here.
+    """
+    transform = parameters.sensor_to_display
+    if not _is_axis_aligned_positive(transform) or parameters.diffraction_f_number is not None:
+        raise ValueError("analytic spatial method requires positive axis alignment and no diffraction")
+    sensor_h, sensor_w = sensor_shape
+    display_h, display_w, _ = emitted_frame.shape
+    sigma = parameters.optical_blur_sigma_sensor_pixels
+    vertical = _axis_emitter_matrix(sensor_h, display_h, transform[1, 1],
+                                    transform[1, 2], parameters.fill_fraction, sigma, None)
+    result = np.empty((sensor_h, sensor_w, 3), dtype=np.float32)
+    for channel in range(3):
+        horizontal = _axis_emitter_matrix(sensor_w, display_w, transform[0, 0],
+                                          transform[0, 2], parameters.fill_fraction,
+                                          sigma, channel)
+        intermediate = vertical @ emitted_frame[..., channel]
+        result[..., channel] = (horizontal @ intermediate.T).T
+    return result
 
 
 def _homography_jacobian(transform: np.ndarray, x: float, y: float) -> np.ndarray:
@@ -390,6 +483,7 @@ def render_screen_capture(
     seed: int = 0,
     samples_per_sensor_pixel: int | None = None,
     tile_size_sensor_pixels: int | None = None,
+    spatial_method: str = "fine",
 ) -> ScreenCaptureResult:
     """Render display, projective optics, sensor integration, RAW and simple ISP.
 
@@ -407,41 +501,48 @@ def render_screen_capture(
     if len(sensor_shape) != 2 or any(int(size) != size or size <= 0 for size in sensor_shape):
         raise ValueError("sensor_shape must contain two positive integer dimensions")
     height, width = map(int, sensor_shape)
-    required_samples = _minimum_samples_for_projection(
-        parameters.sensor_to_display, (height, width), parameters.fill_fraction
-    )
-    if samples_per_sensor_pixel is None:
-        samples_per_sensor_pixel = required_samples
-    if isinstance(samples_per_sensor_pixel, (bool, np.bool_)) or not isinstance(samples_per_sensor_pixel, (int, np.integer)):
-        raise ValueError("samples_per_sensor_pixel must be an integer")
-    if not 2 <= samples_per_sensor_pixel <= 128:
-        raise ValueError("samples_per_sensor_pixel must lie in [2, 128]")
-    oversampling = int(samples_per_sensor_pixel)
-    if oversampling < required_samples:
-        raise ValueError(
-            f"underresolved emitter: use at least {required_samples} samples per sensor pixel"
-        )
-    halo = (int(np.ceil(4 * parameters.optical_blur_sigma_sensor_pixels)) +
-            int(np.ceil(4 * _airy_radius_sensor_pixels(parameters))) +
-            (1 if parameters.optical_blur_sigma_sensor_pixels > 0 else 0))
-    safe_side = int(np.floor(np.sqrt(12_000_000) / oversampling)) - 2 * halo
-    if safe_side < 1:
-        raise ValueError("oversampling and optical blur exceed tile memory limit")
-    if tile_size_sensor_pixels is not None and (
-            isinstance(tile_size_sensor_pixels, (bool, np.bool_))
-            or not isinstance(tile_size_sensor_pixels, (int, np.integer))
-            or tile_size_sensor_pixels < 1):
-        raise ValueError("tile_size_sensor_pixels must be a positive integer")
-    tile_size = min(safe_side, int(tile_size_sensor_pixels) if tile_size_sensor_pixels is not None else safe_side)
-    irradiance = np.empty((height, width, 3), dtype=np.float32)
+    if spatial_method not in ("fine", "analytic"):
+        raise ValueError("spatial_method must be fine or analytic")
     emitted_frame = np.power(frame, parameters.display_gamma)
-    for y0 in range(0, height, tile_size):
-        y1 = min(height, y0 + tile_size)
-        for x0 in range(0, width, tile_size):
-            x1 = min(width, x0 + tile_size)
-            irradiance[y0:y1, x0:x1] = _spatial_tile(
-                emitted_frame, (height, width), parameters, oversampling, (y0, y1, x0, x1)
+    if spatial_method == "analytic":
+        if samples_per_sensor_pixel is not None or tile_size_sensor_pixels is not None:
+            raise ValueError("analytic spatial method does not use fine-grid samples or tiles")
+        irradiance = _spatial_axis_analytic(emitted_frame, (height, width), parameters)
+    else:
+        required_samples = _minimum_samples_for_projection(
+            parameters.sensor_to_display, (height, width), parameters.fill_fraction
+        )
+        if samples_per_sensor_pixel is None:
+            samples_per_sensor_pixel = required_samples
+        if isinstance(samples_per_sensor_pixel, (bool, np.bool_)) or not isinstance(samples_per_sensor_pixel, (int, np.integer)):
+            raise ValueError("samples_per_sensor_pixel must be an integer")
+        if not 2 <= samples_per_sensor_pixel <= 128:
+            raise ValueError("samples_per_sensor_pixel must lie in [2, 128]")
+        oversampling = int(samples_per_sensor_pixel)
+        if oversampling < required_samples:
+            raise ValueError(
+                f"underresolved emitter: use at least {required_samples} samples per sensor pixel"
             )
+        halo = (int(np.ceil(4 * parameters.optical_blur_sigma_sensor_pixels)) +
+                int(np.ceil(4 * _airy_radius_sensor_pixels(parameters))) +
+                (1 if parameters.optical_blur_sigma_sensor_pixels > 0 else 0))
+        safe_side = int(np.floor(np.sqrt(12_000_000) / oversampling)) - 2 * halo
+        if safe_side < 1:
+            raise ValueError("oversampling and optical blur exceed tile memory limit")
+        if tile_size_sensor_pixels is not None and (
+                isinstance(tile_size_sensor_pixels, (bool, np.bool_))
+                or not isinstance(tile_size_sensor_pixels, (int, np.integer))
+                or tile_size_sensor_pixels < 1):
+            raise ValueError("tile_size_sensor_pixels must be a positive integer")
+        tile_size = min(safe_side, int(tile_size_sensor_pixels) if tile_size_sensor_pixels is not None else safe_side)
+        irradiance = np.empty((height, width, 3), dtype=np.float32)
+        for y0 in range(0, height, tile_size):
+            y1 = min(height, y0 + tile_size)
+            for x0 in range(0, width, tile_size):
+                x1 = min(width, x0 + tile_size)
+                irradiance[y0:y1, x0:x1] = _spatial_tile(
+                    emitted_frame, (height, width), parameters, oversampling, (y0, y1, x0, x1)
+                )
     row_exposure_gain = _pwm_row_gain(height, parameters)
     irradiance *= row_exposure_gain[:, None, None]
 
