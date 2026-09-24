@@ -74,7 +74,7 @@ reflectance must be represented or kept as explicit unknown composite terms.
   prevent shared-layout/content leakage; keep scanner 1/2 test held out.
 - **CSGC random binary codes**: 950 exact 100×100 references printed at 600
   dpi and prepared real scans at nominal 2400/4800/9600 spi. The 2400 archive
-  is fully CRC-checked; four cross-resolution IDs have been range-checked.
+  is fully CRC-checked; 16 cross-resolution IDs have been range-checked.
   This supports a `binary_direct` printer-raster branch with known digital
   input. It is not a halftoned gray photograph. The published crops have
   TIFF DPI=72; use author acquisition settings and the 4/8/16 scale relation,
@@ -84,8 +84,9 @@ reflectance must be represented or kept as explicit unknown composite terms.
   natural-vs-AI origin evaluation. With a single composite spatial/tonal fit,
   the actual forward prototype scores median Pearson 0.884 and RMSE 0.108 on
   the 850 held-out 2400-spi codes. The output has a systematic positive tone
-  residual, especially over white reference bits. Four cross-SPI IDs have
-  also been probed without retuning; this is a small conditional transfer
+  residual, especially over white reference bits. Twelve newly selected
+  holdout IDs have also been probed across three SPI conditions without
+  retuning; this is a small conditional transfer
   check, not identification of scanner resolution as the only changed cause.
 - **VIPPrint**: printed/scanned natural/GAN face task data. Use only after
   verifying exact digital/scan pairing, archive completeness, and generator/
