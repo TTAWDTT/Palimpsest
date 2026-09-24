@@ -87,3 +87,23 @@ def test_shutter_duration_couples_photon_count_to_pwm_integration():
     assert np.isclose(long.noiseless_mosaic.mean(), 2 * short.noiseless_mosaic.mean())
     with np.testing.assert_raises_regex(ValueError, "either integrated electrons or electron rate"):
         ScreenCaptureParameters(**common, exposure_time_s=.01, exposure_electrons_per_unit=1000)
+
+
+def test_display_lattice_alias_frequency_tracks_projected_pixel_scale():
+    # A white digital image still emits through a physical subpixel lattice.
+    # Its observed frequency must fold at the sensor Nyquist limit as the
+    # camera-to-screen scale changes; this is a causal check, not image matching.
+    display = np.ones((128, 512, 3), dtype=np.float32)
+    for scale in (.65, .85, 1.15):
+        H = np.array([[scale, 0, 50.33], [0, .18, 50.25], [0, 0, 1.]])
+        setup = ScreenCaptureParameters(sensor_to_display=H)
+        oversampling = max(32, int(np.ceil(24 * scale / setup.fill_fraction)))
+        result = render_screen_capture(display, (4, 128), setup,
+                                       samples_per_sensor_pixel=oversampling,
+                                       tile_size_sensor_pixels=32)
+        signal = result.irradiance[:, :, 1].mean(axis=0)
+        spectrum = np.abs(np.fft.rfft(signal - signal.mean()))
+        spectrum[0] = 0
+        measured = np.argmax(spectrum) / 128
+        expected = abs(scale - round(scale))
+        assert abs(measured - expected) <= 1 / 128
