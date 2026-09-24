@@ -60,6 +60,7 @@ def main() -> None:
         "intermediates_npz_sha256": sha256(npz_path) if args.intermediates else None,
         "sensor_shape": list(sensor_shape), "seconds_render_only": elapsed,
         "parameter_status": configuration.get("parameter_status", "unspecified"),
+        "geometry_provenance": configuration.get("geometry_provenance"),
         "interpretation": "forward-model output; physical fidelity requires device calibration and held-out real captures",
     }
     json_path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
