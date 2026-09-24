@@ -46,10 +46,9 @@ uv run python -m origin_simulation.capture_kit present --kit-dir E:\ai_image_ori
 
 ## 会话建立与逐图记录
 
-下面只创建空会话。把相机原件放在会话的 `camera_originals/` 中，再运行 `record` 自动计算 SHA-256；`capture_log.csv` 每行对应一张 JPEG/RAW 配对。所有未知量保持 `unknown`，不能填猜测值。RAW 的图像内容暂只核字节哈希，JPEG 还会检查可解码。
+`pilot_001` 空会话已建立在 `E:\ai_image_origin_research\data\raw\screen_capture_sessions\pilot_001\`，**无需重复初始化**。把相机原件放在其 `camera_originals/` 中，再运行 `record` 自动计算 SHA-256；`capture_log.csv` 每行对应一张 JPEG/RAW 配对。所有未知量保持 `unknown`，不能填猜测值。RAW 的图像内容暂只核字节哈希，JPEG 还会检查可解码。若另开会话，使用 `init-session` 并给新的目录和 ID。
 
 ```powershell
-uv run python -m origin_simulation.capture_kit init-session --kit-dir E:\ai_image_origin_research\data\derived\controlled_screen_capture\kit_1920x1080_v2 --session-dir E:\ai_image_origin_research\data\raw\screen_capture_sessions\pilot_001 --session-id pilot_001
 uv run python -m origin_simulation.capture_kit record --kit-dir E:\ai_image_origin_research\data\derived\controlled_screen_capture\kit_1920x1080_v2 --session-dir E:\ai_image_origin_research\data\raw\screen_capture_sessions\pilot_001 --capture-id pilot_001_001 --pattern-id geometry --condition-id C0_start --repeat-index 1 --jpeg-path camera_originals\pilot_001_001.jpg --distance-mm 250 --yaw-deg 0 --pitch-deg 0 --exposure-s 0.01 --iso 100
 uv run python -m origin_simulation.capture_kit validate --kit-dir E:\ai_image_origin_research\data\derived\controlled_screen_capture\kit_1920x1080_v2 --session-dir E:\ai_image_origin_research\data\raw\screen_capture_sessions\pilot_001
 ```
