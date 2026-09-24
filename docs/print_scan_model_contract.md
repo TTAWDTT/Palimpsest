@@ -61,7 +61,11 @@ reflectance must be represented or kept as explicit unknown composite terms.
   different uniform gray tiles has a 45-degree spectral-peak/annular-median
   ratio of approximately 176–318; a blank-paper ROI has ratio 2.69 at the
   same bin. These ratios are *local scanner-output observations*, not printer
-  line-screen specifications. The full archive audit is recorded separately.
+  line-screen specifications. Across ten D5/D6 tone tiles each, eight lighter
+  tiles retain a ~141 lpi strongest peak, while the two darkest tiles per
+  device have a weak ~83 lpi dominant peak. Therefore a peak estimator needs
+  a tone-dependent confidence/negative-control rule. The full archive audit
+  is recorded separately.
 - **DESCAN-18K**: original digital page / physically scanned page pairs. The
   public 1024-pixel registered crops support task-level and frequency/color
   checks across scanner IDs, but remove full-page geometry and do not publish
