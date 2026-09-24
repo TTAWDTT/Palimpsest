@@ -1,7 +1,9 @@
 """Restricted monochrome print-to-flatbed-scan forward model.
 
-This is a structural research prototype. Its ordered square-spot RIP,
-deposition, Gaussian paper/scanner PSFs and scalar tone curves are *hypotheses*.
+This is a structural research prototype. It has either an ordered square-spot
+RIP for gray input or a direct binary printer raster for calibrated-code
+experiments. Deposition, Gaussian paper/scanner PSFs and scalar tone curves
+are *hypotheses*.
 No real printer/scanner has yet supplied all parameters. In particular, a
 strongest FFT peak measured from a scan must not be treated as proof of the
 RIP's fundamental line-screen frequency.
@@ -25,6 +27,7 @@ UM_PER_INCH = 25_400.0
 
 @dataclass(frozen=True)
 class PrintScanParameters:
+    raster_mode: str = "halftone"
     digital_ppi: float = 800.0
     render_ppi: float = 2400.0
     scan_ppi: float = 800.0
@@ -46,11 +49,13 @@ class PrintScanParameters:
     max_render_pixels: int = 8_000_000
 
     def __post_init__(self) -> None:
+        if self.raster_mode not in ("halftone", "binary_direct"):
+            raise ValueError("raster_mode must be halftone or binary_direct")
         positive = (self.digital_ppi, self.render_ppi, self.scan_ppi,
                     self.screen_lpi, self.print_gamma, self.scanner_gamma)
         if not np.isfinite(positive).all() or min(positive) <= 0:
             raise ValueError("physical resolutions, screen frequency and gamma must be finite and positive")
-        if (self.render_ppi < 8 * self.screen_lpi or
+        if ((self.raster_mode == "halftone" and self.render_ppi < 8 * self.screen_lpi) or
                 self.render_ppi < self.scan_ppi or self.render_ppi < self.digital_ppi):
             raise ValueError("render_ppi undersamples the digital input, halftone lattice or scanner")
         finite = (self.screen_angle_degrees, self.screen_phase_u, self.screen_phase_v,
@@ -103,6 +108,8 @@ def _gaussian_physical(image: np.ndarray, width_um: float, render_ppi: float) ->
 def simulate_print_scan(digital: np.ndarray, parameters: PrintScanParameters) -> PrintScanResult:
     """Render one grayscale digital patch through a physical-coordinate chain."""
     gray = _as_gray(digital)
+    if parameters.raster_mode == "binary_direct" and not np.all((gray == 0) | (gray == 1)):
+        raise ValueError("binary_direct mode requires a strict 0/1 digital raster")
     height, width = gray.shape
     inches_w, inches_h = width / parameters.digital_ppi, height / parameters.digital_ppi
     fine_w = round(inches_w * parameters.render_ppi)
@@ -117,17 +124,21 @@ def simulate_print_scan(digital: np.ndarray, parameters: PrintScanParameters) ->
     xx, yy = np.meshgrid(x_inch, y_inch)
     source = map_coordinates(
         gray, [yy * parameters.digital_ppi - .5, xx * parameters.digital_ppi - .5],
-        order=1, mode="nearest",
+        order=0 if parameters.raster_mode == "binary_direct" else 1,
+        mode="nearest",
     )
-    target_ink_fraction = np.power(np.clip(1 - source, 0, 1), parameters.print_gamma)
-
-    angle = np.deg2rad(parameters.screen_angle_degrees)
-    uu = parameters.screen_lpi * (np.cos(angle) * xx + np.sin(angle) * yy) + parameters.screen_phase_u
-    vv = parameters.screen_lpi * (-np.sin(angle) * xx + np.cos(angle) * yy) + parameters.screen_phase_v
-    phase_u, phase_v = np.mod(uu, 1), np.mod(vv, 1)
-    spot_distance = np.maximum(np.abs(phase_u - .5), np.abs(phase_v - .5))
-    ink = (target_ink_fraction >= 1) | (spot_distance < .5 * np.sqrt(target_ink_fraction))
-    del xx, yy, uu, vv, phase_u, phase_v, spot_distance, source, target_ink_fraction
+    if parameters.raster_mode == "binary_direct":
+        ink = source < .5
+        del xx, yy, source
+    else:
+        target_ink_fraction = np.power(np.clip(1 - source, 0, 1), parameters.print_gamma)
+        angle = np.deg2rad(parameters.screen_angle_degrees)
+        uu = parameters.screen_lpi * (np.cos(angle) * xx + np.sin(angle) * yy) + parameters.screen_phase_u
+        vv = parameters.screen_lpi * (-np.sin(angle) * xx + np.cos(angle) * yy) + parameters.screen_phase_v
+        phase_u, phase_v = np.mod(uu, 1), np.mod(vv, 1)
+        spot_distance = np.maximum(np.abs(phase_u - .5), np.abs(phase_v - .5))
+        ink = (target_ink_fraction >= 1) | (spot_distance < .5 * np.sqrt(target_ink_fraction))
+        del xx, yy, uu, vv, phase_u, phase_v, spot_distance, source, target_ink_fraction
 
     gain_px = abs(parameters.mechanical_dot_gain_um) * parameters.render_ppi / UM_PER_INCH
     if gain_px > 0:

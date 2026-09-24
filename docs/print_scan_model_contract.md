@@ -71,6 +71,16 @@ reflectance must be represented or kept as explicit unknown composite terms.
   checks across scanner IDs, but remove full-page geometry and do not publish
   per-crop scan dpi. Separate source pages between calibration and test to
   prevent shared-layout/content leakage; keep scanner 1/2 test held out.
+- **CSGC random binary codes**: 950 exact 100×100 references printed at 600
+  dpi and prepared real scans at nominal 2400/4800/9600 spi. The 2400 archive
+  is fully CRC-checked; four cross-resolution IDs have been range-checked.
+  This supports a `binary_direct` printer-raster branch with known digital
+  input. It is not a halftoned gray photograph. The published crops have
+  TIFF DPI=72; use author acquisition settings and the 4/8/16 scale relation,
+  not TIFF DPI, to set physical scale. It remains unclear whether the three
+  resolution conditions re-scan the same physical sheets. Calibrate on code
+  IDs 1–100 and keep 101–950 unseen; do not use these random codes as a final
+  natural-vs-AI origin evaluation.
 - **VIPPrint**: printed/scanned natural/GAN face task data. Use only after
   verifying exact digital/scan pairing, archive completeness, and generator/
   printer splits. Its older face-GAN domain cannot certify modern general

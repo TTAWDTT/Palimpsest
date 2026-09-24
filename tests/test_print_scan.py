@@ -71,3 +71,20 @@ def test_invalid_resolution_and_reflectance_are_rejected() -> None:
         PrintScanParameters(ink_reflectance=.95, paper_reflectance=.9)
     with pytest.raises(ValueError):
         PrintScanParameters(mechanical_dot_gain_um=2)
+
+
+def test_binary_direct_mode_preserves_printer_raster_cells() -> None:
+    import pytest
+
+    source = np.array([[0, 1], [1, 0]], dtype=np.float32)
+    params = PrintScanParameters(raster_mode="binary_direct", digital_ppi=600,
+                                 render_ppi=2400, scan_ppi=2400)
+    result = simulate_print_scan(source, params)
+    assert result.halftone_ink.shape == (8, 8)
+    assert result.scanner_output.shape == (8, 8)
+    assert result.halftone_ink[:4, :4].all()
+    assert not result.halftone_ink[:4, 4:].any()
+    assert not result.halftone_ink[4:, :4].any()
+    assert result.halftone_ink[4:, 4:].all()
+    with pytest.raises(ValueError):
+        simulate_print_scan(np.full((2, 2), .5, dtype=np.float32), params)
