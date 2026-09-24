@@ -1,0 +1,101 @@
+# Print-scan forward model: measurement contract
+
+Status: research design. This does not claim that a print-scan simulator has
+been calibrated or externally validated.
+
+## Conditional chain
+
+Given known digital source `x` and a recorded device configuration, model:
+
+`x -> print color management / tone curve -> raster image processor (RIP)
+halftoning -> toner or ink deposition -> paper reflectance and subsurface
+scatter -> scanner illumination / optics -> scanner sampling -> scanner ISP
+-> output encoding`.
+
+The camera-of-print branch shares the print and paper stages, then uses scene
+illumination, paper pose and the camera optics/RAW/ISP stages instead of the
+flatbed scanner. A geometric warp of a scanner image is not a physical
+substitute for that branch.
+
+For a monochrome controlled patch, a minimal model can be written as:
+
+`u = T_driver(x)`
+
+`h(r) = 1[spot(R_angle r / p) < u(r)]`
+
+`d(r) = D_print(h(r), theta_deposition)`
+
+`rho(r) = R_paper_ink(d(r), theta_paper)`
+
+`y[m,n] = Q_scanner{integral rho(r) * L(r) * PSF_scanner(r-r_mn) dr + noise}`.
+
+Here `p` is the physical halftone lattice period, `D_print` may include
+mechanical dot growth or loss, `R_paper_ink` includes paper scattering, and
+`r_mn` is the scanner sample position. In a color implementation, channel
+separation, channel-specific screen angles/registration and spectral
+reflectance must be represented or kept as explicit unknown composite terms.
+
+## Identifiability and status of parameters
+
+| Parameter | Evidence needed | What cannot be inferred from a final TIFF |
+|---|---|---|
+| Driver / RIP mode, print resolution | Spool settings or trusted per-print metadata; controlled mode changes | Exact halftone algorithm from one spectral peak |
+| Halftone lattice and angle | High-resolution scan of uniform digital tone patches; multiple locations and tones | Whether the strongest FFT peak is the fundamental rather than a harmonic |
+| Tone transfer and dot gain | Known input gray values, blank paper, solid ink, repeated measured patches | Unique separation of RIP transfer, mechanical dot gain and paper optical dot gain |
+| Paper scatter | Reflectance point/line-spread measurement or well-constrained composite MTF | A material-specific paper PSF from one compressed scan |
+| Scanner PSF, pitch and orientation | Scanner calibration target, true dpi, raw scan frame, rotated rescans | Physical scanner MTF after registration and 1024-pixel cropping |
+| Scanner color/noise pipeline | Same sheet scanned repeatedly with locked settings, ideally linear data | RAW scanner noise from an 8-bit TIFF alone |
+
+## Evidence roles and splitting
+
+- **DFD grey halftone sheets**: 800-ppi full-sheet physical scans with
+  printer/driver/setting tokens. Use fixed uniform patches to constrain
+  observable lattice orientation/frequency and compare device/configuration
+  changes. If original P3 chart or exact print job is absent, DFD cannot by
+  itself provide full `x -> y` calibration. The D5/D6 matched-model pair can
+  serve as a *conditional* printer-unit holdout only if matching filename
+  settings and paper/scanner conditions are verified. A single sheet per
+  setting does not estimate within-setting repeatability.
+  In the first locally verified D5 scan, a fixed 512-pixel ROI inside three
+  different uniform gray tiles has a 45-degree spectral-peak/annular-median
+  ratio of approximately 176–318; a blank-paper ROI has ratio 2.69 at the
+  same bin. These ratios are *local scanner-output observations*, not printer
+  line-screen specifications. The full archive audit is recorded separately.
+- **DESCAN-18K**: original digital page / physically scanned page pairs. The
+  public 1024-pixel registered crops support task-level and frequency/color
+  checks across scanner IDs, but remove full-page geometry and do not publish
+  per-crop scan dpi. Separate source pages between calibration and test to
+  prevent shared-layout/content leakage; keep scanner 1/2 test held out.
+- **VIPPrint**: printed/scanned natural/GAN face task data. Use only after
+  verifying exact digital/scan pairing, archive completeness, and generator/
+  printer splits. Its older face-GAN domain cannot certify modern general
+  image-origin performance.
+- **RRDataset redigital**: use only as a terminal downstream comparison until
+  the four physical routes receive per-image labels; it cannot calibrate the
+  print-scan stages by route.
+
+## Falsifiable checks before detector training
+
+1. At a fixed printer, known chart and scanner, change only driver/RIP mode.
+   Verify whether the simulator predicts both the 2-D lattice shift and the
+   tone/contrast change, not just a single fitted FFT bin. Include blank paper
+   as a negative control for printed-dot peaks.
+2. Scan the same physical sheet at two actual scanner resolutions and at a
+   small rotation. The dot lattice stays in paper coordinates; the observed
+   sampled frequency/angle must transform with scanner pitch/orientation.
+   Digitally resizing one saved scan does not constitute this physical check.
+3. Repeatedly scan one unchanged sheet to estimate scanner noise/registration
+   variance independently of printer deposition variance.
+4. Hold out a printer unit, driver setting, scanner, source page and full
+   capture session as distinct generalization axes. A one-dimensional spectral
+   match on calibration data is insufficient for process validity.
+5. Compare paired real/synthetic residuals after geometric alignment and
+   common terminal encoding. Report tone curves, lattice vector peaks,
+   edge/MTF, patch variance and detector-score transfer separately, with
+   confidence intervals by *physical print or source page*, not by correlated
+   crops from one sheet.
+
+Research basis: [DFD official dataset](https://dfd.inf.tu-dresden.de/dataset/),
+[DESCAN-18K official repository](https://github.com/mlvc-lab/DESCAN-18K),
+[paper-PSF optical dot gain study](https://www.jstage.jst.go.jp/article/nig1987/35/4/35_4_189/_article/-char/en),
+and [electrophotographic printer model](https://library.imaging.org/admin/apis/public/api/ist/website/downloadArticle/jist/47/5/art00013).
