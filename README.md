@@ -11,7 +11,7 @@
 | [`outputs/`](outputs/README.md) | 可阅读的研究结论，按研究问题、数据与基线、过程模拟、历史探索分组。 |
 | [`docs/`](docs/controlled_screen_capture_protocol.md) | 采集协议、[首轮操作单](docs/controlled_screen_capture_runbook.md)与记录规范。 |
 | [`sources/`](sources/2026-09-24_process_physics_sources.md) | 原始论文和官方数据来源的证据索引。 |
-| [`origin_simulation/`](origin_simulation/capture_kit.py) | 拍屏前向原型和受控采集校准包生成、呈现、核验程序。 |
+| [`origin_simulation/`](origin_simulation/capture_kit.py) | 拍屏前向原型、受控采集校准包，以及[棋盘几何测量](origin_simulation/geometry_measure.py)。 |
 | [`work/`](work/README.md) | 既有复算脚本及本机中间产物；从导航页进入，不建议把文件列表当阅读顺序。 |
 | `E:\ai_image_origin_research\data\` | 大型原始档案、解包图像与冻结清单，不进入 Git。 |
 

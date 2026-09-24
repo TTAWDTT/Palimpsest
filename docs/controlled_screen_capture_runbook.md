@@ -59,3 +59,9 @@ uv run python -m origin_simulation.capture_kit validate --kit-dir E:\ai_image_or
 ## 物理验收边界
 
 先只在 `C0_start/C_near/C_left` 估计几何与合成传递；冻结参数后预测 `C_far/C_right` 和 `frequency_y_high/frequency_x_low`。检查投影棋盘格尺寸/方向、局部频谱峰轨迹与强度、可见/弱伪影的覆盖，以及 `C0_end` 的漂移。需和简单 resize+JPEG、后期贴条纹的对照在相同末次裁切/编码下比较。若持有的仅是截图，结论只能到合成画面；若持有相机 JPEG 而缺 RAW，不能声称 RAW→ISP 子链已验证。
+
+首张真实 `geometry` 照片到手后可先做角点检查。`geometry_measure` 会用四角颜色判定棋盘方向，输出 77 个内部角点、显示帧到相机图的二维单应性、中心附近每个显示像素投影的相机像素尺度及残差；若屏幕四角不可见，它会拒绝给出有方向的结果。它不把二维投影换算成相机距离、镜头参数或真实面板子像素间距。
+
+```powershell
+uv run --extra analysis python -m origin_simulation.geometry_measure --kit-dir E:\ai_image_origin_research\data\derived\controlled_screen_capture\kit_1920x1080_v2 --image E:\ai_image_origin_research\data\raw\screen_capture_sessions\pilot_001\camera_originals\pilot_001_001.jpg --output-json E:\ai_image_origin_research\data\derived\controlled_screen_capture\pilot_001_001_geometry.json
+```
