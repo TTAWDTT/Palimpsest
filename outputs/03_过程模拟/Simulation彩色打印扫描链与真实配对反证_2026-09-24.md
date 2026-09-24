@@ -61,4 +61,6 @@
 
 **档案获取状态补充：**DFD 彩色包的官方 HEAD 报告 25,818,121,374 字节且支持 HTTP Range；已用 `work/download_dfd_color.ps1` 启动 E 盘续传，目标路径为 `E:\ai_image_origin_research\data\raw\dfd_halftone_color\HalftoneImages-Color.tar.gz`。在完整字节数、SHA-256 和 tar/gzip 遍历完成前，它仅是 `.partial`，不可纳入样本统计。官方页面未给出预期哈希，本机 SHA 只可识别本次下载版本。
 
+**2026-09-25 后续状态：**上段记录下载当时的准入限制；现已完成字节、SHA 与 gzip/tar 核验，实包目录和物理尺度检查见 [DFD 彩色网点整包审计](DFD彩色网点整包审计与物理尺度反证_2026-09-25.md)。该包依然没有足够信息把未知写真店印张过程完整标定出来。
+
 运行方式：`uv run pytest -q`、`uv run python work/analyze_descan_print_signatures.py`、`uv run python -m work.probe_color_print_scan_descan`。原始档案留在 E 盘；脚本输出仅在 `work/`，此报告是当前用户入口。
