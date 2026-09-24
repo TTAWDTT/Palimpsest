@@ -1,9 +1,18 @@
 # Print-scan forward model: measurement contract
 
-Status: research design plus a restricted monochrome structural prototype in
-`origin_simulation/print_scan.py`. A composite channel has been fitted on 100
+Status: research design plus restricted monochrome and color structural
+prototypes in `origin_simulation/print_scan.py` and
+`origin_simulation/color_print_scan.py`. The color model has no device-specific
+ICC/RIP or spectral calibration. Publication-stage crop, resampling and codec
+are separately represented in `origin_simulation/publication.py`. A composite channel has been fitted on 100
 CSGC binary codes and evaluated on 850 unseen codes, but the printer, paper,
 scanner and publication-stage effects have not been individually calibrated.
+
+The DFD 800-ppi gray scan control shows why these stages must remain separate:
+16 genuine printed 512-pixel tone patches have a median annular strongest-peak
+share of 0.211; fourfold Lanczos downsampling of those same physical regions
+reduces it to 0.007. A weak peak in a released aligned crop therefore cannot
+identify its underlying RIP family without physical and publication scale.
 
 ## Conditional chain
 

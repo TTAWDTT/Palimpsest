@@ -17,6 +17,7 @@ import numpy as np
 from PIL import Image
 
 from origin_simulation.color_print_scan import ColorPrintScanParameters, simulate_color_print_scan
+from origin_simulation.publication import PublicationParameters, apply_publication
 
 
 BASE = Path(__file__).resolve().parent
@@ -73,8 +74,10 @@ def main() -> None:
             source_tile = clean[top:top+128, left:left+128]
             real_tile = scan[top:top+128, left:left+128]
             simulated = simulate_color_print_scan(source_tile, parameter)
-            uint8 = np.uint8(np.rint(np.clip(simulated.scanner_output_rgb, 0, 1) * 255))
-            sim_tile = np.asarray(Image.fromarray(uint8).resize((128,128), Image.Resampling.BICUBIC))
+            published = apply_publication(simulated.scanner_output_rgb,
+                                          PublicationParameters(output_size=(128, 128),
+                                                                resampling="bicubic", encoding="png"))
+            sim_tile = published.decoded_rgb
             output.append({"scanner": row["scanner"], "file": row["file"], "x": left, "y": top,
                            "source_peak_share": _peak_concentration(source_tile),
                            "real_peak_share": _peak_concentration(real_tile),
