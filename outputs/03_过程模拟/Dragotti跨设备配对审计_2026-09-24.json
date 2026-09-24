@@ -42,7 +42,9 @@
             "inlier_fraction": 0.9173349784083898,
             "median_reprojection_px_at_1200": 0.24402980506420135
           },
+          "center_horizontal_scale_output_per_source_px": 0.7166542106618407,
           "center_vertical_scale_output_per_source_px": 0.716661561505849,
+          "horizontal_to_vertical_scale_ratio": 0.9999897429352944,
           "conditional_projected_screen_pitch_if_fit_1080_rows": 1.3271510398256463,
           "projected_source_corners": [
             [
@@ -81,7 +83,9 @@
             "inlier_fraction": 0.9137153895685769,
             "median_reprojection_px_at_1200": 0.22816897928714752
           },
+          "center_horizontal_scale_output_per_source_px": 0.6705548800900588,
           "center_vertical_scale_output_per_source_px": 0.6706536938945798,
+          "horizontal_to_vertical_scale_ratio": 0.9998526604633351,
           "conditional_projected_screen_pitch_if_fit_1080_rows": 1.2419512849899628,
           "projected_source_corners": [
             [
@@ -120,7 +124,9 @@
             "inlier_fraction": 0.9238410596026491,
             "median_reprojection_px_at_1200": 0.18637819588184357
           },
+          "center_horizontal_scale_output_per_source_px": 0.7205590058353786,
           "center_vertical_scale_output_per_source_px": 0.7207269275689474,
+          "horizontal_to_vertical_scale_ratio": 0.9997670106011783,
           "conditional_projected_screen_pitch_if_fit_1080_rows": 1.3346794954980508,
           "projected_source_corners": [
             [
@@ -159,7 +165,9 @@
             "inlier_fraction": 0.9273835920177383,
             "median_reprojection_px_at_1200": 0.25857749581336975
           },
+          "center_horizontal_scale_output_per_source_px": 0.721274229670246,
           "center_vertical_scale_output_per_source_px": 0.7214673903278908,
+          "horizontal_to_vertical_scale_ratio": 0.9997322669600397,
           "conditional_projected_screen_pitch_if_fit_1080_rows": 1.3360507228294272,
           "projected_source_corners": [
             [
@@ -198,7 +206,9 @@
             "inlier_fraction": 0.9239130434782609,
             "median_reprojection_px_at_1200": 0.23121057450771332
           },
+          "center_horizontal_scale_output_per_source_px": 0.755810119339815,
           "center_vertical_scale_output_per_source_px": 0.7555060590292743,
+          "horizontal_to_vertical_scale_ratio": 1.000402459129092,
           "conditional_projected_screen_pitch_if_fit_1080_rows": 1.399085294498656,
           "projected_source_corners": [
             [
@@ -237,7 +247,9 @@
             "inlier_fraction": 0.9390779363336992,
             "median_reprojection_px_at_1200": 0.18475928902626038
           },
+          "center_horizontal_scale_output_per_source_px": 0.6726793491469267,
           "center_vertical_scale_output_per_source_px": 0.6724696296053834,
+          "horizontal_to_vertical_scale_ratio": 1.000311864703342,
           "conditional_projected_screen_pitch_if_fit_1080_rows": 1.245314128898858,
           "projected_source_corners": [
             [
@@ -276,7 +288,9 @@
             "inlier_fraction": 0.915,
             "median_reprojection_px_at_1200": 0.21531438827514648
           },
+          "center_horizontal_scale_output_per_source_px": 0.7697206284442186,
           "center_vertical_scale_output_per_source_px": 0.7701555128739284,
+          "horizontal_to_vertical_scale_ratio": 0.9994353290699862,
           "conditional_projected_screen_pitch_if_fit_1080_rows": 1.426213912729497,
           "projected_source_corners": [
             [
@@ -315,7 +329,9 @@
             "inlier_fraction": 0.922686230248307,
             "median_reprojection_px_at_1200": 0.24297885596752167
           },
+          "center_horizontal_scale_output_per_source_px": 0.7271284453864372,
           "center_vertical_scale_output_per_source_px": 0.7276522738636968,
+          "horizontal_to_vertical_scale_ratio": 0.9992801115366847,
           "conditional_projected_screen_pitch_if_fit_1080_rows": 1.3475042108586979,
           "projected_source_corners": [
             [
@@ -366,7 +382,9 @@
             "inlier_fraction": 0.9083438685208597,
             "median_reprojection_px_at_1200": 0.2550458312034607
           },
+          "center_horizontal_scale_output_per_source_px": 0.7166071800700827,
           "center_vertical_scale_output_per_source_px": 0.7165550160800476,
+          "horizontal_to_vertical_scale_ratio": 1.000072798304198,
           "conditional_projected_screen_pitch_if_fit_1080_rows": 1.3269537334815698,
           "projected_source_corners": [
             [
@@ -405,7 +423,9 @@
             "inlier_fraction": 0.907612231620039,
             "median_reprojection_px_at_1200": 0.22883744537830353
           },
+          "center_horizontal_scale_output_per_source_px": 0.6703811831403963,
           "center_vertical_scale_output_per_source_px": 0.6705582668291495,
+          "horizontal_to_vertical_scale_ratio": 0.9997359160306969,
           "conditional_projected_screen_pitch_if_fit_1080_rows": 1.2417745682021286,
           "projected_source_corners": [
             [
@@ -444,7 +464,9 @@
             "inlier_fraction": 0.9187301587301587,
             "median_reprojection_px_at_1200": 0.1877964586019516
           },
+          "center_horizontal_scale_output_per_source_px": 0.7204680878883546,
           "center_vertical_scale_output_per_source_px": 0.7205846690630775,
+          "horizontal_to_vertical_scale_ratio": 0.999838213079284,
           "conditional_projected_screen_pitch_if_fit_1080_rows": 1.3344160538205139,
           "projected_source_corners": [
             [
@@ -483,7 +505,9 @@
             "inlier_fraction": 0.9114321608040201,
             "median_reprojection_px_at_1200": 0.21886217594146729
           },
+          "center_horizontal_scale_output_per_source_px": 0.7698257849384006,
           "center_vertical_scale_output_per_source_px": 0.7703330461847568,
+          "horizontal_to_vertical_scale_ratio": 0.9993415039782227,
           "conditional_projected_screen_pitch_if_fit_1080_rows": 1.4265426781199202,
           "projected_source_corners": [
             [

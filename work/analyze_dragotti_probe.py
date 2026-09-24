@@ -69,10 +69,13 @@ def main():
         target = read_rgb(path)
         h, registration = align(source, target)
         center = np.array([source.shape[1] / 2, source.shape[0] / 2, 1.0])
+        one_column = center + np.array([1.0, 0.0, 0.0])
         one_row = center + np.array([0.0, 1.0, 0.0])
-        center_out, row_out = h @ center, h @ one_row
+        center_out, column_out, row_out = h @ center, h @ one_column, h @ one_row
         center_out /= center_out[2]
+        column_out /= column_out[2]
         row_out /= row_out[2]
+        local_horizontal_scale = float(np.linalg.norm((column_out - center_out)[:2]))
         local_vertical_scale = float(np.linalg.norm((row_out - center_out)[:2]))
         corners = np.float32([[[0, 0]], [[source.shape[1] - 1, 0]],
                               [[source.shape[1] - 1, source.shape[0] - 1]],
@@ -83,7 +86,9 @@ def main():
                         "width": target.shape[1], "height": target.shape[0],
                         "png_info_keys": png_info_keys,
                         "registration": registration,
+                        "center_horizontal_scale_output_per_source_px": local_horizontal_scale,
                         "center_vertical_scale_output_per_source_px": local_vertical_scale,
+                        "horizontal_to_vertical_scale_ratio": local_horizontal_scale / local_vertical_scale,
                         "conditional_projected_screen_pitch_if_fit_1080_rows": local_vertical_scale * source.shape[0] / 1080,
                         "projected_source_corners": projected.round(2).tolist()})
         thumb = Image.fromarray(target)
