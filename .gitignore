@@ -3,6 +3,7 @@
 !/work/*.py
 !/work/*.ps1
 !/work/*lock.txt
+!/work/README.md
 /data/
 /results/
 /logs/
