@@ -70,6 +70,19 @@ surface model or captured structured-light reference. The entire 11 GB ZIP
 has not yet been downloaded or fully CRC audited. A single unwarped PNG
 still cannot identify the DLP time schedule or true sensor response.
 
+The [CompenNet++ paper](https://arxiv.org/html/1908.06246) used 42 structured
+light patterns for pro-cam pixel mapping and warns that specular reflection
+corrupts their decoding. We CRC-extracted all 42 pattern/42 unwarped capture
+pairs for one public setup (`light1/pos1/cloud_np`) without downloading the
+entire 11.48 GB ZIP. Source pairs are exactly complementary, with unique
+10-bit signatures across 800 projector columns and 600 rows. A strict 0.02
+minimum pair-contrast mask yields 75,392 decoded camera pixels (24.54% of a
+640x480 frame). On a fixed 10,000-point sample, a planar homography has
+44.96% RANSAC inliers at 3 camera pixels. These data constrain an effective
+projector-to-camera mapping at this pose, while nonplanarity, projected
+background, saturation and bit errors remain entangled. See
+`outputs/03_过程模拟/CompenNet++结构光真实配对与几何约束_2026-09-25.md`.
+
 ## Current data-calibrated falsification (2026-09-25)
 
 The official 2,282,667,301-byte ZIP has 20,709 CRC-valid files and all 24
