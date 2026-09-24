@@ -1,16 +1,17 @@
 """A deliberately small, calibratable screen-to-sensor forward model.
 
 Coordinates of ``sensor_to_display`` map continuous sensor pixel coordinates
-to continuous display pixel coordinates. This first version supports only
-frontoparallel scale and translation, so rectangular pixel/subpixel areas can
-be integrated accurately. It assumes vertical RGB subpixels and an RGGB
-sensor; neither is a universal property of real devices.
+to continuous display pixel coordinates. Axis-aligned views integrate the
+rectangular subpixel overlap; general homographies use bounded fine-grid
+quadrature. Vertical RGB subpixels, a global square-wave display PWM, a
+Gaussian optical PSF, and an RGGB sensor are hypotheses, not calibrated facts.
 """
 
 from dataclasses import dataclass
 
 import numpy as np
 from scipy.ndimage import convolve, gaussian_filter
+from scipy.signal import fftconvolve
 
 
 @dataclass(frozen=True)
@@ -20,8 +21,15 @@ class ScreenCaptureParameters:
     display_gamma: float = 2.2
     optical_blur_sigma_sensor_pixels: float = 0.0
     exposure_electrons_per_unit: float | None = None
+    electron_rate_per_unit_s: float | None = None
     full_well_electrons: float = 10000.0
     read_noise_electrons: float = 0.0
+    pwm_frequency_hz: float | None = None
+    pwm_duty_cycle: float = 1.0
+    pwm_off_level: float = 0.0
+    exposure_time_s: float | None = None
+    sensor_row_interval_s: float = 0.0
+    pwm_phase_cycles: float = 0.0
 
     def __post_init__(self) -> None:
         transform = np.asarray(self.sensor_to_display, dtype=np.float64)
@@ -31,19 +39,22 @@ class ScreenCaptureParameters:
         transform = transform / normalizer
         if abs(np.linalg.det(transform)) < 1e-12:
             raise ValueError("sensor_to_display must be invertible")
-        if not np.allclose(
-            transform[[0, 1, 2, 2], [1, 0, 0, 1]], 0, atol=1e-12, rtol=0
-        ) or transform[0, 0] <= 0 or transform[1, 1] <= 0:
-            raise ValueError("this prototype supports only frontoparallel scale and translation")
         scalars = (
             self.fill_fraction, self.display_gamma,
             self.optical_blur_sigma_sensor_pixels,
             self.full_well_electrons, self.read_noise_electrons,
+            self.pwm_duty_cycle, self.pwm_off_level,
+            self.sensor_row_interval_s, self.pwm_phase_cycles,
         )
         if not np.isfinite(scalars).all():
             raise ValueError("screen and sensor parameters must be finite")
         if self.exposure_electrons_per_unit is not None and not np.isfinite(self.exposure_electrons_per_unit):
             raise ValueError("exposure must be finite")
+        if self.electron_rate_per_unit_s is not None and (
+                not np.isfinite(self.electron_rate_per_unit_s) or self.electron_rate_per_unit_s < 0):
+            raise ValueError("electron rate must be finite and nonnegative")
+        if self.exposure_electrons_per_unit is not None and self.electron_rate_per_unit_s is not None:
+            raise ValueError("choose either integrated electrons or electron rate")
         if not 0 < self.fill_fraction <= 1:
             raise ValueError("fill_fraction must be in (0, 1]")
         if self.display_gamma <= 0 or self.optical_blur_sigma_sensor_pixels < 0:
@@ -51,8 +62,22 @@ class ScreenCaptureParameters:
         if ((self.exposure_electrons_per_unit is not None and self.exposure_electrons_per_unit < 0)
                 or self.full_well_electrons <= 0 or self.read_noise_electrons < 0):
             raise ValueError("exposure/read noise must be nonnegative and full well positive")
-        if self.exposure_electrons_per_unit is None and self.read_noise_electrons > 0:
+        if (self.exposure_electrons_per_unit is None and self.electron_rate_per_unit_s is None
+                and self.read_noise_electrons > 0):
             raise ValueError("read noise requires numeric exposure; None is noiseless preview")
+        if not 0 < self.pwm_duty_cycle <= 1 or not 0 <= self.pwm_off_level <= 1:
+            raise ValueError("PWM duty must be in (0, 1] and off level in [0, 1]")
+        if self.sensor_row_interval_s < 0 or not 0 <= self.pwm_phase_cycles < 1:
+            raise ValueError("row interval must be nonnegative and PWM phase in [0, 1)")
+        if self.exposure_time_s is not None and (
+                not np.isfinite(self.exposure_time_s) or self.exposure_time_s <= 0):
+            raise ValueError("exposure_time_s must be positive and finite")
+        if self.pwm_frequency_hz is not None and (
+                not np.isfinite(self.pwm_frequency_hz) or self.pwm_frequency_hz <= 0
+                or self.exposure_time_s is None):
+            raise ValueError("PWM requires positive frequency and exposure time")
+        if self.electron_rate_per_unit_s is not None and self.exposure_time_s is None:
+            raise ValueError("electron rate requires exposure_time_s")
         transform.setflags(write=False)
         object.__setattr__(self, "sensor_to_display", transform.copy())
         self.sensor_to_display.setflags(write=False)
@@ -64,6 +89,7 @@ class ScreenCaptureResult:
     noiseless_mosaic: np.ndarray
     raw_mosaic: np.ndarray
     srgb: np.ndarray
+    row_exposure_gain: np.ndarray
 
 
 def _screen_radiance(
@@ -103,9 +129,96 @@ def _screen_radiance(
                 ) / cell_width
                 radiance[..., channel] += (
                     valid * row_weight * column_weight *
-                    frame[safe_row, safe_column, channel] ** parameters.display_gamma
+                    frame[safe_row, safe_column, channel]
                 )
     return radiance
+
+
+def _screen_radiance_projective(
+    frame: np.ndarray,
+    parameters: ScreenCaptureParameters,
+    display_x: np.ndarray,
+    display_y: np.ndarray,
+) -> np.ndarray:
+    """Point-quadrature of the projected rectangular RGB emitter lattice.
+
+    Each point is one fine-grid cell center. The later pixel integration takes
+    their mean. This is slower and less exact than the axis-aligned overlap
+    integral, and should be checked for convergence at the chosen crop/pose.
+    """
+    height, width, _ = frame.shape
+    x = np.floor(display_x).astype(np.int64)
+    y = np.floor(display_y).astype(np.int64)
+    valid = (x >= 0) & (x < width) & (y >= 0) & (y < height)
+    safe_x = np.clip(x, 0, width - 1)
+    safe_y = np.clip(y, 0, height - 1)
+    phase_x = display_x - x
+    phase_y = display_y - y
+    gap = (1 - parameters.fill_fraction) / 2
+    active_y = (phase_y >= gap) & (phase_y < 1 - gap) & valid
+    radiance = np.zeros(display_x.shape + (3,), dtype=np.float32)
+    for channel in range(3):
+        active_x = (phase_x >= (channel + gap) / 3) & (phase_x < (channel + 1 - gap) / 3)
+        radiance[..., channel] = active_y * active_x * frame[safe_y, safe_x, channel]
+    return radiance
+
+
+def _is_axis_aligned_positive(transform: np.ndarray) -> bool:
+    return bool(
+        np.allclose(transform[[0, 1, 2, 2], [1, 0, 0, 1]], 0, atol=1e-12, rtol=0)
+        and transform[0, 0] > 0 and transform[1, 1] > 0
+    )
+
+
+def _homography_jacobian(transform: np.ndarray, x: float, y: float) -> np.ndarray:
+    denominator = transform[2, 0] * x + transform[2, 1] * y + transform[2, 2]
+    if abs(denominator) < 1e-10:
+        raise ValueError("projection reaches the homography horizon")
+    numerator_x = transform[0, 0] * x + transform[0, 1] * y + transform[0, 2]
+    numerator_y = transform[1, 0] * x + transform[1, 1] * y + transform[1, 2]
+    return np.array([
+        [(transform[0, 0] * denominator - numerator_x * transform[2, 0]) / denominator**2,
+         (transform[0, 1] * denominator - numerator_x * transform[2, 1]) / denominator**2],
+        [(transform[1, 0] * denominator - numerator_y * transform[2, 0]) / denominator**2,
+         (transform[1, 1] * denominator - numerator_y * transform[2, 1]) / denominator**2],
+    ])
+
+
+def _pwm_row_gain(height: int, parameters: ScreenCaptureParameters) -> np.ndarray:
+    if parameters.pwm_frequency_hz is None:
+        return np.ones(height, dtype=np.float32)
+    frequency = parameters.pwm_frequency_hz
+    duty = parameters.pwm_duty_cycle
+    duration = parameters.exposure_time_s
+    phase = parameters.pwm_phase_cycles
+    row_start_cycles = phase + np.arange(height, dtype=np.float64) * parameters.sensor_row_interval_s * frequency
+    row_end_cycles = row_start_cycles + duration * frequency
+
+    def bright_cycles(t: np.ndarray) -> np.ndarray:
+        whole = np.floor(t)
+        return whole * duty + np.minimum(t - whole, duty)
+
+    bright_fraction = (bright_cycles(row_end_cycles) - bright_cycles(row_start_cycles)) / (duration * frequency)
+    mean_level = parameters.pwm_off_level + (1 - parameters.pwm_off_level) * duty
+    gain = (parameters.pwm_off_level + (1 - parameters.pwm_off_level) * bright_fraction) / mean_level
+    return gain.astype(np.float32)
+
+
+def _optical_blur(fine_radiance: np.ndarray, sigma: float) -> np.ndarray:
+    """Reflect-boundary Gaussian blur, using FFT for large fine grids."""
+    if sigma <= 0:
+        return fine_radiance
+    cells = fine_radiance.shape[0] * fine_radiance.shape[1]
+    if sigma < 6 or cells < 200_000 or cells > 8_000_000:
+        return gaussian_filter(fine_radiance, (sigma, sigma, 0), mode="reflect")
+    radius = int(4 * sigma + .5)
+    x = np.arange(-radius, radius + 1, dtype=np.float64)
+    kernel_1d = np.exp(-.5 * (x / sigma) ** 2)
+    kernel_1d /= kernel_1d.sum()
+    kernel = np.outer(kernel_1d, kernel_1d).astype(np.float32)
+    padded = np.pad(fine_radiance, ((radius, radius), (radius, radius), (0, 0)), mode="symmetric")
+    blurred = fftconvolve(padded, kernel[:, :, None], mode="same", axes=(0, 1))
+    return blurred[radius:-radius, radius:-radius].astype(np.float32)
 
 
 def _bayer_masks(shape: tuple[int, int]) -> np.ndarray:
@@ -140,10 +253,59 @@ def _minimum_samples_for_projection(
     transform: np.ndarray, sensor_shape: tuple[int, int], fill_fraction: float
 ) -> int:
     """Keep the blur/integration grid fine relative to projected emitters."""
-    del sensor_shape
-    horizontal = 24 * transform[0, 0] / fill_fraction
-    vertical = 8 * transform[1, 1] / fill_fraction
+    if _is_axis_aligned_positive(transform):
+        horizontal = 24 * transform[0, 0] / fill_fraction
+        vertical = 8 * transform[1, 1] / fill_fraction
+    else:
+        height, width = sensor_shape
+        points = ((0, 0), (width, 0), (0, height), (width, height), (width / 2, height / 2))
+        denominators = np.array([transform[2, 0] * x + transform[2, 1] * y + transform[2, 2]
+                                 for x, y in points[:4]])
+        if np.min(denominators) <= 1e-10 and np.max(denominators) >= -1e-10:
+            raise ValueError("projection reaches the homography horizon")
+        jacobians = np.stack([_homography_jacobian(transform, x, y) for x, y in points])
+        horizontal = 24 * np.max(np.abs(jacobians[:, 0, :])) / fill_fraction
+        vertical = 8 * np.max(np.abs(jacobians[:, 1, :])) / fill_fraction
     return max(2, int(np.ceil(max(horizontal, vertical))))
+
+
+def _spatial_tile(
+    emitted_frame: np.ndarray,
+    sensor_shape: tuple[int, int],
+    parameters: ScreenCaptureParameters,
+    oversampling: int,
+    bounds: tuple[int, int, int, int],
+) -> np.ndarray:
+    """Render one sensor rectangle with enough halo for the Gaussian PSF."""
+    height, width = sensor_shape
+    y0, y1, x0, x1 = bounds
+    halo = int(np.ceil(4 * parameters.optical_blur_sigma_sensor_pixels)) + (
+        1 if parameters.optical_blur_sigma_sensor_pixels > 0 else 0
+    )
+    extended_y0, extended_y1 = max(0, y0 - halo), min(height, y1 + halo)
+    extended_x0, extended_x1 = max(0, x0 - halo), min(width, x1 + halo)
+    extended_height = extended_y1 - extended_y0
+    extended_width = extended_x1 - extended_x0
+
+    fine_y, fine_x = np.indices((extended_height * oversampling, extended_width * oversampling))
+    sensor_x = extended_x0 + (fine_x + 0.5) / oversampling
+    sensor_y = extended_y0 + (fine_y + 0.5) / oversampling
+    transform = parameters.sensor_to_display
+    denominator = transform[2, 0] * sensor_x + transform[2, 1] * sensor_y + transform[2, 2]
+    if np.any(np.abs(denominator) < 1e-8):
+        raise ValueError("projection reaches the homography horizon")
+    display_x = (transform[0, 0] * sensor_x + transform[0, 1] * sensor_y + transform[0, 2]) / denominator
+    display_y = (transform[1, 0] * sensor_x + transform[1, 1] * sensor_y + transform[1, 2]) / denominator
+
+    if _is_axis_aligned_positive(transform):
+        fine_radiance = _screen_radiance(emitted_frame, parameters, display_x, display_y, oversampling)
+    else:
+        fine_radiance = _screen_radiance_projective(emitted_frame, parameters, display_x, display_y)
+    sigma = parameters.optical_blur_sigma_sensor_pixels * oversampling
+    if sigma > 0:
+        fine_radiance = _optical_blur(fine_radiance, sigma)
+    averaged = fine_radiance.reshape(extended_height, oversampling, extended_width, oversampling, 3).mean(axis=(1, 3))
+    return averaged[y0 - extended_y0:y1 - extended_y0, x0 - extended_x0:x1 - extended_x0]
 
 
 def render_screen_capture(
@@ -153,13 +315,14 @@ def render_screen_capture(
     *,
     seed: int = 0,
     samples_per_sensor_pixel: int | None = None,
+    tile_size_sensor_pixels: int | None = None,
 ) -> ScreenCaptureResult:
-    """Render emission, optics, pixel integration, Bayer/noise, and simple ISP.
+    """Render display, projective optics, sensor integration, RAW and simple ISP.
 
-    The output is an unencoded frontoparallel crop. It omits spectral
-    display/camera response, rolling shutter, measured PSF, device ISP,
-    perspective, lens distortion, and JPEG. The
-    supplied parameters are virtual until fitted with controlled device data.
+    The output is an unencoded crop. Optional temporal PWM/rolling exposure
+    uses one square-wave global screen luminance signal and row start times.
+    Spectral response, measured PSF, lens distortion, real ISP and JPEG remain
+    outside this model. Parameters are virtual until fitted to device data.
     """
     frame = np.asarray(frame, dtype=np.float32)
     if frame.ndim != 3 or frame.shape[2] != 3 or not np.isfinite(frame).all():
@@ -183,31 +346,39 @@ def render_screen_capture(
         raise ValueError(
             f"underresolved emitter: use at least {required_samples} samples per sensor pixel"
         )
-    if height * width * oversampling**2 > 12_000_000:
-        raise ValueError("render a smaller crop; this prototype is not tiled")
-
-    fine_y, fine_x = np.indices((height * oversampling, width * oversampling))
-    sensor_x = (fine_x + 0.5) / oversampling
-    sensor_y = (fine_y + 0.5) / oversampling
-    transform = parameters.sensor_to_display
-    denominator = transform[2, 0] * sensor_x + transform[2, 1] * sensor_y + transform[2, 2]
-    if np.any(np.abs(denominator) < 1e-8):
-        raise ValueError("projection reaches the homography horizon")
-    display_x = (transform[0, 0] * sensor_x + transform[0, 1] * sensor_y + transform[0, 2]) / denominator
-    display_y = (transform[1, 0] * sensor_x + transform[1, 1] * sensor_y + transform[1, 2]) / denominator
-
-    fine_radiance = _screen_radiance(frame, parameters, display_x, display_y, oversampling)
-    sigma = parameters.optical_blur_sigma_sensor_pixels * oversampling
-    if sigma > 0:
-        fine_radiance = gaussian_filter(fine_radiance, (sigma, sigma, 0), mode="reflect")
-    irradiance = fine_radiance.reshape(height, oversampling, width, oversampling, 3).mean(axis=(1, 3))
+    halo = int(np.ceil(4 * parameters.optical_blur_sigma_sensor_pixels)) + (
+        1 if parameters.optical_blur_sigma_sensor_pixels > 0 else 0
+    )
+    safe_side = int(np.floor(np.sqrt(12_000_000) / oversampling)) - 2 * halo
+    if safe_side < 1:
+        raise ValueError("oversampling and optical blur exceed tile memory limit")
+    if tile_size_sensor_pixels is not None and (
+            isinstance(tile_size_sensor_pixels, (bool, np.bool_))
+            or not isinstance(tile_size_sensor_pixels, (int, np.integer))
+            or tile_size_sensor_pixels < 1):
+        raise ValueError("tile_size_sensor_pixels must be a positive integer")
+    tile_size = min(safe_side, int(tile_size_sensor_pixels) if tile_size_sensor_pixels is not None else safe_side)
+    irradiance = np.empty((height, width, 3), dtype=np.float32)
+    emitted_frame = np.power(frame, parameters.display_gamma)
+    for y0 in range(0, height, tile_size):
+        y1 = min(height, y0 + tile_size)
+        for x0 in range(0, width, tile_size):
+            x1 = min(width, x0 + tile_size)
+            irradiance[y0:y1, x0:x1] = _spatial_tile(
+                emitted_frame, (height, width), parameters, oversampling, (y0, y1, x0, x1)
+            )
+    row_exposure_gain = _pwm_row_gain(height, parameters)
+    irradiance *= row_exposure_gain[:, None, None]
 
     masks = _bayer_masks((height, width))
     mosaiced_irradiance = (irradiance * masks).sum(axis=-1)
     noiseless_mosaic = mosaiced_irradiance.copy()
     raw_mosaic = noiseless_mosaic.copy()
-    if parameters.exposure_electrons_per_unit is not None:
-        expected_electrons = np.maximum(mosaiced_irradiance, 0) * parameters.exposure_electrons_per_unit
+    electrons_per_unit = parameters.exposure_electrons_per_unit
+    if parameters.electron_rate_per_unit_s is not None:
+        electrons_per_unit = parameters.electron_rate_per_unit_s * parameters.exposure_time_s
+    if electrons_per_unit is not None:
+        expected_electrons = np.maximum(mosaiced_irradiance, 0) * electrons_per_unit
         noiseless_mosaic = np.clip(expected_electrons, 0, parameters.full_well_electrons) / parameters.full_well_electrons
         rng = np.random.default_rng(seed)
         electrons = rng.poisson(expected_electrons)
@@ -221,4 +392,5 @@ def render_screen_capture(
         noiseless_mosaic=noiseless_mosaic,
         raw_mosaic=raw_mosaic,
         srgb=_linear_to_srgb(linear_rgb),
+        row_exposure_gain=row_exposure_gain,
     )
