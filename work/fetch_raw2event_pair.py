@@ -1,5 +1,6 @@
-"""Download and verify one official Raw2Event RAW/RGB/metadata prefix only."""
+"""Download and verify selected official Raw2Event RAW/RGB/metadata prefixes."""
 
+import argparse
 import hashlib
 import json
 import os
@@ -9,9 +10,8 @@ import requests
 
 
 REPO = "raw2event/raw2event"
-PREFIX = "10000_automobile_5_1087_20251224_105416"
+DEFAULT_PREFIX = "10000_automobile_5_1087_20251224_105416"
 ROOT = Path("E:/ai_image_origin_research/data/raw/raw2event_probe")
-AUDIT = Path("work/raw2event_probe_download_audit.json")
 DIRS = ("frames_raw", "frames_rgb", "meta_raw")
 
 
@@ -32,15 +32,16 @@ def git_blob_sha1(path: Path) -> str:
     return digest.hexdigest()
 
 
-def remote_metadata(session: requests.Session, directory: str) -> dict:
-    url = f"https://huggingface.co/api/datasets/{REPO}/tree/main/{directory}"
-    response = session.get(url, params={"limit": 5}, timeout=30)
+def remote_metadata(session: requests.Session, prefix: str) -> list[dict]:
+    url = f"https://huggingface.co/api/datasets/{REPO}/paths-info/main"
+    expected = [f"{directory}/{prefix}.{'dat' if directory == 'meta_raw' else 'mkv'}"
+                for directory in DIRS]
+    response = session.post(url, json={"paths": expected}, timeout=30)
     response.raise_for_status()
-    expected = f"{directory}/{PREFIX}.{'dat' if directory == 'meta_raw' else 'mkv'}"
-    matches = [item for item in response.json() if item["path"] == expected]
-    if len(matches) != 1:
-        raise RuntimeError(f"expected one official file in first five entries: {expected}")
-    return matches[0]
+    items = {item["path"]: item for item in response.json()}
+    if set(items) != set(expected):
+        raise RuntimeError(f"official prefix has missing or extra paths: {expected}, {list(items)}")
+    return [items[path] for path in expected]
 
 
 def fetch_one(session: requests.Session, metadata: dict) -> dict:
@@ -88,15 +89,19 @@ def fetch_one(session: requests.Session, metadata: dict) -> dict:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--prefix", default=DEFAULT_PREFIX)
+    parser.add_argument("--audit", type=Path, default=Path("work/raw2event_probe_download_audit.json"))
+    args = parser.parse_args()
     session = requests.Session()
-    audit = {"repo": REPO, "prefix": PREFIX, "scope": "one paired RAW/RGB/meta recording",
+    audit = {"repo": REPO, "prefix": args.prefix, "scope": "one paired RAW/RGB/meta recording",
              "source": f"https://huggingface.co/datasets/{REPO}", "files": []}
-    for directory in DIRS:
-        metadata = remote_metadata(session, directory)
+    for metadata in remote_metadata(session, args.prefix):
         record = fetch_one(session, metadata)
         audit["files"].append(record)
         print(json.dumps(record, ensure_ascii=False), flush=True)
-    AUDIT.write_text(json.dumps(audit, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    args.audit.parent.mkdir(parents=True, exist_ok=True)
+    args.audit.write_text(json.dumps(audit, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

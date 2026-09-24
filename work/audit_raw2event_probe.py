@@ -6,6 +6,7 @@ layout is inferred empirically from this single file, not an official schema.
 
 from __future__ import annotations
 
+import argparse
 import json
 import re
 import struct
@@ -19,9 +20,7 @@ from PIL import Image
 
 
 ROOT = Path("E:/ai_image_origin_research/data/raw/raw2event_probe")
-PREFIX = "10000_automobile_5_1087_20251224_105416"
-OUT = Path("work/raw2event_probe")
-REPORT = Path("work/raw2event_probe_pixel_audit.json")
+DEFAULT_PREFIX = "10000_automobile_5_1087_20251224_105416"
 WIDTH, HEIGHT = 692, 520
 INDICES = (0, 80, 160, 240, 316)
 
@@ -110,17 +109,23 @@ def detect_tag(gray_or_rgb: np.ndarray) -> tuple[np.ndarray, int]:
 
 
 def main() -> None:
-    OUT.mkdir(parents=True, exist_ok=True)
-    raw_path = ROOT / "frames_raw" / f"{PREFIX}.mkv"
-    rgb_path = ROOT / "frames_rgb" / f"{PREFIX}.mkv"
-    metadata_path = ROOT / "meta_raw" / f"{PREFIX}.dat"
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--prefix", default=DEFAULT_PREFIX)
+    parser.add_argument("--out-dir", type=Path, default=Path("work/raw2event_probe"))
+    parser.add_argument("--report", type=Path, default=Path("work/raw2event_probe_pixel_audit.json"))
+    args = parser.parse_args()
+    args.out_dir.mkdir(parents=True, exist_ok=True)
+    args.report.parent.mkdir(parents=True, exist_ok=True)
+    raw_path = ROOT / "frames_raw" / f"{args.prefix}.mkv"
+    rgb_path = ROOT / "frames_rgb" / f"{args.prefix}.mkv"
+    metadata_path = ROOT / "meta_raw" / f"{args.prefix}.dat"
     raw_pts, rgb_pts = ffprobe_frames(raw_path), ffprobe_frames(rgb_path)
     if len(raw_pts) != len(rgb_pts):
         raise RuntimeError("RAW and RGB decoded frame counts differ")
     pts_delta = np.array(raw_pts) - np.array(rgb_pts)
     report = {
         "scope": "one official prefix; format and pixel probe",
-        "prefix": PREFIX,
+        "prefix": args.prefix,
         "raw_frames": len(raw_pts), "rgb_frames": len(rgb_pts),
         "pts_exact_matches": int(np.count_nonzero(pts_delta == 0)),
         "pts_delta_seconds_min_max": [float(pts_delta.min()), float(pts_delta.max())],
@@ -134,9 +139,9 @@ def main() -> None:
         rgb = extract_frame(rgb_path, index, "rgb24", 3, "u1")
         # Store viewable data, with fixed 10-bit scale for RAW. These are only
         # visual audit aids; raw PNGs are not converted sensor measurements.
-        Image.fromarray(rgb, "RGB").save(OUT / f"rgb_{index:03d}.png")
+        Image.fromarray(rgb, "RGB").save(args.out_dir / f"rgb_{index:03d}.png")
         Image.fromarray(np.minimum(raw.astype(np.float32) / 1023.0 * 255, 255).astype(np.uint8), "L").save(
-            OUT / f"raw_view_{index:03d}.png")
+            args.out_dir / f"raw_view_{index:03d}.png")
         raw_view = np.minimum(raw.astype(np.float32) / 1023.0 * 255, 255).astype(np.uint8)
         raw_corners, raw_id = detect_tag(raw_view)
         rgb_corners, rgb_id = detect_tag(rgb)
@@ -146,7 +151,7 @@ def main() -> None:
         rgb_edge = np.linalg.norm(np.roll(rgb_corners, -1, axis=0) - rgb_corners, axis=1).mean()
         transform = cv2.getPerspectiveTransform(raw_corners, rgb_corners)
         registered = cv2.warpPerspective(raw_view, transform, (WIDTH, HEIGHT))
-        Image.fromarray(registered, "L").save(OUT / f"raw_tag_registered_{index:03d}.png")
+        Image.fromarray(registered, "L").save(args.out_dir / f"raw_tag_registered_{index:03d}.png")
         valid = cv2.warpPerspective(np.ones_like(raw_view), transform, (WIDTH, HEIGHT)) == 1
         valid = cv2.erode(valid.astype(np.uint8), np.ones((7, 7), np.uint8)).astype(bool)
         rgb_luma = cv2.cvtColor(rgb, cv2.COLOR_RGB2GRAY)
@@ -170,7 +175,14 @@ def main() -> None:
             "method": "7x7 Gaussian sigma1.5; common eroded warped-valid mask; diagnostic, not ISP fidelity",
         }
         report["samples"][str(index)] = stats
-    REPORT.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    first_h = np.asarray(report["samples"][str(INDICES[0])]["tag"]["raw_to_rgb_tag_homography"])
+    for index in INDICES:
+        tag = report["samples"][str(index)]["tag"]
+        raw_corners = np.asarray(tag["raw_corners"], dtype=np.float32)[None, :, :]
+        predicted = cv2.perspectiveTransform(raw_corners, first_h)[0]
+        actual = np.asarray(tag["rgb_corners"])
+        tag["first_frame_h_mean_corner_error_px"] = float(np.linalg.norm(predicted - actual, axis=1).mean())
+    args.report.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps(report, ensure_ascii=False, indent=2))
 
 
