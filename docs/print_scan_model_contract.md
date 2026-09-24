@@ -23,10 +23,15 @@ halftoning -> toner or ink deposition -> paper reflectance and subsurface
 scatter -> scanner illumination / optics -> scanner sampling -> scanner ISP
 -> output encoding`.
 
-The camera-of-print branch shares the print and paper stages, then uses scene
-illumination, paper pose and the camera optics/RAW/ISP stages instead of the
-flatbed scanner. A geometric warp of a scanner image is not a physical
-substitute for that branch.
+The camera-of-print branch now shares the print and paper stages through
+`simulate_color_print_surface()`, then uses scene illumination, paper pose
+and the restricted camera optics/RAW/ISP in `origin_simulation/print_camera.py`
+instead of the flatbed scanner. A geometric warp of a scanner image is not a
+physical substitute for that branch. The camera model has point + ambient
+lighting and Lambertian paper only; real lab photo paper, specular BRDF,
+phone ISP and original camera settings remain uncalibrated. Public DIV2K-SCAN
+iPhone XR test PNGs are real print-phone captures but have already undergone
+perspective correction/alignment, so they constrain only the published output.
 
 For a monochrome controlled patch, a minimal model can be written as:
 

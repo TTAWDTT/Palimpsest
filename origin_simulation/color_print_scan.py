@@ -73,6 +73,14 @@ class ColorPrintScanParameters:
 
 
 @dataclass(frozen=True)
+class ColorPrintSurfaceResult:
+    ink_masks_cmyk: np.ndarray
+    paper_reflectance_rgb: np.ndarray
+    paper_ppi: float
+    physical_size_inches: tuple[float, float]
+
+
+@dataclass(frozen=True)
 class ColorPrintScanResult:
     ink_masks_cmyk: np.ndarray
     paper_reflectance_rgb: np.ndarray
@@ -101,12 +109,12 @@ def _blur(image: np.ndarray, sigma_um: float, ppi: float) -> np.ndarray:
     return gaussian_filter(image, spatial_sigma, mode="reflect").astype(np.float32)
 
 
-def simulate_color_print_scan(
+def simulate_color_print_surface(
     digital_rgb: np.ndarray, parameters: ColorPrintScanParameters
-) -> ColorPrintScanResult:
-    """Apply a separable CMYK RIP, absorbing inks, paper scatter and RGB scan.
+) -> ColorPrintSurfaceResult:
+    """Stop at reflective printed paper, before either scanner or camera.
 
-    The input and output RGB are gamma-encoded proxies. The RIP uses a simple
+    The input RGB is gamma encoded. The RIP uses a simple
     linear-light black generation; a device ICC/RIP is needed for calibration.
     """
     rgb = _rgb_float(digital_rgb)
@@ -150,6 +158,19 @@ def simulate_color_print_scan(
     paper = (np.asarray(parameters.paper_reflectance_rgb, dtype=np.float32) *
              np.exp(-density_rgb)).astype(np.float32)
     paper = _blur(paper, parameters.paper_scatter_sigma_um, parameters.render_ppi)
+    return ColorPrintSurfaceResult(ink, paper, parameters.render_ppi,
+                                   (inches_w, inches_h))
+
+
+def scan_color_print_surface(
+    surface: ColorPrintSurfaceResult, parameters: ColorPrintScanParameters
+) -> ColorPrintScanResult:
+    """Illuminate and sample an already rendered color print with a flatbed."""
+    paper = surface.paper_reflectance_rgb
+    if not np.isclose(surface.paper_ppi, parameters.render_ppi):
+        raise ValueError("surface PPI differs from scanner configuration")
+    inches_w, inches_h = surface.physical_size_inches
+    ink = surface.ink_masks_cmyk
     aperture_sigma_um = UM_PER_INCH / (parameters.scan_ppi * np.sqrt(12.0))
     scanner_sigma_um = float(np.hypot(parameters.scanner_optical_sigma_um, aperture_sigma_um))
     before_scan = _blur(paper, scanner_sigma_um, parameters.render_ppi)
@@ -173,3 +194,11 @@ def simulate_color_print_scan(
         linear += rng.normal(0, parameters.scanner_noise_std_linear, linear.shape).astype(np.float32)
     output = np.power(np.clip(linear, 0, 1), 1 / parameters.scanner_gamma).astype(np.float32)
     return ColorPrintScanResult(ink, paper, before_scan, linear, output)
+
+
+def simulate_color_print_scan(
+    digital_rgb: np.ndarray, parameters: ColorPrintScanParameters
+) -> ColorPrintScanResult:
+    """Convenience wrapper for print surface followed by flatbed scanner."""
+    surface = simulate_color_print_surface(digital_rgb, parameters)
+    return scan_color_print_surface(surface, parameters)
