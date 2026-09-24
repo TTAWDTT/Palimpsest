@@ -5,6 +5,7 @@ description = "Calibratable forward models for image re-capture research"
 requires-python = ">=3.11"
 dependencies = [
     "numpy==2.2.6",
+    "Pillow==10.4.0",
     "scipy==1.15.3",
 ]
 
