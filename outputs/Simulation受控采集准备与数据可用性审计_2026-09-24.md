@@ -39,3 +39,9 @@
 ## 5. 2026-09-24 仓库状态核实
 
 项目独立 Git 根目录已经建立；首个提交为 `b89ce14 docs(research): establish project repository and capture protocol`。提交包含根目录说明、忽略规则、既有用户可读报告、文献证据目录，以及 `work/` 顶层的历史 Python/PowerShell 复算脚本；大型数据、第三方代码、日志、本地环境没有纳入提交。提交后 `git status --short` 为空。历史报告中少量 Markdown 行尾空格被 `git diff --cached --check` 提示，但属于此前已有内容；本轮保持研究记录原文，不把格式调整伪装成新的科学修改。
+
+## 6. 2026-09-24 UHDM 下载入口的补充审计
+
+继续只读核查[作者下载脚本](https://raw.githubusercontent.com/CVMI-Lab/UHDM/main/scripts/download_data.sh)与[公开 Google Drive 目录](https://drive.google.com/drive/folders/1DyA84UqM7zf3CeoEBNmTi_dJ649x2e7e?usp=sharing)：脚本写有 `train.tar.gz`、`test.tar.gz`、`test_origin.tar.gz` 三个旧文件 ID；当前公开目录可见 `test.tar.gz`（页面元数据约 5,943,548,688 字节）以及 `train_split`、`test_split` 两个文件夹。`train_split` 可见 18 个分卷，`test_split` 可见至少一个分卷。旧的 `train.tar.gz` 与 `test_origin.tar.gz` ID 在本机 HTTP HEAD 测试返回 404，不能把它们当当前可下载档案。
+
+对当前 `test.tar.gz` ID 用固定版本 `gdown 5.2.0` 试行续传，工具返回“Cannot retrieve the public link”，未生成本地文件。公开目录列表能读取**不等于**该 5.9 GB 档案已成功下载，原因可能是大文件确认、共享权限或访问限额，本轮无法区分。没有据此推断文件内部是否含配准前照片或 EXIF。下一步优先找可访问的较小分卷/官方替代入口；如仍无法取得，就按现有公开证据将 UHDM 限于论文级观察，并转向可用配对数据与受控采集。
