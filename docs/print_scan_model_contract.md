@@ -1,7 +1,8 @@
 # Print-scan forward model: measurement contract
 
-Status: research design. This does not claim that a print-scan simulator has
-been calibrated or externally validated.
+Status: research design plus a restricted monochrome structural prototype in
+`origin_simulation/print_scan.py`. It has not been calibrated or externally
+validated as a real printer/scanner.
 
 ## Conditional chain
 
