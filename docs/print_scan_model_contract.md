@@ -1,8 +1,9 @@
 # Print-scan forward model: measurement contract
 
 Status: research design plus a restricted monochrome structural prototype in
-`origin_simulation/print_scan.py`. It has not been calibrated or externally
-validated as a real printer/scanner.
+`origin_simulation/print_scan.py`. A composite channel has been fitted on 100
+CSGC binary codes and evaluated on 850 unseen codes, but the printer, paper,
+scanner and publication-stage effects have not been individually calibrated.
 
 ## Conditional chain
 
@@ -49,7 +50,7 @@ reflectance must be represented or kept as explicit unknown composite terms.
 
 ## Evidence roles and splitting
 
-- **DFD grey halftone sheets**: 800-ppi full-sheet physical scans with
+- **DFD grey halftone sheets**: mixed 600/800-ppi full-sheet physical scans with
   printer/driver/setting tokens. Use fixed uniform patches to constrain
   observable lattice orientation/frequency and compare device/configuration
   changes. If original P3 chart or exact print job is absent, DFD cannot by
@@ -80,7 +81,12 @@ reflectance must be represented or kept as explicit unknown composite terms.
   not TIFF DPI, to set physical scale. It remains unclear whether the three
   resolution conditions re-scan the same physical sheets. Calibrate on code
   IDs 1–100 and keep 101–950 unseen; do not use these random codes as a final
-  natural-vs-AI origin evaluation.
+  natural-vs-AI origin evaluation. With a single composite spatial/tonal fit,
+  the actual forward prototype scores median Pearson 0.884 and RMSE 0.108 on
+  the 850 held-out 2400-spi codes. The output has a systematic positive tone
+  residual, especially over white reference bits. Four cross-SPI IDs have
+  also been probed without retuning; this is a small conditional transfer
+  check, not identification of scanner resolution as the only changed cause.
 - **VIPPrint**: printed/scanned natural/GAN face task data. Use only after
   verifying exact digital/scan pairing, archive completeness, and generator/
   printer splits. Its older face-GAN domain cannot certify modern general
