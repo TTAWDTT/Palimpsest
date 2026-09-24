@@ -11,3 +11,5 @@
 补充推理：[机理与证据缺口](Simulation机理与证据缺口深读_2026-09-24.md)、[物理路径与外部验证矩阵](Simulation物理路径与外部验证矩阵_2026-09-24.md)。早期统计原型的逐阶段记录已归入[历史探索](../90_历史探索/README.md)。
 
 可执行的拍屏条件/元数据设计见项目 `docs/controlled_screen_capture_protocol.md`。**当前没有已经完成物理验证的 simulation。**
+
+2026-09-24 补充： [真实数据可用性审计](Simulation受控采集准备与数据可用性审计_2026-09-24.md) 第 7 节新增 Dragotti 真实 LCD 再拍摄档案的 ZIP 目录审计：1,440 个再拍文件名可关联到原拍名称；整包和逐图内容仍未下载验证。CLEAR/MIRAGE 作者页目前将数据下载标为 “Coming Soon”。

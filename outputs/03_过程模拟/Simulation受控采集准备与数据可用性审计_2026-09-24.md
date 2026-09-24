@@ -45,3 +45,17 @@
 继续只读核查[作者下载脚本](https://raw.githubusercontent.com/CVMI-Lab/UHDM/main/scripts/download_data.sh)与[公开 Google Drive 目录](https://drive.google.com/drive/folders/1DyA84UqM7zf3CeoEBNmTi_dJ649x2e7e?usp=sharing)：脚本写有 `train.tar.gz`、`test.tar.gz`、`test_origin.tar.gz` 三个旧文件 ID；当前公开目录可见 `test.tar.gz`（页面元数据约 5,943,548,688 字节）以及 `train_split`、`test_split` 两个文件夹。`train_split` 可见 18 个分卷，`test_split` 可见至少一个分卷。旧的 `train.tar.gz` 与 `test_origin.tar.gz` ID 在本机 HTTP HEAD 测试返回 404，不能把它们当当前可下载档案。
 
 对当前 `test.tar.gz` ID 用固定版本 `gdown 5.2.0` 试行续传，工具返回“Cannot retrieve the public link”，未生成本地文件。公开目录列表能读取**不等于**该 5.9 GB 档案已成功下载，原因可能是大文件确认、共享权限或访问限额，本轮无法区分。没有据此推断文件内部是否含配准前照片或 EXIF。下一步优先找可访问的较小分卷/官方替代入口；如仍无法取得，就按现有公开证据将 UHDM 限于论文级观察，并转向可用配对数据与受控采集。
+
+## 7. 2026-09-24 新增：可按名称配对的真实 LCD 再拍摄档案
+
+在[Dragotti 课题组的公开数据页](https://www.commsp.ee.ic.ac.uk/~pld/research/Rewind/Recapture/)找到原拍与 LCD 再拍两套完整档案。2026-09-24 本机对两个官方 ZIP 做 HTTP HEAD：`SingleCaptureImages.zip` 为 **3,213,198,364** 字节，`RecapturedImages.zip` 为 **5,224,454,019** 字节；两者均返回 200 和 `Accept-Ranges: bytes`。本机只用 HTTP Range 读取各档案最后 1,048,576 字节，确认服务器返回 206 和匹配总长度，并解析 ZIP/ZIP64 中央目录；**尚未下载整包，也尚未解压或逐图验证内容**。
+
+中央目录统计：原拍档案有 905 个 JPG 条目，其中 D40 相机目录的 5 张位于 `not used/` 且与主目录的图号重复，因此按“原拍相机代号＋图号”得到 900 个非重复名称键；再拍档案有 **1,440 个 PNG 条目**。再拍名称编码了再拍相机、显示器、原拍相机与图号，如 `DS-05-R%EOS600D%EA232WMI%D40-015.png`，可由名称对应到 `DS-05-0015-S%D40.JPG`。1,440 个再拍名称全部能找到原拍名称键；它们覆盖 **8 个再拍相机 × 9 个原拍相机 × 每组合 20 个图号**，对应 **180 个被再拍的原拍名称键**。这是**文件名关联审计**，不是像素级配对认证；5 个 `not used/` 重复项不能作为独立来源计数。
+
+[作者论文 §V.C](https://www.commsp.ee.ic.ac.uk/~pld/publications/IEEETransactionsINFS_THT_HM_PLD15.pdf)说明使用同一 LCD、暗室、三脚架、原拍图双三次缩放至屏幕原生尺寸，并按相机设置拍摄距离/光圈；文中 Canon 600D 的示例是屏幕像素间距 0.2650 mm、传感器像素间距 4.30652 μm、焦距 30 mm、距离约 1445.2 mm、f/11。相机与屏幕平面被对齐，输出再拍图裁去屏幕外框。论文还说 ISO 手动选择、曝光自动，屏幕白点用于预设相机白平衡。因此它可用于**固定设备条件下**的真实配对统计、频谱和模糊机制检查；不能从这个目录审计推断它含距离/角度/对焦的逐张操控网格、RAW 或未裁切边框。它的原始视觉内容是相机照片，不是自然/AI 两类的来源检测测试集。
+
+作者的 [70,145,784 字节主观测试包](https://www.commsp.ee.ic.ac.uk/~tt1410/experiments/recapturedetection/resources/SubjectiveTestImages.zip)经中央目录审计为 `labels.txt` 加 100 张 JPG；论文说明这些图为主观测试统一缩放并去除 EXIF，故不作为成像参数校准首选。曾尝试顺序下载该包，速度较慢，停止后把已取的 **5,750,784 字节**明确留作 `E:\ai_image_origin_research\data\raw\dragotti_2015\SubjectiveTestImages.zip.partial`；它不是完整 ZIP，不可解包或引用为已获取数据。ZIP 末尾 Range 片段及 HTTP 响应头留在同一目录，便于复核上述目录结论。若后续要用完整 8.44 GB 档案，先按来源组和设备划分校准/验证，并在下载完成、档案校验、EXIF/图片内容审计后才能执行真实配对指标。
+
+同时核对 [CLEAR/MIRAGE 作者页](https://libozhu03.github.io/CLEAR/)：论文介绍 3,000 对、5 台手机、3 类显示屏并同时含莫尔纹与条带，但页面下载区目前明写 **“Coming Soon”**，[官方仓库](https://github.com/libozhu03/CLEAR)只放项目页文件。因此 MIRAGE 目前是有价值的待开放线索，不能记为已可下载的真实校准数据。其现有描述也没有足够逐张距离/角度/曝光记录证据。
+
+**当前状态判断：**项目没有整体阻塞。代码和数值验收可继续，Dragotti 档案提供了可行的真实拍屏配对路线；但“控制物理量后响应是否按模型变化”的强验证，仍需找到带逐张控制量的数据或执行既定受控拍摄协议。

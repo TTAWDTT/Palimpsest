@@ -19,3 +19,10 @@ Primary research and official dataset pages checked for `outputs/Simulation过�
 | VIPPrint, 2021, https://arxiv.org/html/2102.06792 and https://zenodo.org/records/4454971 | Real natural/GAN face print-scan benchmark | Old GANs and one printer/scanner; paired digital-source files in released archive not yet audited. |
 | RRDataset, https://arxiv.org/html/2509.09172 | Author claims real platform transfers and physical re-digitization | Released test pack lacks per-image physical-method/device records; cannot validate four paths separately from final JPEG. |
 
+## Additional primary sources checked on 2026-09-24
+
+| Source | Evidence used | Boundary |
+|---|---|---|
+| Dragotti research database, https://www.commsp.ee.ic.ac.uk/~pld/research/Rewind/Recapture/ | Official complete original/recaptured ZIP links; range-request ZIP central directories audit to 900 unique original name keys and 1,440 recaptured PNG names, all with source-name matches | Only remote archive index inspected; image bytes, EXIF, visual identity, and full-archive integrity not yet checked. |
+| Thongkamwitoon, Muammar & Dragotti, TIFS 2015, https://www.commsp.ee.ic.ac.uk/~pld/publications/IEEETransactionsINFS_THT_HM_PLD15.pdf | §V.C apparatus and fixed capture settings; example camera distance, pixel pitch, aperture; crop/EXIF caveats | One LCD; no reported per-image distance/angle intervention grid or released RAW claim. |
+| CLEAR/MIRAGE official project, https://libozhu03.github.io/CLEAR/ and https://github.com/libozhu03/CLEAR | Describes 3,000 real screen-captured pairs, five phones, three display types, with banding/moire combinations | Dataset download area says “Coming Soon” as checked; public availability and per-image control metadata not verified. |
