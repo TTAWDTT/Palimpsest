@@ -32,7 +32,15 @@ try {
     }
     $current = (Get-Item -LiteralPath $partialPath).Length
     if ($current -ne $expectedBytes) { throw "Expected $expectedBytes bytes, got $current" }
-    $sha = (Get-FileHash -LiteralPath $partialPath -Algorithm SHA256).Hash.ToLowerInvariant()
+    $shaAlgorithm = [System.Security.Cryptography.SHA256]::Create()
+    $hashStream = [System.IO.File]::OpenRead($partialPath)
+    try {
+        $shaBytes = $shaAlgorithm.ComputeHash($hashStream)
+    } finally {
+        $hashStream.Dispose()
+        $shaAlgorithm.Dispose()
+    }
+    $sha = [System.BitConverter]::ToString($shaBytes).Replace('-', '').ToLowerInvariant()
     Add-Content -LiteralPath $logPath -Value "$(Get-Date -Format o) complete_size sha256=$sha; verifying tar/gzip"
     & tar.exe -tzf $partialPath > $null 2>> $logPath
     if ($LASTEXITCODE -ne 0) { throw 'tar/gzip stream verification failed' }

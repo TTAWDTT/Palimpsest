@@ -32,7 +32,15 @@ try {
     }
     $current = (Get-Item -LiteralPath $partialPath).Length
     if ($current -ne $expectedBytes) { throw "Expected $expectedBytes bytes, got $current" }
-    $sha = (Get-FileHash -LiteralPath $partialPath -Algorithm SHA256).Hash.ToLowerInvariant()
+    $shaAlgorithm = [System.Security.Cryptography.SHA256]::Create()
+    $hashStream = [System.IO.File]::OpenRead($partialPath)
+    try {
+        $shaBytes = $shaAlgorithm.ComputeHash($hashStream)
+    } finally {
+        $hashStream.Dispose()
+        $shaAlgorithm.Dispose()
+    }
+    $sha = [System.BitConverter]::ToString($shaBytes).Replace('-', '').ToLowerInvariant()
     & tar.exe -tf $partialPath > $null 2>> $logPath
     if ($LASTEXITCODE -ne 0) { throw 'ZIP traversal failed' }
     Move-Item -LiteralPath $partialPath -Destination $finalPath

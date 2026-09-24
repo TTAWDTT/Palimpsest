@@ -58,8 +58,13 @@ def main() -> None:
             raise ValueError("input training IDs differ from 1-500")
         if test != [f"test/img_{i:04d}.png" for i in range(1, 201)]:
             raise ValueError("input test IDs differ from 1-200")
-        if ref != [f"ref/img_{i:04d}.png" for i in range(1, 127)]:
-            raise ValueError("input reference IDs differ from 1-126")
+        # The 125 uniform calibration colors form a 5^3 RGB grid; the
+        # additional gray source has a distinct filename. Captured outputs
+        # use numeric 0001..0126, so the two namespaces must not be conflated.
+        expected_ref = sorted([f"ref/img_{i:04d}.png" for i in range(1, 126)]
+                              + ["ref/img_gray.png"])
+        if ref != expected_ref:
+            raise ValueError("input reference IDs differ from 125-grid plus gray")
         setups: dict[str, dict[str, list[str]]] = defaultdict(lambda: defaultdict(list))
         for name in names:
             parts = name.split("/")
@@ -81,22 +86,38 @@ def main() -> None:
                                 [f"{key}/cam/warp/test/img_{i:04d}.png" for i in range(1, 201)],
                             "warped_ref_complete": warped_ref ==
                                 [f"{key}/cam/warp/ref/img_{i:04d}.png" for i in range(1, 127)]}
-        sample_names = ["test/img_0001.png", "train/img_0001.png", "ref/img_0126.png"]
+        sample_names = ["test/img_0001.png", "train/img_0001.png", "ref/img_gray.png"]
         for key in sorted(setups):
             sample_names.extend([f"{key}/cam/warp/test/img_0001.png",
                                  f"{key}/cam/warp/ref/img_0126.png"])
         sample_probes = {name: _image_probe(archive.read(name)) for name in sample_names}
+        captured_126_duplicates = {}
+        first_125_unique = {}
+        for key in sorted(setups):
+            prefix = f"{key}/cam/warp/ref/"
+            last_digest = hashlib.sha256(archive.read(prefix + "img_0126.png")).digest()
+            first_digests = [hashlib.sha256(archive.read(prefix + f"img_{index:04d}.png")).digest()
+                             for index in range(1, 126)]
+            matches = [index for index, digest in enumerate(first_digests, 1)
+                       if digest == last_digest]
+            captured_126_duplicates[key] = matches
+            first_125_unique[key] = len(set(first_digests)) == 125
         readme_files = {name: archive.read(name).decode("utf-8", errors="replace")
                         for name in names if name.lower().endswith(".txt")}
     result = {"archive": str(ARCHIVE), "archive_bytes": EXPECTED_BYTES,
               "archive_sha256": _sha256(ARCHIVE), "all_member_crc_passed": True,
               "file_count": len(infos), "root_counts": dict(Counter(name.split("/")[0] for name in names)),
               "setup_count": len(setups), "setups": summary,
+              "captured_ref_0126_exact_duplicate_of": captured_126_duplicates,
+              "captured_first_125_references_unique": first_125_unique,
               "sample_probes": sample_probes, "readme_files": readme_files,
               "capture_status": "released warped/registered 256px PNG; native camera frames not established"}
     OUTPUT.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps({k: v for k, v in result.items() if k not in ("setups", "sample_probes", "readme_files")},
+    print(json.dumps({k: v for k, v in result.items() if k not in ("setups", "sample_probes", "readme_files", "captured_ref_0126_exact_duplicate_of", "captured_first_125_references_unique")},
                      ensure_ascii=False, indent=2))
+    print("reference 0126 duplicate IDs", dict(Counter(
+        tuple(matches) for matches in captured_126_duplicates.values())))
+    print("first 125 unique in", sum(first_125_unique.values()), "setups")
     print("complete setups", sum(row["warped_train_complete"] and row["warped_test_complete"]
                                   and row["warped_ref_complete"] for row in summary.values()),
           "/", len(summary))

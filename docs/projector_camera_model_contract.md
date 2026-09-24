@@ -1,8 +1,9 @@
 # Projector-to-surface-to-camera forward model contract
 
-Status: process design with real-pair access underway. No projector forward
-module has passed device calibration. This contract separates what can be
-measured from the public CompenNet PNGs from what requires native captures.
+Status: official CompenNet package fully CRC-audited and a first forward
+falsification run on all 24 setups. No projector forward module has passed
+device-level physical calibration. This contract separates what public warped
+PNGs can measure from what requires native captures.
 
 ## Physical order
 
@@ -53,6 +54,11 @@ the [repository](https://github.com/BingyaoHuang/CompenNet) states that
 camera images are warped to the projector view. These pairs can falsify a
 surface-aware **effective radiometric** simulator. A successful color/texture
 match does not identify the projector, surface and camera factors separately.
+The [paper's full HTML](https://arxiv.org/html/1904.04335) explicitly notes
+that one camera pixel can depend on neighboring projector pixels through
+defocus, surface inter-reflection and other context. A per-pixel affine
+calibration is therefore a **control**, not a complete process simulator;
+structured spatial residual on unseen textures is evidence against it.
 
 The larger author's CompenNet++ public ZIP remote directory contains both
 `cam/raw` and warped branches. A CRC-verified sample of `cam/raw/test`
@@ -63,6 +69,27 @@ homography failed, so geometrical validation needs an explicit nonplanar
 surface model or captured structured-light reference. The entire 11 GB ZIP
 has not yet been downloaded or fully CRC audited. A single unwarped PNG
 still cannot identify the DLP time schedule or true sensor response.
+
+## Current data-calibrated falsification (2026-09-25)
+
+The official 2,282,667,301-byte ZIP has 20,709 CRC-valid files and all 24
+setups have 500 training/200 test pairs. The 125 numeric input references are
+an RGB 5^3 uniform chart. Numeric captured reference 0126 is a byte-for-byte
+duplicate of 0032, 0063 or 0094 in every setup; the root `img_gray` has no
+established independent captured pair. Only references 0001..0125 enter
+calibration. Audit code and fingerprints are in `work/audit_compennet_full.py`
+and `work/compennet_full_audit.json`.
+
+A per-pixel black-floor + gain-field times a global RGB 3D response achieves
+0.07683 macro MAE over 24x200 unseen textured test captures. A full per-pixel
+125-knot 3D LUT gives 0.03907, with about 62x parameter memory. A 13-chart
+black/pure-channel additive color-mixing model gives 0.07976 after an assumed
+sRGB inverse response, while unseen mixed uniform charts still incur 0.06075
+MAE. The full LUT winning 24/24 setups falsifies the current simple
+separability as an adequate finished simulation. The remaining residual can
+include spectral/color coupling, local inter-reflection, defocus, clipping,
+homography interpolation or camera response; published images do not identify
+which cause dominates. Details: `outputs/03_过程模拟/CompenNet整包审计与投影前向反证_2026-09-25.md`.
 
 ## Falsification order
 
