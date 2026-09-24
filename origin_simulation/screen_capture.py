@@ -26,6 +26,11 @@ class ScreenCaptureParameters:
     diffraction_f_number: float | None = None
     sensor_pixel_pitch_um: float | None = None
     rgb_effective_wavelengths_nm: tuple[float, float, float] = (610.0, 540.0, 460.0)
+    sensor_spectral_mix_rgb: tuple[tuple[float, float, float], ...] = (
+        (1.0, 0.0, 0.0),
+        (0.0, 1.0, 0.0),
+        (0.0, 0.0, 1.0),
+    )
     exposure_electrons_per_unit: float | None = None
     electron_rate_per_unit_s: float | None = None
     full_well_electrons: float = 10000.0
@@ -77,6 +82,12 @@ class ScreenCaptureParameters:
                 not np.isfinite(self.rgb_effective_wavelengths_nm).all() or
                 min(self.rgb_effective_wavelengths_nm) <= 0):
             raise ValueError("RGB effective wavelengths must be three finite positive values")
+        spectral_mix = np.asarray(self.sensor_spectral_mix_rgb, dtype=np.float64)
+        if (spectral_mix.shape != (3, 3) or not np.isfinite(spectral_mix).all()
+                or np.any(spectral_mix < 0) or np.any(spectral_mix.sum(axis=1) <= 0)):
+            raise ValueError("sensor spectral mix must be a nonnegative finite 3x3 matrix with positive rows")
+        object.__setattr__(self, "sensor_spectral_mix_rgb",
+                           tuple(tuple(float(value) for value in row) for row in spectral_mix))
         if ((self.exposure_electrons_per_unit is not None and self.exposure_electrons_per_unit < 0)
                 or self.full_well_electrons <= 0 or self.read_noise_electrons < 0):
             raise ValueError("exposure/read noise must be nonnegative and full well positive")
@@ -105,6 +116,7 @@ class ScreenCaptureParameters:
 
 @dataclass(frozen=True)
 class ScreenCaptureResult:
+    emitter_band_irradiance: np.ndarray
     irradiance: np.ndarray
     noiseless_mosaic: np.ndarray
     raw_mosaic: np.ndarray
@@ -489,9 +501,10 @@ def render_screen_capture(
 
     The output is an unencoded crop. Optional temporal PWM/rolling exposure
     uses one square-wave global screen luminance signal and row start times.
-    Spectral response, measured PSF, lens distortion, real ISP and JPEG remain
-    outside this model. Optional luma sharpening is an ISP hypothesis, not an
-    identified device parameter. Parameters are virtual until fitted to data.
+    The optional fixed spectral mix is an effective display-primary to sensor
+    channel response, not measured spectral sensitivity. Measured PSF, lens
+    distortion, real ISP and JPEG remain outside this model. Optional luma
+    sharpening is an ISP hypothesis. Parameters are virtual until fitted.
     """
     frame = np.asarray(frame, dtype=np.float32)
     if frame.ndim != 3 or frame.shape[2] != 3 or not np.isfinite(frame).all():
@@ -546,6 +559,12 @@ def render_screen_capture(
     row_exposure_gain = _pwm_row_gain(height, parameters)
     irradiance *= row_exposure_gain[:, None, None]
 
+    emitter_band_irradiance = irradiance
+    spectral_mix = np.asarray(parameters.sensor_spectral_mix_rgb, dtype=np.float32)
+    if not np.array_equal(spectral_mix, np.eye(3, dtype=np.float32)):
+        irradiance = np.einsum("hwd,cd->hwc", emitter_band_irradiance,
+                               spectral_mix, optimize=True).astype(np.float32)
+
     masks = _bayer_masks((height, width))
     mosaiced_irradiance = (irradiance * masks).sum(axis=-1)
     noiseless_mosaic = mosaiced_irradiance.copy()
@@ -565,6 +584,7 @@ def render_screen_capture(
     linear_rgb = _demosaic_bilinear(raw_mosaic, masks)
     srgb_before_sharpen = _linear_to_srgb(linear_rgb)
     return ScreenCaptureResult(
+        emitter_band_irradiance=emitter_band_irradiance,
         irradiance=irradiance,
         noiseless_mosaic=noiseless_mosaic,
         raw_mosaic=raw_mosaic,

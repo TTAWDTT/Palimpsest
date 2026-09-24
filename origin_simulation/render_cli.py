@@ -49,7 +49,8 @@ def main() -> None:
     prefix.parent.mkdir(parents=True, exist_ok=True)
     Image.fromarray(np.rint(result.srgb * 255).clip(0, 255).astype(np.uint8), mode="RGB").save(png_path)
     if args.intermediates:
-        np.savez_compressed(npz_path, irradiance=result.irradiance,
+        np.savez_compressed(npz_path, emitter_band_irradiance=result.emitter_band_irradiance,
+                            irradiance=result.irradiance,
                             noiseless_mosaic=result.noiseless_mosaic,
                             raw_mosaic=result.raw_mosaic,
                             srgb_before_sharpen=result.srgb_before_sharpen,

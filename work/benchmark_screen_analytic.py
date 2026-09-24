@@ -83,6 +83,22 @@ def main() -> None:
             durations.append(time.perf_counter() - start)
         scaling[str(size)] = {"seconds": durations, "median_seconds": float(np.median(durations)),
                               "output_shape": list(larger.srgb.shape)}
+        if size == 512:
+            mixed_setup = ScreenCaptureParameters(
+                sensor_to_display=setup.sensor_to_display,
+                fill_fraction=setup.fill_fraction,
+                display_gamma=setup.display_gamma,
+                optical_blur_sigma_sensor_pixels=setup.optical_blur_sigma_sensor_pixels,
+                sensor_spectral_mix_rgb=((1, .08, .02), (.12, 1, .08), (.01, .14, 1)),
+            )
+            mixed_durations = []
+            for _ in range(3):
+                start = time.perf_counter()
+                render_screen_capture(larger_frame, (size, size), mixed_setup,
+                                      spatial_method="analytic")
+                mixed_durations.append(time.perf_counter() - start)
+            scaling[str(size)]["spectral_mix_seconds"] = mixed_durations
+            scaling[str(size)]["spectral_mix_median_seconds"] = float(np.median(mixed_durations))
     result["analytic_scaling"] = scaling
     OUTPUT.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps(result, ensure_ascii=False, indent=2))

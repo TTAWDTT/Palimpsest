@@ -192,3 +192,31 @@ def test_analytic_axis_gaussian_matches_fine_in_sensor_interior():
         tilted = ScreenCaptureParameters(sensor_to_display=np.array(
             [[.7, .01, 10], [0, .7, 10], [0, 0, 1]]))
         render_screen_capture(display, (8, 8), tilted, spatial_method="analytic")
+
+
+def test_effective_spectral_mix_precedes_bayer_sampling():
+    display = np.zeros((32, 32, 3), dtype=np.float32)
+    display[..., 0] = 1
+    transform = np.array([[1, 0, 4.2], [0, 1, 4.3], [0, 0, 1]])
+    common = dict(sensor_to_display=transform,
+                  optical_blur_sigma_sensor_pixels=.5)
+    unmixed = render_screen_capture(display, (16, 16),
+                                    ScreenCaptureParameters(**common),
+                                    spatial_method="analytic")
+    mixed = render_screen_capture(display, (16, 16), ScreenCaptureParameters(
+        **common,
+        sensor_spectral_mix_rgb=((1, 0, 0), (.25, 1, 0), (.1, 0, 1))),
+        spatial_method="analytic")
+    np.testing.assert_array_equal(mixed.emitter_band_irradiance,
+                                  unmixed.emitter_band_irradiance)
+    np.testing.assert_allclose(mixed.irradiance[..., 1],
+                               .25 * unmixed.irradiance[..., 0], atol=1e-7)
+    np.testing.assert_allclose(mixed.irradiance[..., 2],
+                               .1 * unmixed.irradiance[..., 0], atol=1e-7)
+    assert np.all(unmixed.noiseless_mosaic[0::2, 1::2] == 0)
+    assert np.all(mixed.noiseless_mosaic[0::2, 1::2] > 0)
+    assert np.all(mixed.noiseless_mosaic[1::2, 1::2] > 0)
+    with np.testing.assert_raises_regex(ValueError, "sensor spectral mix"):
+        ScreenCaptureParameters(**common, sensor_spectral_mix_rgb=((1, 0, 0),
+                                                                     (-.1, 1, 0),
+                                                                     (0, 0, 1)))
