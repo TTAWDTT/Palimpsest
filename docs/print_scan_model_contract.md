@@ -88,6 +88,12 @@ reflectance must be represented or kept as explicit unknown composite terms.
   holdout IDs have also been probed across three SPI conditions without
   retuning; this is a small conditional transfer
   check, not identification of scanner resolution as the only changed cause.
+  A 3x3 linear-neighborhood residual diagnostic reduces held-out median RMSE
+  to 0.100, versus 0.0955 for a full local pattern table. This suggests
+  repeatable spatial response missing from the Gaussian prototype but does
+  not distinguish printer interactions from scanner resampling, registration,
+  or archive post-processing. Local-neighborhood statistical PI models are
+  already published; this diagnostic must not be presented as a new method.
 - **VIPPrint**: printed/scanned natural/GAN face task data. Use only after
   verifying exact digital/scan pairing, archive completeness, and generator/
   printer splits. Its older face-GAN domain cannot certify modern general
