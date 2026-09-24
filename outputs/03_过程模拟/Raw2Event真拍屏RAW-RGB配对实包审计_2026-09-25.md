@@ -19,6 +19,8 @@
 
 `ffprobe` 和实际抽帧确认两个前缀的 RAW/RGB 都是 FFV1 无损编码、**692×520、317 帧**，各前缀内两条流的容器 PTS 均为 **317/317 完全相同**，首尾为 0.000 与 5.267 s。RAW 解码为 `gray16le` 容器；每条录制的五个抽样帧都在 10 位范围，按位 OR 为 1023。这支持数据卡的“10-bit Bayer”说明，不能把 16 位容器误称 16 位有效信号。样本内四种奇偶行列位置的均值有稳定差异，两个位置均值接近；这与 Bayer 周期相容，但具体 CFA 相位仍需颜色标靶或稳定配准后验证。
 
+[官方 Croissant 元数据](https://huggingface.co/datasets/raw2event/raw2event/blob/main/croissant.json)称 Pi 录制为 **50 fps**、自动曝光/增益关闭、自动对焦开启；本次两个已验 MKV 的 PTS 和 317 帧／5.267 s 则约为 **60 fps**。因此这里把可复算的容器时间轴作为分析依据，不把数据页 50 fps 直接代入模拟时间参数。AE/AGC 与对焦状态只是作者元数据声明，尚无逐帧实测记录佐证。
+
 **同帧时间戳不等于同像素坐标。**同一图像中的 AprilTag 36h11、ID 0 在 RAW 和 RGB 上都能检出。五个抽样时刻，Tag 在 RAW 图上的平均边长约为 RGB 的 **1.707–1.737 倍**。以第 0 帧为例，RAW Tag 中心约 `(505, 401)`，RGB 中心约 `(441, 344)`；直接按 `(x,y)` 比较 RAW 与 RGB 会把不同物理位置错配。对每帧分别用 Tag 四角求平面单应矩阵并用公共有效区域评估，7×7 Gaussian 轻度平滑后的亮度 Pearson 由未配准的 **0.370/0.402/0.439/0.400/0.403** 变为 **0.959/0.839/0.843/0.921/0.753**（帧 0/80/160/240/316）。这表明 Tag 配准有实效，也表明不同姿态/运动和 Bayer、ISP 差异仍留下残差；这个 Pearson **不是**模拟保真度或 ISP 校准精度。
 
 第二条 airplane 录制复现了相同结构：五帧 Tag 边长比 **1.708–1.727**，相同亮度对照由未配准的 **0.395–0.430** 升到逐帧 Tag 配准的 **0.816–0.930**。为检验变换是否只是每帧自由拟合，用每条录制**第 0 帧**的 Tag 单应矩阵预测另外四个抽样帧的 RGB Tag 四角，平均误差 automobile 为 **0.82–2.21 像素**、airplane 为 **0.92–2.35 像素**。这支持两条录制中相对稳定的 RAW→RGB 几何关系；五帧抽样仍不足以保证所有录制都固定。
@@ -46,15 +48,28 @@
 
 更重要的是一个严格的**不可辨识性**：若允许自由的 3×3 颜色矩阵，互换 RAW 去马赛克的红蓝通道，可由矩阵反向交换而获得完全相同的预测。实测 `RG` 对 `BG`、`GR` 对 `GB` 的 airplane 内容块 MAE 最大差仅约 $1.1\times10^{-12}$/255。故前文的 Bayer 周期观察不能被这项拟合“确认相位”；需要独立色块/设备说明或受约束的光谱响应。复算结果在 `work/raw2event_isp_transfer.json`，代码为 `work/probe_raw2event_isp_transfer.py`。
 
+## 已从官方 CIFAR-10 包找回这两张数字源
+
+接着下载 [CIFAR-10 官方发布格式](https://www.cs.toronto.edu/~kriz/cifar.html) 的 Python 档案；实际字节由 Hugging Face 镜像取得，**170,498,071 B**，MD5 `c58f30108f718f92721af3b95e74349a` 与多伦多大学官网完全一致。只在内存中读取六个批次，不解包到工作区。对两段首帧人工框出显示小图、透视矫正到 32×32，然后在各自 **6,000 张同类候选**中用灰度去均值归一化相关排序：
+
+| 录制前缀 | 匹配到的原始数字图 | Top-1 相关 | Top-2 相关 | 前缀索引核验 |
+|---|---|---:|---:|---|
+| `10000_automobile_5_1087_...` | `data_batch_5` 第 1087 行 | **0.7325** | 0.6524 | `_5_1087_` 一致 |
+| `1000_airplane_1_9934_...` | `data_batch_1` 第 9934 行 | **0.9420** | 0.8261 | `_1_9934_` 一致 |
+
+![经官方 MD5 验证的原始数字小图与首帧拍屏内容配对](Raw2Event官方数字源与拍屏内容匹配_2026-09-25.png)
+
+两组图的形状和具体内容肉眼也一致；尤其 automobile 原图偏红、拍屏图偏紫，说明颜色并非无损复制。检索排序、前缀中批次/行号一致和视觉一致共同支持**这两个样本的原始数字图身份**。但屏幕实际输入缓冲区的插值、色彩管理、背景和 Tag 布局未发布；人工四角也只是内容检索手段，不能反推设备的物理几何。**这现在提供了两个“原数字图→真实拍屏 RAW/RGB”的锚点，尚不是完整已标定的显示与相机过程。**数字源像素 SHA256 及全部前十候选记录在 `work/raw2event_cifar_source_match.json`。
+
 ## 对过程 simulation 的具体作用和限制
 
 | 可做 | 尚不能做 |
 |---|---|
-| 在真实同帧数据上核对 RAW 数值范围、CFA 周期、运动时序和 RAW→ISP-RGB 的条件映射；用 Tag 先做显示平面配准。 | 直接按相同像素索引拟合 RAW→RGB；把画面的几何差当镜头变焦或真实显示尺寸。 |
+| 在真实同帧数据上核对 RAW 数值范围、CFA 周期、运动时序和 RAW→ISP-RGB 的条件映射；用 Tag 先做显示平面配准。两例还能锚定官方原始数字小图。 | 直接按相同像素索引拟合 RAW→RGB；把画面的几何差当镜头变焦或真实显示尺寸。 |
 | 把同一设备的部分录制前缀分为校准／整段留出，评估模拟 RAW/ISP 噪声、色彩和局部结构。 | 用这一条录制推断所有手机相机、不同屏幕或距离×角度×曝光干预网格。 |
-| 形成“CFA→ISP”机制的独立证据，供 Chimera 拍屏反证后定位缺失环节。 | 用 CIFAR-10 类别声称 AI／自然摄影判别能力，或从这批 RAW 直接解释 Chimera 的 B-Free 分数下降。 |
+| 形成“数字源→屏幕→RAW→ISP”两例配对的入口，供 Chimera 拍屏反证后定位缺失环节。 | 用 CIFAR-10 类别声称 AI／自然摄影判别能力，或从这批 RAW 直接解释 Chimera 的 B-Free 分数下降。 |
 
-**下一实验入口：**用独立色块或设备规格先约束 CFA/有效色彩响应，再扩大到多前缀、不同内容和运动状态；估计黑电平、噪声—信号关系、局部 ISP 残差并在未拟合前缀上验收。只有找到真实数字显示帧及可靠物理设置记录，才能进一步约束完整“数字源→显示→镜头→RAW→ISP→发布”链。Chimera 的 840 个 reserved 来源继续不用于参数挑选。
+**下一实验入口：**两张数字源已识别，可分别在 automobile 设参、airplane 留出，检验“数字源→显示放大/发光→镜头→RAW”的几何、亮度与频率变化；仍须把未知的屏幕插值和色彩管理作为条件假设，而非真实设备参数。用独立色块或设备规格约束 CFA/有效色彩响应，再扩大到多前缀、不同内容和运动状态；估计黑电平、噪声—信号关系及局部 ISP 残差。只有找到真实**显示帧**及可靠物理设置记录，才能把两例扩成完整已标定设备链。Chimera 的 840 个 reserved 来源继续不用于参数挑选。
 
 ## 复算
 
@@ -64,6 +79,8 @@ python work/audit_raw2event_probe.py
 python work/fetch_raw2event_pair.py --prefix 1000_airplane_1_9934_20251222_161953 --audit work/raw2event_probe_airplane_download_audit.json
 python work/audit_raw2event_probe.py --prefix 1000_airplane_1_9934_20251222_161953 --out-dir work/raw2event_probe_airplane --report work/raw2event_probe_airplane_pixel_audit.json
 python -m work.probe_raw2event_isp_transfer
+python work/fetch_cifar10_python.py
+python -m work.match_raw2event_cifar_source
 ```
 
-抽帧、PTS、Tag 角点、亮度对照和经验元数据结构记录在 `work/raw2event_probe_pixel_audit.json` 与 `work/raw2event_probe_airplane_pixel_audit.json`；示意图源帧位于各自的 `work/raw2event_probe*/`。脚本为只读核查，不执行来源检测器推理。
+抽帧、PTS、Tag 角点、亮度对照和经验元数据结构记录在 `work/raw2event_probe_pixel_audit.json` 与 `work/raw2event_probe_airplane_pixel_audit.json`；示意图源帧位于各自的 `work/raw2event_probe*/`。CIFAR 档案验收在 `work/cifar10_python_download_audit.json`。脚本不执行来源检测器推理。
