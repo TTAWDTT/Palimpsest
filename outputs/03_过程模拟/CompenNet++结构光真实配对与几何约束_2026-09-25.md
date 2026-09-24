@@ -25,6 +25,10 @@
 
 ## 对过程模拟的影响
 
+### 同一设置内的空间留出检验
+
+进一步把相机画幅切成 40×40 像素格，以固定哈希选出留出格；只用最弱编码对比度 >0.04 的 **41,207 个**可解点，在其余格中随机取 10,000 点拟合，并在 **8,076 个留出格点**比较投影坐标误差。平面单应性使用 3 像素 RANSAC；二次、三次多项式用相同训练点的鲁棒加权最小二乘，均不接触留出点。投影坐标误差中位数分别为 **4.48、2.75、1.57 像素**，90 分位分别为 **23.92、16.70、7.05 像素**；误差 <3 像素的留出点比例分别为 **38.36%、51.88%、82.40%**。固定程序与逐项结果见 `work/evaluate_compennetpp_geometry_surrogates.py`、`work/compennetpp_geometry_surrogate_holdout.json`。这说明**一个平面映射不能概括当前发布画幅中的复合对应关系**，且平滑非线性映射在同一设置内有预测力。格子是空间交错留出，仍与训练格相邻；单组投影几何和表面不能据此声称跨场景或跨设备泛化，也不能将多项式系数解释为真实深度或镜头畸变。背景、布幕与错误编码尚未分离。
+
 1. **几何与光度必须联动。** 投影图案在弯曲彩色布幕、背景墙和相机曝光链上形成编码对比度；同一表面/照明既决定对应关系是否可解，也决定纹理/颜色。不能先随机生成形变，再独立叠一个“莫尔纹或颜色噪声”。
 2. **几何校准只限当前设置。** 这 42 对能约束当前的投影像素→相机像素复合映射。没有实际相机/投影机内参与表面三维尺寸，不能从一组对应关系声称恢复镜头参数、投影距离或任意新角度的真实前向渲染。
 3. **下一步的可证伪目标**是对高置信坐标拟合低维平滑曲面映射，以空间留出点和另一个投影设置检验泛化；把高光/低对比区域单列为失败机制。只有通过这些检查，再把几何链接到[已完成的 24 组对齐后光度反证](CompenNet整包审计与投影前向反证_2026-09-25.md)。
@@ -35,6 +39,7 @@
 uv run python -m work.probe_compennetpp_structured_light
 uv run python -m work.extract_compennetpp_sl_one_setup
 uv run --extra analysis python -m work.decode_compennetpp_sl_one_setup
+uv run --extra analysis python -m work.evaluate_compennetpp_geometry_surrogates
 ```
 
 逐成员与逐阈值机器记录：`work/compennetpp_structured_light_probe.json`、`work/compennetpp_sl_one_setup_manifest.json`、`work/compennetpp_sl_decoding.json`。相机/输入 PNG 只在 E 盘 `data/derived/compennetpp_sl_one_setup/`，未复制进报告或 Git。
