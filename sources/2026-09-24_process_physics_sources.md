@@ -1,0 +1,21 @@
+# Process-physics source ledger (2026-09-24)
+
+Primary research and official dataset pages checked for `outputs/Simulation过程物理深读_屏摄与印刷成像_2026-09-24.md`. Claims in the report distinguish authors' measurements from our proposed validation tests. Availability statements are time-sensitive and should be rechecked before use.
+
+| Source | Sections or evidence used | Boundary |
+|---|---|---|
+| Muammar & Dragotti, ICASSP 2013, https://www.commsp.ee.ic.ac.uk/~pld/publications/2013_ICASSP_Muammar.pdf | §§2–4; projected monitor pitch, CFA lattice and alias cancellation under aligned/frontoparallel assumptions; local copy in this directory | Its exact `T_o=2kT_x` condition is not universal across screens, lenses or poses. |
+| Liu, Shu & Wu, 2018, https://arxiv.org/html/1804.03809 | §3 synthetic LCD-subpixel → projective transform → radial lens distortion → optical filtering → Bayer sampling → noise/demosaic/denoise/JPEG; §4.2 synthetic-to-real gap | Demoíréing, not AI-origin detection; fixed simplified device model. |
+| Yuan et al., 2015, https://arxiv.org/html/1501.01744 | §3 camera-display transfer and angle/spatial dependence of display emission; eqs. 5–8 | Measurements identify composite transfer, not display spectrum and camera response separately. |
+| Zhou et al., Bricker/BRACE, arXiv v2 July 2026, https://arxiv.org/html/2606.29845 | §§3.1–3.2 and Appendix A: row exposure/display modulation interaction, 6DOF synthetic virtual screen, multi-exposure real RAW captures (250 train, 40 test scenes) | Banding-focused and reverse-ISP synthetic RAW; not a complete screen optical simulator. Repository https://github.com/ZZH-qwq/BRACE listed code/data as TODO when checked; recheck before claiming access. |
+| Brooks et al., CVPR 2019, https://openaccess.thecvf.com/content_CVPR_2019/html/Brooks_Unprocessing_Images_for_Learned_Raw_Denoising_CVPR_2019_paper.html | RAW-domain shot/read noise and camera processing chain | Simulated reverse pipeline, not uniquely reconstructed raw from a final JPEG. |
+| EMVA 1288 official download page, https://www.emva.org/standards-technology/emva-1288/emva-standard-1288-downloads-2/ | Sensor measurement/characterization framework | A proposal for measurement, not proof that a particular phone follows all standard assumptions. |
+| Steinbach & Wong, JOSA 1982, https://opg.optica.org/josa/abstract.cfm?uri=josa-72-9-1190 | Fourier analysis of scanned halftone moiré vs scanner aperture, screen frequency, angle, sampling | Classical halftones and scanners; not all modern printer algorithms. |
+| Arney & Alber, 1999, https://www.imaging.org/common/uploaded%20files/pdfs/Papers/1999/RP-0-92/2081.pdf | Physical/optical dot gain, ink-paper interaction | Need device and paper calibration for numerical predictions. |
+| Inoue, Tsumura & Miyake, 1998, https://www.jstage.jst.go.jp/article/nig1987/35/4/35_4_189/_article | Measured paper PSF and optical dot gain | Specific print material and calibration. |
+| DPCS, 2025, https://arxiv.org/html/2503.12174 | §2: projector, material reflectance, direct/indirect lighting, projector/camera response | Projector compensation/relighting, not forensic detection. |
+| UHDM, ECCV 2022, https://www.ecva.net/papers/eccv_2022/papers_ECCV/papers/136780634.pdf | Real screen-photo pairs; 3 cameras × 3 displays; aligned/cropped pairs | Registered images do not preserve all raw pose evidence; no AI-origin labels. |
+| DESCAN-18K official page, https://huggingface.co/datasets/ENCLab/DESCAN-18K | Real print-scan pairs and scanner diversity | Magazine pages, no AI-origin labels; registered pairs. |
+| VIPPrint, 2021, https://arxiv.org/html/2102.06792 and https://zenodo.org/records/4454971 | Real natural/GAN face print-scan benchmark | Old GANs and one printer/scanner; paired digital-source files in released archive not yet audited. |
+| RRDataset, https://arxiv.org/html/2509.09172 | Author claims real platform transfers and physical re-digitization | Released test pack lacks per-image physical-method/device records; cannot validate four paths separately from final JPEG. |
+
