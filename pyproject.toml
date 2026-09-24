@@ -1,0 +1,19 @@
+[project]
+name = "origin-simulation"
+version = "0.1.0"
+description = "Calibratable forward models for image re-capture research"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy==2.2.6",
+    "scipy==1.15.3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==8.3.5"]
+
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
