@@ -69,3 +69,5 @@ def test_invalid_resolution_and_reflectance_are_rejected() -> None:
         PrintScanParameters(render_ppi=300, screen_lpi=100)
     with pytest.raises(ValueError):
         PrintScanParameters(ink_reflectance=.95, paper_reflectance=.9)
+    with pytest.raises(ValueError):
+        PrintScanParameters(mechanical_dot_gain_um=2)

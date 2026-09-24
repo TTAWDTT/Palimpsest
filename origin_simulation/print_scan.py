@@ -50,7 +50,7 @@ class PrintScanParameters:
                     self.screen_lpi, self.print_gamma, self.scanner_gamma)
         if not np.isfinite(positive).all() or min(positive) <= 0:
             raise ValueError("physical resolutions, screen frequency and gamma must be finite and positive")
-        if (self.render_ppi < 4 * self.screen_lpi or
+        if (self.render_ppi < 8 * self.screen_lpi or
                 self.render_ppi < self.scan_ppi or self.render_ppi < self.digital_ppi):
             raise ValueError("render_ppi undersamples the digital input, halftone lattice or scanner")
         finite = (self.screen_angle_degrees, self.screen_phase_u, self.screen_phase_v,
@@ -67,6 +67,9 @@ class PrintScanParameters:
             raise ValueError("ink reflectance must be lower than paper reflectance")
         if self.max_render_pixels <= 0:
             raise ValueError("max_render_pixels must be positive")
+        if (self.mechanical_dot_gain_um != 0 and
+                abs(self.mechanical_dot_gain_um) * self.render_ppi / UM_PER_INCH < 1):
+            raise ValueError("mechanical dot gain is below one render cell; increase render_ppi")
 
 
 @dataclass(frozen=True)
