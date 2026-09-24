@@ -41,4 +41,6 @@
 
 要前进一步，应取得同一已知数字彩图与真实印张的**物理输出尺寸、RIP/ICC 或至少网点实测、色卡/空白纸、扫描 PPI、重复印张与不同扫描参数**。然后先锁定设备级参数，在未见图/未见设置上比较色卡、网点二维峰与功率、边缘、噪声和固定来源检测器的配对分数变化。公开候选中，[DFD 彩色网点档案](https://dfd.inf.tu-dresden.de/dataset/)记录打印/扫描设置并有色块与两张图片，但 24 GB 档案尚未取得且未核实数字源是否发布；[L3i DocCopies](https://l3i-share.univ-lr.fr/datasets/DocCopiesWebsite/DocCopiesDataset.html)有多打印机及 300/600 dpi 扫描设置，但下载需要向作者联系，目前没有访问权。不能把这两个线索写成已可用的配对标定集。
 
+**档案获取状态补充：**DFD 彩色包的官方 HEAD 报告 25,818,121,374 字节且支持 HTTP Range；已用 `work/download_dfd_color.ps1` 启动 E 盘续传，目标路径为 `E:\ai_image_origin_research\data\raw\dfd_halftone_color\HalftoneImages-Color.tar.gz`。在完整字节数、SHA-256 和 tar/gzip 遍历完成前，它仅是 `.partial`，不可纳入样本统计。官方页面未给出预期哈希，本机 SHA 只可识别本次下载版本。
+
 运行方式：`uv run pytest -q`、`uv run python work/analyze_descan_print_signatures.py`、`uv run python -m work.probe_color_print_scan_descan`。原始档案留在 E 盘；脚本输出仅在 `work/`，此报告是当前用户入口。
