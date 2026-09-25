@@ -59,6 +59,7 @@ class ScreenCaptureParameters:
     pwm_phase_cycles: float = 0.0
     isp_luma_sharpen_amount: float = 0.0
     isp_luma_sharpen_sigma_pixels: float = 1.0
+    throughput_reference_f_number: float | None = None
 
     def __post_init__(self) -> None:
         transform = np.asarray(self.sensor_to_display, dtype=np.float64)
@@ -118,6 +119,11 @@ class ScreenCaptureParameters:
                 raise ValueError("diffraction and thin-lens aperture f-numbers must agree")
             if not np.allclose(transform[2, :2], 0, rtol=0, atol=1e-12):
                 raise ValueError("single-distance thin-lens defocus requires affine projection")
+        if self.throughput_reference_f_number is not None:
+            if (not np.isfinite(self.throughput_reference_f_number) or
+                    self.throughput_reference_f_number <= 0 or
+                    self.aperture_f_number is None):
+                raise ValueError("relative aperture throughput requires positive reference and current f-numbers")
         if (len(self.rgb_effective_wavelengths_nm) != 3 or
                 not np.isfinite(self.rgb_effective_wavelengths_nm).all() or
                 min(self.rgb_effective_wavelengths_nm) <= 0):
@@ -820,7 +826,8 @@ def render_screen_capture(
     channel response, not measured spectral sensitivity. Measured PSF, lens
     distortion, real ISP and JPEG remain outside this model. Thin-lens defocus
     is a uniform-distance circular-aperture approximation and couples the
-    aperture to Airy diffraction, but not yet to photon throughput. Set
+    aperture to Airy diffraction. Relative pupil-area throughput is opt-in
+    through throughput_reference_f_number at fixed focus/distance. Set
     defocus_psf_model="wave" for an ideal scalar through-focus circular-pupil
     reference instead of sequential Airy and geometric disk kernels. Optional
     luma sharpening is an ISP hypothesis. Parameters are virtual until fitted.
@@ -883,6 +890,13 @@ def render_screen_capture(
                 )
     row_exposure_gain = _pwm_row_gain(height, parameters)
     irradiance *= row_exposure_gain[:, None, None]
+    if parameters.throughput_reference_f_number is not None:
+        # Calibrated electron gain is defined at the reference f-number.
+        # At fixed focus/distance, ideal pupil area gives a (Nref/N)^2 ratio.
+        # Transmission losses, field vignetting and exposure compensation are
+        # intentionally separate, uncalibrated effects.
+        irradiance *= (parameters.throughput_reference_f_number /
+                       parameters.aperture_f_number) ** 2
 
     emitter_band_irradiance = irradiance
     spectral_mix = np.asarray(parameters.sensor_spectral_mix_rgb, dtype=np.float32)
