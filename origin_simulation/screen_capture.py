@@ -51,6 +51,7 @@ class ScreenCaptureParameters:
     electron_rate_per_unit_s: float | None = None
     full_well_electrons: float = 10000.0
     read_noise_electrons: float = 0.0
+    sensor_analog_gain_relative: float = 1.0
     pwm_frequency_hz: float | None = None
     pwm_duty_cycle: float = 1.0
     pwm_off_level: float = 0.0
@@ -73,6 +74,7 @@ class ScreenCaptureParameters:
             self.fill_fraction, self.display_gamma,
             self.optical_blur_sigma_sensor_pixels,
             self.full_well_electrons, self.read_noise_electrons,
+            self.sensor_analog_gain_relative,
             self.pwm_duty_cycle, self.pwm_off_level,
             self.sensor_row_interval_s, self.pwm_phase_cycles,
             self.isp_luma_sharpen_amount, self.isp_luma_sharpen_sigma_pixels,
@@ -137,6 +139,8 @@ class ScreenCaptureParameters:
         if ((self.exposure_electrons_per_unit is not None and self.exposure_electrons_per_unit < 0)
                 or self.full_well_electrons <= 0 or self.read_noise_electrons < 0):
             raise ValueError("exposure/read noise must be nonnegative and full well positive")
+        if self.sensor_analog_gain_relative < 1:
+            raise ValueError("relative analog gain must be at least one")
         if (self.exposure_electrons_per_unit is None and self.electron_rate_per_unit_s is None
                 and self.read_noise_electrons > 0):
             raise ValueError("read noise requires numeric exposure; None is noiseless preview")
@@ -949,12 +953,18 @@ def render_screen_capture(
         electrons_per_unit = parameters.electron_rate_per_unit_s * parameters.exposure_time_s
     if electrons_per_unit is not None:
         expected_electrons = np.maximum(mosaiced_irradiance, 0) * electrons_per_unit
-        noiseless_mosaic = np.clip(expected_electrons, 0, parameters.full_well_electrons) / parameters.full_well_electrons
+        # Shot noise is drawn from collected photoelectrons. Analog gain acts
+        # only on the readout signal, with a unity-gain-equivalent ADC ceiling;
+        # it does not create photons or improve photon shot-noise SNR.
+        gain = parameters.sensor_analog_gain_relative
+        noiseless_mosaic = np.clip(expected_electrons * gain / parameters.full_well_electrons,
+                                   0, 1).astype(np.float32)
         rng = np.random.default_rng(seed)
         electrons = rng.poisson(expected_electrons)
         if parameters.read_noise_electrons > 0:
             electrons = electrons + rng.normal(0, parameters.read_noise_electrons, electrons.shape)
-        raw_mosaic = np.clip(electrons / parameters.full_well_electrons, 0, 1).astype(np.float32)
+        raw_mosaic = np.clip(electrons * gain / parameters.full_well_electrons,
+                             0, 1).astype(np.float32)
 
     linear_rgb = _demosaic_bilinear(raw_mosaic, masks)
     srgb_before_sharpen = _linear_to_srgb(linear_rgb)
