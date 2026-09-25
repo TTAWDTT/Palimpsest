@@ -4,6 +4,8 @@ import io
 import hashlib
 import json
 from pathlib import Path
+import re
+import struct
 import tarfile
 
 import requests
@@ -41,6 +43,23 @@ def main() -> None:
     report = {"tar_total_bytes_reported_by_hf": 821_893_120,
               "range_bytes": len(response.content), "first_members": entries,
               "scope": "only first 4 MiB TAR range; no full archive audit"}
+    local_files = sorted((ROOT / "meta_raw").glob("*.dat"))
+    counts = {"files": len(local_files), "records": 0, "valid_timestamp_records": 0,
+              "zero_suffix_records": 0, "stride38_files": 0}
+    pattern = re.compile(rb"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}$")
+    for local in local_files:
+        payload = local.read_bytes()
+        if len(payload) % 38:
+            continue
+        counts["stride38_files"] += 1
+        for offset in range(0, len(payload), 38):
+            part = payload[offset:offset+38]
+            counts["records"] += 1
+            stamp = struct.unpack("<d", part[:8])[0]
+            counts["valid_timestamp_records"] += int(stamp >= 0 and pattern.fullmatch(part[8:34]) is not None)
+            counts["zero_suffix_records"] += int(part[34:38] == bytes(4))
+    report["local_sidecar_structure_audit"] = counts
+    report["structure_qualification"] = "empirical 38-byte layout only; do not infer an official schema or full TAR contents"
     OUT.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps(report, ensure_ascii=False, indent=2))
 
