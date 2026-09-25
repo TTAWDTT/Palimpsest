@@ -5,7 +5,8 @@ to continuous display pixel coordinates. Axis-aligned views integrate the
 rectangular subpixel overlap; general homographies use bounded fine-grid
 quadrature by default, with an explicitly gated display-prefilter approximation.
 Vertical RGB subpixels, a global square-wave display PWM, a
-Gaussian optical PSF, and the selected Bayer pattern are hypotheses, not calibrated facts.
+Gaussian optical PSF, optional paraxial thin-lens defocus disk and the selected
+Bayer pattern are hypotheses, not calibrated facts.
 """
 
 from dataclasses import dataclass
@@ -28,6 +29,10 @@ class ScreenCaptureParameters:
     optical_blur_sigma_sensor_pixels: float = 0.0
     diffraction_f_number: float | None = None
     sensor_pixel_pitch_um: float | None = None
+    lens_focal_length_mm: float | None = None
+    aperture_f_number: float | None = None
+    screen_distance_m: float | None = None
+    focus_distance_m: float | None = None
     rgb_effective_wavelengths_nm: tuple[float, float, float] = (610.0, 540.0, 460.0)
     sensor_spectral_mix_rgb: tuple[tuple[float, float, float], ...] = (
         (1.0, 0.0, 0.0),
@@ -86,6 +91,22 @@ class ScreenCaptureParameters:
                     self.sensor_pixel_pitch_um is None or
                     not np.isfinite(self.sensor_pixel_pitch_um) or self.sensor_pixel_pitch_um <= 0):
                 raise ValueError("diffraction requires positive f-number and sensor pixel pitch")
+        focus_fields = (self.lens_focal_length_mm, self.aperture_f_number,
+                        self.screen_distance_m, self.focus_distance_m)
+        if any(value is not None for value in focus_fields):
+            if (any(value is None or not np.isfinite(value) or value <= 0 for value in focus_fields)
+                    or self.sensor_pixel_pitch_um is None
+                    or not np.isfinite(self.sensor_pixel_pitch_um)
+                    or self.sensor_pixel_pitch_um <= 0):
+                raise ValueError("thin-lens defocus requires positive focal length, aperture, distances and pixel pitch")
+            focal_m = self.lens_focal_length_mm / 1000
+            if self.screen_distance_m <= focal_m or self.focus_distance_m <= focal_m:
+                raise ValueError("screen and focus distances must exceed lens focal length")
+            if (self.diffraction_f_number is not None and
+                    not np.isclose(self.diffraction_f_number, self.aperture_f_number, rtol=0, atol=1e-12)):
+                raise ValueError("diffraction and thin-lens aperture f-numbers must agree")
+            if not np.allclose(transform[2, :2], 0, rtol=0, atol=1e-12):
+                raise ValueError("single-distance thin-lens defocus requires affine projection")
         if (len(self.rgb_effective_wavelengths_nm) != 3 or
                 not np.isfinite(self.rgb_effective_wavelengths_nm).all() or
                 min(self.rgb_effective_wavelengths_nm) <= 0):
@@ -295,7 +316,7 @@ def _spatial_axis_analytic(emitted_frame: np.ndarray,
     imposed. The optional Airy diffraction kernel is not covered here.
     """
     transform = parameters.sensor_to_display
-    if not _is_axis_aligned_positive(transform) or parameters.diffraction_f_number is not None:
+    if not _is_axis_aligned_positive(transform) or _effective_diffraction_f_number(parameters) is not None:
         raise ValueError("analytic spatial method requires positive axis alignment and no diffraction")
     sensor_h, sensor_w = sensor_shape
     display_h, display_w, _ = emitted_frame.shape
@@ -338,7 +359,7 @@ def _spatial_prefilter(emitted_frame: np.ndarray, sensor_shape: tuple[int, int],
     the probed numerical regime instead of silently returning an inaccurate
     result. Physical LCD/PSF calibration remains a separate requirement.
     """
-    if parameters.diffraction_f_number is not None:
+    if _effective_diffraction_f_number(parameters) is not None:
         raise ValueError("prefilter method does not support Airy diffraction")
     sigma_sensor = parameters.optical_blur_sigma_sensor_pixels
     if sigma_sensor < 0.55:
@@ -442,10 +463,92 @@ def _optical_blur(fine_radiance: np.ndarray, sigma: float) -> np.ndarray:
 
 def _airy_radius_sensor_pixels(parameters: ScreenCaptureParameters) -> float:
     """Largest first-zero radius for the assumed RGB monochromatic bands."""
-    if parameters.diffraction_f_number is None:
+    f_number = _effective_diffraction_f_number(parameters)
+    if f_number is None:
         return 0.0
     return (1.22 * max(parameters.rgb_effective_wavelengths_nm) * 1e-3 *
-            parameters.diffraction_f_number / parameters.sensor_pixel_pitch_um)
+            f_number / parameters.sensor_pixel_pitch_um)
+
+
+def _effective_diffraction_f_number(parameters: ScreenCaptureParameters) -> float | None:
+    """A thin-lens aperture also gives an Airy limit; legacy diffraction stays available."""
+    return (parameters.aperture_f_number if parameters.aperture_f_number is not None
+            else parameters.diffraction_f_number)
+
+
+def thin_lens_coc_radius_sensor_pixels(parameters: ScreenCaptureParameters) -> float:
+    """Paraxial circle-of-confusion radius for one planar screen distance.
+
+    This is the geometric disk radius, not the complete optical PSF. The
+    sensor is placed at the image distance for ``focus_distance_m``.
+    """
+    if parameters.lens_focal_length_mm is None:
+        return 0.0
+    focal_mm = parameters.lens_focal_length_mm
+    focused_object_mm = parameters.focus_distance_m * 1000
+    screen_object_mm = parameters.screen_distance_m * 1000
+    focused_image_mm = focal_mm * focused_object_mm / (focused_object_mm - focal_mm)
+    screen_image_mm = focal_mm * screen_object_mm / (screen_object_mm - focal_mm)
+    aperture_diameter_mm = focal_mm / parameters.aperture_f_number
+    coc_diameter_mm = aperture_diameter_mm * abs(focused_image_mm - screen_image_mm) / screen_image_mm
+    return float(coc_diameter_mm * 1000 / parameters.sensor_pixel_pitch_um / 2)
+
+
+def thin_lens_frontoparallel_sensor_to_display(
+    *, lens_focal_length_mm: float, screen_distance_m: float,
+    focus_distance_m: float, sensor_pixel_pitch_um: float,
+    display_pixel_pitch_mm: float,
+    display_origin_xy: tuple[float, float] = (0.0, 0.0),
+) -> np.ndarray:
+    """Consistent frontoparallel display map for a paraxial thin lens.
+
+    The chief ray intersects the *actual* sensor plane at ``v_focus``. Thus a
+    focus change slightly changes apparent display scale (focus breathing)
+    as well as the circle of confusion. ``display_origin_xy`` encodes the
+    chosen crop/optical-axis offset, not a measured camera pose.
+    """
+    origin = np.asarray(display_origin_xy, dtype=np.float64)
+    values = np.asarray((lens_focal_length_mm, screen_distance_m, focus_distance_m,
+                         sensor_pixel_pitch_um, display_pixel_pitch_mm), dtype=np.float64)
+    if (origin.shape != (2,) or not np.isfinite(origin).all()
+            or not np.isfinite(values).all() or np.min(values) <= 0):
+        raise ValueError("thin-lens frontoparallel geometry requires finite positive scales")
+    focal_mm = lens_focal_length_mm
+    screen_mm = screen_distance_m * 1000
+    focus_mm = focus_distance_m * 1000
+    if min(screen_mm, focus_mm) <= focal_mm:
+        raise ValueError("screen and focus distances must exceed lens focal length")
+    sensor_plane_mm = focal_mm * focus_mm / (focus_mm - focal_mm)
+    scale = (sensor_pixel_pitch_um * 1e-3 * screen_mm /
+             (sensor_plane_mm * display_pixel_pitch_mm))
+    return np.asarray([[scale, 0, origin[0]],
+                       [0, scale, origin[1]],
+                       [0, 0, 1]], dtype=np.float64)
+
+
+def _defocus_disk_blur(fine_radiance: np.ndarray, radius_fine: float) -> np.ndarray:
+    """Apply a normalized geometric blur disk before pixel-area integration."""
+    if radius_fine <= 1e-12:
+        return fine_radiance
+    radius = int(np.ceil(radius_fine + 0.75))
+    if radius > 256:
+        raise ValueError("defocus disk support exceeds 256 fine cells; reduce oversampling")
+    grid = np.arange(-radius, radius + 1, dtype=np.float32)
+    yy, xx = np.meshgrid(grid, grid, indexing="ij")
+    kernel = np.zeros_like(xx)
+    # Fractional coverage of each fine cell keeps tiny disks continuous.
+    for dy in (-0.375, -0.125, 0.125, 0.375):
+        for dx in (-0.375, -0.125, 0.125, 0.375):
+            kernel += ((xx + dx) ** 2 + (yy + dy) ** 2 <= radius_fine ** 2)
+    if kernel.sum() <= 0:
+        kernel[radius, radius] = 1
+    kernel /= kernel.sum()
+    blurred = np.empty_like(fine_radiance)
+    for channel in range(3):
+        padded = np.pad(fine_radiance[..., channel], radius, mode="symmetric")
+        convolution = fftconvolve(padded, kernel, mode="same")
+        blurred[..., channel] = np.maximum(convolution[radius:-radius, radius:-radius], 0)
+    return blurred
 
 
 def _airy_kernel(radius_fine: int, first_zero_fine: float) -> np.ndarray:
@@ -463,11 +566,12 @@ def _airy_kernel(radius_fine: int, first_zero_fine: float) -> np.ndarray:
 
 def _diffraction_blur(fine_radiance: np.ndarray, parameters: ScreenCaptureParameters,
                       oversampling: int) -> np.ndarray:
-    if parameters.diffraction_f_number is None:
+    f_number = _effective_diffraction_f_number(parameters)
+    if f_number is None:
         return fine_radiance
     blurred = np.empty_like(fine_radiance)
     for channel, wavelength_nm in enumerate(parameters.rgb_effective_wavelengths_nm):
-        first_zero_fine = (1.22 * wavelength_nm * 1e-3 * parameters.diffraction_f_number /
+        first_zero_fine = (1.22 * wavelength_nm * 1e-3 * f_number /
                            parameters.sensor_pixel_pitch_um * oversampling)
         radius = int(np.ceil(4 * first_zero_fine))
         if radius > 512:
@@ -555,6 +659,8 @@ def _spatial_tile(
     y0, y1, x0, x1 = bounds
     halo = (int(np.ceil(4 * parameters.optical_blur_sigma_sensor_pixels)) +
             int(np.ceil(4 * _airy_radius_sensor_pixels(parameters))) +
+            (int(np.ceil(thin_lens_coc_radius_sensor_pixels(parameters))) + 1
+             if thin_lens_coc_radius_sensor_pixels(parameters) > 0 else 0) +
             (1 if parameters.optical_blur_sigma_sensor_pixels > 0 else 0))
     extended_y0, extended_y1 = max(0, y0 - halo), min(height, y1 + halo)
     extended_x0, extended_x1 = max(0, x0 - halo), min(width, x1 + halo)
@@ -576,6 +682,8 @@ def _spatial_tile(
     else:
         fine_radiance = _screen_radiance_projective(emitted_frame, parameters, display_x, display_y)
     fine_radiance = _diffraction_blur(fine_radiance, parameters, oversampling)
+    fine_radiance = _defocus_disk_blur(
+        fine_radiance, thin_lens_coc_radius_sensor_pixels(parameters) * oversampling)
     sigma = parameters.optical_blur_sigma_sensor_pixels * oversampling
     if sigma > 0:
         fine_radiance = _optical_blur(fine_radiance, sigma)
@@ -599,8 +707,10 @@ def render_screen_capture(
     uses one square-wave global screen luminance signal and row start times.
     The optional fixed spectral mix is an effective display-primary to sensor
     channel response, not measured spectral sensitivity. Measured PSF, lens
-    distortion, real ISP and JPEG remain outside this model. Optional luma
-    sharpening is an ISP hypothesis. Parameters are virtual until fitted.
+    distortion, real ISP and JPEG remain outside this model. Thin-lens defocus
+    is a uniform-distance circular-aperture approximation and couples the
+    aperture to Airy diffraction, but not yet to photon throughput. Optional
+    luma sharpening is an ISP hypothesis. Parameters are virtual until fitted.
     """
     frame = np.asarray(frame, dtype=np.float32)
     if frame.ndim != 3 or frame.shape[2] != 3 or not np.isfinite(frame).all():
@@ -638,6 +748,8 @@ def render_screen_capture(
             )
         halo = (int(np.ceil(4 * parameters.optical_blur_sigma_sensor_pixels)) +
                 int(np.ceil(4 * _airy_radius_sensor_pixels(parameters))) +
+                (int(np.ceil(thin_lens_coc_radius_sensor_pixels(parameters))) + 1
+                 if thin_lens_coc_radius_sensor_pixels(parameters) > 0 else 0) +
                 (1 if parameters.optical_blur_sigma_sensor_pixels > 0 else 0))
         safe_side = int(np.floor(np.sqrt(12_000_000) / oversampling)) - 2 * halo
         if safe_side < 1:
