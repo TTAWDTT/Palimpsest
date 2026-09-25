@@ -25,11 +25,14 @@ PARAM_IDS = (4, 5, 13, 14, 22, 23)  # ISO 250/2000, 1/60 s, f/5/9/16
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--classes", type=int, default=4)
+    parser.add_argument("--class-offset", type=int, default=0)
     parser.add_argument("--params", type=int, nargs="+", default=PARAM_IDS)
     parser.add_argument("--output", type=Path, default=OUT)
     args = parser.parse_args()
-    if not 1 <= args.classes <= 200 or any(not 1 <= p <= 27 for p in args.params):
-        parser.error("classes must be 1..200 and param IDs 1..27")
+    if (not 1 <= args.classes <= 200 or args.class_offset < 0 or
+            args.class_offset + args.classes > 200 or
+            any(not 1 <= p <= 27 for p in args.params)):
+        parser.error("class offset/count must select 1..200 and param IDs 1..27")
     head = requests.head(URL, allow_redirects=True, timeout=30)
     head.raise_for_status()
     size = int(head.headers["Content-Length"])
@@ -44,7 +47,8 @@ def main() -> None:
             if name.startswith(prefix) and name.lower().endswith(".jpeg"):
                 by_class[name.split("/")[3]].append(name)
         classes = sorted(by_class,
-                         key=lambda name: hashlib.sha256(name.encode()).digest())[:args.classes]
+                         key=lambda name: hashlib.sha256(name.encode()).digest())[
+                             args.class_offset:args.class_offset + args.classes]
         selected = []
         for cls in classes:
             ref = sorted(by_class[cls], key=lambda name: hashlib.sha256(name.encode()).digest())[0]
@@ -87,7 +91,8 @@ def main() -> None:
                              "fraction_rgb_near_white": float((rgb.min(axis=2) >= .98).mean()),
                              "exif": exif})
     report = {"url": URL, "archive_bytes": size, "etag": head.headers.get("ETag"),
-              "source_classes": classes, "param_ids": args.params,
+              "source_classes": classes, "class_offset": args.class_offset,
+              "param_ids": args.params,
               "mapping_source": "author repository settings/grid-options-3x3x3.csv",
               "rows": rows, "reused_verified_local_files": reused,
               "range_requests": remote.request_count,
