@@ -17,6 +17,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--manifest", type=Path, default=MANIFEST)
     parser.add_argument("--output", type=Path, default=OUTPUT)
+    parser.add_argument("--role", choices=("development", "content_holdout"), default="development")
     args = parser.parse_args()
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     expected_params = tuple(manifest["param_ids"])
@@ -24,6 +25,8 @@ def main() -> None:
         raise ValueError("unexpected aperture/ISO parameter set")
     if len(manifest["source_classes"]) != 20:
         raise ValueError("expected 20 source classes")
+    if args.role == "content_holdout" and manifest.get("class_offset") != 20:
+        raise ValueError("content holdout must use the frozen class offset 20")
     groups = defaultdict(dict)
     for item in manifest["rows"]:
         member = item["member"]
@@ -44,7 +47,7 @@ def main() -> None:
             raise ValueError(f"incomplete source group {cls}/{basename}")
         for param_id, item in sorted(group.items()):
             rows.append({
-                "role": "development",
+                "role": args.role,
                 "source_key": f"{cls}/{basename}",
                 "class_id": cls,
                 "param_id": param_id,
