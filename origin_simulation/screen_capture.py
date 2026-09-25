@@ -19,6 +19,8 @@ from scipy.signal import fftconvolve
 from scipy.special import j1, ndtr
 from scipy.sparse import csr_matrix
 
+from .optical_psf import circular_pupil_defocus_psf, circular_pupil_support_fine
+
 
 @dataclass(frozen=True)
 class ScreenCaptureParameters:
@@ -33,6 +35,7 @@ class ScreenCaptureParameters:
     aperture_f_number: float | None = None
     screen_distance_m: float | None = None
     focus_distance_m: float | None = None
+    defocus_psf_model: str = "geometric_airy"
     rgb_effective_wavelengths_nm: tuple[float, float, float] = (610.0, 540.0, 460.0)
     sensor_spectral_mix_rgb: tuple[tuple[float, float, float], ...] = (
         (1.0, 0.0, 0.0),
@@ -93,6 +96,10 @@ class ScreenCaptureParameters:
                 raise ValueError("diffraction requires positive f-number and sensor pixel pitch")
         focus_fields = (self.lens_focal_length_mm, self.aperture_f_number,
                         self.screen_distance_m, self.focus_distance_m)
+        if self.defocus_psf_model not in ("geometric_airy", "wave"):
+            raise ValueError("defocus_psf_model must be geometric_airy or wave")
+        if self.defocus_psf_model == "wave" and not all(value is not None for value in focus_fields):
+            raise ValueError("wave defocus PSF requires complete thin-lens parameters")
         if any(value is not None for value in focus_fields):
             if (any(value is None or not np.isfinite(value) or value <= 0 for value in focus_fields)
                     or self.sensor_pixel_pitch_um is None
@@ -583,6 +590,38 @@ def _diffraction_blur(fine_radiance: np.ndarray, parameters: ScreenCaptureParame
     return blurred
 
 
+def _wave_defocus_blur(fine_radiance: np.ndarray, parameters: ScreenCaptureParameters,
+                       oversampling: int) -> np.ndarray:
+    """Apply wavelength-specific through-focus pupil intensity before sampling."""
+    blurred = np.empty_like(fine_radiance)
+    for channel, wavelength_nm in enumerate(parameters.rgb_effective_wavelengths_nm):
+        kernel = circular_pupil_defocus_psf(
+            parameters.lens_focal_length_mm, parameters.aperture_f_number,
+            parameters.screen_distance_m, parameters.focus_distance_m,
+            parameters.sensor_pixel_pitch_um, wavelength_nm, oversampling)
+        radius = kernel.shape[0] // 2
+        padded = np.pad(fine_radiance[..., channel], radius, mode="symmetric")
+        convolution = fftconvolve(padded, kernel, mode="same")
+        blurred[..., channel] = np.maximum(convolution[radius:-radius, radius:-radius], 0)
+    return blurred
+
+
+def _optical_halo_sensor_pixels(parameters: ScreenCaptureParameters,
+                                oversampling: int) -> int:
+    gaussian = (int(np.ceil(4 * parameters.optical_blur_sigma_sensor_pixels)) +
+                (1 if parameters.optical_blur_sigma_sensor_pixels > 0 else 0))
+    if parameters.defocus_psf_model == "wave":
+        support_fine = max(circular_pupil_support_fine(
+            parameters.lens_focal_length_mm, parameters.aperture_f_number,
+            parameters.screen_distance_m, parameters.focus_distance_m,
+            parameters.sensor_pixel_pitch_um, wavelength, oversampling)
+            for wavelength in parameters.rgb_effective_wavelengths_nm)
+        return gaussian + int(np.ceil(support_fine / oversampling)) + 1
+    disk_radius = thin_lens_coc_radius_sensor_pixels(parameters)
+    return (gaussian + int(np.ceil(4 * _airy_radius_sensor_pixels(parameters))) +
+            (int(np.ceil(disk_radius)) + 1 if disk_radius > 0 else 0))
+
+
 def _bayer_masks(shape: tuple[int, int], pattern: str = "RGGB") -> np.ndarray:
     rows, columns = np.indices(shape)
     masks = np.zeros(shape + (3,), dtype=np.float32)
@@ -657,11 +696,7 @@ def _spatial_tile(
     """Render one sensor rectangle with enough halo for the Gaussian PSF."""
     height, width = sensor_shape
     y0, y1, x0, x1 = bounds
-    halo = (int(np.ceil(4 * parameters.optical_blur_sigma_sensor_pixels)) +
-            int(np.ceil(4 * _airy_radius_sensor_pixels(parameters))) +
-            (int(np.ceil(thin_lens_coc_radius_sensor_pixels(parameters))) + 1
-             if thin_lens_coc_radius_sensor_pixels(parameters) > 0 else 0) +
-            (1 if parameters.optical_blur_sigma_sensor_pixels > 0 else 0))
+    halo = _optical_halo_sensor_pixels(parameters, oversampling)
     extended_y0, extended_y1 = max(0, y0 - halo), min(height, y1 + halo)
     extended_x0, extended_x1 = max(0, x0 - halo), min(width, x1 + halo)
     extended_height = extended_y1 - extended_y0
@@ -681,9 +716,12 @@ def _spatial_tile(
         fine_radiance = _screen_radiance(emitted_frame, parameters, display_x, display_y, oversampling)
     else:
         fine_radiance = _screen_radiance_projective(emitted_frame, parameters, display_x, display_y)
-    fine_radiance = _diffraction_blur(fine_radiance, parameters, oversampling)
-    fine_radiance = _defocus_disk_blur(
-        fine_radiance, thin_lens_coc_radius_sensor_pixels(parameters) * oversampling)
+    if parameters.defocus_psf_model == "wave":
+        fine_radiance = _wave_defocus_blur(fine_radiance, parameters, oversampling)
+    else:
+        fine_radiance = _diffraction_blur(fine_radiance, parameters, oversampling)
+        fine_radiance = _defocus_disk_blur(
+            fine_radiance, thin_lens_coc_radius_sensor_pixels(parameters) * oversampling)
     sigma = parameters.optical_blur_sigma_sensor_pixels * oversampling
     if sigma > 0:
         fine_radiance = _optical_blur(fine_radiance, sigma)
@@ -709,7 +747,9 @@ def render_screen_capture(
     channel response, not measured spectral sensitivity. Measured PSF, lens
     distortion, real ISP and JPEG remain outside this model. Thin-lens defocus
     is a uniform-distance circular-aperture approximation and couples the
-    aperture to Airy diffraction, but not yet to photon throughput. Optional
+    aperture to Airy diffraction, but not yet to photon throughput. Set
+    defocus_psf_model="wave" for an ideal scalar through-focus circular-pupil
+    reference instead of sequential Airy and geometric disk kernels. Optional
     luma sharpening is an ISP hypothesis. Parameters are virtual until fitted.
     """
     frame = np.asarray(frame, dtype=np.float32)
@@ -746,11 +786,7 @@ def render_screen_capture(
             raise ValueError(
                 f"underresolved emitter: use at least {required_samples} samples per sensor pixel"
             )
-        halo = (int(np.ceil(4 * parameters.optical_blur_sigma_sensor_pixels)) +
-                int(np.ceil(4 * _airy_radius_sensor_pixels(parameters))) +
-                (int(np.ceil(thin_lens_coc_radius_sensor_pixels(parameters))) + 1
-                 if thin_lens_coc_radius_sensor_pixels(parameters) > 0 else 0) +
-                (1 if parameters.optical_blur_sigma_sensor_pixels > 0 else 0))
+        halo = _optical_halo_sensor_pixels(parameters, oversampling)
         safe_side = int(np.floor(np.sqrt(12_000_000) / oversampling)) - 2 * halo
         if safe_side < 1:
             raise ValueError("oversampling and optical blur exceed tile memory limit")
