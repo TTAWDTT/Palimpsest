@@ -37,7 +37,8 @@ OUT = Path("work/raw2event_source_to_raw_probe.json")
 
 
 def prepare(prefix: str, audit_path: Path | None = None, source_rgb: np.ndarray | None = None,
-            rgb_content_corners: np.ndarray | None = None) -> dict:
+            rgb_content_corners: np.ndarray | None = None,
+            raw_to_rgb_override: np.ndarray | None = None) -> dict:
     raw = extract_frame(ROOT / "frames_raw" / f"{prefix}.mkv", 0, "gray16le", 1, "<u2")
     if audit_path is None:
         rgb = extract_frame(ROOT / "frames_rgb" / f"{prefix}.mkv", 0, "rgb24", 3, "u1")
@@ -50,6 +51,14 @@ def prepare(prefix: str, audit_path: Path | None = None, source_rgb: np.ndarray 
     else:
         audit = json.loads(audit_path.read_text(encoding="utf-8"))
         h_raw_to_rgb = np.asarray(audit["samples"]["0"]["tag"]["raw_to_rgb_tag_homography"])
+    if raw_to_rgb_override is not None:
+        override = np.asarray(raw_to_rgb_override, dtype=np.float64)
+        if override.shape == (2, 3):
+            h_raw_to_rgb = np.vstack((override, [0.0, 0.0, 1.0]))
+        elif override.shape == (3, 3):
+            h_raw_to_rgb = override
+        else:
+            raise ValueError("raw_to_rgb_override must be affine 2x3 or projective 3x3")
     corners = RGB_CORNERS if rgb_content_corners is None else np.asarray(rgb_content_corners, dtype=np.float32)
     if corners.shape != (4, 2):
         raise ValueError("content corners must be TL,TR,BR,BL with shape 4x2")
