@@ -85,3 +85,41 @@ def test_wave_fine_sensor_crop_does_not_change_irradiance():
     small = render_screen_capture(frame, (20, 20), params).irradiance
     large = render_screen_capture(frame, (32, 32), params).irradiance
     np.testing.assert_allclose(small, large[:20, :20], rtol=0, atol=1e-5)
+
+
+@pytest.mark.parametrize("focus", ["moderate", "high_diffraction"])
+def test_wave_prefilter_tiling_matches_full_raster(focus):
+    frame = np.random.default_rng(218).uniform(.1, .9, (72, 72, 3)).astype(np.float32)
+    if focus == "moderate":
+        params = _camera()
+    else:
+        params = ScreenCaptureParameters(
+            sensor_to_display=np.array([[1/1.3272, 0, 13.731],
+                                        [0, 1/1.3272, 12.084], [0, 0, 1]]),
+            fill_fraction=.85, emitter_layout="vertical_rgb", display_gamma=1,
+            lens_focal_length_mm=30, aperture_f_number=13,
+            screen_distance_m=1.45, focus_distance_m=1.45,
+            sensor_pixel_pitch_um=4.30652, defocus_psf_model="wave")
+    full = render_screen_capture(frame, (32, 32), params,
+                                 spatial_method="wave_prefilter").irradiance
+    tiled = render_screen_capture(frame, (32, 32), params,
+                                  spatial_method="wave_prefilter",
+                                  tile_size_sensor_pixels=8).irradiance
+    np.testing.assert_allclose(tiled, full, rtol=0, atol=2e-6)
+
+
+def test_wave_prefilter_auto_tiles_when_full_display_exceeds_memory_cap():
+    big = np.random.default_rng(19).uniform(.1, .9, (300, 300, 3)).astype(np.float32)
+    small = big[:72, :72].copy()
+    params = ScreenCaptureParameters(
+        sensor_to_display=np.array([[1/1.3272, 0, 13.731],
+                                    [0, 1/1.3272, 12.084], [0, 0, 1]]),
+        fill_fraction=.85, emitter_layout="vertical_rgb", display_gamma=1,
+        lens_focal_length_mm=30, aperture_f_number=13,
+        screen_distance_m=1.45, focus_distance_m=1.45,
+        sensor_pixel_pitch_um=4.30652, defocus_psf_model="wave")
+    reference = render_screen_capture(small, (32, 32), params,
+                                      spatial_method="wave_prefilter").irradiance
+    tiled = render_screen_capture(big, (32, 32), params,
+                                  spatial_method="wave_prefilter").irradiance
+    np.testing.assert_allclose(tiled, reference, rtol=0, atol=2e-6)

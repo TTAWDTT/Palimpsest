@@ -456,7 +456,8 @@ def _spatial_prefilter(emitted_frame: np.ndarray, sensor_shape: tuple[int, int],
 
 def _spatial_wave_prefilter(emitted_frame: np.ndarray,
                             sensor_shape: tuple[int, int],
-                            parameters: ScreenCaptureParameters) -> np.ndarray:
+                            parameters: ScreenCaptureParameters,
+                            tile_size_sensor_pixels: int | None = None) -> np.ndarray:
     """Bounded fast frontoparallel wave-PSF path, before sensor sampling.
 
     This display-grid quadrature has been stress-tested for moderate defocus
@@ -487,19 +488,53 @@ def _spatial_wave_prefilter(emitted_frame: np.ndarray,
         raise ValueError("wave_prefilter CoC radius, Airy radius or projection/fill outside tested numerical range")
     display_samples, sensor_samples = 12, 6
     display_h, display_w, _ = emitted_frame.shape
-    if display_h * display_w * display_samples**2 > 12_000_000:
-        raise ValueError("wave_prefilter display raster exceeds memory limit; use fine method")
-    raster = _display_emitter_raster(emitted_frame, parameters, display_samples)
-    for channel, wavelength in enumerate(parameters.rgb_effective_wavelengths_nm):
-        kernel = circular_pupil_defocus_psf_display(
+    kernels = tuple(circular_pupil_defocus_psf_display(
             parameters.lens_focal_length_mm, parameters.aperture_f_number,
             parameters.screen_distance_m, parameters.focus_distance_m,
             parameters.sensor_pixel_pitch_um, wavelength,
             H[0, 0], H[1, 1], display_samples)
-        raster[..., channel] = np.maximum(
-            fftconvolve(raster[..., channel], kernel, mode="same"), 0)
-    return _integrate_display_raster(
-        raster, sensor_shape, H, display_samples, sensor_samples)
+            for wavelength in parameters.rgb_effective_wavelengths_nm)
+    if tile_size_sensor_pixels is None and display_h * display_w * display_samples**2 <= 12_000_000:
+        raster = _display_emitter_raster(emitted_frame, parameters, display_samples)
+        for channel, kernel in enumerate(kernels):
+            raster[..., channel] = np.maximum(
+                fftconvolve(raster[..., channel], kernel, mode="same"), 0)
+        return _integrate_display_raster(
+            raster, sensor_shape, H, display_samples, sensor_samples)
+
+    side = tile_size_sensor_pixels if tile_size_sensor_pixels is not None else 128
+    if isinstance(side, (bool, np.bool_)) or not isinstance(side, (int, np.integer)) or side < 1:
+        raise ValueError("wave_prefilter tile size must be a positive integer")
+    halo_x = max(kernel.shape[1] // 2 for kernel in kernels) / display_samples
+    halo_y = max(kernel.shape[0] // 2 for kernel in kernels) / display_samples
+    result = np.empty(sensor_shape + (3,), dtype=np.float32)
+    for y0 in range(0, sensor_shape[0], side):
+        y1 = min(y0 + side, sensor_shape[0])
+        for x0 in range(0, sensor_shape[1], side):
+            x1 = min(x0 + side, sensor_shape[1])
+            display_x0 = max(0, int(floor(H[0, 0] * x0 + H[0, 2] - halo_x - 2)))
+            display_x1 = min(display_w, int(ceil(H[0, 0] * x1 + H[0, 2] + halo_x + 2)))
+            display_y0 = max(0, int(floor(H[1, 1] * y0 + H[1, 2] - halo_y - 2)))
+            display_y1 = min(display_h, int(ceil(H[1, 1] * y1 + H[1, 2] + halo_y + 2)))
+            if display_x1 <= display_x0 or display_y1 <= display_y0:
+                result[y0:y1, x0:x1] = 0
+                continue
+            crop_h, crop_w = display_y1 - display_y0, display_x1 - display_x0
+            if crop_h * crop_w * display_samples**2 > 12_000_000:
+                raise ValueError("wave_prefilter tile exceeds memory limit; reduce tile_size_sensor_pixels")
+            raster = _display_emitter_raster(
+                emitted_frame[display_y0:display_y1, display_x0:display_x1],
+                parameters, display_samples)
+            for channel, kernel in enumerate(kernels):
+                raster[..., channel] = np.maximum(
+                    fftconvolve(raster[..., channel], kernel, mode="same"), 0)
+            local_H = H.copy()
+            local_H[0, 2] += H[0, 0] * x0 - display_x0
+            local_H[1, 2] += H[1, 1] * y0 - display_y0
+            result[y0:y1, x0:x1] = _integrate_display_raster(
+                raster, (y1-y0, x1-x0), local_H,
+                display_samples, sensor_samples)
+    return result
 
 
 def _pwm_row_gain(height: int, parameters: ScreenCaptureParameters) -> np.ndarray:
@@ -852,9 +887,10 @@ def render_screen_capture(
             raise ValueError("prefilter spatial method does not use fine-grid samples or tiles")
         irradiance = _spatial_prefilter(emitted_frame, (height, width), parameters)
     elif spatial_method == "wave_prefilter":
-        if samples_per_sensor_pixel is not None or tile_size_sensor_pixels is not None:
-            raise ValueError("wave_prefilter spatial method does not use fine-grid samples or tiles")
-        irradiance = _spatial_wave_prefilter(emitted_frame, (height, width), parameters)
+        if samples_per_sensor_pixel is not None:
+            raise ValueError("wave_prefilter spatial method does not use fine-grid samples")
+        irradiance = _spatial_wave_prefilter(
+            emitted_frame, (height, width), parameters, tile_size_sensor_pixels)
     else:
         required_samples = _minimum_samples_for_projection(
             parameters.sensor_to_display, (height, width), parameters.fill_fraction

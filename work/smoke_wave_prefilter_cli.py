@@ -24,6 +24,7 @@ def main() -> None:
             "parameter_status": "virtual CLI smoke test, not device calibrated",
             "sensor_shape": [20, 20],
             "spatial_method": "wave_prefilter",
+            "tile_size_sensor_pixels": 8,
             "parameters": {
                 "sensor_to_display": [[.93, 0, 9.137], [0, .93, 8.219], [0, 0, 1]],
                 "fill_fraction": .85,
