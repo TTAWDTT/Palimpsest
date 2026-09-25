@@ -3,13 +3,15 @@
 Coordinates of ``sensor_to_display`` map continuous sensor pixel coordinates
 to continuous display pixel coordinates. Axis-aligned views integrate the
 rectangular subpixel overlap; general homographies use bounded fine-grid
-quadrature. Vertical RGB subpixels, a global square-wave display PWM, a
+quadrature by default, with an explicitly gated display-prefilter approximation.
+Vertical RGB subpixels, a global square-wave display PWM, a
 Gaussian optical PSF, and the selected Bayer pattern are hypotheses, not calibrated facts.
 """
 
 from dataclasses import dataclass
 from math import ceil, floor, sqrt, pi
 
+import cv2
 import numpy as np
 from scipy.ndimage import convolve, gaussian_filter
 from scipy.signal import fftconvolve
@@ -326,6 +328,76 @@ def _homography_jacobian(transform: np.ndarray, x: float, y: float) -> np.ndarra
     ])
 
 
+def _spatial_prefilter(emitted_frame: np.ndarray, sensor_shape: tuple[int, int],
+                       parameters: ScreenCaptureParameters) -> np.ndarray:
+    """Experimental bounded perspective approximation for Gaussian optics.
+
+    Raster cells store *area coverage* of rectangular display emitters. A
+    center-Jacobian Gaussian is applied in display coordinates, then each
+    sensor pixel is integrated by 4x4 quadrature. Reject geometries outside
+    the probed numerical regime instead of silently returning an inaccurate
+    result. Physical LCD/PSF calibration remains a separate requirement.
+    """
+    if parameters.diffraction_f_number is not None:
+        raise ValueError("prefilter method does not support Airy diffraction")
+    sigma_sensor = parameters.optical_blur_sigma_sensor_pixels
+    if sigma_sensor < 0.55:
+        raise ValueError("prefilter method requires Gaussian sigma >= 0.55 sensor pixels")
+    height, width = sensor_shape
+    H = parameters.sensor_to_display
+    positions = ((0, 0), (width, 0), (0, height), (width, height))
+    denominators = [H[2, 0] * x + H[2, 1] * y + H[2, 2] for x, y in positions]
+    if min(denominators) * max(denominators) <= 0 or min(map(abs, denominators)) < 1e-8:
+        raise ValueError("prefilter projection reaches the homography horizon")
+    center = _homography_jacobian(H, width / 2, height / 2)
+    variation = max(np.linalg.norm(_homography_jacobian(H, x, y) - center)
+                    for x, y in positions) / np.linalg.norm(center)
+    covariance = center @ center.T
+    axis_correlation = abs(covariance[0, 1]) / sqrt(covariance[0, 0] * covariance[1, 1])
+    if variation > 0.05 or axis_correlation > 0.05:
+        raise ValueError("prefilter geometry exceeds probed Jacobian range; use fine method")
+
+    display_samples, sensor_samples = 8, 4
+    display_h, display_w, _ = emitted_frame.shape
+    if display_h * display_w * display_samples**2 > 8_000_000:
+        raise ValueError("prefilter display raster exceeds memory limit; use fine method")
+    S = display_samples
+    indices_x = np.arange(display_w * S, dtype=np.int32)
+    indices_y = np.arange(display_h * S, dtype=np.int32)
+    px, py = indices_x // S, indices_y // S
+    fx, fy = (indices_x % S) / S, (indices_y % S) / S
+    gap = (1 - parameters.fill_fraction) / 2
+    vertical_coverage = S * np.maximum(0, np.minimum(fy + 1 / S, 1 - gap) - np.maximum(fy, gap))
+    raster = np.empty((display_h * S, display_w * S, 3), dtype=np.float32)
+    for channel in range(3):
+        if parameters.emitter_layout == "vertical_rgb":
+            left, right = (channel + gap) / 3, (channel + 1 - gap) / 3
+            factor = 1.0
+        else:
+            left, right = gap, 1 - gap
+            factor = 1 / 3
+        horizontal_coverage = S * np.maximum(0, np.minimum(fx + 1 / S, right) - np.maximum(fx, left))
+        raster[..., channel] = (emitted_frame[py[:, None], px[None, :], channel]
+                                * vertical_coverage[:, None] * horizontal_coverage[None, :] * factor)
+    sigma_x = sigma_sensor * sqrt(covariance[0, 0]) * S
+    sigma_y = sigma_sensor * sqrt(covariance[1, 1]) * S
+    raster = gaussian_filter(raster, (sigma_y, sigma_x, 0), mode="constant", cval=0)
+
+    base_y, base_x = np.indices((height, width), dtype=np.float32)
+    result = np.zeros((height, width, 3), dtype=np.float32)
+    for sy in range(sensor_samples):
+        for sx in range(sensor_samples):
+            x = base_x + (sx + 0.5) / sensor_samples
+            y = base_y + (sy + 0.5) / sensor_samples
+            denominator = H[2, 0] * x + H[2, 1] * y + H[2, 2]
+            u = (H[0, 0] * x + H[0, 1] * y + H[0, 2]) / denominator
+            v = (H[1, 0] * x + H[1, 1] * y + H[1, 2]) / denominator
+            result += cv2.remap(raster, (u * S - .5).astype(np.float32),
+                                (v * S - .5).astype(np.float32), cv2.INTER_LINEAR,
+                                borderMode=cv2.BORDER_CONSTANT, borderValue=0)
+    return result / (sensor_samples * sensor_samples)
+
+
 def _pwm_row_gain(height: int, parameters: ScreenCaptureParameters) -> np.ndarray:
     """Fraction of peak-on display radiance collected during each row exposure.
 
@@ -538,13 +610,17 @@ def render_screen_capture(
     if len(sensor_shape) != 2 or any(int(size) != size or size <= 0 for size in sensor_shape):
         raise ValueError("sensor_shape must contain two positive integer dimensions")
     height, width = map(int, sensor_shape)
-    if spatial_method not in ("fine", "analytic"):
-        raise ValueError("spatial_method must be fine or analytic")
+    if spatial_method not in ("fine", "analytic", "prefilter"):
+        raise ValueError("spatial_method must be fine, analytic or prefilter")
     emitted_frame = np.power(frame, parameters.display_gamma)
     if spatial_method == "analytic":
         if samples_per_sensor_pixel is not None or tile_size_sensor_pixels is not None:
             raise ValueError("analytic spatial method does not use fine-grid samples or tiles")
         irradiance = _spatial_axis_analytic(emitted_frame, (height, width), parameters)
+    elif spatial_method == "prefilter":
+        if samples_per_sensor_pixel is not None or tile_size_sensor_pixels is not None:
+            raise ValueError("prefilter spatial method does not use fine-grid samples or tiles")
+        irradiance = _spatial_prefilter(emitted_frame, (height, width), parameters)
     else:
         required_samples = _minimum_samples_for_projection(
             parameters.sensor_to_display, (height, width), parameters.fill_fraction

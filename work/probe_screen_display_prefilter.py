@@ -20,6 +20,17 @@ from work.probe_screen_projective_convergence import pose
 OUT = Path("work/screen_display_prefilter_probe.json")
 
 
+def geometry_diagnostics(transform: np.ndarray, sensor_shape: tuple[int, int]) -> dict:
+    sh, sw = sensor_shape
+    center = _homography_jacobian(transform, sw / 2, sh / 2)
+    corners = [_homography_jacobian(transform, x, y)
+               for x, y in ((0, 0), (sw, 0), (0, sh), (sw, sh))]
+    variation = max(float(np.linalg.norm(j - center) / np.linalg.norm(center)) for j in corners)
+    covariance = center @ center.T
+    rho = abs(float(covariance[0, 1] / np.sqrt(covariance[0, 0] * covariance[1, 1])))
+    return {"jacobian_relative_variation_max": variation, "display_psf_axis_correlation_abs": rho}
+
+
 def approximate_bands(frame: np.ndarray, sensor_shape: tuple[int, int], transform: np.ndarray,
                       fill: float, sigma_sensor: float, layout: str,
                       display_samples: int, sensor_samples: int) -> np.ndarray:

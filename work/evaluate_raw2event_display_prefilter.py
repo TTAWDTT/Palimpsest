@@ -11,11 +11,12 @@ import time
 
 import numpy as np
 
+from origin_simulation.screen_capture import ScreenCaptureParameters, render_screen_capture
 from work.audit_raw2event_split_first_frames import load_originals
 from work.evaluate_raw2event_phase_confirmation import metrics, predict_phase
 from work.evaluate_raw2event_spectral_mix import cached_bands, code_hash
 from work.probe_raw2event_source_to_raw import prepare
-from work.probe_screen_display_prefilter import approximate_bands
+from work.probe_screen_display_prefilter import approximate_bands, geometry_diagnostics
 
 
 MANIFEST = Path("E:/ai_image_origin_research/data/manifests/raw2event_phase_confirmation_v1.csv")
@@ -71,14 +72,25 @@ def main() -> None:
         prepared = prepare(prefix, None, originals[prefix], np.asarray(corners[prefix], np.float32), affine)
         fine, fine_seconds = cached_bands(row, prepared, "vertical_rgb", code_hash())
         start = time.perf_counter()
-        fast = approximate_bands(prepared["drive"], prepared["actual"].shape, prepared["H"],
-                                 0.85, 0.8, "vertical_rgb", DISPLAY_SAMPLES, SENSOR_SAMPLES)
+        fast = render_screen_capture(
+            prepared["drive"], prepared["actual"].shape,
+            ScreenCaptureParameters(sensor_to_display=prepared["H"], fill_fraction=.85,
+                                    emitter_layout="vertical_rgb", display_gamma=2.2,
+                                    optical_blur_sigma_sensor_pixels=.8),
+            spatial_method="prefilter").emitter_band_irradiance
         fast_seconds = time.perf_counter() - start
+        if not results:
+            independent = approximate_bands(prepared["drive"], prepared["actual"].shape,
+                                            prepared["H"], .85, .8, "vertical_rgb",
+                                            DISPLAY_SAMPLES, SENSOR_SAMPLES)
+            if not np.array_equal(fast, independent):
+                raise RuntimeError("integrated prefilter differs from independent prototype")
         select = prepared["mask"]
         diff = np.abs(fast[select] - fine[select])
         fine_mosaic = predict_phase(fine, "BGGR", weights)
         fast_mosaic = predict_phase(fast, "BGGR", weights)
         item = {"prefix": prefix, "class_name": row["class_name"],
+                "geometry_diagnostics": geometry_diagnostics(prepared["H"], prepared["actual"].shape),
                 "radiance_mean_abs_difference_to_fine": float(diff.mean()),
                 "radiance_p99_abs_difference_to_fine": float(np.quantile(diff, .99)),
                 "fine_seconds": fine_seconds, "fast_seconds": fast_seconds,
@@ -90,7 +102,7 @@ def main() -> None:
         print(f"fast comparison {len(results)}/10 {row['class_name']}", flush=True)
     report = {"scope": "ten already-inspected Raw2Event phase-confirmation sources; no parameter tuning on these RAW frames",
               "display_samples": DISPLAY_SAMPLES, "sensor_samples": SENSOR_SAMPLES,
-              "fast_approximation": "exact fractional display-raster cell coverage, center-Jacobian diagonal Gaussian, sensor-plane quadrature",
+              "fast_approximation": "integrated guarded prefilter: exact fractional display-raster cell coverage, center-Jacobian diagonal Gaussian, sensor-plane quadrature",
               "reference": "existing fine renderer at its own adaptive oversampling, not mathematical ground truth",
               "same_frozen_count_weights": True,
               "physical_limit": "LCD raster192 and optical sigma0.8 are virtual; center Jacobian and omitted covariance can fail for strong tilt",
