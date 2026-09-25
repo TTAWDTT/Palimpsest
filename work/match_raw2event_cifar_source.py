@@ -12,6 +12,7 @@ import json
 import pickle
 import tarfile
 from pathlib import Path
+import warnings
 
 import cv2
 import numpy as np
@@ -42,7 +43,9 @@ def load_class(label: int) -> tuple[np.ndarray, list[dict]]:
         for batch in [f"data_batch_{i}" for i in range(1, 6)] + ["test_batch"]:
             member = archive.getmember(f"cifar-10-batches-py/{batch}")
             with archive.extractfile(member) as stream:
-                payload = pickle.load(io.BytesIO(stream.read()), encoding="bytes")
+                with warnings.catch_warnings():
+                    warnings.filterwarnings("ignore", message=r"dtype\(\): align should be passed.*")
+                    payload = pickle.load(io.BytesIO(stream.read()), encoding="bytes")
             labels = np.asarray(payload[b"labels"], dtype=np.int32)
             data = np.asarray(payload[b"data"], dtype=np.uint8)
             indices = np.flatnonzero(labels == label)

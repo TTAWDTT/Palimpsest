@@ -61,6 +61,34 @@
 
 两组图的形状和具体内容肉眼也一致；尤其 automobile 原图偏红、拍屏图偏紫，说明颜色并非无损复制。检索排序、前缀中批次/行号一致和视觉一致共同支持**这两个样本的原始数字图身份**。但屏幕实际输入缓冲区的插值、色彩管理、背景和 Tag 布局未发布；人工四角也只是内容检索手段，不能反推设备的物理几何。**这现在提供了两个“原数字图→真实拍屏 RAW/RGB”的锚点，尚不是完整已标定的显示与相机过程。**数字源像素 SHA256 及全部前十候选记录在 `work/raw2event_cifar_source_match.json`。
 
+## 批量对齐捷径：直列的 5,914 组
+
+为判断是否可免人工逐图对齐，进一步以官方仓库固定修订 `9df99d9ed09e5ed705f50cae011e49cb2af620b9` 只读列出 `frames_raw`、`frames_rgb`、`meta_raw` 三个目录。**每个目录 5,914 文件，三者前缀 5,914/5,914 一一对应**；这是文件索引核查，未逐一下载视频。对应的 CIFAR 官方档案行标签核验如下：
+
+| 文件名前缀中的第三段 | 目录数 | 候选原始批次 | 前缀类别与该批次该行标签一致 |
+|---|---:|---|---:|
+| `1` | 5,830 | `data_batch_1` | 5,830/5,830 |
+| `2` | 38 | `data_batch_2` | 38/38 |
+| `5` | 46 | `data_batch_5` | 46/46 |
+
+其他候选批次的类别一致率大致接近随机类别碰撞；三组各有唯一的全匹配批次，且 **5,914 个 `(批次, 行号)` 均不重复**。两例前述像素内容检索再次独立支持了该命名规则。已生成 `E:\ai_image_origin_research\data\manifests\raw2event_cifar_source_index.csv`，SHA256 `0cb84d5b31a46cfbafd427726a08e7e2c10331f1111215d3aee5ad515c48ab8b`，每行同时有 `raw_path`、`rgb_path`、`meta_path` 和 `cifar_source_key`。其 `cifar_batch` 是**由群体类别一致性推断**的映射，不能写成 5,914 张逐像素验证。类别数量相对均衡（各 **582–597**），但批次 **5,830/5,914 来自 batch 1**，之后抽样必须避免误认为覆盖整个 CIFAR 来源分布。
+
+日期和内容类别也高度耦合：bird、cat、deer、dog、frog、horse、truck 的直列录像各几乎只在一个日期，airplane／automobile／ship 才有少量第二日期。因而**跨类别测试同时往往是跨采集日期测试**，不能从误差单独辨别内容泛化还是采集日/对焦/照明变化。后续应同时报告同类别同日不同来源留出，以及跨类别/日期压力测试。
+
+数据卡所说约 **59,454** 组是更大总语料；这次只验到三个**直列逐文件目录**各 5,914，未核验远程 `raw/*.tar` 分包内的其余成员或其与 CIFAR 的对应。不能把这份索引扩称为全库清单。脚本 `work/index_raw2event_source_paths.py` 与机器审计 `work/raw2event_cifar_source_index_audit.json` 可复查目录、类别和批次；无需下载另外 5,912 条大型视频。
+
+## 首次用已知数字源检验前向 RAW，而不是只拟合发布图
+
+用两张已找回的 CIFAR 小图接入现有显示／屏幕／相机前向渲染器。**假设**数字源按编码 sRGB Lanczos 放大到 192×192 显示像素、显示 gamma 2.2、发光填充率 0.85、Gaussian 光学模糊 sigma 0.8 传感器像素、相机 CFA 为 RGGB；它们都**不是** Raw2Event 设备实测值。RGB 首帧内容四角为人工设定，经 AprilTag 变换投到 RAW 坐标；逐真实 RAW 像素投影到假定显示平面，比较内部 88% 区域。模拟到真实 RAW 10 位计数的一个公共截距及 R/G/B 三个增益**只在 automobile 样本拟合**，原样应用 airplane；这几个增益是复合校正，不能解释为相机曝光或光谱灵敏度。
+
+| 固定过程假设／负对照 | Automobile 拟合区 MAE（10 位计数） | Airplane 留出 MAE | Airplane Pearson | Airplane 渲染时间 |
+|---|---:|---:|---:|---:|
+| RGB 竖条发光＋像素面积积分 | 29.49 | **50.89** | 0.8202 | 7.61 s |
+| 同光子量 RGB 共址发光 | 29.49 | 50.92 | 0.8202 | 7.61 s |
+| 直接数字插值＋相同 Gaussian 模糊 | 30.28 | 52.53 | 0.8091 | **0.005 s** |
+
+竖条与共址仅差 **0.02–0.03 个 RAW 计数 MAE**，这组设置不能支持“已从真实数据辨认子像素排列”的说法。完整前向比直接插值在单个留出内容上少 **1.64 个计数 MAE**，但仍有 **50.9/1023** 的平均误差，且项目当前透视细网格渲染比简单对照慢三个数量级左右；这里的时间只是单个 RAW ROI 渲染，不含解码或优化。两张图、未知显示栅格和未知 CFA 相位不足以把微小改善归因到真实物理机制，也不能拿来训练最终来源模型。机器结果 `work/raw2event_source_to_raw_probe.json`，复算 `python -m work.probe_raw2event_source_to_raw`。
+
 ## 对过程 simulation 的具体作用和限制
 
 | 可做 | 尚不能做 |
@@ -69,7 +97,7 @@
 | 把同一设备的部分录制前缀分为校准／整段留出，评估模拟 RAW/ISP 噪声、色彩和局部结构。 | 用这一条录制推断所有手机相机、不同屏幕或距离×角度×曝光干预网格。 |
 | 形成“数字源→屏幕→RAW→ISP”两例配对的入口，供 Chimera 拍屏反证后定位缺失环节。 | 用 CIFAR-10 类别声称 AI／自然摄影判别能力，或从这批 RAW 直接解释 Chimera 的 B-Free 分数下降。 |
 
-**下一实验入口：**两张数字源已识别，可分别在 automobile 设参、airplane 留出，检验“数字源→显示放大/发光→镜头→RAW”的几何、亮度与频率变化；仍须把未知的屏幕插值和色彩管理作为条件假设，而非真实设备参数。用独立色块或设备规格约束 CFA/有效色彩响应，再扩大到多前缀、不同内容和运动状态；估计黑电平、噪声—信号关系及局部 ISP 残差。只有找到真实**显示帧**及可靠物理设置记录，才能把两例扩成完整已标定设备链。Chimera 的 840 个 reserved 来源继续不用于参数挑选。
+**下一实验入口：**以已审 5,914 组索引冻结一个跨类别、跨日期的小型校准／留出子集，扩大“数字源→RAW”的几何、亮度与频率检验；未知的屏幕插值和色彩管理仍是条件假设，不是实测参数。用独立色块或设备规格约束 CFA/有效色彩响应，估计黑电平、噪声—信号关系及局部 ISP 残差。只有找到真实**显示帧**及可靠物理设置记录，才能把这条路径称为已标定设备链。Chimera 的 840 个 reserved 来源继续不用于参数挑选。
 
 ## 复算
 
@@ -81,6 +109,8 @@ python work/audit_raw2event_probe.py --prefix 1000_airplane_1_9934_20251222_1619
 python -m work.probe_raw2event_isp_transfer
 python work/fetch_cifar10_python.py
 python -m work.match_raw2event_cifar_source
+python -m work.index_raw2event_source_paths
+python -m work.probe_raw2event_source_to_raw
 ```
 
 抽帧、PTS、Tag 角点、亮度对照和经验元数据结构记录在 `work/raw2event_probe_pixel_audit.json` 与 `work/raw2event_probe_airplane_pixel_audit.json`；示意图源帧位于各自的 `work/raw2event_probe*/`。CIFAR 档案验收在 `work/cifar10_python_download_audit.json`。脚本不执行来源检测器推理。

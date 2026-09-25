@@ -32,8 +32,8 @@ def git_blob_sha1(path: Path) -> str:
     return digest.hexdigest()
 
 
-def remote_metadata(session: requests.Session, prefix: str) -> list[dict]:
-    url = f"https://huggingface.co/api/datasets/{REPO}/paths-info/main"
+def remote_metadata(session: requests.Session, prefix: str, revision: str = "main") -> list[dict]:
+    url = f"https://huggingface.co/api/datasets/{REPO}/paths-info/{revision}"
     expected = [f"{directory}/{prefix}.{'dat' if directory == 'meta_raw' else 'mkv'}"
                 for directory in DIRS]
     response = session.post(url, json={"paths": expected}, timeout=30)
@@ -44,7 +44,7 @@ def remote_metadata(session: requests.Session, prefix: str) -> list[dict]:
     return [items[path] for path in expected]
 
 
-def fetch_one(session: requests.Session, metadata: dict) -> dict:
+def fetch_one(session: requests.Session, metadata: dict, revision: str = "main") -> dict:
     path = ROOT / metadata["path"]
     path.parent.mkdir(parents=True, exist_ok=True)
     expected_size = int(metadata["size"])
@@ -62,7 +62,7 @@ def fetch_one(session: requests.Session, metadata: dict) -> dict:
     offset = partial.stat().st_size if partial.exists() else 0
     if offset > expected_size:
         raise RuntimeError(f"partial file exceeds expected size: {partial}")
-    url = f"https://huggingface.co/datasets/{REPO}/resolve/main/{metadata['path']}"
+    url = f"https://huggingface.co/datasets/{REPO}/resolve/{revision}/{metadata['path']}"
     headers = {"Range": f"bytes={offset}-"} if offset else {}
     with session.get(url, stream=True, headers=headers, timeout=(30, 120)) as response:
         response.raise_for_status()
@@ -91,13 +91,15 @@ def fetch_one(session: requests.Session, metadata: dict) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--prefix", default=DEFAULT_PREFIX)
+    parser.add_argument("--revision", default="main")
     parser.add_argument("--audit", type=Path, default=Path("work/raw2event_probe_download_audit.json"))
     args = parser.parse_args()
     session = requests.Session()
-    audit = {"repo": REPO, "prefix": args.prefix, "scope": "one paired RAW/RGB/meta recording",
+    audit = {"repo": REPO, "revision": args.revision, "prefix": args.prefix,
+             "scope": "one paired RAW/RGB/meta recording",
              "source": f"https://huggingface.co/datasets/{REPO}", "files": []}
-    for metadata in remote_metadata(session, args.prefix):
-        record = fetch_one(session, metadata)
+    for metadata in remote_metadata(session, args.prefix, args.revision):
+        record = fetch_one(session, metadata, args.revision)
         audit["files"].append(record)
         print(json.dumps(record, ensure_ascii=False), flush=True)
     args.audit.parent.mkdir(parents=True, exist_ok=True)
