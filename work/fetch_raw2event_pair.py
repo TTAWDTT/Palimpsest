@@ -5,6 +5,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import time
 
 import requests
 
@@ -59,23 +60,37 @@ def fetch_one(session: requests.Session, metadata: dict, revision: str = "main")
                 "official_lfs_sha256": expected_sha, "official_git_blob_sha1": expected_blob,
                 "reused_verified_file": True}
     partial = path.with_suffix(path.suffix + ".partial")
-    offset = partial.stat().st_size if partial.exists() else 0
-    if offset > expected_size:
-        raise RuntimeError(f"partial file exceeds expected size: {partial}")
     url = f"https://huggingface.co/datasets/{REPO}/resolve/{revision}/{metadata['path']}"
-    headers = {"Range": f"bytes={offset}-"} if offset else {}
-    with session.get(url, stream=True, headers=headers, timeout=(30, 120)) as response:
-        response.raise_for_status()
-        if offset and response.status_code != 206:
-            raise RuntimeError(f"server did not honor resume range for {metadata['path']}")
-        if not offset and response.status_code != 200:
-            raise RuntimeError(f"unexpected HTTP status for {metadata['path']}")
-        mode = "ab" if offset else "wb"
-        with partial.open(mode) as stream:
-            for chunk in response.iter_content(chunk_size=4 * 1024 * 1024):
-                if chunk:
-                    stream.write(chunk)
-    if partial.stat().st_size != expected_size:
+    for attempt in range(6):
+        offset = partial.stat().st_size if partial.exists() else 0
+        if offset > expected_size:
+            raise RuntimeError(f"partial file exceeds expected size: {partial}")
+        if offset == expected_size:
+            break
+        headers = {"Range": f"bytes={offset}-"} if offset else {}
+        try:
+            with session.get(url, stream=True, headers=headers, timeout=(30, 120)) as response:
+                response.raise_for_status()
+                if offset and response.status_code != 206:
+                    raise RuntimeError(f"server did not honor resume range for {metadata['path']}")
+                if not offset and response.status_code != 200:
+                    raise RuntimeError(f"unexpected HTTP status for {metadata['path']}")
+                mode = "ab" if offset else "wb"
+                with partial.open(mode) as stream:
+                    for chunk in response.iter_content(chunk_size=1024 * 1024):
+                        if chunk:
+                            stream.write(chunk)
+        except requests.RequestException:
+            if attempt == 5:
+                raise
+            time.sleep(min(10, 1 + 2 ** attempt))
+            continue
+        if partial.stat().st_size == expected_size:
+            break
+        if attempt == 5:
+            raise RuntimeError(f"incomplete after retries: {metadata['path']}")
+        time.sleep(min(10, 1 + 2 ** attempt))
+    if not partial.exists() or partial.stat().st_size != expected_size:
         raise RuntimeError(f"incomplete official file: {metadata['path']}")
     digest = sha256(partial)
     if expected_sha and digest != expected_sha:

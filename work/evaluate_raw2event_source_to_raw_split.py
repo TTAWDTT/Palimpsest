@@ -6,6 +6,7 @@ render caches include a code/data fingerprint and can be resumed safely.
 """
 
 from collections import defaultdict
+import argparse
 import csv
 import hashlib
 import json
@@ -22,6 +23,7 @@ from work.probe_raw2event_source_to_raw import (
 SPLIT = Path("E:/ai_image_origin_research/data/manifests/raw2event_process_split_v1.csv")
 SPLIT_SHA = "471fbff8020f88c1b73664e5794285df28da4792e5fb77bdfe682b5ee9bb7a43"
 FIRST_FRAME_AUDIT = Path("work/raw2event_process_split_first_frame_audit.json")
+REFINED_GEOMETRY = Path("work/raw2event_content_registered_geometry.json")
 CACHE = Path("E:/ai_image_origin_research/data/derived/raw2event_source_to_raw_split_v1")
 OUT = Path("work/raw2event_source_to_raw_split_v1.json")
 LAYOUTS = ("vertical_rgb", "co_spatial_rgb_control", "simple_rgb_sample_control")
@@ -29,6 +31,7 @@ CODE = (
     Path("origin_simulation/screen_capture.py"),
     Path("origin_simulation/screen_pipeline.py"),
     Path("work/probe_raw2event_source_to_raw.py"),
+    Path("work/audit_raw2event_split_first_frames.py"),
     Path("work/evaluate_raw2event_source_to_raw_split.py"),
 )
 
@@ -42,10 +45,13 @@ def fingerprint() -> str:
     return digest.hexdigest()
 
 
-def cached_simulation(row: dict, prepared: dict, layout: str, code_hash: str) -> tuple[np.ndarray, float]:
-    path = CACHE / layout / f"{row['prefix']}.npz"
+def cached_simulation(row: dict, prepared: dict, layout: str, code_hash: str,
+                      cache_root: Path) -> tuple[np.ndarray, float]:
+    path = cache_root / code_hash[:16] / layout / f"{row['prefix']}.npz"
     source_hash = hashlib.sha256(prepared["drive"].tobytes()).hexdigest()
-    key = hashlib.sha256(f"{code_hash}|{row['prefix']}|{layout}|{source_hash}".encode("utf-8")).hexdigest()
+    key_data = (f"{code_hash}|{row['prefix']}|{layout}|{source_hash}".encode("utf-8")
+                + prepared["H"].tobytes() + np.asarray(prepared["roi"], dtype=np.int64).tobytes())
+    key = hashlib.sha256(key_data).hexdigest()
     if path.exists():
         with np.load(path, allow_pickle=False) as data:
             if data["key"].item() != key or data["sim"].shape != prepared["actual"].shape:
@@ -86,6 +92,10 @@ def aggregate(rows: list[dict], role: str) -> dict:
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--geometry", choices=("tag_similarity", "source_rgb_refined"),
+                        default="tag_similarity")
+    args = parser.parse_args()
     if hashlib.sha256(SPLIT.read_bytes()).hexdigest() != SPLIT_SHA:
         raise RuntimeError("frozen split changed")
     frame_audit = json.loads(FIRST_FRAME_AUDIT.read_text(encoding="utf-8"))
@@ -96,12 +106,25 @@ def main() -> None:
     if len(split) != 20:
         raise RuntimeError("expected 10 calibration and 10 development sources")
     originals = load_originals(split)
+    first_frames = {row["prefix"]: row for row in frame_audit["rows"]}
+    if set(first_frames) != {row["prefix"] for row in split}:
+        raise RuntimeError("first-frame audit does not cover exact frozen split")
+    refined = None
+    if args.geometry == "source_rgb_refined":
+        ref_audit = json.loads(REFINED_GEOMETRY.read_text(encoding="utf-8"))
+        refined = {row["prefix"]: row for row in ref_audit["records"]}
+        if ref_audit["n"] != 20 or set(refined) != set(first_frames):
+            raise RuntimeError("refined geometry does not cover exact frozen split")
+    cache_root = CACHE if refined is None else CACHE.with_name(CACHE.name + "_source_rgb_refined")
+    output_path = OUT if refined is None else OUT.with_name(OUT.stem + "_source_rgb_refined.json")
     code_hash = fingerprint()
     by_layout = defaultdict(list)
     for number, row in enumerate(split, start=1):
-        prepared = prepare(row["prefix"], None, originals[row["prefix"]])
+        corners = np.asarray(first_frames[row["prefix"]]["tag_similarity_content_corners"] if refined is None
+                             else refined[row["prefix"]]["refined_corners"], dtype=np.float32)
+        prepared = prepare(row["prefix"], None, originals[row["prefix"]], corners)
         for layout in LAYOUTS:
-            sim, seconds = cached_simulation(row, prepared, layout, code_hash)
+            sim, seconds = cached_simulation(row, prepared, layout, code_hash, cache_root)
             by_layout[layout].append((row, prepared, sim, seconds))
         print(f"rendered {number}/20 {row['role']} {row['class_name']} {row['prefix']}", flush=True)
     conditions = {}
@@ -123,10 +146,11 @@ def main() -> None:
         }
     report = {"split_sha256": SPLIT_SHA, "code_fingerprint": code_hash,
               "source_count": 20, "roles": {"calibration": 10, "development": 10},
-              "process_settings": "frozen as in work/probe_raw2event_source_to_raw.py; 192 display pixels and 0.8 sensor-pixel Gaussian are virtual",
+              "geometry": args.geometry,
+              "process_settings": "192 display pixels and 0.8 sensor-pixel Gaussian are virtual; Tag similarity geometry selected after partial development audit; optional source-RGB refinement optimized known-source ZNCC after first RAW results",
               "conditions": conditions,
-              "qualification": "raw mosaics; approximate fixed content corners, unknown actual screen raster and CFA phase; class/date confounded"}
-    OUT.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+              "qualification": "raw mosaics; geometry selected after inspecting development subset, and optional RGB-source refinement is post-hoc exploratory but uses no RAW target; unknown actual screen raster and CFA phase; class/date confounded; reserved untouched"}
+    output_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps({layout: {"development": value["development"],
                               "median_render_seconds": value["median_render_seconds"]}
                       for layout, value in conditions.items()}, ensure_ascii=False, indent=2))

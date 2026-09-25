@@ -1,7 +1,7 @@
 import numpy as np
 
 from origin_simulation.screen_capture import (
-    ScreenCaptureParameters, _airy_kernel, render_screen_capture,
+    ScreenCaptureParameters, _airy_kernel, _bayer_masks, render_screen_capture,
 )
 
 
@@ -14,6 +14,33 @@ def parameters(display_pixels_per_sensor_pixel: float, blur_sigma: float = 0.0):
         ),
         optical_blur_sigma_sensor_pixels=blur_sigma,
     )
+
+
+def test_configurable_bayer_phase_changes_raw_sampling_sites():
+    expected = {
+        "RGGB": [[0, 1], [1, 2]],
+        "BGGR": [[2, 1], [1, 0]],
+        "GRBG": [[1, 0], [2, 1]],
+        "GBRG": [[1, 2], [0, 1]],
+    }
+    for name, layout in expected.items():
+        actual = np.argmax(_bayer_masks((2, 2), name), axis=-1)
+        np.testing.assert_array_equal(actual, layout)
+
+    red = np.zeros((20, 20, 3), dtype=np.float32)
+    red[..., 0] = 1
+    outputs = {}
+    for name in ("RGGB", "BGGR"):
+        setup = ScreenCaptureParameters(sensor_to_display=np.eye(3), fill_fraction=1,
+                                        emitter_layout="co_spatial_rgb_control",
+                                        display_gamma=1, sensor_bayer_pattern=name)
+        outputs[name] = render_screen_capture(red, (8, 8), setup).noiseless_mosaic
+    assert outputs["RGGB"][0, 0] > 0
+    assert outputs["RGGB"][1, 1] == 0
+    assert outputs["BGGR"][0, 0] == 0
+    assert outputs["BGGR"][1, 1] > 0
+    with np.testing.assert_raises_regex(ValueError, "Bayer pattern"):
+        ScreenCaptureParameters(sensor_to_display=np.eye(3), sensor_bayer_pattern="RGB")
 
 
 def dominant_horizontal_frequency(irradiance: np.ndarray) -> float:

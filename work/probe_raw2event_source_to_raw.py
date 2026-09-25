@@ -36,7 +36,8 @@ INNER_FRACTION = 0.06
 OUT = Path("work/raw2event_source_to_raw_probe.json")
 
 
-def prepare(prefix: str, audit_path: Path | None = None, source_rgb: np.ndarray | None = None) -> dict:
+def prepare(prefix: str, audit_path: Path | None = None, source_rgb: np.ndarray | None = None,
+            rgb_content_corners: np.ndarray | None = None) -> dict:
     raw = extract_frame(ROOT / "frames_raw" / f"{prefix}.mkv", 0, "gray16le", 1, "<u2")
     if audit_path is None:
         rgb = extract_frame(ROOT / "frames_rgb" / f"{prefix}.mkv", 0, "rgb24", 3, "u1")
@@ -49,7 +50,10 @@ def prepare(prefix: str, audit_path: Path | None = None, source_rgb: np.ndarray 
     else:
         audit = json.loads(audit_path.read_text(encoding="utf-8"))
         h_raw_to_rgb = np.asarray(audit["samples"]["0"]["tag"]["raw_to_rgb_tag_homography"])
-    raw_corners = cv2.perspectiveTransform(RGB_CORNERS[None], np.linalg.inv(h_raw_to_rgb))[0]
+    corners = RGB_CORNERS if rgb_content_corners is None else np.asarray(rgb_content_corners, dtype=np.float32)
+    if corners.shape != (4, 2):
+        raise ValueError("content corners must be TL,TR,BR,BL with shape 4x2")
+    raw_corners = cv2.perspectiveTransform(corners[None], np.linalg.inv(h_raw_to_rgb))[0]
     left, top = np.floor(raw_corners.min(axis=0) - 8).astype(int)
     right, bottom = np.ceil(raw_corners.max(axis=0) + 8).astype(int)
     left, top = max(0, left), max(0, top)
@@ -73,7 +77,8 @@ def prepare(prefix: str, audit_path: Path | None = None, source_rgb: np.ndarray 
               if source_rgb is None else np.asarray(source_rgb, dtype=np.uint8))
     drive = rasterize_display_source(source, DisplayRasterParameters(
         raster_size=(DISPLAY_SIDE, DISPLAY_SIDE), resampling="lanczos", resample_space="encoded_srgb"))
-    return {"prefix": prefix, "roi": roi, "raw_corners": raw_corners, "H": sensor_to_display,
+    return {"prefix": prefix, "roi": roi, "raw_corners": raw_corners, "rgb_corners": corners,
+            "H": sensor_to_display,
             "mask": mask, "actual": raw[top:bottom, left:right].astype(np.float32), "drive": drive}
 
 

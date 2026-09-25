@@ -4,7 +4,7 @@ Coordinates of ``sensor_to_display`` map continuous sensor pixel coordinates
 to continuous display pixel coordinates. Axis-aligned views integrate the
 rectangular subpixel overlap; general homographies use bounded fine-grid
 quadrature. Vertical RGB subpixels, a global square-wave display PWM, a
-Gaussian optical PSF, and an RGGB sensor are hypotheses, not calibrated facts.
+Gaussian optical PSF, and the selected Bayer pattern are hypotheses, not calibrated facts.
 """
 
 from dataclasses import dataclass
@@ -32,6 +32,7 @@ class ScreenCaptureParameters:
         (0.0, 1.0, 0.0),
         (0.0, 0.0, 1.0),
     )
+    sensor_bayer_pattern: str = "RGGB"
     exposure_electrons_per_unit: float | None = None
     electron_rate_per_unit_s: float | None = None
     full_well_electrons: float = 10000.0
@@ -74,6 +75,8 @@ class ScreenCaptureParameters:
             raise ValueError("fill_fraction must be in (0, 1]")
         if self.emitter_layout not in ("vertical_rgb", "co_spatial_rgb_control"):
             raise ValueError("unsupported emitter_layout")
+        if self.sensor_bayer_pattern not in ("RGGB", "BGGR", "GRBG", "GBRG"):
+            raise ValueError("unsupported sensor Bayer pattern")
         if self.display_gamma <= 0 or self.optical_blur_sigma_sensor_pixels < 0:
             raise ValueError("display gamma must be positive and blur nonnegative")
         if self.diffraction_f_number is not None:
@@ -404,12 +407,18 @@ def _diffraction_blur(fine_radiance: np.ndarray, parameters: ScreenCaptureParame
     return blurred
 
 
-def _bayer_masks(shape: tuple[int, int]) -> np.ndarray:
+def _bayer_masks(shape: tuple[int, int], pattern: str = "RGGB") -> np.ndarray:
     rows, columns = np.indices(shape)
     masks = np.zeros(shape + (3,), dtype=np.float32)
-    masks[..., 0] = (rows % 2 == 0) & (columns % 2 == 0)
-    masks[..., 2] = (rows % 2 == 1) & (columns % 2 == 1)
-    masks[..., 1] = 1 - masks[..., 0] - masks[..., 2]
+    layout = np.asarray({
+        "RGGB": ((0, 1), (1, 2)),
+        "BGGR": ((2, 1), (1, 0)),
+        "GRBG": ((1, 0), (2, 1)),
+        "GBRG": ((1, 2), (0, 1)),
+    }[pattern])
+    channel = layout[rows % 2, columns % 2]
+    for index in range(3):
+        masks[..., index] = channel == index
     return masks
 
 
@@ -580,7 +589,7 @@ def render_screen_capture(
         irradiance = np.einsum("hwd,cd->hwc", emitter_band_irradiance,
                                spectral_mix, optimize=True).astype(np.float32)
 
-    masks = _bayer_masks((height, width))
+    masks = _bayer_masks((height, width), parameters.sensor_bayer_pattern)
     mosaiced_irradiance = (irradiance * masks).sum(axis=-1)
     noiseless_mosaic = mosaiced_irradiance.copy()
     raw_mosaic = noiseless_mosaic.copy()
