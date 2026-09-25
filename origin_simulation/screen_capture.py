@@ -453,9 +453,10 @@ def _spatial_wave_prefilter(emitted_frame: np.ndarray,
                             parameters: ScreenCaptureParameters) -> np.ndarray:
     """Bounded fast frontoparallel wave-PSF path, before sensor sampling.
 
-    This display-grid quadrature has only been stress-tested for moderate
-    defocus and a limited lattice-scale/fill range. It is a numerical
-    acceleration of the same ideal optical hypothesis, not a calibrated PSF.
+    This display-grid quadrature has been stress-tested for moderate defocus
+    or diffraction-dominant exact focus, each at a limited lattice-scale/fill
+    range. It is a numerical acceleration of the same ideal optical
+    hypothesis, not a calibrated PSF.
     """
     H = parameters.sensor_to_display
     if parameters.defocus_psf_model != "wave":
@@ -464,16 +465,20 @@ def _spatial_wave_prefilter(emitted_frame: np.ndarray,
         raise ValueError("wave_prefilter requires positive axis-aligned projection")
     if parameters.optical_blur_sigma_sensor_pixels != 0:
         raise ValueError("wave_prefilter has not been tested with extra Gaussian optical blur")
-    if thin_lens_coc_radius_sensor_pixels(parameters) < .65:
-        raise ValueError("wave_prefilter requires geometric CoC radius >= 0.65 sensor pixels")
+    coc_radius = thin_lens_coc_radius_sensor_pixels(parameters)
     airy_max = _airy_radius_sensor_pixels(parameters)
     airy_min = airy_max * (min(parameters.rgb_effective_wavelengths_nm) /
                            max(parameters.rgb_effective_wavelengths_nm))
-    if airy_min < .25 or airy_max > .5:
-        raise ValueError("wave_prefilter Airy radius outside tested numerical range")
-    if (not .7 <= H[0, 0] <= 1.1 or not .7 <= H[1, 1] <= 1.1 or
-            not .7 <= parameters.fill_fraction <= .95):
-        raise ValueError("wave_prefilter projection/fill outside tested numerical range")
+    moderate_defocus = (
+        coc_radius >= .65 and .25 <= airy_min and airy_max <= .5 and
+        .7 <= H[0, 0] <= 1.1 and .7 <= H[1, 1] <= 1.1 and
+        .7 <= parameters.fill_fraction <= .95)
+    diffraction_dominant_focus = (
+        coc_radius <= 1e-9 and 1.35 <= airy_min and airy_max <= 2.4 and
+        .7 <= H[0, 0] <= .8 and .7 <= H[1, 1] <= .8 and
+        .8 <= parameters.fill_fraction <= .9)
+    if not (moderate_defocus or diffraction_dominant_focus):
+        raise ValueError("wave_prefilter CoC radius, Airy radius or projection/fill outside tested numerical range")
     display_samples, sensor_samples = 12, 6
     display_h, display_w, _ = emitted_frame.shape
     if display_h * display_w * display_samples**2 > 12_000_000:
@@ -762,8 +767,11 @@ def _spatial_tile(
     height, width = sensor_shape
     y0, y1, x0, x1 = bounds
     halo = _optical_halo_sensor_pixels(parameters, oversampling)
-    extended_y0, extended_y1 = max(0, y0 - halo), min(height, y1 + halo)
-    extended_x0, extended_x1 = max(0, x0 - halo), min(width, x1 + halo)
+    # Illumination outside the requested sensor crop still contributes through
+    # the optical PSF. Extend every tile beyond image bounds before filtering;
+    # the display frame itself supplies the physical zero-radiance boundary.
+    extended_y0, extended_y1 = y0 - halo, y1 + halo
+    extended_x0, extended_x1 = x0 - halo, x1 + halo
     extended_height = extended_y1 - extended_y0
     extended_width = extended_x1 - extended_x0
 

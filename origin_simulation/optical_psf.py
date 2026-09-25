@@ -9,7 +9,7 @@ approximation. Neither branch represents measured lens aberrations.
 from functools import lru_cache
 
 import numpy as np
-from scipy.special import j0, roots_legendre
+from scipy.special import j0, j1, roots_legendre
 
 
 def _image_distance_mm(focal_mm: float, object_mm: float) -> float:
@@ -61,22 +61,30 @@ def _pupil_intensity_on_sensor_steps(
     if max(half_x, half_y) > 512:
         raise ValueError("wave-optical PSF support exceeds 512 fine cells; reduce oversampling")
     alpha = np.pi * aperture_radius_mm ** 2 / wavelength_mm * (1 / vf - 1 / vs)
-    node_count = max(96, int(np.ceil(abs(alpha) / np.pi * 24)))
-    if node_count > 2048:
-        raise ValueError("wave-optical PSF phase requires more than 2048 quadrature nodes")
-    gauss_nodes, gauss_weights = roots_legendre(node_count)
-    rho = (gauss_nodes + 1) / 2
-    weights = gauss_weights * rho * np.exp(1j * alpha * rho * rho)
     beta = 2 * np.pi * aperture_radius_mm / (wavelength_mm * vf)
     x = np.arange(-half_x, half_x + 1, dtype=np.float64) * step_x_sensor_pixels
     y = np.arange(-half_y, half_y + 1, dtype=np.float64) * step_y_sensor_pixels
     yy, xx = np.meshgrid(y, x, indexing="ij")
     radii_mm = np.hypot(xx, yy).ravel() * pitch_mm
-    intensity = np.empty(radii_mm.size, dtype=np.float64)
-    for begin in range(0, len(radii_mm), 2048):
-        block = radii_mm[begin:begin + 2048]
-        amplitude = j0(beta * block[:, None] * rho[None, :]) @ weights
-        intensity[begin:begin + len(block)] = np.abs(amplitude) ** 2
+    if abs(alpha) < 1e-10:
+        # Exact in-focus limit of the circular-pupil integral, avoiding a
+        # large radial quadrature for high f-numbers and a tiny field crop.
+        q = beta * radii_mm
+        amplitude = np.ones_like(q)
+        np.divide(2 * j1(q), q, out=amplitude, where=q != 0)
+        intensity = amplitude * amplitude
+    else:
+        node_count = max(96, int(np.ceil(abs(alpha) / np.pi * 24)))
+        if node_count > 2048:
+            raise ValueError("wave-optical PSF phase requires more than 2048 quadrature nodes")
+        gauss_nodes, gauss_weights = roots_legendre(node_count)
+        rho = (gauss_nodes + 1) / 2
+        weights = gauss_weights * rho * np.exp(1j * alpha * rho * rho)
+        intensity = np.empty(radii_mm.size, dtype=np.float64)
+        for begin in range(0, len(radii_mm), 2048):
+            block = radii_mm[begin:begin + 2048]
+            amplitude = j0(beta * block[:, None] * rho[None, :]) @ weights
+            intensity[begin:begin + len(block)] = np.abs(amplitude) ** 2
     kernel = intensity.reshape(xx.shape)
     kernel /= kernel.sum()
     kernel = kernel.astype(np.float32)

@@ -52,3 +52,36 @@ def test_wave_prefilter_rejects_unprobed_optical_or_geometry_settings():
         render_screen_capture(frame, (8, 8), params,
                               spatial_method="wave_prefilter",
                               samples_per_sensor_pixel=32)
+
+
+@pytest.mark.parametrize("f_number,distance_m", [(11, 1.4452), (13, 1.45)])
+def test_in_focus_high_f_number_wave_prefilter_against_fine(f_number, distance_m):
+    frame = np.empty((72, 72, 3), dtype=np.float32)
+    frame[:] = .1 + .8 * (np.arange(72)[None, :, None] % 2)
+    params = ScreenCaptureParameters(
+        sensor_to_display=np.array([[1/1.3272, 0, 13.731],
+                                    [0, 1/1.3272, 12.084], [0, 0, 1]]),
+        fill_fraction=.85, emitter_layout="vertical_rgb", display_gamma=1,
+        lens_focal_length_mm=30, aperture_f_number=f_number,
+        screen_distance_m=distance_m, focus_distance_m=distance_m,
+        sensor_pixel_pitch_um=4.30652, defocus_psf_model="wave")
+    fine = render_screen_capture(frame, (48, 48), params).irradiance
+    fast = render_screen_capture(frame, (48, 48), params,
+                                 spatial_method="wave_prefilter").irradiance
+    residual = np.abs(fine - fast)
+    assert float(residual.mean()) < .0002
+    assert float(np.quantile(residual, .99)) < .0005
+
+
+def test_wave_fine_sensor_crop_does_not_change_irradiance():
+    frame = np.random.default_rng(18).uniform(.1, .9, (72, 72, 3)).astype(np.float32)
+    params = ScreenCaptureParameters(
+        sensor_to_display=np.array([[1/1.3272, 0, 13.731],
+                                    [0, 1/1.3272, 12.084], [0, 0, 1]]),
+        fill_fraction=.85, emitter_layout="vertical_rgb", display_gamma=1,
+        lens_focal_length_mm=30, aperture_f_number=13,
+        screen_distance_m=1.45, focus_distance_m=1.45,
+        sensor_pixel_pitch_um=4.30652, defocus_psf_model="wave")
+    small = render_screen_capture(frame, (20, 20), params).irradiance
+    large = render_screen_capture(frame, (32, 32), params).irradiance
+    np.testing.assert_allclose(small, large[:20, :20], rtol=0, atol=1e-5)
