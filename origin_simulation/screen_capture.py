@@ -19,7 +19,11 @@ from scipy.signal import fftconvolve
 from scipy.special import j1, ndtr
 from scipy.sparse import csr_matrix
 
-from .optical_psf import circular_pupil_defocus_psf, circular_pupil_support_fine
+from .optical_psf import (
+    circular_pupil_defocus_psf,
+    circular_pupil_defocus_psf_display,
+    circular_pupil_support_fine,
+)
 
 
 @dataclass(frozen=True)
@@ -356,6 +360,53 @@ def _homography_jacobian(transform: np.ndarray, x: float, y: float) -> np.ndarra
     ])
 
 
+def _display_emitter_raster(emitted_frame: np.ndarray,
+                            parameters: ScreenCaptureParameters,
+                            display_samples: int) -> np.ndarray:
+    """Area coverage of rectangular RGB emitters on a display subgrid."""
+    display_h, display_w, _ = emitted_frame.shape
+    S = display_samples
+    indices_x = np.arange(display_w * S, dtype=np.int32)
+    indices_y = np.arange(display_h * S, dtype=np.int32)
+    px, py = indices_x // S, indices_y // S
+    fx, fy = (indices_x % S) / S, (indices_y % S) / S
+    gap = (1 - parameters.fill_fraction) / 2
+    vertical_coverage = S * np.maximum(0, np.minimum(fy + 1 / S, 1 - gap) - np.maximum(fy, gap))
+    raster = np.empty((display_h * S, display_w * S, 3), dtype=np.float32)
+    for channel in range(3):
+        if parameters.emitter_layout == "vertical_rgb":
+            left, right = (channel + gap) / 3, (channel + 1 - gap) / 3
+            factor = 1.0
+        else:
+            left, right = gap, 1 - gap
+            factor = 1 / 3
+        horizontal_coverage = S * np.maximum(0, np.minimum(fx + 1 / S, right) - np.maximum(fx, left))
+        raster[..., channel] = (emitted_frame[py[:, None], px[None, :], channel]
+                                * vertical_coverage[:, None] * horizontal_coverage[None, :] * factor)
+    return raster
+
+
+def _integrate_display_raster(raster: np.ndarray, sensor_shape: tuple[int, int],
+                              H: np.ndarray, display_samples: int,
+                              sensor_samples: int) -> np.ndarray:
+    """Project prefiltered display radiance into sensor pixel areas."""
+    height, width = sensor_shape
+    S = display_samples
+    base_y, base_x = np.indices((height, width), dtype=np.float32)
+    result = np.zeros((height, width, 3), dtype=np.float32)
+    for sy in range(sensor_samples):
+        for sx in range(sensor_samples):
+            x = base_x + (sx + 0.5) / sensor_samples
+            y = base_y + (sy + 0.5) / sensor_samples
+            denominator = H[2, 0] * x + H[2, 1] * y + H[2, 2]
+            u = (H[0, 0] * x + H[0, 1] * y + H[0, 2]) / denominator
+            v = (H[1, 0] * x + H[1, 1] * y + H[1, 2]) / denominator
+            result += cv2.remap(raster, (u * S - .5).astype(np.float32),
+                                (v * S - .5).astype(np.float32), cv2.INTER_LINEAR,
+                                borderMode=cv2.BORDER_CONSTANT, borderValue=0)
+    return result / (sensor_samples * sensor_samples)
+
+
 def _spatial_prefilter(emitted_frame: np.ndarray, sensor_shape: tuple[int, int],
                        parameters: ScreenCaptureParameters) -> np.ndarray:
     """Experimental bounded perspective approximation for Gaussian optics.
@@ -389,41 +440,55 @@ def _spatial_prefilter(emitted_frame: np.ndarray, sensor_shape: tuple[int, int],
     display_h, display_w, _ = emitted_frame.shape
     if display_h * display_w * display_samples**2 > 8_000_000:
         raise ValueError("prefilter display raster exceeds memory limit; use fine method")
+    raster = _display_emitter_raster(emitted_frame, parameters, display_samples)
     S = display_samples
-    indices_x = np.arange(display_w * S, dtype=np.int32)
-    indices_y = np.arange(display_h * S, dtype=np.int32)
-    px, py = indices_x // S, indices_y // S
-    fx, fy = (indices_x % S) / S, (indices_y % S) / S
-    gap = (1 - parameters.fill_fraction) / 2
-    vertical_coverage = S * np.maximum(0, np.minimum(fy + 1 / S, 1 - gap) - np.maximum(fy, gap))
-    raster = np.empty((display_h * S, display_w * S, 3), dtype=np.float32)
-    for channel in range(3):
-        if parameters.emitter_layout == "vertical_rgb":
-            left, right = (channel + gap) / 3, (channel + 1 - gap) / 3
-            factor = 1.0
-        else:
-            left, right = gap, 1 - gap
-            factor = 1 / 3
-        horizontal_coverage = S * np.maximum(0, np.minimum(fx + 1 / S, right) - np.maximum(fx, left))
-        raster[..., channel] = (emitted_frame[py[:, None], px[None, :], channel]
-                                * vertical_coverage[:, None] * horizontal_coverage[None, :] * factor)
     sigma_x = sigma_sensor * sqrt(covariance[0, 0]) * S
     sigma_y = sigma_sensor * sqrt(covariance[1, 1]) * S
     raster = gaussian_filter(raster, (sigma_y, sigma_x, 0), mode="constant", cval=0)
+    return _integrate_display_raster(raster, sensor_shape, H, display_samples, sensor_samples)
 
-    base_y, base_x = np.indices((height, width), dtype=np.float32)
-    result = np.zeros((height, width, 3), dtype=np.float32)
-    for sy in range(sensor_samples):
-        for sx in range(sensor_samples):
-            x = base_x + (sx + 0.5) / sensor_samples
-            y = base_y + (sy + 0.5) / sensor_samples
-            denominator = H[2, 0] * x + H[2, 1] * y + H[2, 2]
-            u = (H[0, 0] * x + H[0, 1] * y + H[0, 2]) / denominator
-            v = (H[1, 0] * x + H[1, 1] * y + H[1, 2]) / denominator
-            result += cv2.remap(raster, (u * S - .5).astype(np.float32),
-                                (v * S - .5).astype(np.float32), cv2.INTER_LINEAR,
-                                borderMode=cv2.BORDER_CONSTANT, borderValue=0)
-    return result / (sensor_samples * sensor_samples)
+
+def _spatial_wave_prefilter(emitted_frame: np.ndarray,
+                            sensor_shape: tuple[int, int],
+                            parameters: ScreenCaptureParameters) -> np.ndarray:
+    """Bounded fast frontoparallel wave-PSF path, before sensor sampling.
+
+    This display-grid quadrature has only been stress-tested for moderate
+    defocus and a limited lattice-scale/fill range. It is a numerical
+    acceleration of the same ideal optical hypothesis, not a calibrated PSF.
+    """
+    H = parameters.sensor_to_display
+    if parameters.defocus_psf_model != "wave":
+        raise ValueError("wave_prefilter requires defocus_psf_model='wave'")
+    if not _is_axis_aligned_positive(H):
+        raise ValueError("wave_prefilter requires positive axis-aligned projection")
+    if parameters.optical_blur_sigma_sensor_pixels != 0:
+        raise ValueError("wave_prefilter has not been tested with extra Gaussian optical blur")
+    if thin_lens_coc_radius_sensor_pixels(parameters) < .65:
+        raise ValueError("wave_prefilter requires geometric CoC radius >= 0.65 sensor pixels")
+    airy_max = _airy_radius_sensor_pixels(parameters)
+    airy_min = airy_max * (min(parameters.rgb_effective_wavelengths_nm) /
+                           max(parameters.rgb_effective_wavelengths_nm))
+    if airy_min < .25 or airy_max > .5:
+        raise ValueError("wave_prefilter Airy radius outside tested numerical range")
+    if (not .7 <= H[0, 0] <= 1.1 or not .7 <= H[1, 1] <= 1.1 or
+            not .7 <= parameters.fill_fraction <= .95):
+        raise ValueError("wave_prefilter projection/fill outside tested numerical range")
+    display_samples, sensor_samples = 12, 6
+    display_h, display_w, _ = emitted_frame.shape
+    if display_h * display_w * display_samples**2 > 12_000_000:
+        raise ValueError("wave_prefilter display raster exceeds memory limit; use fine method")
+    raster = _display_emitter_raster(emitted_frame, parameters, display_samples)
+    for channel, wavelength in enumerate(parameters.rgb_effective_wavelengths_nm):
+        kernel = circular_pupil_defocus_psf_display(
+            parameters.lens_focal_length_mm, parameters.aperture_f_number,
+            parameters.screen_distance_m, parameters.focus_distance_m,
+            parameters.sensor_pixel_pitch_um, wavelength,
+            H[0, 0], H[1, 1], display_samples)
+        raster[..., channel] = np.maximum(
+            fftconvolve(raster[..., channel], kernel, mode="same"), 0)
+    return _integrate_display_raster(
+        raster, sensor_shape, H, display_samples, sensor_samples)
 
 
 def _pwm_row_gain(height: int, parameters: ScreenCaptureParameters) -> np.ndarray:
@@ -760,8 +825,8 @@ def render_screen_capture(
     if len(sensor_shape) != 2 or any(int(size) != size or size <= 0 for size in sensor_shape):
         raise ValueError("sensor_shape must contain two positive integer dimensions")
     height, width = map(int, sensor_shape)
-    if spatial_method not in ("fine", "analytic", "prefilter"):
-        raise ValueError("spatial_method must be fine, analytic or prefilter")
+    if spatial_method not in ("fine", "analytic", "prefilter", "wave_prefilter"):
+        raise ValueError("spatial_method must be fine, analytic, prefilter or wave_prefilter")
     emitted_frame = np.power(frame, parameters.display_gamma)
     if spatial_method == "analytic":
         if samples_per_sensor_pixel is not None or tile_size_sensor_pixels is not None:
@@ -771,6 +836,10 @@ def render_screen_capture(
         if samples_per_sensor_pixel is not None or tile_size_sensor_pixels is not None:
             raise ValueError("prefilter spatial method does not use fine-grid samples or tiles")
         irradiance = _spatial_prefilter(emitted_frame, (height, width), parameters)
+    elif spatial_method == "wave_prefilter":
+        if samples_per_sensor_pixel is not None or tile_size_sensor_pixels is not None:
+            raise ValueError("wave_prefilter spatial method does not use fine-grid samples or tiles")
+        irradiance = _spatial_wave_prefilter(emitted_frame, (height, width), parameters)
     else:
         required_samples = _minimum_samples_for_projection(
             parameters.sensor_to_display, (height, width), parameters.fill_fraction
