@@ -4,16 +4,16 @@ The filename correspondence alone is not proof that the same sheet was scanned.
 Raw samples stay on E: for analysis; outputs get measurements only.
 """
 
+from palimpsest.paths import DATA_ROOT
+
 from pathlib import Path
 import tarfile
 
 from PIL import Image
 
 
-ARCHIVE = Path(
-    r"E:\ai_image_origin_research\data\raw\dfd_halftone\HalftoneImages-BW.tar.gz"
-)
-DEST = Path(r"E:\ai_image_origin_research\data\derived\dfd_probe")
+ARCHIVE = DATA_ROOT / "raw/dfd_halftone/HalftoneImages-BW.tar.gz"
+DEST = DATA_ROOT / "derived/dfd_probe"
 NAMES = {
     f"HalftoneImages-BW/D1_HP4350/full_600_600_600_110216_1_ a_Scanner{index}.png"
     for index in (1, 2)

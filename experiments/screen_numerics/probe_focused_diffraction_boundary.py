@@ -1,18 +1,19 @@
 """Compare wave prefilter and fine integration away from optical crop edges."""
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 from time import perf_counter
 
 import numpy as np
 
-from origin_simulation.screen_capture import (
+from palimpsest.simulation.screen_capture import (
     ScreenCaptureParameters,
     render_screen_capture,
 )
 
 
-OUT = Path("work/focused_diffraction_boundary_probe.json")
+OUT = WORK_DIR / "focused_diffraction_boundary_probe.json"
 
 
 def main() -> None:

@@ -1,15 +1,16 @@
 """Check aperture/ISO interventions at the JPEG layer on frozen sources."""
 
+from palimpsest.paths import WORK_DIR
+
 import json
 from collections import defaultdict
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
 
 
-MANIFEST = Path("work/imagenet_es_20class_aperture_iso_manifest.json")
-OUTPUT = Path("work/imagenet_es_20class_iso_aperture_evaluation.json")
+MANIFEST = WORK_DIR / "imagenet_es_20class_aperture_iso_manifest.json"
+OUTPUT = WORK_DIR / "imagenet_es_20class_iso_aperture_evaluation.json"
 PARAMS = (4, 5, 13, 14, 22, 23)
 WEIGHTS = np.array([0.2126, 0.7152, 0.0722])
 

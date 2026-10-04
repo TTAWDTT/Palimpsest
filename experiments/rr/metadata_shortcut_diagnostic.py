@@ -2,18 +2,19 @@
 
 from __future__ import annotations
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import csv
 import hashlib
 import json
 import math
 from collections import Counter, defaultdict
-from pathlib import Path
 
-from experiments.baselines.score_published_logits import LABELS, evaluate
+from palimpsest.evaluation.classification import LABELS, evaluate
 
 
-DATA_PATH = Path(r"E:\ai_image_origin_research\data\manifests\rewind_official.csv")
-OUTPUT_PATH = Path("work/metadata_shortcut_diagnostic.json")
+DATA_PATH = DATA_ROOT / "manifests/rewind_official.csv"
+OUTPUT_PATH = WORK_DIR / "metadata_shortcut_diagnostic.json"
 
 
 def format_key(row: dict[str, str]) -> str:

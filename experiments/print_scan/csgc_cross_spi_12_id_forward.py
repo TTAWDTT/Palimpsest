@@ -1,27 +1,28 @@
 """Fixed-parameter CSGC forward transfer on 12 cross-SPI digital templates."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import io
 import json
 import zipfile
 from dataclasses import replace
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
 
-from origin_simulation.print_scan import PrintScanParameters, simulate_print_scan
+from palimpsest.simulation.print_scan import PrintScanParameters, simulate_print_scan
 
 
-PROBE = Path(r"E:\ai_image_origin_research\data\derived\csgc_probe")
-ARCHIVE = Path(r"E:\ai_image_origin_research\data\raw\csgc\CSGC_scan2400spi.zip")
-OUT = Path("work/csgc_cross_spi_12_id_forward.json")
+PROBE = DATA_ROOT / "derived/csgc_probe"
+ARCHIVE = DATA_ROOT / "raw/csgc/CSGC_scan2400spi.zip"
+OUT = WORK_DIR / "csgc_cross_spi_12_id_forward.json"
 AUDIT = json.loads(
-    Path("work/csgc_cross_spi_12_id_audit.json").read_text(encoding="utf-8")
+    WORK_DIR / "csgc_cross_spi_12_id_audit.json".read_text(encoding="utf-8")
 )
 IDS = AUDIT["ids_preselected"]
 PARAMS = PrintScanParameters(
     **json.loads(
-        Path("work/csgc_binary_forward_holdout.json").read_text(encoding="utf-8")
+        WORK_DIR / "csgc_binary_forward_holdout.json".read_text(encoding="utf-8")
     )["params"]
 )
 

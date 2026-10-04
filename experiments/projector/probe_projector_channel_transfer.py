@@ -7,12 +7,11 @@ The same predeclared four donor/target pairs as the LUT transfer probe are used.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import WORK_DIR
 
 import json
 import time
 import zipfile
-from pathlib import Path
 
 import numpy as np
 

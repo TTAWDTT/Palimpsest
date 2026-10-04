@@ -6,6 +6,8 @@ they are not printer screen frequencies or CMYK separation estimates.
 
 from __future__ import annotations
 
+from palimpsest.paths import WORK_DIR
+
 import json
 from pathlib import Path
 
@@ -14,8 +16,8 @@ import numpy as np
 from PIL import Image
 
 
-INVENTORY = Path("work/dfd_color_inventory.json")
-OUT = Path("work/dfd_color_selected_spectra.json")
+INVENTORY = WORK_DIR / "dfd_color_inventory.json"
+OUT = WORK_DIR / "dfd_color_selected_spectra.json"
 
 
 def peaks(rgb: np.ndarray, *, highpass_sigma_output_px: float) -> list[dict]:

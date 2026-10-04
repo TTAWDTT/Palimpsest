@@ -4,9 +4,12 @@ This is a sensitivity control, not a reconstruction of the camera process.
 Only ordinary recaptures are resized; the originals are already 256x256.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
+from palimpsest.io.hashing import file_sha256 as sha256
+
 import argparse
 import csv
-import hashlib
 import json
 from pathlib import Path
 
@@ -18,42 +21,30 @@ EXPECTED_SOURCE_MANIFEST_SHA = (
 )
 
 
-def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        while block := stream.read(1024 * 1024):
-            digest.update(block)
-    return digest.hexdigest()
-
-
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--source-root",
         type=Path,
-        default=Path("E:/ai_image_origin_research/data/derived/chimera_paired"),
+        default=DATA_ROOT / "derived/chimera_paired",
     )
     parser.add_argument(
         "--output-root",
         type=Path,
-        default=Path("E:/ai_image_origin_research/data/derived/chimera_recap256"),
+        default=DATA_ROOT / "derived/chimera_recap256",
     )
     parser.add_argument(
         "--source-manifest",
         type=Path,
-        default=Path(
-            "E:/ai_image_origin_research/data/manifests/chimera_bfree_manifest.csv"
-        ),
+        default=DATA_ROOT / "manifests/chimera_bfree_manifest.csv",
     )
     parser.add_argument(
         "--output-manifest",
         type=Path,
-        default=Path(
-            "E:/ai_image_origin_research/data/manifests/chimera_recap256_bfree_manifest.csv"
-        ),
+        default=DATA_ROOT / "manifests/chimera_recap256_bfree_manifest.csv",
     )
     parser.add_argument(
-        "--audit-json", type=Path, default=Path("work/chimera_recap256_audit.json")
+        "--audit-json", type=Path, default=WORK_DIR / "chimera_recap256_audit.json"
     )
     args = parser.parse_args()
 

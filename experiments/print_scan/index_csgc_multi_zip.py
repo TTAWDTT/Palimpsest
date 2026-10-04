@@ -1,5 +1,7 @@
 """Index all three CSGC official ZIPs from verified HTTP Range tail fragments."""
 
+from palimpsest.paths import WORK_DIR
+
 import json
 import struct
 from collections import Counter
@@ -10,7 +12,7 @@ SIZES = {"2400": 113_349_148, "4800": 370_363_420, "9600": 1_208_354_427}
 
 
 def index_one(spi: str, total_bytes: int) -> dict:
-    tail = Path(f"work/csgc{spi}_tail.bin").read_bytes()
+    tail = WORK_DIR / f"csgc{spi}_tail.bin".read_bytes()
     tail_offset = total_bytes - len(tail)
     eocd = tail.rfind(b"PK\x05\x06")
     if eocd < 0:
@@ -85,7 +87,7 @@ def index_one(spi: str, total_bytes: int) -> dict:
         ),
         "records": records,
     }
-    Path(f"work/csgc{spi}_remote_index.json").write_text(
+    WORK_DIR / f"csgc{spi}_remote_index.json".write_text(
         json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )
     return {k: report[k] for k in ("entry_count", "extension_counts", "folder_counts")}

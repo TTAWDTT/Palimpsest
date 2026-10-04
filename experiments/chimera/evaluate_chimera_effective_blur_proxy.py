@@ -4,8 +4,9 @@ Sigma is in 256px published-output coordinates, not a physical lens PSF.
 The Gaussian operates on gamma-encoded RGB and is only a negative control.
 """
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import cv2
 import numpy as np
@@ -21,9 +22,9 @@ from experiments.chimera.evaluate_chimera_composite_photometry import (
 from experiments.chimera.evaluate_chimera_fixed_publication_geometry import AUDIT
 
 
-GEOMETRY = Path("work/chimera_fixed_publication_geometry.json")
-PHOTOMETRY = Path("work/chimera_composite_photometry.json")
-OUTPUT = Path("work/chimera_effective_blur_proxy.json")
+GEOMETRY = WORK_DIR / "chimera_fixed_publication_geometry.json"
+PHOTOMETRY = WORK_DIR / "chimera_composite_photometry.json"
+OUTPUT = WORK_DIR / "chimera_effective_blur_proxy.json"
 SIGMAS = (0.0, 0.35, 0.5, 0.7, 1.0, 1.4, 2.0)
 
 

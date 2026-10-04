@@ -5,10 +5,11 @@ grid or RAW. Calibration and development groups are reported separately;
 reserved sources are never opened.
 """
 
+from palimpsest.paths import WORK_DIR
+
 import csv
 import json
 from collections import defaultdict
-from pathlib import Path
 
 import cv2
 import numpy as np
@@ -26,8 +27,8 @@ from experiments.chimera.probe_chimera_native_frequency import (
 )
 
 
-OUTPUT = Path("work/chimera_highband_confounders.json")
-RECORDS = Path("work/chimera_highband_confounders.csv")
+OUTPUT = WORK_DIR / "chimera_highband_confounders.json"
+RECORDS = WORK_DIR / "chimera_highband_confounders.csv"
 CONTROLS = ("two_stage_lanczos", "direct_linear")
 MATCH_FEATURES = ("source_mean", "source_std", "source_gradient")
 

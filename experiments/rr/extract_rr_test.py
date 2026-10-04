@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from palimpsest.paths import DATA_ROOT
+
 import csv
 import hashlib
 import os
@@ -10,10 +12,10 @@ from collections import Counter
 from pathlib import Path, PurePosixPath
 
 
-ARCHIVE = Path("E:/ai_image_origin_research/data/raw/RRDataset_test.tar.gz")
-DESTINATION = Path("E:/ai_image_origin_research/data/derived/rr_test")
+ARCHIVE = DATA_ROOT / "raw/RRDataset_test.tar.gz"
+DESTINATION = DATA_ROOT / "derived/rr_test"
 STAGING = DESTINATION.with_name("rr_test.incomplete")
-MANIFEST = Path("E:/ai_image_origin_research/data/manifests/rr_test_archive_files.csv")
+MANIFEST = DATA_ROOT / "manifests/rr_test_archive_files.csv"
 ROOT_NAME = "RRDataset_final"
 EXPECTED_MD5 = "13c3ff3d61986170cc0c8cf76a35cd4b"
 RESERVED_NAMES = {"CON", "PRN", "AUX", "NUL"} | {

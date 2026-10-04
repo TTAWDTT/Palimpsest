@@ -5,6 +5,8 @@ using only the first real ISP-RGB frame and the frozen Tag-based approximate
 content quadrilateral. This is an identity check, not process calibration.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import argparse
 import csv
 import io
@@ -12,7 +14,6 @@ import json
 import pickle
 import tarfile
 import warnings
-from pathlib import Path
 
 import cv2
 import numpy as np
@@ -23,14 +24,10 @@ from experiments.raw2event.match_raw2event_cifar_source import normalized_gray
 from experiments.raw2event.audit_raw2event_split_first_frames import SOURCE_QUAD
 
 
-SPLIT = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_process_split_v1.csv"
-)
-ARCHIVE = Path(
-    "E:/ai_image_origin_research/data/raw/cifar10_official/cifar-10-python.tar.gz"
-)
-GEOMETRY = Path("work/raw2event_process_split_first_frame_audit.json")
-OUT = Path("work/raw2event_process_split_source_identity")
+SPLIT = DATA_ROOT / "manifests/raw2event_process_split_v1.csv"
+ARCHIVE = DATA_ROOT / "raw/cifar10_official/cifar-10-python.tar.gz"
+GEOMETRY = WORK_DIR / "raw2event_process_split_first_frame_audit.json"
+OUT = WORK_DIR / "raw2event_process_split_source_identity"
 OFFICIAL_MD5 = "c58f30108f718f92721af3b95e74349a"
 
 
@@ -87,9 +84,8 @@ def main() -> None:
     refined = None
     if args.geometry == "source_rgb_refined":
         refined_report = json.loads(
-            Path("work/raw2event_content_registered_geometry.json").read_text(
-                encoding="utf-8"
-            )
+            WORK_DIR
+            / "raw2event_content_registered_geometry.json".read_text(encoding="utf-8")
         )
         refined = {row["prefix"]: row for row in refined_report["records"]}
         if refined_report["n"] != 20 or set(refined) != set(geometry):

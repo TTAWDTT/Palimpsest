@@ -4,6 +4,8 @@ All images are 256x256, so these numbers are composite publication-channel
 observables; they are not estimates of display/optics/sensor parameters.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import csv
 import json
 from pathlib import Path
@@ -13,12 +15,10 @@ from PIL import Image
 from scipy.ndimage import sobel
 
 
-ROOT = Path("E:/ai_image_origin_research/data/derived/chimera_paired")
-CONTROL = Path("E:/ai_image_origin_research/data/derived/chimera_recap256")
-SPLIT = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_simulation_source_split.csv"
-)
-OUTPUT = Path("work/chimera_screen_observables_nonreserved.json")
+ROOT = DATA_ROOT / "derived/chimera_paired"
+CONTROL = DATA_ROOT / "derived/chimera_recap256"
+SPLIT = DATA_ROOT / "manifests/chimera_simulation_source_split.csv"
+OUTPUT = WORK_DIR / "chimera_screen_observables_nonreserved.json"
 CONDITIONS = ("recap_mac", "recap_monitor")
 
 

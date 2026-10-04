@@ -7,7 +7,9 @@ re-digitization simulator.
 
 from __future__ import annotations
 
-from experiments.paths import REPO_ROOT
+from palimpsest.data.images import resize_unit_float as normalized
+
+from palimpsest.paths import REPO_ROOT
 
 import argparse
 import hashlib
@@ -145,8 +147,10 @@ def choose_donor(
     width, height = int(original_row["width"]), int(original_row["height"])
     ranked = sorted(
         donors[condition],
-        key=lambda donor: abs(math.log(width / donor["input_width"]))
-        + abs(math.log(height / donor["input_height"])),
+        key=lambda donor: (
+            abs(math.log(width / donor["input_width"]))
+            + abs(math.log(height / donor["input_height"]))
+        ),
     )[:neighbors]
     random_seed = int.from_bytes(
         source_rank(source, f"draw/{condition}/{SEED}")[:8], "big"
@@ -164,15 +168,6 @@ def choose_encoding_donor(source, condition, donors, source_id_seed=False):
     rng = np.random.default_rng(random_seed)
     pool = donors[condition]
     return pool[int(rng.integers(len(pool)))]
-
-
-def normalized(image, side):
-    return (
-        np.asarray(
-            image.resize((side, side), Image.Resampling.BICUBIC), dtype=np.float32
-        )
-        / 255
-    )
 
 
 def render_simulated_jpeg(original, donor, max_pixels, encoding_donor=None):

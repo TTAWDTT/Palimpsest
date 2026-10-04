@@ -4,9 +4,12 @@ This is a process diagnostic, not screen-lattice or sensor-noise attribution.
 Only frozen development source groups are read; bands and controls are fixed.
 """
 
+from palimpsest.evaluation.distribution import quantile_summary as summary
+
+from palimpsest.paths import WORK_DIR
+
 import csv
 import json
-from pathlib import Path
 
 import numpy as np
 
@@ -18,7 +21,7 @@ from experiments.chimera.probe_chimera_native_frequency import (
 )
 
 
-OUTPUT = Path("work/chimera_native_bandpower_probe.json")
+OUTPUT = WORK_DIR / "chimera_native_bandpower_probe.json"
 BANDS = {"mid_015_030": (0.15, 0.30), "high_030_045": (0.30, 0.45)}
 
 
@@ -28,15 +31,6 @@ def powers(
     centered = patch - patch.mean()
     power = np.abs(np.fft.fftshift(np.fft.fft2(centered * window))) ** 2
     return {name: float(np.mean(power[mask])) for name, mask in masks.items()}
-
-
-def summary(values: list[float]) -> dict[str, float]:
-    array = np.asarray(values)
-    return {
-        "median": float(np.median(array)),
-        "p05": float(np.quantile(array, 0.05)),
-        "p95": float(np.quantile(array, 0.95)),
-    }
 
 
 def main() -> None:

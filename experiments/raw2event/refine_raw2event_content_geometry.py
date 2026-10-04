@@ -5,9 +5,10 @@ registration after inspecting the first development results, not a device
 geometry measurement or a predeclared evaluation protocol.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import csv
 import json
-from pathlib import Path
 
 import cv2
 import numpy as np
@@ -18,11 +19,9 @@ from experiments.raw2event.audit_raw2event_split_first_frames import load_origin
 from experiments.raw2event.match_raw2event_cifar_source import normalized_gray
 
 
-SPLIT = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_process_split_v1.csv"
-)
-BASE = Path("work/raw2event_process_split_first_frame_audit.json")
-OUT = Path("work/raw2event_content_registered_geometry.json")
+SPLIT = DATA_ROOT / "manifests/raw2event_process_split_v1.csv"
+BASE = WORK_DIR / "raw2event_process_split_first_frame_audit.json"
+OUT = WORK_DIR / "raw2event_content_registered_geometry.json"
 DEST = np.asarray([[0, 0], [31, 0], [31, 31], [0, 31]], dtype=np.float32)
 BOUNDS = [(-20, 20), (-20, 20), (0.90, 1.10), (-0.12, 0.12)]
 

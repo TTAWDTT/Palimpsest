@@ -2,93 +2,20 @@
 
 from __future__ import annotations
 
+from palimpsest.evaluation.timing import summarize_timing
+from palimpsest.evaluation.pairing import paired_change
+
 import argparse
 import csv
 import json
 import math
-import random
-import statistics
 from collections import defaultdict
 from pathlib import Path
 
-from experiments.baselines.score_published_logits import evaluate
+from palimpsest.evaluation.classification import evaluate
 
 
 CONDITIONS = ("original", "transfer", "redigital")
-
-
-def percentile(values: list[float], fraction: float) -> float:
-    ordered = sorted(values)
-    position = (len(ordered) - 1) * fraction
-    low = int(position)
-    high = min(low + 1, len(ordered) - 1)
-    return ordered[low] + (ordered[high] - ordered[low]) * (position - low)
-
-
-def summarize_timing(rows: list[dict[str, str]]) -> dict[str, dict[str, float]]:
-    result = {}
-    for key in ("decode_preprocess_ms", "gpu_transfer_forward_ms", "end_to_end_ms"):
-        values = [float(row[key]) for row in rows]
-        if any(not math.isfinite(value) or value < 0 for value in values):
-            raise ValueError(f"Invalid timing: {key}")
-        result[key] = {
-            "p50": statistics.median(values),
-            "p95": percentile(values, 0.95),
-        }
-    return result
-
-
-def paired_change(original, processed) -> dict[str, object]:
-    common = set(original) & set(processed)
-    by_label = defaultdict(list)
-    for source in sorted(common):
-        label = original[source]["label"]
-        if processed[source]["label"] != label:
-            raise ValueError(f"Paired source label mismatch: {source}")
-        first = float(original[source]["score"]) > 0
-        second = float(processed[source]["score"]) > 0
-        truth = label == "FAKE"
-        by_label[label].append(
-            (int(second == truth) - int(first == truth), int(first != second))
-        )
-    if set(by_label) != {"REAL", "FAKE"}:
-        raise ValueError("Paired evaluation requires both source classes")
-
-    class_change = {
-        label: sum(change for change, _ in values) / len(values)
-        for label, values in by_label.items()
-    }
-    class_flip = {
-        label: sum(flip for _, flip in values) / len(values)
-        for label, values in by_label.items()
-    }
-    rng = random.Random(20260924)
-    bootstrap = []
-    for _ in range(2000):
-        samples = {
-            label: rng.choices(values, k=len(values))
-            for label, values in by_label.items()
-        }
-        bootstrap.append(
-            sum(
-                sum(change for change, _ in samples[label]) / len(samples[label])
-                for label in ("REAL", "FAKE")
-            )
-            / 2
-        )
-    bootstrap.sort()
-    return {
-        "paired_sources": len(common),
-        "paired_real_sources": len(by_label["REAL"]),
-        "paired_fake_sources": len(by_label["FAKE"]),
-        "class_accuracy_change": class_change,
-        "balanced_accuracy_change": sum(class_change.values()) / 2,
-        "balanced_accuracy_change_ci95": [bootstrap[49], bootstrap[1950]],
-        "class_decision_flip_rate": class_flip,
-        "source_macro_decision_flip_rate": sum(class_flip.values()) / 2,
-        "unpaired_original_sources": len(set(original) - common),
-        "unpaired_processed_sources": len(set(processed) - common),
-    }
 
 
 def summarize_cohort(inference_rows: list[dict[str, str]]) -> dict[str, object]:

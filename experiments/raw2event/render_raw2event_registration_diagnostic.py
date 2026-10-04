@@ -1,8 +1,9 @@
 """Visualize selected source/RGB/RAW registration failures for diagnosis."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import csv
 import json
-from pathlib import Path
 
 import cv2
 import numpy as np
@@ -12,12 +13,10 @@ from experiments.raw2event.audit_raw2event_split_first_frames import load_origin
 from experiments.raw2event.probe_raw2event_source_to_raw import prepare
 
 
-SPLIT = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_process_split_v1.csv"
-)
-RGB = Path("work/raw2event_content_registered_geometry.json")
-RAW = Path("work/raw2event_raw_target_registration_diagnostic.json")
-OUT = Path("work/raw2event_registration_diagnostic.png")
+SPLIT = DATA_ROOT / "manifests/raw2event_process_split_v1.csv"
+RGB = WORK_DIR / "raw2event_content_registered_geometry.json"
+RAW = WORK_DIR / "raw2event_raw_target_registration_diagnostic.json"
+OUT = WORK_DIR / "raw2event_registration_diagnostic.png"
 CLASSES = ("airplane", "bird", "cat", "deer", "ship")
 
 

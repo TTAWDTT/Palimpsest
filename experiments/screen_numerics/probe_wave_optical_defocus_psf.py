@@ -5,15 +5,16 @@ aberrations or measured camera parameters.  This is a numerical reference,
 not a device calibration or a model-selection fit to photographs.
 """
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import numpy as np
 from scipy.signal import fftconvolve
 from scipy.special import j0, j1, roots_legendre
 
 
-OUT = Path("work/wave_optical_defocus_psf_probe.json")
+OUT = WORK_DIR / "wave_optical_defocus_psf_probe.json"
 PITCH_MM = 0.004
 FOCAL_MM = 4.0
 SCREEN_MM = 500.0

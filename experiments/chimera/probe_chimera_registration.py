@@ -4,6 +4,8 @@ This estimates a *publication-image alignment*, not camera pose or screen pitch.
 Only calibration/development source groups are eligible; reserved is unopened.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import argparse
 import csv
 import json
@@ -13,11 +15,9 @@ import cv2
 import numpy as np
 
 
-ROOT = Path("E:/ai_image_origin_research/data/derived/chimera_paired")
-CONTROL = Path("E:/ai_image_origin_research/data/derived/chimera_recap256")
-SPLIT = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_simulation_source_split.csv"
-)
+ROOT = DATA_ROOT / "derived/chimera_paired"
+CONTROL = DATA_ROOT / "derived/chimera_recap256"
+SPLIT = DATA_ROOT / "manifests/chimera_simulation_source_split.csv"
 
 
 def load_gray(path: Path) -> np.ndarray:
@@ -84,7 +84,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--per-stratum", type=int, default=2)
     parser.add_argument(
-        "--output", type=Path, default=Path("work/chimera_registration_pilot.json")
+        "--output", type=Path, default=WORK_DIR / "chimera_registration_pilot.json"
     )
     args = parser.parse_args()
     with SPLIT.open(newline="", encoding="utf-8-sig") as stream:

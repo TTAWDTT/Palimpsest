@@ -1,22 +1,17 @@
 """Freeze ten new, unopened Raw2Event sources for a single phase check."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import csv
 import hashlib
 import json
-from pathlib import Path
 
 
-REGISTRY = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_cifar_source_index.csv"
-)
+REGISTRY = DATA_ROOT / "manifests/raw2event_cifar_source_index.csv"
 REGISTRY_SHA = "0cb84d5b31a46cfbafd427726a08e7e2c10331f1111215d3aee5ad515c48ab8b"
-OLDER_SPLIT = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_process_split_v1.csv"
-)
-OUT = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_phase_confirmation_v1.csv"
-)
-AUDIT = Path("work/raw2event_phase_confirmation_freeze.json")
+OLDER_SPLIT = DATA_ROOT / "manifests/raw2event_process_split_v1.csv"
+OUT = DATA_ROOT / "manifests/raw2event_phase_confirmation_v1.csv"
+AUDIT = WORK_DIR / "raw2event_phase_confirmation_freeze.json"
 SEED = "raw2event-phase-confirmation-2026-09-25-v1"
 
 
@@ -66,12 +61,8 @@ def main() -> None:
         )
         return
     unopened = all(
-        not Path(
-            "E:/ai_image_origin_research/data/raw/raw2event_probe", row["raw_path"]
-        ).exists()
-        and not Path(
-            "E:/ai_image_origin_research/data/raw/raw2event_probe", row["rgb_path"]
-        ).exists()
+        not (DATA_ROOT / "raw/raw2event_probe" / row["raw_path"]).exists()
+        and not (DATA_ROOT / "raw/raw2event_probe" / row["rgb_path"]).exists()
         for row in chosen
     )
     with OUT.open("w", encoding="utf-8", newline="") as stream:

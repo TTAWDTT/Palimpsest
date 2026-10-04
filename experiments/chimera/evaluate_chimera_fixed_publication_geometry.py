@@ -1,7 +1,10 @@
 """Test whether one fixed post-crop affine warp transfers to unseen content."""
 
+from palimpsest.evaluation.distribution import quantile_summary as summarize
+
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import cv2
 import numpy as np
@@ -14,17 +17,8 @@ from experiments.chimera.probe_chimera_registration import (
 )
 
 
-AUDIT = Path("work/chimera_registration_nonreserved.json")
-OUTPUT = Path("work/chimera_fixed_publication_geometry.json")
-
-
-def summarize(values: list[float]) -> dict[str, float]:
-    array = np.asarray(values)
-    return {
-        "median": float(np.median(array)),
-        "p05": float(np.quantile(array, 0.05)),
-        "p95": float(np.quantile(array, 0.95)),
-    }
+AUDIT = WORK_DIR / "chimera_registration_nonreserved.json"
+OUTPUT = WORK_DIR / "chimera_fixed_publication_geometry.json"
 
 
 def main() -> None:

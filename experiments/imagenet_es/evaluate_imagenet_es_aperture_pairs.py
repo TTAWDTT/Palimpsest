@@ -1,16 +1,17 @@
 """External JPEG-level aperture intervention check on fixed-source pairs."""
 
+from palimpsest.paths import WORK_DIR
+
 import json
 from collections import defaultdict
-from pathlib import Path
 
 import cv2
 import numpy as np
 from PIL import Image
 
 
-MANIFEST = Path("work/imagenet_es_20class_aperture_manifest.json")
-OUT = Path("work/imagenet_es_20class_aperture_evaluation.json")
+MANIFEST = WORK_DIR / "imagenet_es_20class_aperture_manifest.json"
+OUT = WORK_DIR / "imagenet_es_20class_aperture_evaluation.json"
 IDS = (4, 13, 22)  # Author test-grid CSV: ISO 250, 1/60 s, f/5/9/16.
 
 

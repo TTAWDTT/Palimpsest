@@ -8,6 +8,8 @@ Its scores therefore do not numerically reproduce the published method.
 
 from __future__ import annotations
 
+from palimpsest.paths import DATA_ROOT
+
 import argparse
 import csv
 import hashlib
@@ -21,16 +23,14 @@ from PIL import Image
 from scipy.fft import dctn
 from sklearn.ensemble import RandomForestClassifier
 
-from experiments.baselines.evaluate_rr_bfree import paired_change
-from experiments.baselines.score_published_logits import evaluate
+from palimpsest.evaluation.pairing import paired_change
+from palimpsest.evaluation.classification import evaluate
 
 
-TRAIN_ROOT = Path(r"E:\ai_image_origin_research\data\derived\rr_trainval")
-TEST_ROOT = Path(r"E:\ai_image_origin_research\data\derived\rr_test")
-TRAIN_MANIFEST = Path(
-    r"E:\ai_image_origin_research\data\manifests\rr_trainval_files.csv"
-)
-TEST_MANIFEST = Path(r"E:\ai_image_origin_research\data\manifests\rr_test_files.csv")
+TRAIN_ROOT = DATA_ROOT / "derived/rr_trainval"
+TEST_ROOT = DATA_ROOT / "derived/rr_test"
+TRAIN_MANIFEST = DATA_ROOT / "manifests/rr_trainval_files.csv"
+TEST_MANIFEST = DATA_ROOT / "manifests/rr_test_files.csv"
 BASE_QUANTIZATION = np.array(
     [
         [16, 11, 10, 16, 24, 40, 51, 61],

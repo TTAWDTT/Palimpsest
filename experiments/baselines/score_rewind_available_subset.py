@@ -2,16 +2,19 @@
 
 from __future__ import annotations
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import csv
 import json
 from collections import Counter
 from pathlib import Path
 
-from experiments.baselines.score_published_logits import DETECTORS, evaluate
+from palimpsest.evaluation.classification import evaluate
+from experiments.baselines.score_published_logits import DETECTORS
 
 
-MANIFEST_DIR = Path(r"E:\ai_image_origin_research\data\manifests")
-OUTPUT_PATH = Path("work/rewind_available_subset_scores.json")
+MANIFEST_DIR = DATA_ROOT / "manifests"
+OUTPUT_PATH = WORK_DIR / "rewind_available_subset_scores.json"
 
 
 def read_csv(path: Path) -> list[dict[str, str]]:

@@ -4,19 +4,20 @@ All parameters are virtual and chosen to expose an alias near 0.07 cycles per
 sensor pixel, similar in scale to two released FDNet diagnostic patches.
 """
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import cv2
 import numpy as np
 
-from origin_simulation.screen_capture import (
+from palimpsest.simulation.screen_capture import (
     ScreenCaptureParameters,
     render_screen_capture,
 )
 
 
-OUT = Path("work/screen_focus_before_vs_after_sampling.json")
+OUT = WORK_DIR / "screen_focus_before_vs_after_sampling.json"
 N_DISPLAY = 200
 N_SENSOR = 128
 SCALE = 0.93

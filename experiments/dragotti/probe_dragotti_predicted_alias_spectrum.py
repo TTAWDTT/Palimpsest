@@ -8,7 +8,7 @@ absence of moire; publication resizing and unknown display frame remain.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import WORK_DIR
 
 import hashlib
 import json

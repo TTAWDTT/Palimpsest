@@ -5,10 +5,11 @@ calibration sources fit count response; ten development and ten previously
 opened confirmation sources are diagnostic. No reserved sources are opened.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import csv
 import hashlib
 import json
-from pathlib import Path
 
 import numpy as np
 
@@ -21,16 +22,12 @@ from experiments.raw2event.probe_raw2event_cfa_phase import mask_for
 from experiments.raw2event.probe_raw2event_source_to_raw import prepare
 
 
-SPLIT = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_process_split_v1.csv"
-)
-NEW = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_phase_confirmation_v1.csv"
-)
-GEOM = Path("work/raw2event_sensor_geometry_audit.json")
-OLD_CORNERS = Path("work/raw2event_content_registered_geometry.json")
-NEW_CORNERS = Path("work/raw2event_phase_confirmation_evaluation.json")
-OUT = Path("work/raw2event_global_geometry_process_evaluation.json")
+SPLIT = DATA_ROOT / "manifests/raw2event_process_split_v1.csv"
+NEW = DATA_ROOT / "manifests/raw2event_phase_confirmation_v1.csv"
+GEOM = WORK_DIR / "raw2event_sensor_geometry_audit.json"
+OLD_CORNERS = WORK_DIR / "raw2event_content_registered_geometry.json"
+NEW_CORNERS = WORK_DIR / "raw2event_phase_confirmation_evaluation.json"
+OUT = WORK_DIR / "raw2event_global_geometry_process_evaluation.json"
 METHODS = ("vertical_rgb", "co_spatial_rgb_control", "simple_rgb_sample_control")
 PHASE = "BGGR"
 

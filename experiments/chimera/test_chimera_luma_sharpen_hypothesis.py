@@ -5,9 +5,10 @@ selected on calibration luma band power; development tests chroma/coherence
 and is never used to choose a parameter. This is not camera ISP calibration.
 """
 
+from palimpsest.paths import WORK_DIR
+
 import csv
 import json
-from pathlib import Path
 
 import cv2
 import numpy as np
@@ -22,7 +23,7 @@ from experiments.chimera.probe_chimera_native_frequency import (
 )
 
 
-OUTPUT = Path("work/chimera_luma_sharpen_hypothesis.json")
+OUTPUT = WORK_DIR / "chimera_luma_sharpen_hypothesis.json"
 AMOUNTS = (0.0, 0.25, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 5.0)
 SIGMA = 1.0  # Native published-output pixels; preselected, not lens PSF.
 

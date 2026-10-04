@@ -2,9 +2,13 @@
 
 from __future__ import annotations
 
-from experiments.paths import REPO_ROOT
+from palimpsest.paths import WORK_DIR
 
-import hashlib
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.io.hashing import file_sha256 as hash_file
+
+
 import json
 import stat
 import time
@@ -15,7 +19,7 @@ from pathlib import Path, PurePosixPath, PureWindowsPath
 
 REPO = "ENCLab/DESCAN-18K"
 REVISION = "b5617e5ef9217116daa0ed2740394cc1ef2e03d7"
-DESTINATION = Path(r"E:\ai_image_origin_research\data\raw\descan18k")
+DESTINATION = DATA_ROOT / "raw/descan18k"
 EXPECTED = {
     "Valid.zip": (
         754770440,
@@ -26,19 +30,11 @@ EXPECTED = {
         "93c904410f409c1a393e5e79b35bf1748cb5d0ad2d18d1e1958d32213a9d8304",
     ),
 }
-SUMMARY = REPO_ROOT / "work" / "descan_archive_audit.json"
+SUMMARY = WORK_DIR / "descan_archive_audit.json"
 
 
 class ResumeNotSupported(Exception):
     """The server did not return the requested byte range."""
-
-
-def hash_file(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(4 * 1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 def audit_zip(path: Path) -> dict[str, int]:

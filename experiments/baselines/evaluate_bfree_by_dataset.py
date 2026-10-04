@@ -8,7 +8,7 @@ import json
 from collections import defaultdict
 from pathlib import Path
 
-from experiments.baselines.score_published_logits import evaluate
+from palimpsest.evaluation.classification import evaluate
 
 
 def summarize(rows: list[dict[str, str]], score_key: str) -> dict[str, object]:

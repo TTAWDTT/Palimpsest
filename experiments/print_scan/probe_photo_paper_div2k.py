@@ -6,25 +6,24 @@ parameter fit. The camera and publication parameters are identical.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import WORK_DIR
 
 import io
 import json
 import zipfile
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
 
-from origin_simulation.photo_paper import (
+from palimpsest.simulation.photo_paper import (
     PhotoPaperParameters,
     simulate_photo_paper_surface,
 )
-from origin_simulation.print_camera import (
+from palimpsest.simulation.print_camera import (
     PrintCameraParameters,
     photograph_print_surface,
 )
-from origin_simulation.publication import PublicationParameters, apply_publication
+from palimpsest.simulation.publication import PublicationParameters, apply_publication
 from experiments.print_scan.probe_print_camera_div2k import (
     RAW,
     SOURCE,

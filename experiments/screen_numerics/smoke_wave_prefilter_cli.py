@@ -1,5 +1,7 @@
 """Exercise the public single-image CLI for the bounded wave prefilter path."""
 
+from palimpsest.paths import WORK_DIR
+
 import json
 import subprocess
 import sys
@@ -11,7 +13,7 @@ from PIL import Image
 
 
 def main() -> None:
-    work = Path("work").resolve()
+    work = WORK_DIR.resolve()
     with tempfile.TemporaryDirectory(prefix="wave_prefilter_cli_", dir=work) as temp:
         root = Path(temp)
         source = root / "display.png"
@@ -45,7 +47,7 @@ def main() -> None:
         command = [
             sys.executable,
             "-m",
-            "origin_simulation.render_cli",
+            "palimpsest.simulation.render_cli",
             "--input",
             str(source),
             "--config",

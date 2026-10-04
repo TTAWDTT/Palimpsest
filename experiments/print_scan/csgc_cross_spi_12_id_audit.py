@@ -5,11 +5,12 @@ individually length/CRC-checked by `extract`; the binary template must match
 the canonical 2400 archive. This audits digital identity, not physical paper.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import hashlib
 import io
 import json
 import zipfile
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
@@ -17,8 +18,8 @@ from PIL import Image
 from experiments.print_scan.probe_csgc_cross_resolution import extract
 
 
-ARCHIVE = Path(r"E:\ai_image_origin_research\data\raw\csgc\CSGC_scan2400spi.zip")
-OUT = Path("work/csgc_cross_spi_12_id_audit.json")
+ARCHIVE = DATA_ROOT / "raw/csgc/CSGC_scan2400spi.zip"
+OUT = WORK_DIR / "csgc_cross_spi_12_id_audit.json"
 IDS = (125, 200, 275, 350, 425, 500, 575, 650, 725, 800, 875, 950)
 
 rows = []

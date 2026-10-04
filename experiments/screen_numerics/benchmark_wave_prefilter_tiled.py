@@ -1,18 +1,19 @@
 """Virtual larger-frame wave prefilter tile seam and runtime probe."""
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 from time import perf_counter
 
 import numpy as np
 
-from origin_simulation.screen_capture import (
+from palimpsest.simulation.screen_capture import (
     ScreenCaptureParameters,
     render_screen_capture,
 )
 
 
-OUT = Path("work/wave_prefilter_tiled_benchmark.json")
+OUT = WORK_DIR / "wave_prefilter_tiled_benchmark.json"
 
 
 def main() -> None:

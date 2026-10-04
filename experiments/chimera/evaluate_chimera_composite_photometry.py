@@ -4,6 +4,8 @@ The 3x3+b map is an empirical composite of display, camera, ISP and publication
 effects in gamma-encoded PNG values. It must not be interpreted as a camera CCM.
 """
 
+from palimpsest.paths import WORK_DIR
+
 import json
 from pathlib import Path
 
@@ -17,8 +19,8 @@ from experiments.chimera.evaluate_chimera_fixed_publication_geometry import (
 )
 
 
-GEOMETRY = Path("work/chimera_fixed_publication_geometry.json")
-OUTPUT = Path("work/chimera_composite_photometry.json")
+GEOMETRY = WORK_DIR / "chimera_fixed_publication_geometry.json"
+OUTPUT = WORK_DIR / "chimera_composite_photometry.json"
 
 
 def load_rgb(path: Path) -> np.ndarray:

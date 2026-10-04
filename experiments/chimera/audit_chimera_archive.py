@@ -1,10 +1,12 @@
 """Audit official Chimera Zenodo data archive without extracting it wholesale."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 from collections import Counter, defaultdict
 import hashlib
 import io
 import json
-from pathlib import Path, PurePosixPath
+from pathlib import PurePosixPath
 import tarfile
 
 from PIL import Image
@@ -12,8 +14,8 @@ import numpy as np
 from scipy.fft import dctn
 
 
-ARCHIVE = Path("E:/ai_image_origin_research/data/raw/chimera_data.tar.gz")
-OUTPUT = Path("work/chimera_archive_audit.json")
+ARCHIVE = DATA_ROOT / "raw/chimera_data.tar.gz"
+OUTPUT = WORK_DIR / "chimera_archive_audit.json"
 EXPECTED_SIZE = 3_784_718_041
 EXPECTED_MD5 = "e645697149fd75afe6382131020cc394"
 GROUPS = (

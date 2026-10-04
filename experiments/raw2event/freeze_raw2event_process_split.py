@@ -4,21 +4,18 @@ The two previously inspected prefixes are explicitly exploratory and excluded
 from all new calibration/development/reserved roles.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 from collections import Counter, defaultdict
 import csv
 import hashlib
 import json
-from pathlib import Path
 
 
-SOURCE = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_cifar_source_index.csv"
-)
+SOURCE = DATA_ROOT / "manifests/raw2event_cifar_source_index.csv"
 SOURCE_SHA256 = "0cb84d5b31a46cfbafd427726a08e7e2c10331f1111215d3aee5ad515c48ab8b"
-OUTPUT = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_process_split_v1.csv"
-)
-AUDIT = Path("work/raw2event_process_split_v1_audit.json")
+OUTPUT = DATA_ROOT / "manifests/raw2event_process_split_v1.csv"
+AUDIT = WORK_DIR / "raw2event_process_split_v1_audit.json"
 SALT = "raw2event-screen-process-v1-2026-09-25"
 EXPLORATORY = {
     "10000_automobile_5_1087_20251224_105416",

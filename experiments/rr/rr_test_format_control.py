@@ -1,13 +1,14 @@
 """Apply the train/val format-only PNG→AI, JPEG→real rule to RR test."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import csv
 import json
 from collections import Counter
-from pathlib import Path
 
 
-MANIFEST = Path("E:/ai_image_origin_research/data/manifests/rr_test_files.csv")
-OUTPUT = Path("work/rr_test_format_control.json")
+MANIFEST = DATA_ROOT / "manifests/rr_test_files.csv"
+OUTPUT = WORK_DIR / "rr_test_format_control.json"
 
 
 def main():

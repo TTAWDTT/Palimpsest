@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import hashlib
 import json
 import tarfile
@@ -10,14 +12,10 @@ from pathlib import Path
 from PIL import Image
 
 
-ARCHIVE = Path(
-    r"E:\ai_image_origin_research\data\raw\dfd_halftone_color\HalftoneImages-Color.tar.gz"
-)
-INVENTORY = Path("work/dfd_color_inventory.json")
-OUT = Path("work/dfd_color_non_tiff_fullpages.json")
-DEST = Path(
-    r"E:\ai_image_origin_research\data\derived\dfd_color_fullpage_sample\png_exceptions"
-)
+ARCHIVE = DATA_ROOT / "raw/dfd_halftone_color/HalftoneImages-Color.tar.gz"
+INVENTORY = WORK_DIR / "dfd_color_inventory.json"
+OUT = WORK_DIR / "dfd_color_non_tiff_fullpages.json"
+DEST = DATA_ROOT / "derived/dfd_color_fullpage_sample/png_exceptions"
 EXPECTED_BYTES = 25_818_121_374
 
 

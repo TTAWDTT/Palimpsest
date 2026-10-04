@@ -1,16 +1,17 @@
 """Check that CSGC's same-number source/scan entries are content paired."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import io
 import json
 import zipfile
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
 
 
-ARCHIVE = Path(r"E:\ai_image_origin_research\data\raw\csgc\CSGC_scan2400spi.zip")
-OUT = Path("work/csgc2400_pair_content.json")
+ARCHIVE = DATA_ROOT / "raw/csgc/CSGC_scan2400spi.zip"
+OUT = WORK_DIR / "csgc2400_pair_content.json"
 
 
 def corr(a: np.ndarray, b: np.ndarray) -> float:

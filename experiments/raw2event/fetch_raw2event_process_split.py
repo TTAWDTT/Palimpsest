@@ -1,22 +1,21 @@
 """Download only frozen calibration/development Raw2Event capture prefixes."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import csv
 import hashlib
 import json
-from pathlib import Path
 import requests
 
 from experiments.raw2event.fetch_raw2event_pair import REPO, remote_metadata, fetch_one
 from experiments.raw2event.index_raw2event_source_paths import REVISION
 
 
-SPLIT = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_process_split_v1.csv"
-)
+SPLIT = DATA_ROOT / "manifests/raw2event_process_split_v1.csv"
 EXPECTED_SHA = "471fbff8020f88c1b73664e5794285df28da4792e5fb77bdfe682b5ee9bb7a43"
-AUDIT_DIR = Path("work/raw2event_process_split_downloads")
-SUMMARY = Path("work/raw2event_process_split_download_audit.json")
+AUDIT_DIR = WORK_DIR / "raw2event_process_split_downloads"
+SUMMARY = WORK_DIR / "raw2event_process_split_download_audit.json"
 
 
 def one(prefix: str, role: str) -> dict:

@@ -1,8 +1,9 @@
 """Check patch-aligned crop-first B-Free logits against the original forward."""
 
+from palimpsest.paths import DATA_ROOT, MODELS_ROOT, WORK_DIR
+
 import csv
 import json
-from pathlib import Path
 
 from PIL import Image
 
@@ -13,11 +14,11 @@ from experiments.baselines.run_bfree_baseline import (
 )
 
 
-ROOT = Path("E:/ai_image_origin_research/data/derived/rr_test")
-MANIFEST = Path("E:/ai_image_origin_research/data/manifests/rr_test_files.csv")
-WEIGHTS = Path("E:/ai_image_origin_research/models/bfree")
-VENDOR = Path("work/vendor/bfree/code")
-OUTPUT = Path("work/bfree_crop_first_validation.json")
+ROOT = DATA_ROOT / "derived/rr_test"
+MANIFEST = DATA_ROOT / "manifests/rr_test_files.csv"
+WEIGHTS = MODELS_ROOT / "bfree"
+VENDOR = WORK_DIR / "vendor/bfree/code"
+OUTPUT = WORK_DIR / "bfree_crop_first_validation.json"
 
 
 def main():

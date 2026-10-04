@@ -5,6 +5,8 @@ mechanisms were fixed before downloading these twenty recordings. Per-prefix
 render caches include a code/data fingerprint and can be resumed safely.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 from collections import defaultdict
 import argparse
 import csv
@@ -12,7 +14,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from experiments.paths import simulation_code_files
+from palimpsest.io.provenance import simulation_code_files
 
 import numpy as np
 
@@ -26,16 +28,12 @@ from experiments.raw2event.probe_raw2event_source_to_raw import (
 )
 
 
-SPLIT = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_process_split_v1.csv"
-)
+SPLIT = DATA_ROOT / "manifests/raw2event_process_split_v1.csv"
 SPLIT_SHA = "471fbff8020f88c1b73664e5794285df28da4792e5fb77bdfe682b5ee9bb7a43"
-FIRST_FRAME_AUDIT = Path("work/raw2event_process_split_first_frame_audit.json")
-REFINED_GEOMETRY = Path("work/raw2event_content_registered_geometry.json")
-CACHE = Path(
-    "E:/ai_image_origin_research/data/derived/raw2event_source_to_raw_split_v1"
-)
-OUT = Path("work/raw2event_source_to_raw_split_v1.json")
+FIRST_FRAME_AUDIT = WORK_DIR / "raw2event_process_split_first_frame_audit.json"
+REFINED_GEOMETRY = WORK_DIR / "raw2event_content_registered_geometry.json"
+CACHE = DATA_ROOT / "derived/raw2event_source_to_raw_split_v1"
+OUT = WORK_DIR / "raw2event_source_to_raw_split_v1.json"
 LAYOUTS = ("vertical_rgb", "co_spatial_rgb_control", "simple_rgb_sample_control")
 CODE = (
     *simulation_code_files(),

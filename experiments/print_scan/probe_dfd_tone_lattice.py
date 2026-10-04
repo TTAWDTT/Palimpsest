@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import json
 import hashlib
 import tarfile
@@ -11,10 +13,8 @@ import numpy as np
 from PIL import Image
 
 
-ARCHIVE = Path(
-    r"E:\ai_image_origin_research\data\raw\dfd_halftone\HalftoneImages-BW.tar.gz"
-)
-DERIVED = Path(r"E:\ai_image_origin_research\data\derived\dfd_probe")
+ARCHIVE = DATA_ROOT / "raw/dfd_halftone/HalftoneImages-BW.tar.gz"
+DERIVED = DATA_ROOT / "derived/dfd_probe"
 D6_NAME = "HalftoneImages-BW/D6_HPCLJ5550/D6_DC1_x_800_P3_S1_T1_2111_1.tiff"
 TILE_X = [1000, 2000, 3000, 4000, 5000]
 TILE_Y = [700, 1800]
@@ -73,7 +73,7 @@ def main() -> None:
                         **find_peak(image.crop((x, y, x + 512, y + 512))),
                     }
             result["measurements"][device] = patches
-    Path("work/dfd_tone_lattice.json").write_text(
+    WORK_DIR / "dfd_tone_lattice.json".write_text(
         json.dumps(result, indent=2) + "\n", encoding="utf-8"
     )
     for device, patches in result["measurements"].items():

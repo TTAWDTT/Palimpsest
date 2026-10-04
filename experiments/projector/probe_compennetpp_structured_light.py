@@ -6,7 +6,9 @@ labels `cam/raw` as unwarped camera RGB PNG, not sensor RAW.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import WORK_DIR
 
 import hashlib
 import html
@@ -17,7 +19,6 @@ import urllib.parse
 import urllib.request
 import zipfile
 from collections import Counter
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
@@ -28,7 +29,7 @@ from experiments.dragotti.probe_dragotti_range import read_member
 
 
 OUT = WORK_DIR / "compennetpp_structured_light_probe.json"
-SAMPLE_DIR = Path(r"E:\ai_image_origin_research\data\derived\compennetpp_sl_probe")
+SAMPLE_DIR = DATA_ROOT / "derived/compennetpp_sl_probe"
 
 
 def confirmed_url() -> str:

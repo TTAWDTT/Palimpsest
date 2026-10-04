@@ -4,9 +4,12 @@ This is a published-output composite control, not a calibrated physical screen,
 optics, RAW and ISP simulator. It uses no development recapture pixels to render.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
+from palimpsest.io.hashing import file_sha256 as file_hash
+
 import argparse
 import csv
-import hashlib
 import json
 from pathlib import Path
 
@@ -21,26 +24,12 @@ from experiments.chimera.evaluate_chimera_composite_photometry import (
 )
 
 
-SPLIT = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_simulation_source_split.csv"
-)
-GEOMETRY = Path("work/chimera_fixed_publication_geometry.json")
-PHOTOMETRY = Path("work/chimera_composite_photometry.json")
-BLUR = Path("work/chimera_effective_blur_proxy.json")
-DEFAULT_ROOT = Path(
-    "E:/ai_image_origin_research/data/derived/chimera_composite_sim_dev256"
-)
-DEFAULT_MANIFEST = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_composite_sim_dev256_manifest.csv"
-)
-
-
-def file_hash(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        while block := stream.read(1024 * 1024):
-            digest.update(block)
-    return digest.hexdigest()
+SPLIT = DATA_ROOT / "manifests/chimera_simulation_source_split.csv"
+GEOMETRY = WORK_DIR / "chimera_fixed_publication_geometry.json"
+PHOTOMETRY = WORK_DIR / "chimera_composite_photometry.json"
+BLUR = WORK_DIR / "chimera_effective_blur_proxy.json"
+DEFAULT_ROOT = DATA_ROOT / "derived/chimera_composite_sim_dev256"
+DEFAULT_MANIFEST = DATA_ROOT / "manifests/chimera_composite_sim_dev256_manifest.csv"
 
 
 def render(
@@ -83,7 +72,7 @@ def main() -> None:
     parser.add_argument(
         "--audit-json",
         type=Path,
-        default=Path("work/chimera_composite_sim_dev256_audit.json"),
+        default=WORK_DIR / "chimera_composite_sim_dev256_audit.json",
     )
     args = parser.parse_args()
     geometry = json.loads(GEOMETRY.read_text(encoding="utf-8"))

@@ -3,12 +3,13 @@
 This is a numerical model check, not validation against a real device.
 """
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import numpy as np
 
-from origin_simulation.screen_capture import (
+from palimpsest.simulation.screen_capture import (
     ScreenCaptureParameters,
     render_screen_capture,
 )
@@ -84,7 +85,7 @@ def main() -> None:
         "fit_region": [12, 52, 12, 52],
         "cases": results,
     }
-    output = Path("work/screen_alias_aperture_sweep.json")
+    output = WORK_DIR / "screen_alias_aperture_sweep.json"
     output.write_text(
         json.dumps(record, ensure_ascii=False, indent=2), encoding="utf-8"
     )

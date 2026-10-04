@@ -1,5 +1,7 @@
 """Audit ImageNet-ES's official remote ZIP central directory via HTTP Range."""
 
+from palimpsest.paths import WORK_DIR
+
 import hashlib
 import json
 import zipfile
@@ -12,7 +14,7 @@ from experiments.dragotti.probe_dragotti_range import RangeFile, read_member
 
 
 URL = "https://huggingface.co/datasets/Edw2n/ImageNet-ES/resolve/main/ImageNet-ES.zip"
-OUT = Path("work/imagenet_es_remote_index.json")
+OUT = WORK_DIR / "imagenet_es_remote_index.json"
 
 
 class RequestsRangeFile(RangeFile):
@@ -86,7 +88,7 @@ def main() -> None:
             i for i in infos if i.filename.lower().endswith(".json")
         ):
             data = read_member(remote, info)
-            path = Path(f"work/imagenet_es_metadata_{index}.json")
+            path = WORK_DIR / f"imagenet_es_metadata_{index}.json"
             path.write_bytes(data)
             parsed = json.loads(data)
             metadata.append(

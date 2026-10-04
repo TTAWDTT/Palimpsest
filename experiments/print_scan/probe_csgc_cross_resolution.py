@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import hashlib
 import io
 import json
@@ -14,13 +16,13 @@ import numpy as np
 from PIL import Image
 
 
-DEST = Path(r"E:\ai_image_origin_research\data\derived\csgc_probe")
+DEST = DATA_ROOT / "derived/csgc_probe"
 DEST.mkdir(parents=True, exist_ok=True)
 
 
 def extract(spi: str, folder: str, number: int = 1) -> tuple[Path, dict]:
     index = json.loads(
-        Path(f"work/csgc{spi}_remote_index.json").read_text(encoding="utf-8")
+        WORK_DIR / f"csgc{spi}_remote_index.json".read_text(encoding="utf-8")
     )
     name = f"{spi}dpi_NEW/{folder}/Scan{number:05d}.tif"
     entry = next(r for r in index["records"] if r["name"] == name)
@@ -92,7 +94,7 @@ def main() -> None:
         np.array_equal(templates["2400"], templates["4800"])
         and np.array_equal(templates["2400"], templates["9600"])
     )
-    Path("work/csgc_cross_resolution_probe.json").write_text(
+    WORK_DIR / "csgc_cross_resolution_probe.json".write_text(
         json.dumps(summary, indent=2) + "\n", encoding="utf-8"
     )
     print(json.dumps(summary, indent=2))

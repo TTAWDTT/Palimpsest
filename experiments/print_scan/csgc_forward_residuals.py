@@ -1,20 +1,21 @@
 """Probe held-out CSGC residual structure of the fixed forward prototype."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import io
 import json
 import zipfile
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
 
-from origin_simulation.print_scan import PrintScanParameters, simulate_print_scan
+from palimpsest.simulation.print_scan import PrintScanParameters, simulate_print_scan
 
 
-ARCHIVE = Path(r"E:\ai_image_origin_research\data\raw\csgc\CSGC_scan2400spi.zip")
-OUT = Path("work/csgc_binary_forward_residuals.json")
+ARCHIVE = DATA_ROOT / "raw/csgc/CSGC_scan2400spi.zip"
+OUT = WORK_DIR / "csgc_binary_forward_residuals.json"
 params_json = json.loads(
-    Path("work/csgc_binary_forward_holdout.json").read_text(encoding="utf-8")
+    WORK_DIR / "csgc_binary_forward_holdout.json".read_text(encoding="utf-8")
 )
 params = PrintScanParameters(**params_json["params"])
 

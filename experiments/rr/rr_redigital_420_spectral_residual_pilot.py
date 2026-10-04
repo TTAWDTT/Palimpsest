@@ -7,13 +7,12 @@ camera/display simulator or a detector-training result.
 
 from __future__ import annotations
 
-from experiments.paths import REPO_ROOT
+from palimpsest.paths import REPO_ROOT
 
 import hashlib
 import io
 import json
 import math
-from pathlib import Path
 
 import numpy as np
 from PIL import Image

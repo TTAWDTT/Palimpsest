@@ -1,8 +1,9 @@
 """Spot-check additional cross-SPI CSGC pair mappings by HTTP Range + CRC."""
 
+from palimpsest.paths import WORK_DIR
+
 import hashlib
 import json
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
@@ -41,7 +42,7 @@ for item in (101, 501, 901):
         and np.array_equal(templates["2400"], templates["9600"])
     )
     result[f"Scan{item:05d}"] = item_result
-Path("work/csgc_cross_resolution_more_ids.json").write_text(
+WORK_DIR / "csgc_cross_resolution_more_ids.json".write_text(
     json.dumps(result, indent=2) + "\n", encoding="utf-8"
 )
 print(json.dumps(result, indent=2))

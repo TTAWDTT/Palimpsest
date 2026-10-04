@@ -6,13 +6,12 @@ not an optical/surface mechanism and is much larger than the factorized model.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import WORK_DIR
 
 import argparse
 import json
 import time
 import zipfile
-from pathlib import Path
 
 import numpy as np
 from scipy.ndimage import gaussian_filter

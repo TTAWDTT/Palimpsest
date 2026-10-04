@@ -1,10 +1,11 @@
 """Fetch only the ten frozen phase-confirmation Raw2Event capture triples."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import csv
 import hashlib
 import json
-from pathlib import Path
 
 import requests
 
@@ -12,12 +13,10 @@ from experiments.raw2event.fetch_raw2event_pair import REPO, fetch_one, remote_m
 from experiments.raw2event.index_raw2event_source_paths import REVISION
 
 
-MANIFEST = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_phase_confirmation_v1.csv"
-)
+MANIFEST = DATA_ROOT / "manifests/raw2event_phase_confirmation_v1.csv"
 EXPECTED_SHA = "c699c6b9ce8ce779f892c5caaab11e19b4c24e0e697ec8116b94115c0175e372"
-AUDIT_DIR = Path("work/raw2event_phase_confirmation_downloads")
-OUT = Path("work/raw2event_phase_confirmation_download_audit.json")
+AUDIT_DIR = WORK_DIR / "raw2event_phase_confirmation_downloads"
+OUT = WORK_DIR / "raw2event_phase_confirmation_download_audit.json"
 
 
 def one(row: dict) -> dict:

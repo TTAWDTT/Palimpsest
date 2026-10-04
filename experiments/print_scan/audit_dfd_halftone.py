@@ -7,6 +7,8 @@ input-to-output print model. The archive must first have the HTTP HEAD size.
 
 from __future__ import annotations
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import hashlib
 import gzip
 import io
@@ -19,10 +21,8 @@ import numpy as np
 from PIL import Image
 
 
-ARCHIVE = Path(
-    r"E:\ai_image_origin_research\data\raw\dfd_halftone\HalftoneImages-BW.tar.gz"
-)
-OUT = Path("work/dfd_halftone_audit.json")
+ARCHIVE = DATA_ROOT / "raw/dfd_halftone/HalftoneImages-BW.tar.gz"
+OUT = WORK_DIR / "dfd_halftone_audit.json"
 EXPECTED_BYTES = 4_259_915_309
 ROI = (5100, 1800, 5612, 2312)
 SHARED_SUFFIXES = (

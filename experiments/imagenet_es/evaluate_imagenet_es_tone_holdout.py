@@ -1,8 +1,9 @@
 """Apply a frozen effective JPEG law to never-fit ImageNet-ES source classes."""
 
+from palimpsest.paths import WORK_DIR
+
 import json
 from collections import defaultdict
-from pathlib import Path
 
 import numpy as np
 
@@ -19,12 +20,12 @@ from experiments.imagenet_es.fit_imagenet_es_effective_tone import (
 )
 
 
-DEV_MANIFEST = Path("work/imagenet_es_20class_aperture_iso_manifest.json")
-HOLDOUT_MANIFEST = Path(
-    "work/imagenet_es_20class_aperture_iso_content_holdout_manifest.json"
+DEV_MANIFEST = WORK_DIR / "imagenet_es_20class_aperture_iso_manifest.json"
+HOLDOUT_MANIFEST = (
+    WORK_DIR / "imagenet_es_20class_aperture_iso_content_holdout_manifest.json"
 )
-DEV_RESULT = Path("work/imagenet_es_effective_tone_dev.json")
-OUTPUT = Path("work/imagenet_es_effective_tone_content_holdout.json")
+DEV_RESULT = WORK_DIR / "imagenet_es_effective_tone_dev.json"
+OUTPUT = WORK_DIR / "imagenet_es_effective_tone_content_holdout.json"
 FROZEN_GAMMA = 0.5694751716876738
 FROZEN_TOE = 0.09504581492211553
 

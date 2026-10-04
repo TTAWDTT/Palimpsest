@@ -2,11 +2,10 @@
 
 from __future__ import annotations
 
-from experiments.paths import REPO_ROOT
+from palimpsest.paths import REPO_ROOT
 
 import hashlib
 import json
-from pathlib import Path
 
 from experiments.rr.evaluate_rr_simulator_critic import NUMERIC_FEATURES, evaluate
 

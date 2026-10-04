@@ -1,5 +1,7 @@
 """Decode all source and genuine recapture images and sign an inference manifest."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import csv
 import hashlib
 from io import BytesIO
@@ -9,12 +11,10 @@ from pathlib import Path
 from PIL import Image
 
 
-ROOT = Path("E:/ai_image_origin_research/data/derived/chimera_paired")
-MANIFEST = Path("E:/ai_image_origin_research/data/manifests/chimera_bfree_manifest.csv")
-IMAGE_AUDIT = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_paired_image_audit.csv"
-)
-SUMMARY = Path("work/chimera_extracted_audit.json")
+ROOT = DATA_ROOT / "derived/chimera_paired"
+MANIFEST = DATA_ROOT / "manifests/chimera_bfree_manifest.csv"
+IMAGE_AUDIT = DATA_ROOT / "manifests/chimera_paired_image_audit.csv"
+SUMMARY = WORK_DIR / "chimera_extracted_audit.json"
 CONDITIONS = ("stylegan2_orig", "recap_mac", "recap_monitor")
 CLASSES = ("cat", "church", "horse")
 LABELS = ("0_real", "1_fake")

@@ -1,5 +1,7 @@
 """Visualize optical-PSF approximation error under one virtual setup."""
 
+from palimpsest.paths import WORK_DIR
+
 import json
 from pathlib import Path
 
@@ -7,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-DATA = Path("work/wave_optical_defocus_psf_probe.json")
+DATA = WORK_DIR / "wave_optical_defocus_psf_probe.json"
 OUT = Path(
     "outputs/03_过程模拟/03_前向模型/薄透镜波动光学与圆盘近似频率响应_2026-09-25.png"
 )

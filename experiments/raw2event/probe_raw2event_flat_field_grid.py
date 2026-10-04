@@ -4,8 +4,9 @@ This does not infer a panel raster from a single peak. CFA, compression,
 display grid, fixed-pattern noise and readout artifacts can share frequencies.
 """
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import numpy as np
 from scipy.ndimage import gaussian_filter
@@ -23,7 +24,7 @@ PREFIXES = (
     "10034_automobile_5_1356_20251224_110057",
     "48340_ship_1_4036_20260117_195215",
 )
-OUT = Path("work/raw2event_flat_field_grid_probe.json")
+OUT = WORK_DIR / "raw2event_flat_field_grid_probe.json"
 
 
 def peaks(patch: np.ndarray) -> dict:

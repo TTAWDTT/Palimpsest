@@ -1,13 +1,14 @@
 """Paired, source-level summary of the one-pass phase confirmation sample."""
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import numpy as np
 
 
-IN = Path("work/raw2event_phase_confirmation_evaluation.json")
-OUT = Path("work/raw2event_phase_confirmation_summary.json")
+IN = WORK_DIR / "raw2event_phase_confirmation_evaluation.json"
+OUT = WORK_DIR / "raw2event_phase_confirmation_summary.json"
 
 
 def paired(rows: list[dict], first: str, second: str) -> dict:

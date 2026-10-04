@@ -5,17 +5,18 @@ Only param 4 -> 13 (f/5 -> f/9 at ISO250) is used for fitting; the other
 four capture conditions are withheld interventions on the same sources.
 """
 
+from palimpsest.paths import WORK_DIR
+
 import json
 from collections import defaultdict
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
 from scipy.optimize import least_squares
 
 
-MANIFEST = Path("work/imagenet_es_20class_aperture_iso_manifest.json")
-OUTPUT = Path("work/imagenet_es_effective_tone_dev.json")
+MANIFEST = WORK_DIR / "imagenet_es_20class_aperture_iso_manifest.json"
+OUTPUT = WORK_DIR / "imagenet_es_effective_tone_dev.json"
 BINS = 1024
 QUANTILES = np.linspace(0.1, 0.9, 17)
 PARAMS = {

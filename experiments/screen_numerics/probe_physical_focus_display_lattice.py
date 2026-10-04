@@ -3,12 +3,13 @@
 This is a structural simulation, not an estimate of any released phone/screen.
 """
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import numpy as np
 
-from origin_simulation.screen_capture import (
+from palimpsest.simulation.screen_capture import (
     ScreenCaptureParameters,
     render_screen_capture,
     thin_lens_coc_radius_sensor_pixels,
@@ -16,7 +17,7 @@ from origin_simulation.screen_capture import (
 )
 
 
-OUT = Path("work/screen_thin_lens_focus_lattice_probe.json")
+OUT = WORK_DIR / "screen_thin_lens_focus_lattice_probe.json"
 SENSOR_N = 56
 DISPLAY_N = 96
 FOCAL_MM = 4.0

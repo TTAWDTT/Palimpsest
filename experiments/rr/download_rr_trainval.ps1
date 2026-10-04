@@ -1,6 +1,10 @@
 $ErrorActionPreference = 'Stop'
-$rawDirectory = 'E:\ai_image_origin_research\data\raw'
-$logPath = 'E:\ai_image_origin_research\data\manifests\rr_trainval_download.log'
+$repoRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
+. (Join-Path $repoRoot 'tools\ResearchPaths.ps1')
+$researchPaths = Get-PalimpsestPaths
+$env:PYTHONPATH = "$repoRoot\src;$repoRoot" + $(if ($env:PYTHONPATH) { ";$env:PYTHONPATH" } else { '' })
+$rawDirectory = (Join-Path $researchPaths.data 'raw')
+$logPath = (Join-Path $researchPaths.data 'manifests\rr_trainval_download.log')
 $partialPath = Join-Path $rawDirectory 'RRDataset_original_train_val.tar.gz.partial'
 $finalPath = Join-Path $rawDirectory 'RRDataset_original_train_val.tar.gz'
 $sourceUrl = 'https://zenodo.org/api/records/14963880/files/RRDataset_original_train_val.tar.gz/content'

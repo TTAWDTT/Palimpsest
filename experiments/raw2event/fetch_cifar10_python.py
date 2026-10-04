@@ -1,5 +1,7 @@
 """Fetch an official-MD5 CIFAR-10 archive mirror for exact stimulus lookup."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import json
@@ -12,9 +14,9 @@ import requests
 
 URL = "https://huggingface.co/datasets/VerisimilitudeX/cifar10/resolve/main/cifar-10-python.tar.gz"
 OFFICIAL = "https://www.cs.toronto.edu/~kriz/cifar.html"
-ROOT = Path("E:/ai_image_origin_research/data/raw/cifar10_official")
+ROOT = DATA_ROOT / "raw/cifar10_official"
 TARGET = ROOT / "cifar-10-python.tar.gz"
-AUDIT = Path("work/cifar10_python_download_audit.json")
+AUDIT = WORK_DIR / "cifar10_python_download_audit.json"
 EXPECTED_LENGTH = 170_498_071
 EXPECTED_MD5 = "c58f30108f718f92721af3b95e74349a"
 

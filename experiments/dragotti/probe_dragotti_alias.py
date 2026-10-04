@@ -4,6 +4,8 @@ Conditional screen pitch comes from previous homography audit and a 1080-row
 display assumption. This probe cannot identify real f-number or display frame.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import json
 from pathlib import Path
 
@@ -13,8 +15,8 @@ import numpy as np
 from experiments.dragotti.analyze_dragotti_probe import align, read_rgb
 
 
-DATA = Path(r"E:\ai_image_origin_research\data\derived\dragotti_probe")
-OUT = Path("work/dragotti_chart_alias_probe.json")
+DATA = DATA_ROOT / "derived/dragotti_probe"
+OUT = WORK_DIR / "dragotti_chart_alias_probe.json"
 source = read_rgb(DATA / "original_D40_015.jpg")
 SX = source.shape[1] / 1924.0
 SY = source.shape[0] / 1280.0

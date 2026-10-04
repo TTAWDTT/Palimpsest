@@ -1,9 +1,10 @@
 """Diagnostic: can one bounded reflectance-plus-power curve explain CSGC?"""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import io
 import json
 import zipfile
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
@@ -11,8 +12,8 @@ from scipy.ndimage import gaussian_filter
 from scipy.optimize import least_squares
 
 
-ARCHIVE = Path(r"E:\ai_image_origin_research\data\raw\csgc\CSGC_scan2400spi.zip")
-OUT = Path("work/csgc_bounded_power_tone.json")
+ARCHIVE = DATA_ROOT / "raw/csgc/CSGC_scan2400spi.zip"
+OUT = WORK_DIR / "csgc_bounded_power_tone.json"
 INNER = np.s_[8:-8, 8:-8]
 SIGMA = 2.5
 

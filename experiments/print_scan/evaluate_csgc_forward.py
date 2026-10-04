@@ -5,21 +5,22 @@ diagnostic. Assigning all blur to scanner_optical_sigma_um is a numerical
 parameterization for this comparison, not an identification of that scanner.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import io
 import json
 import time
 import zipfile
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
 
-from origin_simulation.print_scan import PrintScanParameters, simulate_print_scan
+from palimpsest.simulation.print_scan import PrintScanParameters, simulate_print_scan
 
 
-ARCHIVE = Path(r"E:\ai_image_origin_research\data\raw\csgc\CSGC_scan2400spi.zip")
-OUT = Path("work/csgc_binary_forward_holdout.json")
-cal = json.loads(Path("work/csgc_bounded_power_tone.json").read_text(encoding="utf-8"))
+ARCHIVE = DATA_ROOT / "raw/csgc/CSGC_scan2400spi.zip"
+OUT = WORK_DIR / "csgc_binary_forward_holdout.json"
+cal = json.loads(WORK_DIR / "csgc_bounded_power_tone.json".read_text(encoding="utf-8"))
 exponent = cal["parameters"]["exponent"]
 effective_sigma_um = 2.5 * 25_400 / 2400
 aperture_sigma_um = 25_400 / (2400 * np.sqrt(12))

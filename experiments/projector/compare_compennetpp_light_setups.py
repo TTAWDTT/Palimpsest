@@ -6,6 +6,8 @@ is an observed setup comparison, not an isolated illumination intervention.
 
 from __future__ import annotations
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import json
 from pathlib import Path
 
@@ -23,15 +25,11 @@ from experiments.projector.evaluate_compennetpp_geometry_surrogates import (
 )
 
 
-FIRST_MANIFEST = Path("work/compennetpp_sl_one_setup_manifest.json")
-SECOND_MANIFEST = Path("work/compennetpp_sl_light3_pos1_cloud_manifest.json")
-FIRST_FOLDER = Path(
-    r"E:\ai_image_origin_research\data\derived\compennetpp_sl_one_setup"
-)
-SECOND_FOLDER = Path(
-    r"E:\ai_image_origin_research\data\derived\compennetpp_sl_light3_pos1_cloud"
-)
-OUT = Path("work/compennetpp_cloud_two_setups_comparison.json")
+FIRST_MANIFEST = WORK_DIR / "compennetpp_sl_one_setup_manifest.json"
+SECOND_MANIFEST = WORK_DIR / "compennetpp_sl_light3_pos1_cloud_manifest.json"
+FIRST_FOLDER = DATA_ROOT / "derived/compennetpp_sl_one_setup"
+SECOND_FOLDER = DATA_ROOT / "derived/compennetpp_sl_light3_pos1_cloud"
+OUT = WORK_DIR / "compennetpp_cloud_two_setups_comparison.json"
 
 
 def decode(folder: Path) -> dict:

@@ -8,7 +8,7 @@ an ideal monochromatic incoherent circular pupil, not a measured camera MTF.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import WORK_DIR
 
 import json
 import math

@@ -1,18 +1,19 @@
 """Virtual aperture intervention: presampling LCD alias and photon budget."""
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 from time import perf_counter
 
 import numpy as np
 
-from origin_simulation.screen_capture import (
+from palimpsest.simulation.screen_capture import (
     ScreenCaptureParameters,
     render_screen_capture,
 )
 
 
-OUT = Path("work/aperture_alias_noise_tradeoff.json")
+OUT = WORK_DIR / "aperture_alias_noise_tradeoff.json"
 H_SCALE = 1 / 1.3272
 ALIAS_F = 1 - H_SCALE
 FRAME = np.full((64, 192, 3), 0.5, dtype=np.float32)

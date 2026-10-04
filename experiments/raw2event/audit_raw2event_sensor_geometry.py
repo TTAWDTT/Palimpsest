@@ -5,9 +5,10 @@ AprilTag corners are used; original 10 reserved and 3 cross-day stress
 recordings are excluded before image reads.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import csv
 import json
-from pathlib import Path
 
 import cv2
 import numpy as np
@@ -15,13 +16,9 @@ import numpy as np
 from experiments.raw2event.audit_raw2event_probe import ROOT, detect_tag, extract_frame
 
 
-SPLIT = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_process_split_v1.csv"
-)
-NEW = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_phase_confirmation_v1.csv"
-)
-OUT = Path("work/raw2event_sensor_geometry_audit.json")
+SPLIT = DATA_ROOT / "manifests/raw2event_process_split_v1.csv"
+NEW = DATA_ROOT / "manifests/raw2event_phase_confirmation_v1.csv"
+OUT = WORK_DIR / "raw2event_sensor_geometry_audit.json"
 
 
 def read_rows() -> list[dict]:
@@ -90,7 +87,7 @@ def main() -> None:
         "global_projective": projective,
     }
     rgb_source_corners = {}
-    prior = Path("work/raw2event_source_to_raw_split_v1_source_rgb_refined.json")
+    prior = WORK_DIR / "raw2event_source_to_raw_split_v1_source_rgb_refined.json"
     if prior.exists():
         old = json.loads(prior.read_text(encoding="utf-8"))
         for item in old.get("per_source", old.get("sources", [])):
@@ -99,7 +96,7 @@ def main() -> None:
                 rgb_source_corners[item["prefix"]] = geometry[
                     "source_rgb_refined_corners"
                 ]
-    newer = Path("work/raw2event_phase_confirmation_evaluation.json")
+    newer = WORK_DIR / "raw2event_phase_confirmation_evaluation.json"
     for item in json.loads(newer.read_text(encoding="utf-8"))["per_source"]:
         rgb_source_corners[item["prefix"]] = item["geometry"][
             "source_rgb_refined_corners"

@@ -1,17 +1,18 @@
 """Measure first/repeated forward-render cost for the two optical branches."""
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 from time import perf_counter
 
 import numpy as np
 
-from origin_simulation.optical_psf import circular_pupil_defocus_psf
-from origin_simulation.screen_capture import render_screen_capture
+from palimpsest.simulation.optical_psf import circular_pupil_defocus_psf
+from palimpsest.simulation.screen_capture import render_screen_capture
 from experiments.screen_numerics.probe_physical_focus_display_lattice import camera
 
 
-OUT = Path("work/wave_defocus_render_benchmark.json")
+OUT = WORK_DIR / "wave_defocus_render_benchmark.json"
 
 
 def timed(frame: np.ndarray, model: str, spatial_method: str = "fine") -> float:

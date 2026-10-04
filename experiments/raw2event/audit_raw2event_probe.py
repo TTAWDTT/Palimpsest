@@ -6,6 +6,8 @@ layout is inferred empirically from this single file, not an official schema.
 
 from __future__ import annotations
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import argparse
 import json
 import re
@@ -19,7 +21,7 @@ import cv2
 from PIL import Image
 
 
-ROOT = Path("E:/ai_image_origin_research/data/raw/raw2event_probe")
+ROOT = DATA_ROOT / "raw/raw2event_probe"
 DEFAULT_PREFIX = "10000_automobile_5_1087_20251224_105416"
 WIDTH, HEIGHT = 692, 520
 INDICES = (0, 80, 160, 240, 316)
@@ -153,9 +155,9 @@ def detect_tag(gray_or_rgb: np.ndarray) -> tuple[np.ndarray, int]:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--prefix", default=DEFAULT_PREFIX)
-    parser.add_argument("--out-dir", type=Path, default=Path("work/raw2event_probe"))
+    parser.add_argument("--out-dir", type=Path, default=WORK_DIR / "raw2event_probe")
     parser.add_argument(
-        "--report", type=Path, default=Path("work/raw2event_probe_pixel_audit.json")
+        "--report", type=Path, default=WORK_DIR / "raw2event_probe_pixel_audit.json"
     )
     args = parser.parse_args()
     args.out_dir.mkdir(parents=True, exist_ok=True)

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from experiments.paths import REPO_ROOT
+from palimpsest.paths import REPO_ROOT
 
 import argparse
 import hashlib

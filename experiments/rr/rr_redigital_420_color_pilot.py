@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from experiments.paths import REPO_ROOT
+from palimpsest.paths import REPO_ROOT
 
 import argparse
 import hashlib
@@ -80,8 +80,10 @@ def choose_donor(source, original_row, donors, selection):
     width, height = int(original_row["width"]), int(original_row["height"])
     ranked = sorted(
         donors,
-        key=lambda donor: abs(math.log(width / donor["width"]))
-        + abs(math.log(height / donor["height"])),
+        key=lambda donor: (
+            abs(math.log(width / donor["width"]))
+            + abs(math.log(height / donor["height"]))
+        ),
     )[:NEIGHBORS]
     seed = int.from_bytes(source_rank(source, "redigital-420-color-draw")[:8], "big")
     return ranked[int(np.random.default_rng(seed).integers(len(ranked)))]

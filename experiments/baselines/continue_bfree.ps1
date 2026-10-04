@@ -1,14 +1,18 @@
 $ErrorActionPreference = 'Stop'
-$python = 'E:\ai_image_origin_research\envs\bfree\Scripts\python.exe'
-$datasetRoot = 'E:\ai_image_origin_research\data\derived\rewind'
-$manifest = 'E:\ai_image_origin_research\data\manifests\rewind_archive_expected.csv'
-$weightsRoot = 'E:\ai_image_origin_research\models\bfree'
-$vendorCode = 'work\vendor\bfree\code'
-$previous = 'work\bfree_rewind_pass2.csv'
+$repoRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
+. (Join-Path $repoRoot 'tools\ResearchPaths.ps1')
+$researchPaths = Get-PalimpsestPaths
+$env:PYTHONPATH = "$repoRoot\src;$repoRoot" + $(if ($env:PYTHONPATH) { ";$env:PYTHONPATH" } else { '' })
+$python = (Join-Path $researchPaths.envs 'bfree\Scripts\python.exe')
+$datasetRoot = (Join-Path $researchPaths.data 'derived\rewind')
+$manifest = (Join-Path $researchPaths.data 'manifests\rewind_archive_expected.csv')
+$weightsRoot = (Join-Path $researchPaths.models 'bfree')
+$vendorCode = (Join-Path $researchPaths.work 'vendor\bfree\code')
+$previous = (Join-Path $researchPaths.work 'bfree_rewind_pass2.csv')
 
 for ($pass = 3; $pass -le 7; $pass++) {
-    $outputCsv = "work\bfree_rewind_pass$pass.csv"
-    $summaryJson = "work\bfree_rewind_pass${pass}_summary.json"
+    $outputCsv = (Join-Path $researchPaths.work "bfree_rewind_pass$pass.csv")
+    $summaryJson = (Join-Path $researchPaths.work "bfree_rewind_pass${pass}_summary.json")
     & $python -m experiments.baselines.run_bfree_baseline `
         --vendor-code $vendorCode `
         --weights-root $weightsRoot `
@@ -29,8 +33,8 @@ for ($pass = 3; $pass -le 7; $pass++) {
     }
     $previous = $outputCsv
     if ($summary.remaining_images -eq 0) {
-        Copy-Item -LiteralPath $outputCsv -Destination 'work\bfree_rewind_complete.csv' -Force
-        Copy-Item -LiteralPath $summaryJson -Destination 'work\bfree_rewind_complete_summary.json' -Force
+        Copy-Item -LiteralPath $outputCsv -Destination (Join-Path $researchPaths.work 'bfree_rewind_complete.csv') -Force
+        Copy-Item -LiteralPath $summaryJson -Destination (Join-Path $researchPaths.work 'bfree_rewind_complete_summary.json') -Force
         Write-Output "Completed all $($summary.input_images) images in pass $pass"
         exit 0
     }

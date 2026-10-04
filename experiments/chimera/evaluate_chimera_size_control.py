@@ -1,8 +1,11 @@
 """Compare native and 256x256 Chimera recaptures under fixed B-Free weights."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
+from palimpsest.data.inference import validated_inference
+
 import argparse
 import json
-import math
 from pathlib import Path
 
 import numpy as np
@@ -11,44 +14,10 @@ from experiments.chimera.evaluate_chimera_bfree import (
     condition_metrics,
     file_sha256,
     paired_metrics,
-    rows,
 )
 
 
 CONDITIONS = ("recap_mac", "recap_monitor")
-
-
-def validated_inference(
-    manifest_path: Path, csv_path: Path, summary_path: Path, expected_count: int
-) -> dict[str, list[dict[str, str]]]:
-    manifest = rows(manifest_path)
-    inference = rows(csv_path)
-    summary = json.loads(summary_path.read_text(encoding="utf-8"))
-    if len(manifest) != expected_count or len(inference) != expected_count:
-        raise RuntimeError(f"manifest/inference rows not {expected_count}")
-    if (
-        summary["completed_images"] != expected_count
-        or summary["remaining_images"] != 0
-        or summary["errors"] != 0
-        or summary["stopping_error"]
-    ):
-        raise RuntimeError("inference summary incomplete")
-    grouped = {}
-    seen = set()
-    for expected, row in zip(manifest, inference):
-        if any(row[field] != expected[field] for field in ("filename", "src", "label")):
-            raise RuntimeError(f"identity/order mismatch for {expected['filename']}")
-        if (
-            row["filename"] in seen
-            or row["error"]
-            or not math.isfinite(float(row["score"]))
-        ):
-            raise RuntimeError(
-                f"duplicate, error or nonfinite score: {row['filename']}"
-            )
-        seen.add(row["filename"])
-        grouped.setdefault(expected["condition"], []).append(row)
-    return grouped
 
 
 def main() -> None:
@@ -56,38 +25,34 @@ def main() -> None:
     parser.add_argument(
         "--base-manifest",
         type=Path,
-        default=Path(
-            "E:/ai_image_origin_research/data/manifests/chimera_bfree_manifest.csv"
-        ),
+        default=DATA_ROOT / "manifests/chimera_bfree_manifest.csv",
     )
     parser.add_argument(
-        "--base-csv", type=Path, default=Path("work/chimera_bfree_full.csv")
+        "--base-csv", type=Path, default=WORK_DIR / "chimera_bfree_full.csv"
     )
     parser.add_argument(
-        "--base-summary", type=Path, default=Path("work/chimera_bfree_full.json")
+        "--base-summary", type=Path, default=WORK_DIR / "chimera_bfree_full.json"
     )
     parser.add_argument(
         "--control-manifest",
         type=Path,
-        default=Path(
-            "E:/ai_image_origin_research/data/manifests/chimera_recap256_bfree_manifest.csv"
-        ),
+        default=DATA_ROOT / "manifests/chimera_recap256_bfree_manifest.csv",
     )
     parser.add_argument(
-        "--control-csv", type=Path, default=Path("work/chimera_bfree_recap256.csv")
+        "--control-csv", type=Path, default=WORK_DIR / "chimera_bfree_recap256.csv"
     )
     parser.add_argument(
-        "--control-summary", type=Path, default=Path("work/chimera_bfree_recap256.json")
+        "--control-summary", type=Path, default=WORK_DIR / "chimera_bfree_recap256.json"
     )
     parser.add_argument(
         "--output-json",
         type=Path,
-        default=Path("work/chimera_bfree_size_control_evaluation.json"),
+        default=WORK_DIR / "chimera_bfree_size_control_evaluation.json",
     )
     args = parser.parse_args()
 
     audit = json.loads(
-        Path("work/chimera_recap256_audit.json").read_text(encoding="utf-8")
+        WORK_DIR / "chimera_recap256_audit.json".read_text(encoding="utf-8")
     )
     if file_sha256(args.control_manifest) != audit["output_manifest_sha256"]:
         raise RuntimeError("control manifest changed")

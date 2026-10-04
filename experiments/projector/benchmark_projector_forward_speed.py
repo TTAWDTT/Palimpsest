@@ -6,7 +6,7 @@ separately; this is not an end-to-end camera or origin-detector latency.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import WORK_DIR
 
 import io
 import json
@@ -14,7 +14,6 @@ import os
 import platform
 import time
 import zipfile
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
@@ -23,7 +22,6 @@ from experiments.projector.probe_projector_chart_model import (
     ARCHIVE,
     AUDIT,
     fit_factorized,
-    load_rgb,
     read_chart,
     simulate,
 )

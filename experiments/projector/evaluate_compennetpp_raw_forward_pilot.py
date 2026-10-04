@@ -8,7 +8,9 @@ an effective RGB response, not projector/surface/camera parameter separation.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import WORK_DIR
 
 import hashlib
 import json
@@ -27,7 +29,7 @@ from experiments.projector.decode_compennetpp_sl_one_setup import (
 )
 
 
-PROBE = Path(r"E:\ai_image_origin_research\data\derived\compennetpp_raw_ref_probe")
+PROBE = DATA_ROOT / "derived/compennetpp_raw_ref_probe"
 OUT = WORK_DIR / "compennetpp_raw_forward_pilot.json"
 SETUP = "light1__pos1__cloud_np__cam__raw"
 NUMBERS = (

@@ -1,5 +1,7 @@
 """Download and verify selected official Raw2Event RAW/RGB/metadata prefixes."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import argparse
 import hashlib
 import json
@@ -12,7 +14,7 @@ import requests
 
 REPO = "raw2event/raw2event"
 DEFAULT_PREFIX = "10000_automobile_5_1087_20251224_105416"
-ROOT = Path("E:/ai_image_origin_research/data/raw/raw2event_probe")
+ROOT = DATA_ROOT / "raw/raw2event_probe"
 DIRS = ("frames_raw", "frames_rgb", "meta_raw")
 
 
@@ -135,7 +137,7 @@ def main() -> None:
     parser.add_argument("--prefix", default=DEFAULT_PREFIX)
     parser.add_argument("--revision", default="main")
     parser.add_argument(
-        "--audit", type=Path, default=Path("work/raw2event_probe_download_audit.json")
+        "--audit", type=Path, default=WORK_DIR / "raw2event_probe_download_audit.json"
     )
     args = parser.parse_args()
     session = requests.Session()

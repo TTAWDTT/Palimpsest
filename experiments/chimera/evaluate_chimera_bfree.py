@@ -1,8 +1,11 @@
 """Evaluate source-paired B-Free performance on verified Chimera recaptures."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
+from palimpsest.io.hashing import file_sha256 as file_sha256
+
 import argparse
 import csv
-import hashlib
 import json
 import math
 from pathlib import Path
@@ -14,14 +17,6 @@ EXPECTED_MANIFEST_SHA = (
     "39da9e9eac3bd2d133c53769f9c5a158c1769039c67560c0bbfc4660d09a7d24"
 )
 CONDITIONS = ("stylegan2_orig", "recap_mac", "recap_monitor")
-
-
-def file_sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        while block := stream.read(1024 * 1024):
-            digest.update(block)
-    return digest.hexdigest()
 
 
 def rows(path: Path) -> list[dict[str, str]]:
@@ -171,20 +166,18 @@ def paired_metrics(
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--inference-csv", type=Path, default=Path("work/chimera_bfree_full.csv")
+        "--inference-csv", type=Path, default=WORK_DIR / "chimera_bfree_full.csv"
     )
     parser.add_argument(
-        "--inference-summary", type=Path, default=Path("work/chimera_bfree_full.json")
+        "--inference-summary", type=Path, default=WORK_DIR / "chimera_bfree_full.json"
     )
     parser.add_argument(
         "--manifest",
         type=Path,
-        default=Path(
-            "E:/ai_image_origin_research/data/manifests/chimera_bfree_manifest.csv"
-        ),
+        default=DATA_ROOT / "manifests/chimera_bfree_manifest.csv",
     )
     parser.add_argument(
-        "--output-json", type=Path, default=Path("work/chimera_bfree_evaluation.json")
+        "--output-json", type=Path, default=WORK_DIR / "chimera_bfree_evaluation.json"
     )
     args = parser.parse_args()
     if file_sha256(args.manifest) != EXPECTED_MANIFEST_SHA:

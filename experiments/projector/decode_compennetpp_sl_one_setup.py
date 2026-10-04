@@ -7,7 +7,9 @@ not world depth. Only run after 84 selected members pass ZIP CRC.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import WORK_DIR
 
 import argparse
 import json
@@ -18,7 +20,7 @@ import numpy as np
 from PIL import Image
 
 
-FOLDER = Path(r"E:\ai_image_origin_research\data\derived\compennetpp_sl_one_setup")
+FOLDER = DATA_ROOT / "derived/compennetpp_sl_one_setup"
 MANIFEST = WORK_DIR / "compennetpp_sl_one_setup_manifest.json"
 OUT = WORK_DIR / "compennetpp_sl_decoding.json"
 VIS = WORK_DIR / "compennetpp_sl_decoding_preview.png"

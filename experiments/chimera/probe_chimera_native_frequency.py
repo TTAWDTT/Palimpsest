@@ -5,6 +5,10 @@ frequency against a geometry/resize-only digital control. A peak is not proof
 of display pixels: CFA, ISP and publication sampling remain alternative causes.
 """
 
+from palimpsest.evaluation.distribution import quantile_summary as median_summary
+
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import csv
 import json
 from pathlib import Path
@@ -13,22 +17,11 @@ import cv2
 import numpy as np
 
 
-ROOT = Path("E:/ai_image_origin_research/data/derived/chimera_paired")
-SPLIT = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_simulation_source_split.csv"
-)
-GEOMETRY = Path("work/chimera_fixed_publication_geometry.json")
-OUTPUT = Path("work/chimera_native_frequency_probe.json")
+ROOT = DATA_ROOT / "derived/chimera_paired"
+SPLIT = DATA_ROOT / "manifests/chimera_simulation_source_split.csv"
+GEOMETRY = WORK_DIR / "chimera_fixed_publication_geometry.json"
+OUTPUT = WORK_DIR / "chimera_native_frequency_probe.json"
 PATCH = 160
-
-
-def median_summary(values: list[float]) -> dict[str, float]:
-    array = np.asarray(values)
-    return {
-        "median": float(np.median(array)),
-        "p05": float(np.quantile(array, 0.05)),
-        "p95": float(np.quantile(array, 0.95)),
-    }
 
 
 def load_gray(path: Path) -> np.ndarray:

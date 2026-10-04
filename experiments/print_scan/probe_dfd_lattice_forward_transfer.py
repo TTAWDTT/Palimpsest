@@ -7,20 +7,21 @@ record to prove that the observed peaks are the true printer screen basis.
 
 from __future__ import annotations
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import numpy as np
 
-from origin_simulation.color_print_scan import (
+from palimpsest.simulation.color_print_scan import (
     ColorPrintScanParameters,
     simulate_color_print_scan,
 )
 from experiments.print_scan.probe_dfd_color_matched_printers import top_spectral_peaks
 
 
-MATCHED = Path("work/dfd_color_matched_printers.json")
-OUT = Path("work/dfd_lattice_forward_transfer.json")
+MATCHED = WORK_DIR / "dfd_color_matched_printers.json"
+OUT = WORK_DIR / "dfd_lattice_forward_transfer.json"
 
 
 def xy(row: dict) -> np.ndarray:

@@ -7,30 +7,25 @@ native camera frames. Raw archive remains on E:.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.io.hashing import file_sha256 as _sha256
+
+from palimpsest.paths import WORK_DIR
 
 import hashlib
 import io
 import json
 import zipfile
 from collections import Counter, defaultdict
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
 
 
-ARCHIVE = Path(r"E:\ai_image_origin_research\data\raw\compennet\CompenNetDataset.zip")
+ARCHIVE = DATA_ROOT / "raw/compennet/CompenNetDataset.zip"
 OUTPUT = WORK_DIR / "compennet_full_audit.json"
 EXPECTED_BYTES = 2_282_667_301
-
-
-def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(8 * 1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 def _image_probe(data: bytes) -> dict:

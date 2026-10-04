@@ -1,17 +1,18 @@
 """Ideal fixed-geometry aperture/exposure intervention, not device calibration."""
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import numpy as np
 
-from origin_simulation.screen_capture import (
+from palimpsest.simulation.screen_capture import (
     ScreenCaptureParameters,
     render_screen_capture,
 )
 
 
-OUT = Path("work/aperture_throughput_probe.json")
+OUT = WORK_DIR / "aperture_throughput_probe.json"
 FRAME = np.full((64, 64, 3), 0.5, dtype=np.float32)
 
 

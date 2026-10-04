@@ -5,14 +5,15 @@ calibration ten only. This is exploratory; it does not identify actual LCD
 resolution or PSF without the author's display input and capture metadata.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import csv
 import json
-from pathlib import Path
 import time
 
 import numpy as np
 
-from origin_simulation.screen_pipeline import (
+from palimpsest.simulation.screen_pipeline import (
     DisplayRasterParameters,
     rasterize_display_source,
 )
@@ -25,16 +26,12 @@ from experiments.raw2event.probe_raw2event_source_to_raw import prepare
 from experiments.screen_numerics.probe_screen_display_prefilter import approximate_bands
 
 
-SPLIT = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_process_split_v1.csv"
-)
-NEW = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_phase_confirmation_v1.csv"
-)
-GEOM = Path("work/raw2event_sensor_geometry_audit.json")
-OLD_CORNERS = Path("work/raw2event_content_registered_geometry.json")
-NEW_CORNERS = Path("work/raw2event_phase_confirmation_evaluation.json")
-OUT = Path("work/raw2event_display_identifiability_grid.json")
+SPLIT = DATA_ROOT / "manifests/raw2event_process_split_v1.csv"
+NEW = DATA_ROOT / "manifests/raw2event_phase_confirmation_v1.csv"
+GEOM = WORK_DIR / "raw2event_sensor_geometry_audit.json"
+OLD_CORNERS = WORK_DIR / "raw2event_content_registered_geometry.json"
+NEW_CORNERS = WORK_DIR / "raw2event_phase_confirmation_evaluation.json"
+OUT = WORK_DIR / "raw2event_display_identifiability_grid.json"
 SIDES = (96, 192, 288)
 SIGMAS = (0.55, 0.8, 1.1)
 

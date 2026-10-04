@@ -1,9 +1,10 @@
 """Test a bounded monotone *composite* transfer on held-out CSGC templates."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import io
 import json
 import zipfile
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
@@ -12,8 +13,8 @@ from scipy.optimize import least_squares
 from scipy.special import expit
 
 
-ARCHIVE = Path(r"E:\ai_image_origin_research\data\raw\csgc\CSGC_scan2400spi.zip")
-OUT = Path("work/csgc_nonlinear_tone.json")
+ARCHIVE = DATA_ROOT / "raw/csgc/CSGC_scan2400spi.zip"
+OUT = WORK_DIR / "csgc_nonlinear_tone.json"
 SIGMA = 2.5
 INNER = np.s_[8:-8, 8:-8]
 

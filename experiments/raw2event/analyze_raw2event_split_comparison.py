@@ -1,14 +1,15 @@
 """Paired descriptive analysis of the frozen Raw2Event forward-RAW probes."""
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import numpy as np
 
 
-BASE = Path("work/raw2event_source_to_raw_split_v1.json")
-REFINED = Path("work/raw2event_source_to_raw_split_v1_source_rgb_refined.json")
-OUT = Path("work/raw2event_source_to_raw_comparison.json")
+BASE = WORK_DIR / "raw2event_source_to_raw_split_v1.json"
+REFINED = WORK_DIR / "raw2event_source_to_raw_split_v1_source_rgb_refined.json"
+OUT = WORK_DIR / "raw2event_source_to_raw_comparison.json"
 METHODS = ("vertical_rgb", "co_spatial_rgb_control", "simple_rgb_sample_control")
 
 

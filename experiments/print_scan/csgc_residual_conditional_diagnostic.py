@@ -4,22 +4,23 @@ Residual correction tables are fitted on IDs 1-100 only and evaluated on
 101-950. They are descriptive, not a physically identified print simulator.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import io
 import json
 import zipfile
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
 
-from origin_simulation.print_scan import PrintScanParameters, simulate_print_scan
+from palimpsest.simulation.print_scan import PrintScanParameters, simulate_print_scan
 
 
-ARCHIVE = Path(r"E:\ai_image_origin_research\data\raw\csgc\CSGC_scan2400spi.zip")
-OUT = Path("work/csgc_residual_conditional_diagnostic.json")
+ARCHIVE = DATA_ROOT / "raw/csgc/CSGC_scan2400spi.zip"
+OUT = WORK_DIR / "csgc_residual_conditional_diagnostic.json"
 PARAMS = PrintScanParameters(
     **json.loads(
-        Path("work/csgc_binary_forward_holdout.json").read_text(encoding="utf-8")
+        WORK_DIR / "csgc_binary_forward_holdout.json".read_text(encoding="utf-8")
     )["params"]
 )
 INNER = np.s_[8:-8, 8:-8]

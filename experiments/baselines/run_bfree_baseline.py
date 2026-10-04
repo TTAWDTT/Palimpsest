@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from palimpsest.evaluation.timing import percentile
+
 import argparse
 import csv
 import json
@@ -9,14 +11,6 @@ import statistics
 import sys
 import time
 from pathlib import Path
-
-
-def percentile(values: list[float], fraction: float) -> float:
-    ordered = sorted(values)
-    position = (len(ordered) - 1) * fraction
-    low = int(position)
-    high = min(low + 1, len(ordered) - 1)
-    return ordered[low] + (ordered[high] - ordered[low]) * (position - low)
 
 
 def load_manifest(path: Path) -> list[dict[str, str]]:

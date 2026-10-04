@@ -1,10 +1,14 @@
 $ErrorActionPreference = 'Stop'
-$python = 'E:\ai_image_origin_research\envs\bfree\Scripts\python.exe'
-$manifest = 'E:\ai_image_origin_research\data\manifests\rr_test_bfree_manifest.csv'
-$datasetRoot = 'E:\ai_image_origin_research\data\derived\rr_test'
-$weightsRoot = 'E:\ai_image_origin_research\models\bfree'
-$auditPath = 'work\rr_test_audit.json'
-$archiveManifest = 'E:\ai_image_origin_research\data\manifests\rr_test_archive_files.csv'
+$repoRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
+. (Join-Path $repoRoot 'tools\ResearchPaths.ps1')
+$researchPaths = Get-PalimpsestPaths
+$env:PYTHONPATH = "$repoRoot\src;$repoRoot" + $(if ($env:PYTHONPATH) { ";$env:PYTHONPATH" } else { '' })
+$python = (Join-Path $researchPaths.envs 'bfree\Scripts\python.exe')
+$manifest = (Join-Path $researchPaths.data 'manifests\rr_test_bfree_manifest.csv')
+$datasetRoot = (Join-Path $researchPaths.data 'derived\rr_test')
+$weightsRoot = (Join-Path $researchPaths.models 'bfree')
+$auditPath = (Join-Path $researchPaths.work 'rr_test_audit.json')
+$archiveManifest = (Join-Path $researchPaths.data 'manifests\rr_test_archive_files.csv')
 $expectedImages = 50999
 
 function Get-CsvDataRowCount([string]$path) {
@@ -36,7 +40,7 @@ $fingerprintFiles = @(
     "$weightsRoot\BFREE_dino2reg4\config.yaml",
     "$weightsRoot\BFREE_dino2reg4\model_epoch_best.pth"
 )
-$fingerprintFiles += @(Get-ChildItem -LiteralPath 'work\vendor\bfree\code' -Recurse -File -Filter '*.py' |
+$fingerprintFiles += @(Get-ChildItem -LiteralPath (Join-Path $researchPaths.work 'vendor\bfree\code') -Recurse -File -Filter '*.py' |
     Sort-Object FullName | ForEach-Object { $_.FullName })
 $inputFingerprint = ($fingerprintFiles | ForEach-Object {
     (Get-FileHash -LiteralPath $_ -Algorithm SHA256).Hash.ToLowerInvariant()
@@ -45,8 +49,8 @@ $inputFingerprint = ($fingerprintFiles | ForEach-Object {
 $previous = $null
 $previousCompleted = 0
 for ($pass = 1; $pass -le 100; $pass++) {
-    $outputCsv = "work\rr_bfree_pass_$pass.csv"
-    $summaryJson = "work\rr_bfree_pass_${pass}_summary.json"
+    $outputCsv = (Join-Path $researchPaths.work "rr_bfree_pass_$pass.csv")
+    $summaryJson = (Join-Path $researchPaths.work "rr_bfree_pass_${pass}_summary.json")
 
     $expectedCompleted = [Math]::Min($expectedImages, $previousCompleted + 1000)
     $passValid = $false
@@ -71,7 +75,7 @@ for ($pass = 1; $pass -le 100; $pass++) {
         }
         $arguments = @(
             '-m', 'experiments.baselines.run_bfree_baseline',
-            '--vendor-code', 'work\vendor\bfree\code',
+            '--vendor-code', (Join-Path $researchPaths.work 'vendor\bfree\code'),
             '--weights-root', $weightsRoot,
             '--dataset-root', $datasetRoot,
             '--manifest', $manifest,
@@ -115,8 +119,8 @@ for ($pass = 1; $pass -le 100; $pass++) {
     Write-Output "pass=$pass completed=$($summary.completed_images) remaining=$($summary.remaining_images)"
     if ($summary.remaining_images -eq 0) {
         if ($summary.completed_images -ne $expectedImages) { throw 'Incomplete RR output' }
-        Copy-Item -LiteralPath $outputCsv -Destination 'work\rr_bfree_complete.csv' -Force
-        Copy-Item -LiteralPath $summaryJson -Destination 'work\rr_bfree_complete_summary.json' -Force
+        Copy-Item -LiteralPath $outputCsv -Destination (Join-Path $researchPaths.work 'rr_bfree_complete.csv') -Force
+        Copy-Item -LiteralPath $summaryJson -Destination (Join-Path $researchPaths.work 'rr_bfree_complete_summary.json') -Force
         Write-Output "COMPLETE images=$($summary.completed_images)"
         exit 0
     }

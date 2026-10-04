@@ -8,7 +8,7 @@ not an identification of the camera or projector transfer functions.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import WORK_DIR
 
 import hashlib
 import json
@@ -25,7 +25,6 @@ from experiments.projector.decode_compennetpp_sl_one_setup import (
 from experiments.projector.evaluate_compennetpp_raw_forward_pilot import (
     NUMBERS,
     PROBE,
-    SETUP,
     camera_image,
     camera_ref,
     image,

@@ -6,12 +6,11 @@ are descriptive: they cannot identify optics versus publication registration.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import WORK_DIR
 
 import json
 import time
 import zipfile
-from pathlib import Path
 
 import numpy as np
 from scipy.ndimage import sobel

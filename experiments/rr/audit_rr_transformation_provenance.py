@@ -2,21 +2,22 @@
 
 from __future__ import annotations
 
-from experiments.paths import REPO_ROOT
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import REPO_ROOT
 
 import csv
 import hashlib
 import json
 from collections import Counter, defaultdict
-from pathlib import Path
 
 import numpy as np
 from PIL import Image, JpegImagePlugin
 
 
 BASE = REPO_ROOT
-ROOT = Path(r"E:\ai_image_origin_research\data\derived\rr_test")
-MANIFEST = Path(r"E:\ai_image_origin_research\data\manifests\rr_test_files.csv")
+ROOT = DATA_ROOT / "derived/rr_test"
+MANIFEST = DATA_ROOT / "manifests/rr_test_files.csv"
 OUTPUT = BASE / "work" / "rr_transformation_provenance_audit.json"
 
 

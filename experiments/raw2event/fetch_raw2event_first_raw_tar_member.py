@@ -1,5 +1,7 @@
 """Range-extract only the first raw TAR member, not its 17.9 GB archive."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import hashlib
 import json
 from pathlib import Path
@@ -13,8 +15,8 @@ URL = (
     "https://huggingface.co/datasets/raw2event/raw2event/resolve/"
     "9df99d9ed09e5ed705f50cae011e49cb2af620b9/raw/raw-0001-of-0250.tar"
 )
-ROOT = Path("E:/ai_image_origin_research/data/raw/raw2event_probe/raw_tar_member")
-OUT = Path("work/raw2event_first_raw_tar_member_audit.json")
+ROOT = DATA_ROOT / "raw/raw2event_probe/raw_tar_member"
+OUT = WORK_DIR / "raw2event_first_raw_tar_member_audit.json"
 
 
 def main() -> None:

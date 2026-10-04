@@ -6,8 +6,9 @@ The observed RGB peaks can be harmonics and are not identified RIP fundamentals.
 
 from __future__ import annotations
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import cv2
 import numpy as np
@@ -16,8 +17,8 @@ from PIL import Image
 from experiments.print_scan.probe_dfd_color_sample_spectra import peaks
 
 
-METADATA = Path("work/dfd_color_fullpage_metadata.json")
-OUT = Path("work/dfd_color_fullpage_tile_probe.json")
+METADATA = WORK_DIR / "dfd_color_fullpage_metadata.json"
+OUT = WORK_DIR / "dfd_color_fullpage_tile_probe.json"
 FOLDER = "D2_HPM553"
 ROIS = {
     "blue_color_tile": (3171, 3439, 3683, 3951),

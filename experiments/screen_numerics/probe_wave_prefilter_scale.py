@@ -1,17 +1,18 @@
 """Independent virtual display-scale and emitter-fill stress for wave prefilter."""
 
+from palimpsest.paths import WORK_DIR
+
 import json
 from dataclasses import replace
-from pathlib import Path
 
 import numpy as np
 
-from origin_simulation.screen_capture import render_screen_capture
+from palimpsest.simulation.screen_capture import render_screen_capture
 from experiments.screen_numerics.probe_physical_focus_display_lattice import camera
 from experiments.screen_numerics.probe_wave_display_prefilter import fast_irradiance
 
 
-OUT = Path("work/wave_prefilter_scale_stress.json")
+OUT = WORK_DIR / "wave_prefilter_scale_stress.json"
 
 
 def main() -> None:

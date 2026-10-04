@@ -2,16 +2,17 @@
 
 from __future__ import annotations
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import cv2
 import numpy as np
 from PIL import Image
 
 
-METADATA = Path("work/dfd_color_non_tiff_fullpages.json")
-OUT = Path("work/dfd_color_scanner_pairs.json")
+METADATA = WORK_DIR / "dfd_color_non_tiff_fullpages.json"
+OUT = WORK_DIR / "dfd_color_scanner_pairs.json"
 
 
 def preview(path: str) -> np.ndarray:
