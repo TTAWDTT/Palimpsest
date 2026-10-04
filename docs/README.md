@@ -47,8 +47,8 @@ uv run --locked python tools/check_layout.py
 所有实验在仓库根目录执行。Python 统一使用模块方式，例如：
 
 ```powershell
-python -m experiments.baselines.evaluate_rr_bfree --help
-python -m experiments.chimera.evaluate_chimera_virtual_screen_mac
+python -m experiments.origin_detection.baselines.evaluate_rr_bfree --help
+python -m experiments.screen_capture.source_to_rgb.chimera.evaluate_virtual_mac
 ```
 
 第二条会读取既有结果，需要对应本机产物；不是无数据示例。部分旧实验没有 CLI，会在模块顶层读取结果；运行前查看对应报告。路径由 `palimpsest.paths` 统一配置，历史冻结清单内部的绝对路径仍按原记录保留。深度学习 baseline 使用各自官方依赖环境，最小模型环境不包含 torch、timm、sklearn 等全部研究依赖。

@@ -6,7 +6,7 @@
 
 承接[同源跨光圈检查](ImageNetES真实光圈干预与拍屏通量模型外部反证_2026-09-25.md)，从 [ImageNet-ES 官方档案](https://huggingface.co/datasets/edw2n/ImageNet-ES)对已固定的二十个来源补取 ISO 2000 条件。现在每个来源有数字参考及六张真实 OLED 拍屏发布 JPEG：名义光圈 f/5、f/9、f/16 × ISO 250、2000，均为关灯 `l5` 和 1/60 秒。参数映射按[作者测试网格](https://github.com/Edw2n/ImageNet-ES/blob/a46c92cc8f77dc1d4d7d44743e1aa0f70d89/settings/grid-options-3x3x3.csv)。合计 **20 个来源、120 张拍屏 JPEG、20 张数字参考**；140 个选取的 ZIP 成员逐一核对尺寸、CRC、SHA-256 并解码，不代表全档案逐图核验。
 
-冻结登记表为 `E:\ai_image_origin_research\data\manifests\imagenet_es_aperture_iso_development.csv`，SHA-256 `ea51cc7ee65b1a3541a0be29f3408e10365ba9215f339c26e053b2c7ef5298a7`。这二十组均为**开发样本**；没有将作者其余 test 来源用于拟合或本次统计。提取、登记、评价的可复算脚本分别为 `experiments/imagenet_es/extract_imagenet_es_control_pairs.py`、`experiments/imagenet_es/freeze_imagenet_es_aperture_registry.py`、`experiments/imagenet_es/evaluate_imagenet_es_iso_aperture.py`；逐图摘要在 `work/imagenet_es_20class_iso_aperture_evaluation.json`。
+冻结登记表为 `E:\ai_image_origin_research\data\manifests\imagenet_es_aperture_iso_development.csv`，SHA-256 `ea51cc7ee65b1a3541a0be29f3408e10365ba9215f339c26e053b2c7ef5298a7`。这二十组均为**开发样本**；没有将作者其余 test 来源用于拟合或本次统计。提取、登记、评价的可复算脚本分别为 `experiments/data_preparation/imagenet_es/prepare_control_pairs.py`、`experiments/data_preparation/imagenet_es/prepare_registry_aperture_registry.py`、`experiments/screen_capture/exposure_response/imagenet_es/evaluate_iso_aperture.py`；逐图摘要在 `work/imagenet_es_20class_iso_aperture_evaluation.json`。
 
 ## 观察到的发布 JPEG 变化
 

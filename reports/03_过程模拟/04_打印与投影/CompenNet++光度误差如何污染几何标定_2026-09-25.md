@@ -25,8 +25,8 @@
 
 拍屏/拍投影的几何与光度不能靠一个最终图像误差同时自由调参后就宣称各阶段被正确恢复。更稳妥的可证伪流程是：先以结构光/标记约束投影—相机几何，再用均匀色阶约束有效响应，最后用独立纹理同时检验两者；若重新拟合几何只换颜色模型就显著位移，应先解释颜色模型残差。该原则目前在两组真实投影配对上得到验证，尚需真实屏幕拍摄和更多独立设备设置复核。
 
-复算脚本 `experiments/projector/evaluate_compennetpp_display_fit_identifiability.py`，两组逐图误差及全部位置参数在 `work/compennetpp_display_fit_identifiability.json`。沿用前两份报告列出的官方成员抽取及审计后运行：
+复算脚本 `experiments/projection_capture/raw_response/compennetpp/evaluate_display_fit_identifiability.py`，两组逐图误差及全部位置参数在 `work/compennetpp_display_fit_identifiability.json`。沿用前两份报告列出的官方成员抽取及审计后运行：
 
 ```powershell
-uv run python -m experiments.projector.evaluate_compennetpp_display_fit_identifiability
+uv run python -m experiments.projection_capture.raw_response.compennetpp.evaluate_display_fit_identifiability
 ```

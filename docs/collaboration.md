@@ -2,11 +2,13 @@
 
 [仓库首页](../README.md) · [开发与复算](README.md) · [研究结论](../reports/README.md)
 
-代码仓库的本机位置为 `E:\ai_image_origin_research\repo`，GitHub 为私有仓库 `TTAWDTT/Palimpsest`。数据、环境和模型位于同级的 `data/`、`envs/`、`models/`；本机 `work/` 产物仍按复算指南管理。
+代码仓库的本机位置为 `E:\ai_image_origin_research\repo`，GitHub 为公开仓库 `TTAWDTT/Palimpsest`。数据、环境和模型位于同级的 `data/`、`envs/`、`models/`；本机 `work/` 产物仍按复算指南管理。
 
 代码和本机产物已复制并校验到 E 盘，后续以 E 盘仓库为准。原 C 盘 Codex 任务目录被进程占用，目前仍是旧副本，尚未切换成目录链接；不要在旧副本继续修改。
 
-2026-10-04 迁移检查：8,237 个文件（1,103,849,931 字节）复制后逐文件 SHA-256 一致；E 盘环境重建后 82 项测试通过，目录与文档链接检查通过。GitHub 私有属性已核实；数据、权重、虚拟环境和本机缓存不提交。
+2026-10-04 迁移检查：8,237 个文件（1,103,849,931 字节）复制后逐文件 SHA-256 一致；E 盘环境重建后 82 项测试通过，目录与文档链接检查通过。仓库之后由用户公开；数据、权重、虚拟环境和本机缓存不提交。
+
+前轮 PR 已合并，公开后的 [main CI](https://github.com/TTAWDTT/Palimpsest/actions/runs/37195711527) 在 `21a4b1e` 上通过。此前账户限制记录属于当时的私有仓库状态。
 
 关闭 Codex 后，可从独立 PowerShell 完成切换：
 

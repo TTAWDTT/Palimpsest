@@ -42,9 +42,9 @@
 脚本依次运行：
 
 ```powershell
-& 'E:\ai_image_origin_research\envs\bfree\Scripts\python.exe' -m experiments.rr.audit_rr_redigital_spectrum
-& 'E:\ai_image_origin_research\envs\bfree\Scripts\python.exe' -m experiments.rr.rr_redigital_420_spectral_residual_pilot
-& 'E:\ai_image_origin_research\envs\classical\Scripts\python.exe' -m experiments.rr.evaluate_rr_redigital_spectral_critic
+& 'E:\ai_image_origin_research\envs\bfree\Scripts\python.exe' -m experiments.origin_detection.redigital_statistics.rr.audit_redigital_spectrum
+& 'E:\ai_image_origin_research\envs\bfree\Scripts\python.exe' -m experiments.origin_detection.redigital_statistics.rr.run_spectral_pilot
+& 'E:\ai_image_origin_research\envs\classical\Scripts\python.exe' -m experiments.origin_detection.redigital_statistics.rr.evaluate_redigital_spectral_critic
 ```
 
 机器记录：`work/rr_redigital_spectrum_development.json`、`work/rr_redigital_420_spectral_residual_pilot.json`、`work/rr_redigital_420_spectral_residual_critic.json`。后两者 SHA-256 分别为 `45ed6611d4d03d5ee84ae31ee991532c853457131554bf6d3b22aef51134a0dd`、`5a0b2955423c3dcd7240b494b6a0b47a6653b5afdf7c175af261c4accd86397f`。独立代码审查未发现严重数据泄漏或 FFT 维度错误，指出并在本报告明确了代理 JPEG 处理顺序和白噪声方差口径的限制。

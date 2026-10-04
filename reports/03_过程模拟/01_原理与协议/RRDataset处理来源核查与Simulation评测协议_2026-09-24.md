@@ -63,8 +63,8 @@ RR 内部相似度不能独自证明现实物理真实性。打印→扫描可�
 ## 复算入口
 
 ```powershell
-& 'E:\ai_image_origin_research\envs\bfree\Scripts\python.exe' -m experiments.rr.audit_rr_manifest_provenance
-& 'E:\ai_image_origin_research\envs\bfree\Scripts\python.exe' -m experiments.rr.freeze_rr_simulation_split
+& 'E:\ai_image_origin_research\envs\bfree\Scripts\python.exe' -m experiments.data_preparation.rr.audit_manifest_provenance
+& 'E:\ai_image_origin_research\envs\bfree\Scripts\python.exe' -m experiments.data_preparation.rr.prepare_registry_simulation_split
 ```
 
 归档来源：[论文](https://arxiv.org/html/2509.09172)；[Zenodo 官方记录](https://zenodo.org/records/14963880)。以上本机清单与报告均基于已校验归档，不因公开仓库出现一条数字流水线而自行修改作者的逐图标签。
@@ -82,6 +82,6 @@ RR 内部相似度不能独自证明现实物理真实性。打印→扫描可�
 | `transfer` 17,000 张 | 恰好对应标准质量 **20–55 共 36 档**，每档 429–512 张，全部匹配；36 档计数的均匀期望卡方值为 39.72（35 自由度）。 | 全部 4:2:0 | 全部无 |
 | `redigital` 16,999 张 | **16,995 张**对应质量 95；另 4 张有两种非匹配表，正是先前发现的 4 张原图字节不变异常。 | 4:2:0 有 8,487 张；4:4:4 有 8,512 张 | 4 张有，其余无 |
 
-这些精确而整齐的量化档提示发布前有系统化的 JPEG 编码流程；标准量化表并非 Pillow 独有，不能仅凭它确定使用的软件，也不能证明前面没有真实平台/设备操作。`redigital` 的子采样并未按真假来源分开：AI 来源 4:2:0/4:4:4 为 4,243/4,257，真实来源为 4,244/4,255。故不能把偶见的单张格式差异写成类别泄漏。量化表统计与复算脚本为 `work/rr_transformation_provenance_audit.json`、`experiments/rr/interpret_rr_jpeg_profiles.py`，类别交叉核对为 `work/rr_redigital_label_encoding.json`。
+这些精确而整齐的量化档提示发布前有系统化的 JPEG 编码流程；标准量化表并非 Pillow 独有，不能仅凭它确定使用的软件，也不能证明前面没有真实平台/设备操作。`redigital` 的子采样并未按真假来源分开：AI 来源 4:2:0/4:4:4 为 4,243/4,257，真实来源为 4,244/4,255。故不能把偶见的单张格式差异写成类别泄漏。量化表统计与复算脚本为 `work/rr_transformation_provenance_audit.json`、`experiments/origin_detection/platform_statistics/rr/audit_jpeg_profiles.py`，类别交叉核对为 `work/rr_redigital_label_encoding.json`。
 
 **对 simulation 的直接影响：**评测必须同时列出“与发布文件末次编码匹配”的结果和“几何/色彩/内容变化”结果。只拟合质量 20–55 或质量 95 的表会轻易提高 JPEG 指纹相似度，却不能证明模拟了真实多轮传播或四类物理再数字化。因此后续报告将编码匹配视为单独的低层指标，不让它代替真实过程验证。

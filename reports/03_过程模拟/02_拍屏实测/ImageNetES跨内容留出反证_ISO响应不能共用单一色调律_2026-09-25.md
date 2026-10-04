@@ -6,7 +6,7 @@
 
 依照[先前冻结的拟合式及选样协议](相机JPEG响应约束拟合与外部留出协议_2026-09-25.md)，只取作者 test split 的 SHA 排序第 21–40 个类别，每类一个新的数字源；对每个来源取六个关灯、1/60 秒、光圈 × ISO 的真实拍屏 JPEG。与开发组共计 **40 个来源，类别完全分离**；这次留出的二十组共 **120 张拍屏图＋20 张数字参考**，逐 ZIP 成员验尺寸、CRC、SHA-256 及解码。数字参考与开发组逐字节 SHA-256 重叠 **0**；近重复未审计。
 
-留出登记表 `E:\ai_image_origin_research\data\manifests\imagenet_es_aperture_iso_content_holdout.csv`，SHA-256 `74b14f6d5147017be09713b8590db3e91d2b785345b37eac5bafb8c8e3d91aa7`。模拟器成片响应参数**未重拟合**，固定为 `gamma=0.5694751717`、`toe=0.0950458149`。代码 `experiments/imagenet_es/evaluate_imagenet_es_tone_holdout.py` 在运行时检查参数、类别和来源 SHA 的分离；完整逐图指标为 `work/imagenet_es_effective_tone_content_holdout.json`。
+留出登记表 `E:\ai_image_origin_research\data\manifests\imagenet_es_aperture_iso_content_holdout.csv`，SHA-256 `74b14f6d5147017be09713b8590db3e91d2b785345b37eac5bafb8c8e3d91aa7`。模拟器成片响应参数**未重拟合**，固定为 `gamma=0.5694751717`、`toe=0.0950458149`。代码 `experiments/screen_capture/exposure_response/imagenet_es/evaluate_tone_holdout.py` 在运行时检查参数、类别和来源 SHA 的分离；完整逐图指标为 `work/imagenet_es_effective_tone_content_holdout.json`。
 
 这是**同包、同一 OLED/相机系统的跨内容验证**，不是跨设备、跨显示类型，也不是 AI 图像来源检测验证。发布 JPEG 没有逐张线性 RAW/ISP 元数据。
 

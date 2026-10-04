@@ -1,22 +1,23 @@
-# 实验脚本
+# 实验工作流
 
-[仓库首页](../README.md) · [复算和环境说明](../docs/README.md#历史实验与结果完整性)
+[仓库首页](../README.md) · [命名与执行约定](../docs/experiment_conventions.md) · [迁移清单](../docs/maintenance/experiment_migration.csv)
 
-可复用算法位于 [src/palimpsest](../docs/architecture.md)，路径通过[统一配置](../configs/README.md)加载。实验脚本按数据集和用途归类；既有机器结果仍在 `work/`。这些是历史研究代码，运行前先读相应报告和脚本的路径常量。
+目录按“研究什么”划分，数据集是问题内的协议范围，文件名说明执行角色。`src/palimpsest/` 保存可复用实现；问题内 `protocol.py` 保存冻结设置与专用共享步骤。研究目前暂停，不自动运行这些历史实验。
 
-**统一运行方式：**在仓库根目录使用 `python -m experiments.<主题>.<脚本名>`。PowerShell 下载/续跑脚本用其新文件路径显式执行。
+| 主题 | 内容 |
+|---|---|
+| [来源判别](origin_detection/README.md) | 固定 baseline、检测器分数迁移、RR 统计模拟与编码捷径 |
+| [拍屏过程](screen_capture/README.md) | 来源对应、RAW 几何、CFA/ISP、光度、采样、混叠、对焦与波光学 |
+| [打印与拍纸](print_capture/README.md) | 二值通道、网点、纸面响应及积分诊断 |
+| [投影相机](projection_capture/README.md) | 结构光几何、色卡光度与原始响应 |
+| [数据准备](data_preparation/README.md) | 获取、完整性、内容配对与冻结清单 |
 
-| 主题 | 内容 | 脚本数 |
-|---|---|---:|
-| [检测 baseline](baselines/README.md) | B-Free、D3、Benford-RF 和评分汇总；官方模型使用独立环境。 | 16 |
-| [RRDataset 与早期统计模拟](rr/README.md) | 数据准入、配对、传播统计和历史统计模拟；旧原型不代表真实物理过程。 | 27 |
-| [Chimera 拍屏](chimera/README.md) | 外部真实配对、固定检测器迁移、频谱与过程反证。 | 25 |
-| [Raw2Event RAW](raw2event/README.md) | 数字源对应、RAW 几何、CFA、计数映射和参数可辨识性。 | 39 |
-| [ImageNet-ES 物理干预](imagenet_es/README.md) | 真实光圈/ISO 变化、响应拟合和跨内容留出。 | 7 |
-| [Dragotti 拍屏](dragotti/README.md) | 跨相机配对、几何及衍射频率预算。 | 8 |
-| [拍屏数值与速度](screen_numerics/README.md) | 虚拟输入上的积分、光学、曝光、对照及性能实验。 | 22 |
-| [打印、扫描与拍纸](print_scan/README.md) | DFD、DESCAN、CSGC、DIV2K-SCAN 的数据审计和模型验证。 | 45 |
-| [投影相机](projector/README.md) | CompenNet/CompenNet++ 几何、光度和跨设置实验。 | 21 |
-| [通用下载工具](downloads/README.md) | 带长度/MD5 检查的 PowerShell 下载器；仅显式执行。 | 1 |
+## 找一个实验
 
-源代码迁移前的提交为 `0f675d6d544de407dae5c162e26100245edf79ef`。旧结果与断点指纹保持原值；不要绕过校验后续跑。
+1. 选择研究问题，阅读其 README 的状态、前置条件和入口表。
+2. 核对源码里的指纹、窗口、插值、划分和输出位置。
+3. 在仓库根目录显式运行相应 Python 模块；例如 `python -m experiments.screen_capture.source_to_raw.raw2event.run_two_sources`。该命令会运行研究实验，不是目录检查。
+
+`prepare`、`audit`、`fit`、`run`、`evaluate`、`plot`、`benchmark` 表达执行角色。多个变体用具体限定词区分，不继续新增泛称 `probe` 的文件。历史文件仍有冻结常量，尚未提供统一调度或可任意切换协议的配置接口。
+
+完整入口列表见 [目录表](../docs/maintenance/experiment_catalog.csv)，旧路径对应见 [迁移表](../docs/maintenance/experiment_migration.csv)。精确复算旧结果应恢复其记录的 Git 版本与环境；本轮改名与模块提取不重签旧断点。

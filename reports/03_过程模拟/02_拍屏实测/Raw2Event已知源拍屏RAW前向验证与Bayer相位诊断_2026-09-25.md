@@ -55,14 +55,14 @@
 ## 复算入口与审计文件
 
 ```powershell
-python -m experiments.raw2event.fetch_raw2event_process_split
-python -m experiments.raw2event.audit_raw2event_split_first_frames
-python -m experiments.raw2event.verify_raw2event_split_content --geometry tag_similarity
-python -m experiments.raw2event.refine_raw2event_content_geometry
-python -m experiments.raw2event.evaluate_raw2event_source_to_raw_split --geometry source_rgb_refined
-python -m experiments.raw2event.evaluate_raw2event_spectral_mix
-python -m experiments.raw2event.probe_raw2event_cfa_phase
-python -m experiments.raw2event.summarize_raw2event_cfa_phase
+python -m experiments.data_preparation.raw2event.prepare_download_process_split
+python -m experiments.screen_capture.raw_geometry.raw2event.audit_split_first_frames
+python -m experiments.screen_capture.raw_geometry.raw2event.audit_split_content --geometry tag_similarity
+python -m experiments.screen_capture.raw_geometry.raw2event.fit_content_geometry
+python -m experiments.screen_capture.source_to_raw.raw2event.evaluate_split --geometry source_rgb_refined
+python -m experiments.screen_capture.spectral_response.raw2event.evaluate_spectral_mix
+python -m experiments.screen_capture.cfa_phase.raw2event.run_cfa_phase
+python -m experiments.screen_capture.cfa_phase.raw2event.evaluate_summary_cfa_phase
 python -m pytest tests/test_screen_capture.py tests/test_screen_capture_projective.py tests/test_screen_pipeline.py -q
 ```
 

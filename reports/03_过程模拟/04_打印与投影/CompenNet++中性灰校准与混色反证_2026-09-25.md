@@ -31,9 +31,9 @@
 
 可继续研究受限的非线性通道交互，并在未参与参数选择的混色块与纹理图上双重验证；优先比较同一参数在另一个布幕或光照设置上的迁移。**不要**把这次 0.05799 的数值外推到真实拍屏、RRDataset 再数字化或 AI/自然来源检测。它只是在一组真实投影—相机配对上的有效 RGB 前向误差。
 
-复算程序为 `experiments/projector/evaluate_compennetpp_neutral_tone.py`，逐图与混色留出结果在 `work/compennetpp_neutral_tone_probe.json`；新增成员审计在 `work/compennetpp_raw_neutral_ramp_probe.json`。文件均位于 E 盘既有 `compennetpp_raw_ref_probe` 目录，复算命令：
+复算程序为 `experiments/projection_capture/raw_response/compennetpp/evaluate_neutral_tone.py`，逐图与混色留出结果在 `work/compennetpp_neutral_tone_probe.json`；新增成员审计在 `work/compennetpp_raw_neutral_ramp_probe.json`。文件均位于 E 盘既有 `compennetpp_raw_ref_probe` 目录，复算命令：
 
 ```powershell
-uv run python -m experiments.projector.probe_compennetpp_raw_reference_pairs --ref-numbers 32 94 --test-numbers --output-json work/compennetpp_raw_neutral_ramp_probe.json
-uv run python -m experiments.projector.evaluate_compennetpp_neutral_tone
+uv run python -m experiments.data_preparation.compennetpp.run_raw_reference_pairs --ref-numbers 32 94 --test-numbers --output-json work/compennetpp_raw_neutral_ramp_probe.json
+uv run python -m experiments.projection_capture.raw_response.compennetpp.evaluate_neutral_tone
 ```

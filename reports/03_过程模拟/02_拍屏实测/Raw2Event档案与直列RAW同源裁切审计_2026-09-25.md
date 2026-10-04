@@ -40,11 +40,11 @@
 ## 可复算记录
 
 ```powershell
-python -m experiments.raw2event.fetch_raw2event_first_raw_tar_member
-python -m experiments.raw2event.inspect_raw2event_tar_neighbors
-python -m experiments.raw2event.fetch_raw2event_second_tar_member
-python -m experiments.raw2event.audit_raw2event_tar_vs_direct
-python -m experiments.raw2event.audit_raw2event_tar_vs_direct --prefix 10034_automobile_5_1356_20251224_110057 --out work/raw2event_second_tar_vs_direct_audit.json
+python -m experiments.data_preparation.raw2event.prepare_download_first_raw_tar_member
+python -m experiments.data_preparation.raw2event.audit_tar_neighbors
+python -m experiments.data_preparation.raw2event.prepare_download_second_tar_member
+python -m experiments.data_preparation.raw2event.audit_tar_vs_direct
+python -m experiments.data_preparation.raw2event.audit_tar_vs_direct --prefix 10034_automobile_5_1356_20251224_110057 --out work/raw2event_second_tar_vs_direct_audit.json
 ```
 
 两次成员范围/长度/SHA256 与视频格式在 `work/raw2event_first_raw_tar_member_audit.json`、`work/raw2event_second_raw_tar_member_audit.json`；五帧搜索位置、全部 317 帧像素比较及时间戳在 `work/raw2event_tar_vs_direct_audit.json`、`work/raw2event_second_tar_vs_direct_audit.json`。原始数据在 `E:\ai_image_origin_research\data\raw\raw2event_probe\`。

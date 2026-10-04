@@ -1,0 +1,44 @@
+{
+  "experiments/dragotti/probe_dragotti_range.py": [
+    "src/palimpsest/io/remote_zip.py"
+  ],
+  "experiments/raw2event/audit_raw2event_probe.py": [
+    "src/palimpsest/data/video.py",
+    "src/palimpsest/data/raw2event.py"
+  ],
+  "experiments/raw2event/audit_raw2event_split_first_frames.py": [
+    "src/palimpsest/data/cifar10.py"
+  ],
+  "experiments/rr/analyze_rr_simulation_inputs.py": [
+    "src/palimpsest/data/rr.py",
+    "src/palimpsest/evaluation/image_pairs.py",
+    "src/palimpsest/evaluation/distribution.py"
+  ],
+  "experiments/raw2event/probe_raw2event_source_to_raw.py": [
+    "experiments/screen_capture/source_to_raw/raw2event/protocol.py"
+  ],
+  "experiments/raw2event/evaluate_raw2event_spectral_mix.py": [
+    "experiments/screen_capture/spectral_response/raw2event/protocol.py"
+  ],
+  "experiments/raw2event/match_raw2event_cifar_source.py": [
+    "experiments/screen_capture/source_matching/raw2event/protocol.py"
+  ],
+  "experiments/chimera/probe_chimera_native_frequency.py": [
+    "experiments/screen_capture/spectral_structure/chimera/protocol.py"
+  ],
+  "experiments/chimera/evaluate_chimera_composite_photometry.py": [
+    "experiments/screen_capture/photometry/chimera/protocol.py"
+  ],
+  "experiments/projector/probe_projector_chart_model.py": [
+    "experiments/projection_capture/chart_response/compennet/protocol.py"
+  ],
+  "experiments/projector/decode_compennetpp_sl_one_setup.py": [
+    "experiments/projection_capture/structured_light/compennetpp/protocol.py"
+  ],
+  "experiments/rr/rr_simulator_v0.py": [
+    "experiments/origin_detection/platform_statistics/rr/protocol.py"
+  ],
+  "experiments/print_scan/probe_div2k_scan_originals.py": [
+    "src/palimpsest/io/remote_zip.py"
+  ]
+}

@@ -90,7 +90,7 @@ setups have 500 training/200 test pairs. The 125 numeric input references are
 an RGB 5^3 uniform chart. Numeric captured reference 0126 is a byte-for-byte
 duplicate of 0032, 0063 or 0094 in every setup; the root `img_gray` has no
 established independent captured pair. Only references 0001..0125 enter
-calibration. Audit code and fingerprints are in `experiments/projector/audit_compennet_full.py`
+calibration. Audit code and fingerprints are in `experiments/data_preparation/compennet/audit_full.py`
 and `work/compennet_full_audit.json`.
 
 A per-pixel black-floor + gain-field times a global RGB 3D response achieves

@@ -47,15 +47,15 @@ MAE 是预测与真实相机 RGB 在 [0,1] 下的逐像素、逐通道绝对误�
 
 ## 复算
 
-抽取及 CRC/SHA 核验代码：`experiments/projector/probe_compennetpp_raw_reference_pairs.py`；几何解码：`experiments/projector/decode_compennetpp_sl_one_setup.py`；联合前向与逐图结果：`experiments/projector/evaluate_compennetpp_raw_forward_pilot.py`、`work/compennetpp_raw_forward_pilot.json`。E 盘样本在 `E:\ai_image_origin_research\data\derived\compennetpp_raw_ref_probe`，结构光对在 `E:\ai_image_origin_research\data\derived\compennetpp_sl_one_setup`。JSON 包括 80 个所需成员审计、全部 20 张逐图 MAE、完整结构光掩膜对照和两种几何负对照。结构光 84 个成员的单独提取见[几何审计](CompenNet++结构光真实配对与几何约束_2026-09-25.md)。在已有结构光对的前提下，复算新增 80 个成员及评测：
+抽取及 CRC/SHA 核验代码：`experiments/data_preparation/compennetpp/run_raw_reference_pairs.py`；几何解码：`experiments/projection_capture/structured_light/compennetpp/prepare_sl_one_setup.py`；联合前向与逐图结果：`experiments/projection_capture/raw_response/compennetpp/evaluate_raw_forward_pilot.py`、`work/compennetpp_raw_forward_pilot.json`。E 盘样本在 `E:\ai_image_origin_research\data\derived\compennetpp_raw_ref_probe`，结构光对在 `E:\ai_image_origin_research\data\derived\compennetpp_sl_one_setup`。JSON 包括 80 个所需成员审计、全部 20 张逐图 MAE、完整结构光掩膜对照和两种几何负对照。结构光 84 个成员的单独提取见[几何审计](CompenNet++结构光真实配对与几何约束_2026-09-25.md)。在已有结构光对的前提下，复算新增 80 个成员及评测：
 
 ```powershell
-uv run python -m experiments.projector.probe_compennetpp_raw_reference_pairs
-uv run python -m experiments.projector.probe_compennetpp_raw_reference_pairs --ref-numbers 5 21 101 --test-numbers --output-json work/compennetpp_raw_primary_response_probe.json
-uv run python -m experiments.projector.probe_compennetpp_raw_reference_pairs --ref-numbers 4 6 11 16 26 51 76 --test-numbers --output-json work/compennetpp_raw_primary_curve_probe.json
-uv run python -m experiments.projector.probe_compennetpp_raw_reference_pairs --ref-numbers --train-numbers 1 2 3 --test-numbers --output-json work/compennetpp_raw_train_geometry_probe.json
-uv run python -m experiments.projector.probe_compennetpp_raw_reference_pairs --ref-numbers --test-numbers 10 35 37 40 48 88 97 98 112 113 114 116 153 183 185 189 198 --output-json work/compennetpp_raw_test20_extension_probe.json
-uv run python -m experiments.projector.evaluate_compennetpp_raw_forward_pilot
+uv run python -m experiments.data_preparation.compennetpp.run_raw_reference_pairs
+uv run python -m experiments.data_preparation.compennetpp.run_raw_reference_pairs --ref-numbers 5 21 101 --test-numbers --output-json work/compennetpp_raw_primary_response_probe.json
+uv run python -m experiments.data_preparation.compennetpp.run_raw_reference_pairs --ref-numbers 4 6 11 16 26 51 76 --test-numbers --output-json work/compennetpp_raw_primary_curve_probe.json
+uv run python -m experiments.data_preparation.compennetpp.run_raw_reference_pairs --ref-numbers --train-numbers 1 2 3 --test-numbers --output-json work/compennetpp_raw_train_geometry_probe.json
+uv run python -m experiments.data_preparation.compennetpp.run_raw_reference_pairs --ref-numbers --test-numbers 10 35 37 40 48 88 97 98 112 113 114 116 153 183 185 189 198 --output-json work/compennetpp_raw_test20_extension_probe.json
+uv run python -m experiments.projection_capture.raw_response.compennetpp.evaluate_raw_forward_pilot
 ```
 
 该实验不依赖用户自行拍摄；其限制来自公开数据只有一个经核验设置、少量逐图拍摄元数据和 RGB 发布图。
