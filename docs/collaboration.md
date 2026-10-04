@@ -4,7 +4,18 @@
 
 代码仓库的本机位置为 `E:\ai_image_origin_research\repo`，GitHub 为私有仓库 `TTAWDTT/ai-image-origin-research`。数据、环境和模型位于同级的 `data/`、`envs/`、`models/`；本机 `work/` 产物仍按复算指南管理。
 
-原 C 盘 Codex 任务路径通过目录链接指向 E 盘仓库，避免当前任务使用两份不同的代码。目录链接只保存路径关系，代码及产物存储在 E 盘。
+代码和本机产物已复制并校验到 E 盘，后续以 E 盘仓库为准。原 C 盘 Codex 任务目录被进程占用，目前仍是旧副本，尚未切换成目录链接；不要在旧副本继续修改。
+
+2026-10-04 迁移检查：8,237 个文件（1,103,849,931 字节）复制后逐文件 SHA-256 一致；E 盘环境重建后 82 项测试通过，目录与文档链接检查通过。GitHub 私有属性已核实；数据、权重、虚拟环境和本机缓存不提交。
+
+关闭 Codex 后，可从独立 PowerShell 完成切换：
+
+```powershell
+Set-Location E:\ai_image_origin_research\repo
+powershell -NoProfile -ExecutionPolicy Bypass -File tools\finish_repo_migration.ps1 -Finalize
+```
+
+[收尾脚本](../tools/finish_repo_migration.ps1) 默认只校验，指定 `-Finalize` 才改目录。它会核对迁移审计、把 C 盘旧目录改名为备份、建立指向 E 盘的目录链接；不删除备份、不终止进程。若旧副本已发生修改或仍被占用，脚本会停止。备份待后续确认后清理。
 
 ## 先一起整理
 
