@@ -29,19 +29,22 @@ class PublicationParameters:
         if self.encoding not in ("png", "jpeg"):
             raise ValueError("encoding must be png or jpeg")
         if self.crop_xyxy is not None and (
-            len(self.crop_xyxy) != 4 or
-            not all(isinstance(v, int) for v in self.crop_xyxy) or
-            self.crop_xyxy[0] < 0 or self.crop_xyxy[1] < 0 or
-            self.crop_xyxy[2] <= self.crop_xyxy[0] or
-            self.crop_xyxy[3] <= self.crop_xyxy[1]
+            len(self.crop_xyxy) != 4
+            or not all(isinstance(v, int) for v in self.crop_xyxy)
+            or self.crop_xyxy[0] < 0
+            or self.crop_xyxy[1] < 0
+            or self.crop_xyxy[2] <= self.crop_xyxy[0]
+            or self.crop_xyxy[3] <= self.crop_xyxy[1]
         ):
             raise ValueError("crop must be a positive xyxy rectangle")
         if self.output_size is not None and (
-            len(self.output_size) != 2 or
-            not all(isinstance(v, int) and v > 0 for v in self.output_size)
+            len(self.output_size) != 2
+            or not all(isinstance(v, int) and v > 0 for v in self.output_size)
         ):
             raise ValueError("output_size must be positive width, height")
-        if self.encoding == "png" and (self.jpeg_quality is not None or self.jpeg_subsampling is not None):
+        if self.encoding == "png" and (
+            self.jpeg_quality is not None or self.jpeg_subsampling is not None
+        ):
             raise ValueError("JPEG settings cannot be applied to PNG")
         if self.encoding == "jpeg":
             if self.jpeg_quality is None or not 1 <= self.jpeg_quality <= 100:
@@ -58,7 +61,9 @@ class PublicationResult:
     encoded_bytes: bytes
 
 
-def apply_publication(rgb: np.ndarray, parameters: PublicationParameters) -> PublicationResult:
+def apply_publication(
+    rgb: np.ndarray, parameters: PublicationParameters
+) -> PublicationResult:
     """Convert capture RGB to 8-bit, crop, resize, encode and decode in order."""
     array = np.asarray(rgb)
     if array.ndim != 3 or array.shape[2] != 3 or min(array.shape[:2]) <= 0:
@@ -88,8 +93,12 @@ def apply_publication(rgb: np.ndarray, parameters: PublicationParameters) -> Pub
     resized = np.asarray(image).copy()
     stream = BytesIO()
     if parameters.encoding == "jpeg":
-        image.save(stream, format="JPEG", quality=parameters.jpeg_quality,
-                   subsampling=parameters.jpeg_subsampling)
+        image.save(
+            stream,
+            format="JPEG",
+            quality=parameters.jpeg_quality,
+            subsampling=parameters.jpeg_subsampling,
+        )
     else:
         image.save(stream, format="PNG")
     data_bytes = stream.getvalue()

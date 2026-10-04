@@ -1,14 +1,9 @@
-# 历史复算工作区
+# 本机实验产物
 
-此目录保留已有脚本的原路径，因为报告里的复算命令和文件指纹引用这些路径。Git 只跟踪顶层 Python/PowerShell 脚本与环境锁文件；同目录的 CSV、JSON、日志、模型、虚拟环境及第三方仓库属于本机中间产物。阅读研究结论请从 [`outputs/README.md`](../outputs/README.md) 开始。
+此目录保存既有 CSV、JSON、日志、缓存、环境锁和第三方代码。它们可能是报告的复算依赖，不能按“临时文件”整体删除。Git 仅跟踪本说明和环境锁。
 
-| 任务 | 主要入口 |
-|---|---|
-| RR 测试包准入与配对 | `audit_rr_test.py`、`audit_rr_trainval_archive.py`、`freeze_rr_simulation_split.py` |
-| 三种全量 baseline | `run_bfree_baseline.py`、`run_d3_rr.py`、`benford_rr.py`、`compare_rr_full_baselines.py` |
-| 真实扫描配对审计 | `audit_descan_pairs.py`、`audit_descan_near_duplicates.py` |
-| 早期 simulation 原型 | `rr_simulator_v0.py`、`materialize_rr_transfer_simulation.py`、`evaluate_rr_simulator_critic.py` |
-| 下载与断点恢复 | `download_verified.ps1`、`continue_rr_bfree.ps1`、`download_descan_calibration.py` |
-| Dragotti 官方 ZIP 小样本审计 | `probe_dragotti_range.py`、`analyze_dragotti_probe.py`、`build_dragotti_audit_bundle.py`；机器可读结果见 `outputs/03_过程模拟/`。 |
+**实验源码已迁至 [experiments/](../experiments/README.md)。** 结果文件保留原位置，以免破坏清单和历史校验记录。旧的 `python work/foo.py` / `python -m work.foo` 命令请按实验目录查找同名脚本，改为 `python -m experiments.<主题>.foo`，并在仓库根目录执行。
 
-这是历史代码导航，不代表所有脚本都是当前推荐方法。新物理过程模块在完成受控测量协议后另建稳定入口，避免继续把研究版脚本堆在此目录。
+模型权重、原始数据和主要派生图像仍在 E 盘。`vendor/` 等第三方目录是历史评测环境的一部分。
+
+源代码整理前的 Git 版本：`0f675d6d544de407dae5c162e26100245edf79ef`。旧断点的代码指纹可能与新布局不符；需精确恢复时使用旧版本，不修改指纹来绕过校验。详见[复算指南](../docs/README.md#历史实验与结果完整性)。

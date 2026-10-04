@@ -1,7 +1,5 @@
 # Local research data and generated artifacts
 /work/*
-!/work/*.py
-!/work/*.ps1
 !/work/*lock.txt
 !/work/README.md
 /data/
@@ -11,6 +9,11 @@
 /checkpoints/
 /.venv/
 __pycache__/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+/build/
+/dist/
 *.py[cod]
 *.log
 *.pt

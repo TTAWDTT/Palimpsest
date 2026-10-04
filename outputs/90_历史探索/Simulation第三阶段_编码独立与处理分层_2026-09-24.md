@@ -60,7 +60,7 @@
 
 ## 复算
 
-解释器为 E 盘 `envs/bfree`（模拟和 B-Free）及 `envs/classical`（两样本评论者）。主要脚本：`work/rr_simulator_v0.py --geometry crop-aware --jpeg-profile independent --validation-per-class 500`、`work/evaluate_rr_simulator_critic.py`、`work/materialize_rr_transfer_simulation.py`、`work/run_bfree_baseline.py`、`work/evaluate_rr_transfer_simulation_bfree.py`、`work/audit_rr_redigital_encoding_strata.py`、`work/analyze_rr_redigital_detector_strata.py`。机器结果分别为 `work/rr_simulator_crop_independent_1000_evaluation.json`、相应 `_critic.json`、`work/rr_transfer_simulation_dev_score_evaluation.json`、`work/rr_redigital_encoding_strata.json`、`work/rr_redigital_detector_strata.json`。模拟推理 CSV SHA-256：`fe76d4f97c32f15b32eccaab9cf27e1604030859fcf17f77c7641239c9147731`；物化清单 SHA-256：`c158195de733a121df6c6b2c5ad1ab1af00a5446c7193fd218eaa5532019509c`。
+解释器为 E 盘 `envs/bfree`（模拟和 B-Free）及 `envs/classical`（两样本评论者）。主要脚本：`experiments/rr/rr_simulator_v0.py --geometry crop-aware --jpeg-profile independent --validation-per-class 500`、`experiments/rr/evaluate_rr_simulator_critic.py`、`experiments/rr/materialize_rr_transfer_simulation.py`、`experiments/baselines/run_bfree_baseline.py`、`experiments/baselines/evaluate_rr_transfer_simulation_bfree.py`、`experiments/rr/audit_rr_redigital_encoding_strata.py`、`experiments/rr/analyze_rr_redigital_detector_strata.py`。机器结果分别为 `work/rr_simulator_crop_independent_1000_evaluation.json`、相应 `_critic.json`、`work/rr_transfer_simulation_dev_score_evaluation.json`、`work/rr_redigital_encoding_strata.json`、`work/rr_redigital_detector_strata.json`。模拟推理 CSV SHA-256：`fe76d4f97c32f15b32eccaab9cf27e1604030859fcf17f77c7641239c9147731`；物化清单 SHA-256：`c158195de733a121df6c6b2c5ad1ab1af00a5446c7193fd218eaa5532019509c`。
 
 ## 2026-09-24 补充：4:2:0 同尺寸层的颜色模拟试验
 
@@ -75,7 +75,7 @@
 
 发布处理图的灰度相关、RGB 平均变化、粗梯度比中位数分别为 **0.962 / 0.095 / 1.091**；颜色模拟为 **0.999 / 0.090 / 1.008**。因此颜色统计虽接近，仍几乎能被简单评论者完美识别，且梯度距离略变差。这个**失败结果**表明下一轮要显式处理纹理、噪声及微小空间变形，并用更强的频谱/块特征防止只拟合少数统计量。该试验按发布图 JPEG 层筛选开发来源，是条件机制诊断；不能作为不知道处理方式时的完整盲模拟评测。
 
-复算脚本与机器结果：`work/rr_redigital_420_color_pilot.py`、`work/evaluate_rr_redigital_420_color_critic.py`、`work/rr_redigital_420_color_pilot.json`、`work/rr_redigital_420_color_critic.json`。
+复算脚本与机器结果：`experiments/rr/rr_redigital_420_color_pilot.py`、`experiments/rr/evaluate_rr_redigital_420_color_critic.py`、`work/rr_redigital_420_color_pilot.json`、`work/rr_redigital_420_color_critic.json`。
 
 ## 2026-09-24 校正：颜色 donor 的隐含类别关联
 

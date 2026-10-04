@@ -29,7 +29,8 @@ def main() -> None:
     display = DisplayRasterParameters(**config["display"])
     camera_options = dict(config["camera"])
     camera_options["sensor_to_display"] = np.asarray(
-        camera_options["sensor_to_display"], dtype=np.float64)
+        camera_options["sensor_to_display"], dtype=np.float64
+    )
     camera = ScreenCaptureParameters(**camera_options)
     publication = PublicationParameters(**config["publication"])
     extension = ".jpg" if publication.encoding == "jpeg" else ".png"
@@ -44,7 +45,11 @@ def main() -> None:
         source = np.asarray(opened).copy()
     start = time.perf_counter()
     result = run_screen_pipeline(
-        source, display, tuple(config["sensor_shape"]), camera, publication,
+        source,
+        display,
+        tuple(config["sensor_shape"]),
+        camera,
+        publication,
         seed=int(config.get("seed", 0)),
         spatial_method=config.get("spatial_method", "fine"),
         samples_per_sensor_pixel=config.get("samples_per_sensor_pixel"),
@@ -65,9 +70,12 @@ def main() -> None:
         )
     report = {
         "schema": "screen-pipeline-output-v1",
-        "input": str(args.input), "input_sha256": sha256(args.input),
-        "config": str(args.config), "config_sha256": sha256(args.config),
-        "output_image": str(output_image), "output_image_sha256": sha256(output_image),
+        "input": str(args.input),
+        "input_sha256": sha256(args.input),
+        "config": str(args.config),
+        "config_sha256": sha256(args.config),
+        "output_image": str(output_image),
+        "output_image_sha256": sha256(output_image),
         "intermediates_npz": str(output_npz) if args.intermediates else None,
         "intermediates_sha256": sha256(output_npz) if args.intermediates else None,
         "output_shape": list(result.publication.decoded_rgb.shape),
@@ -76,8 +84,9 @@ def main() -> None:
         "parameter_status": config.get("parameter_status", "unspecified"),
         "interpretation": "explicit virtual process; device and publication fidelity need independent calibration",
     }
-    output_json.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n",
-                           encoding="utf-8")
+    output_json.write_text(
+        json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
     print(json.dumps(report, ensure_ascii=False, indent=2))
 
 

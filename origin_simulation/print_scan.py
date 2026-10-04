@@ -21,7 +21,6 @@ from dataclasses import dataclass
 import numpy as np
 from scipy.ndimage import distance_transform_edt, gaussian_filter, map_coordinates
 
-
 UM_PER_INCH = 25_400.0
 
 
@@ -51,30 +50,62 @@ class PrintScanParameters:
     def __post_init__(self) -> None:
         if self.raster_mode not in ("halftone", "binary_direct"):
             raise ValueError("raster_mode must be halftone or binary_direct")
-        positive = (self.digital_ppi, self.render_ppi, self.scan_ppi,
-                    self.screen_lpi, self.print_gamma, self.scanner_gamma)
+        positive = (
+            self.digital_ppi,
+            self.render_ppi,
+            self.scan_ppi,
+            self.screen_lpi,
+            self.print_gamma,
+            self.scanner_gamma,
+        )
         if not np.isfinite(positive).all() or min(positive) <= 0:
-            raise ValueError("physical resolutions, screen frequency and gamma must be finite and positive")
-        if ((self.raster_mode == "halftone" and self.render_ppi < 8 * self.screen_lpi) or
-                self.render_ppi < self.scan_ppi or self.render_ppi < self.digital_ppi):
-            raise ValueError("render_ppi undersamples the digital input, halftone lattice or scanner")
-        finite = (self.screen_angle_degrees, self.screen_phase_u, self.screen_phase_v,
-                  self.mechanical_dot_gain_um, self.deposition_blur_um,
-                  self.paper_scatter_sigma_um, self.scanner_optical_sigma_um,
-                  self.scanner_rotation_degrees, self.paper_reflectance,
-                  self.ink_reflectance, self.scanner_noise_std_linear)
+            raise ValueError(
+                "physical resolutions, screen frequency and gamma must be finite and positive"
+            )
+        if (
+            (self.raster_mode == "halftone" and self.render_ppi < 8 * self.screen_lpi)
+            or self.render_ppi < self.scan_ppi
+            or self.render_ppi < self.digital_ppi
+        ):
+            raise ValueError(
+                "render_ppi undersamples the digital input, halftone lattice or scanner"
+            )
+        finite = (
+            self.screen_angle_degrees,
+            self.screen_phase_u,
+            self.screen_phase_v,
+            self.mechanical_dot_gain_um,
+            self.deposition_blur_um,
+            self.paper_scatter_sigma_um,
+            self.scanner_optical_sigma_um,
+            self.scanner_rotation_degrees,
+            self.paper_reflectance,
+            self.ink_reflectance,
+            self.scanner_noise_std_linear,
+        )
         if not np.isfinite(finite).all():
             raise ValueError("print/scan parameters must be finite")
-        if min(self.deposition_blur_um, self.paper_scatter_sigma_um,
-               self.scanner_optical_sigma_um, self.scanner_noise_std_linear) < 0:
+        if (
+            min(
+                self.deposition_blur_um,
+                self.paper_scatter_sigma_um,
+                self.scanner_optical_sigma_um,
+                self.scanner_noise_std_linear,
+            )
+            < 0
+        ):
             raise ValueError("PSF widths and noise must be nonnegative")
         if not 0 <= self.ink_reflectance < self.paper_reflectance <= 1:
             raise ValueError("ink reflectance must be lower than paper reflectance")
         if self.max_render_pixels <= 0:
             raise ValueError("max_render_pixels must be positive")
-        if (self.mechanical_dot_gain_um != 0 and
-                abs(self.mechanical_dot_gain_um) * self.render_ppi / UM_PER_INCH < 1):
-            raise ValueError("mechanical dot gain is below one render cell; increase render_ppi")
+        if (
+            self.mechanical_dot_gain_um != 0
+            and abs(self.mechanical_dot_gain_um) * self.render_ppi / UM_PER_INCH < 1
+        ):
+            raise ValueError(
+                "mechanical dot gain is below one render cell; increase render_ppi"
+            )
 
 
 @dataclass(frozen=True)
@@ -98,17 +129,23 @@ def _as_gray(digital: np.ndarray) -> np.ndarray:
     return data
 
 
-def _gaussian_physical(image: np.ndarray, width_um: float, render_ppi: float) -> np.ndarray:
+def _gaussian_physical(
+    image: np.ndarray, width_um: float, render_ppi: float
+) -> np.ndarray:
     sigma = width_um * render_ppi / UM_PER_INCH
     if sigma <= 0:
         return image
     return gaussian_filter(image, sigma=sigma, mode="reflect").astype(np.float32)
 
 
-def simulate_print_scan(digital: np.ndarray, parameters: PrintScanParameters) -> PrintScanResult:
+def simulate_print_scan(
+    digital: np.ndarray, parameters: PrintScanParameters
+) -> PrintScanResult:
     """Render one grayscale digital patch through a physical-coordinate chain."""
     gray = _as_gray(digital)
-    if parameters.raster_mode == "binary_direct" and not np.all((gray == 0) | (gray == 1)):
+    if parameters.raster_mode == "binary_direct" and not np.all(
+        (gray == 0) | (gray == 1)
+    ):
         raise ValueError("binary_direct mode requires a strict 0/1 digital raster")
     height, width = gray.shape
     inches_w, inches_h = width / parameters.digital_ppi, height / parameters.digital_ppi
@@ -123,43 +160,63 @@ def simulate_print_scan(digital: np.ndarray, parameters: PrintScanParameters) ->
     y_inch = (np.arange(fine_h, dtype=np.float32) + 0.5) / parameters.render_ppi
     xx, yy = np.meshgrid(x_inch, y_inch)
     source = map_coordinates(
-        gray, [yy * parameters.digital_ppi - .5, xx * parameters.digital_ppi - .5],
+        gray,
+        [yy * parameters.digital_ppi - 0.5, xx * parameters.digital_ppi - 0.5],
         order=0 if parameters.raster_mode == "binary_direct" else 1,
         mode="nearest",
     )
     if parameters.raster_mode == "binary_direct":
-        ink = source < .5
+        ink = source < 0.5
         del xx, yy, source
     else:
-        target_ink_fraction = np.power(np.clip(1 - source, 0, 1), parameters.print_gamma)
+        target_ink_fraction = np.power(
+            np.clip(1 - source, 0, 1), parameters.print_gamma
+        )
         angle = np.deg2rad(parameters.screen_angle_degrees)
-        uu = parameters.screen_lpi * (np.cos(angle) * xx + np.sin(angle) * yy) + parameters.screen_phase_u
-        vv = parameters.screen_lpi * (-np.sin(angle) * xx + np.cos(angle) * yy) + parameters.screen_phase_v
+        uu = (
+            parameters.screen_lpi * (np.cos(angle) * xx + np.sin(angle) * yy)
+            + parameters.screen_phase_u
+        )
+        vv = (
+            parameters.screen_lpi * (-np.sin(angle) * xx + np.cos(angle) * yy)
+            + parameters.screen_phase_v
+        )
         phase_u, phase_v = np.mod(uu, 1), np.mod(vv, 1)
-        spot_distance = np.maximum(np.abs(phase_u - .5), np.abs(phase_v - .5))
-        ink = (target_ink_fraction >= 1) | (spot_distance < .5 * np.sqrt(target_ink_fraction))
+        spot_distance = np.maximum(np.abs(phase_u - 0.5), np.abs(phase_v - 0.5))
+        ink = (target_ink_fraction >= 1) | (
+            spot_distance < 0.5 * np.sqrt(target_ink_fraction)
+        )
         del xx, yy, uu, vv, phase_u, phase_v, spot_distance, source, target_ink_fraction
 
-    gain_px = abs(parameters.mechanical_dot_gain_um) * parameters.render_ppi / UM_PER_INCH
+    gain_px = (
+        abs(parameters.mechanical_dot_gain_um) * parameters.render_ppi / UM_PER_INCH
+    )
     if gain_px > 0:
         if parameters.mechanical_dot_gain_um > 0:
             ink = ink | (distance_transform_edt(~ink) <= gain_px)
         else:
             ink = ink & (distance_transform_edt(ink) > gain_px)
-    deposited = _gaussian_physical(ink.astype(np.float32), parameters.deposition_blur_um,
-                                   parameters.render_ppi)
-    paper = (parameters.paper_reflectance -
-             (parameters.paper_reflectance - parameters.ink_reflectance) * deposited).astype(np.float32)
-    paper = _gaussian_physical(paper, parameters.paper_scatter_sigma_um, parameters.render_ppi)
+    deposited = _gaussian_physical(
+        ink.astype(np.float32), parameters.deposition_blur_um, parameters.render_ppi
+    )
+    paper = (
+        parameters.paper_reflectance
+        - (parameters.paper_reflectance - parameters.ink_reflectance) * deposited
+    ).astype(np.float32)
+    paper = _gaussian_physical(
+        paper, parameters.paper_scatter_sigma_um, parameters.render_ppi
+    )
 
     aperture_sigma_um = UM_PER_INCH / (parameters.scan_ppi * np.sqrt(12.0))
-    effective_sigma_um = float(np.hypot(parameters.scanner_optical_sigma_um, aperture_sigma_um))
+    effective_sigma_um = float(
+        np.hypot(parameters.scanner_optical_sigma_um, aperture_sigma_um)
+    )
     before_scan = _gaussian_physical(paper, effective_sigma_um, parameters.render_ppi)
 
     scan_w = round(inches_w * parameters.scan_ppi)
     scan_h = round(inches_h * parameters.scan_ppi)
-    scan_x = (np.arange(scan_w, dtype=np.float32) + .5) / parameters.scan_ppi
-    scan_y = (np.arange(scan_h, dtype=np.float32) + .5) / parameters.scan_ppi
+    scan_x = (np.arange(scan_w, dtype=np.float32) + 0.5) / parameters.scan_ppi
+    scan_y = (np.arange(scan_h, dtype=np.float32) + 0.5) / parameters.scan_ppi
     sx, sy = np.meshgrid(scan_x, scan_y)
     scan_angle = np.deg2rad(parameters.scanner_rotation_degrees)
     cx, cy = inches_w / 2, inches_h / 2
@@ -167,11 +224,20 @@ def simulate_print_scan(digital: np.ndarray, parameters: PrintScanParameters) ->
     physical_y = cy + np.sin(scan_angle) * (sx - cx) + np.cos(scan_angle) * (sy - cy)
     linear = map_coordinates(
         before_scan,
-        [physical_y * parameters.render_ppi - .5, physical_x * parameters.render_ppi - .5],
-        order=1, mode="constant", cval=parameters.paper_reflectance,
+        [
+            physical_y * parameters.render_ppi - 0.5,
+            physical_x * parameters.render_ppi - 0.5,
+        ],
+        order=1,
+        mode="constant",
+        cval=parameters.paper_reflectance,
     ).astype(np.float32)
     if parameters.scanner_noise_std_linear:
         rng = np.random.default_rng(parameters.random_seed)
-        linear = linear + rng.normal(0, parameters.scanner_noise_std_linear, linear.shape).astype(np.float32)
-    output = np.power(np.clip(linear, 0, 1), 1 / parameters.scanner_gamma).astype(np.float32)
+        linear = linear + rng.normal(
+            0, parameters.scanner_noise_std_linear, linear.shape
+        ).astype(np.float32)
+    output = np.power(np.clip(linear, 0, 1), 1 / parameters.scanner_gamma).astype(
+        np.float32
+    )
     return PrintScanResult(ink, paper, before_scan, linear, output)

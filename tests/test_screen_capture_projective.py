@@ -223,7 +223,7 @@ def test_effective_spectral_mix_precedes_bayer_sampling():
 
 
 def test_projective_polygon_area_reference_matches_independent_axis_integral():
-    from work.projective_area_reference import projective_area_reference
+    from experiments.screen_numerics.projective_area_reference import projective_area_reference
 
     display = np.random.default_rng(7).random((12, 12, 3), dtype=np.float32)
     setup = ScreenCaptureParameters(

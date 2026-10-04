@@ -1,0 +1,10 @@
+* text=auto
+*.py text eol=lf
+*.md text eol=lf
+*.ps1 text eol=lf
+*.toml text eol=lf
+*.lock text eol=lf
+# Audit JSON files can have recorded byte-level hashes; preserve their bytes.
+*.json -text
+*.png binary
+*.jpg binary

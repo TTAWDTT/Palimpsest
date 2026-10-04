@@ -64,13 +64,13 @@
 工作目录为本任务根目录。解释器：`E:\ai_image_origin_research\envs\bfree\Scripts\python.exe`（模拟与配对审计）、`E:\ai_image_origin_research\envs\classical\Scripts\python.exe`（随机森林评论者）。
 
 ```powershell
-& 'E:\ai_image_origin_research\envs\bfree\Scripts\python.exe' work\rr_simulator_v0.py --donors-per-condition 1000 --validation-per-class 500 --neighbors 30 --geometry resize --output work\rr_simulator_resize_1000_evaluation.json
-& 'E:\ai_image_origin_research\envs\bfree\Scripts\python.exe' work\rr_simulator_v0.py --donors-per-condition 1000 --validation-per-class 500 --neighbors 30 --geometry crop-aware --output work\rr_simulator_crop_1000_evaluation.json
-& 'E:\ai_image_origin_research\envs\classical\Scripts\python.exe' work\evaluate_rr_simulator_critic.py --input work\rr_simulator_crop_1000_evaluation.json --output work\rr_simulator_crop_1000_critic.json
-& 'E:\ai_image_origin_research\envs\bfree\Scripts\python.exe' work\download_descan_calibration.py
-& 'E:\ai_image_origin_research\envs\bfree\Scripts\python.exe' work\audit_descan_pairs.py
-& 'E:\ai_image_origin_research\envs\classical\Scripts\python.exe' work\audit_descan_near_duplicates.py
-& 'E:\ai_image_origin_research\envs\bfree\Scripts\python.exe' work\analyze_rr_transfer_geometry_effect.py
+& 'E:\ai_image_origin_research\envs\bfree\Scripts\python.exe' -m experiments.rr.rr_simulator_v0 --donors-per-condition 1000 --validation-per-class 500 --neighbors 30 --geometry resize --output work\rr_simulator_resize_1000_evaluation.json
+& 'E:\ai_image_origin_research\envs\bfree\Scripts\python.exe' -m experiments.rr.rr_simulator_v0 --donors-per-condition 1000 --validation-per-class 500 --neighbors 30 --geometry crop-aware --output work\rr_simulator_crop_1000_evaluation.json
+& 'E:\ai_image_origin_research\envs\classical\Scripts\python.exe' -m experiments.rr.evaluate_rr_simulator_critic --input work\rr_simulator_crop_1000_evaluation.json --output work\rr_simulator_crop_1000_critic.json
+& 'E:\ai_image_origin_research\envs\bfree\Scripts\python.exe' -m experiments.print_scan.download_descan_calibration
+& 'E:\ai_image_origin_research\envs\bfree\Scripts\python.exe' -m experiments.print_scan.audit_descan_pairs
+& 'E:\ai_image_origin_research\envs\classical\Scripts\python.exe' -m experiments.print_scan.audit_descan_near_duplicates
+& 'E:\ai_image_origin_research\envs\bfree\Scripts\python.exe' -m experiments.rr.analyze_rr_transfer_geometry_effect
 ```
 
 主要机器可读产物：`work/rr_simulator_resize_1000_evaluation.json`、`work/rr_simulator_crop_1000_evaluation.json`、对应 `*_critic.json`、`work/descan_archive_audit.json`、`work/descan_pair_audit.json`、`work/rr_transfer_geometry_effect.json`。模拟器与评论者脚本 SHA-256 分别为 `2015a4bfbf9fbf7c59f09d5e1a03cb4f649d1e9d858e7c63ee648d5c2d83f62c`、`b7ca390785d8fdaf9e00c6fa1e96574068c2ca25fa1faa34e5b793a3404ccd33`。

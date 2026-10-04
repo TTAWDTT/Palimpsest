@@ -81,7 +81,7 @@ minimum pair-contrast mask yields 75,392 decoded camera pixels (24.54% of a
 44.96% RANSAC inliers at 3 camera pixels. These data constrain an effective
 projector-to-camera mapping at this pose, while nonplanarity, projected
 background, saturation and bit errors remain entangled. See
-`outputs/03_过程模拟/CompenNet++结构光真实配对与几何约束_2026-09-25.md`.
+`outputs/03_过程模拟/04_打印与投影/CompenNet++结构光真实配对与几何约束_2026-09-25.md`.
 
 ## Current data-calibrated falsification (2026-09-25)
 
@@ -90,7 +90,7 @@ setups have 500 training/200 test pairs. The 125 numeric input references are
 an RGB 5^3 uniform chart. Numeric captured reference 0126 is a byte-for-byte
 duplicate of 0032, 0063 or 0094 in every setup; the root `img_gray` has no
 established independent captured pair. Only references 0001..0125 enter
-calibration. Audit code and fingerprints are in `work/audit_compennet_full.py`
+calibration. Audit code and fingerprints are in `experiments/projector/audit_compennet_full.py`
 and `work/compennet_full_audit.json`.
 
 A per-pixel black-floor + gain-field times a global RGB 3D response achieves
@@ -102,7 +102,7 @@ MAE. The full LUT winning 24/24 setups falsifies the current simple
 separability as an adequate finished simulation. The remaining residual can
 include spectral/color coupling, local inter-reflection, defocus, clipping,
 homography interpolation or camera response; published images do not identify
-which cause dominates. Details: `outputs/03_过程模拟/CompenNet整包审计与投影前向反证_2026-09-25.md`.
+which cause dominates. Details: `outputs/03_过程模拟/04_打印与投影/CompenNet整包审计与投影前向反证_2026-09-25.md`.
 On four fixed setups and 50 held-out texture IDs, the full LUT's error is
 1.64-2.64 times higher in the source's highest versus lowest gradient decile;
 a train-selected Gaussian blur reduces macro MAE from 0.04323 to 0.03725.

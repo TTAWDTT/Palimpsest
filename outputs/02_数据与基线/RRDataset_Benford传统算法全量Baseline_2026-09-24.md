@@ -29,7 +29,7 @@ RRDataset 原图的格式与标签强相关：PNG/JPEG 规则在原图可达约 
 
 ## 复算记录
 
-- 脚本：`work/benford_rr.py`；逐图结果：`work/benford_rr_full.csv`；机器汇总：`work/benford_rr_full.json`。
+- 脚本：`experiments/baselines/benford_rr.py`；逐图结果：`work/benford_rr_full.csv`；机器汇总：`work/benford_rr_full.json`。
 - CSV SHA-256：`adebcfed28465c013358a3c75331443dd29201806ec242b6bab1c381707e535d`；脚本 SHA-256：`184514d774213e2ff2f22c6ce040f514f546d42e56f97d0016060fd9dea1559e`。
-- Python 3.12.11、NumPy 2.3.3、Pillow 11.3.0、SciPy 1.16.2、scikit-learn 1.7.2，环境在 `E:\ai_image_origin_research\envs\classical`。调用：`E:\ai_image_origin_research\envs\classical\Scripts\python.exe work\benford_rr.py --output-prefix work\benford_rr_full`；脚本支持同输出前缀的 `--resume`。
+- Python 3.12.11、NumPy 2.3.3、Pillow 11.3.0、SciPy 1.16.2、scikit-learn 1.7.2，环境在 `E:\ai_image_origin_research\envs\classical`。调用：`E:\ai_image_origin_research\envs\classical\Scripts\python.exe -m experiments.baselines.benford_rr --output-prefix work\benford_rr_full`；脚本支持同输出前缀的 `--resume`。
 - BA 置信区间分别按真假类别的来源进行 2,000 次有放回抽样；原图与处理图的 BA 差使用相同来源的配对抽样。由于近重复未知，区间可能略偏窄。
