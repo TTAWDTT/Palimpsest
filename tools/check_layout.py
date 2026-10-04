@@ -12,12 +12,15 @@ import re
 from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
-PACKAGES = ("origin_simulation", "experiments", "tests")
+SOURCE_TREES = ("src", "experiments", "tests")
+PACKAGES = ("palimpsest", "origin_simulation", "experiments", "tests")
 LINK = re.compile(r"!?\[[^\]\n]*\]\(([^\s)]+)\)")
 
 
 def module_name(path: Path) -> str:
     parts = list(path.relative_to(ROOT).with_suffix("").parts)
+    if parts[0] == "src":
+        parts.pop(0)
     if parts[-1] == "__init__":
         parts.pop()
     return ".".join(parts)
@@ -25,10 +28,26 @@ def module_name(path: Path) -> str:
 
 def main() -> None:
     problems: list[str] = []
-    paths = [path for folder in PACKAGES for path in (ROOT / folder).rglob("*.py")]
+    paths = [path for folder in SOURCE_TREES for path in (ROOT / folder).rglob("*.py")]
     trees = {
         module_name(path): ast.parse(path.read_text(encoding="utf-8")) for path in paths
     }
+    # Catch imports of helpers accidentally removed while extracting utilities.
+    bindings = {}
+    for module, tree in trees.items():
+        names = set()
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+                names.add(node.name)
+            elif isinstance(node, ast.Name) and isinstance(node.ctx, ast.Store):
+                names.add(node.id)
+            elif isinstance(node, ast.Import):
+                names.update(
+                    alias.asname or alias.name.split(".")[0] for alias in node.names
+                )
+            elif isinstance(node, ast.ImportFrom):
+                names.update(alias.asname or alias.name for alias in node.names)
+        bindings[module] = names
     for path in paths:
         module = module_name(path)
         package = module if path.name == "__init__.py" else module.rpartition(".")[0]
@@ -44,6 +63,28 @@ def main() -> None:
                     problems.append(
                         f"{path.relative_to(ROOT)}:{node.lineno}: missing module {base}"
                     )
+                if base in trees and "*" not in bindings[base]:
+                    for alias in node.names:
+                        if (
+                            alias.name != "*"
+                            and alias.name not in bindings[base]
+                            and f"{base}.{alias.name}" not in trees
+                        ):
+                            problems.append(
+                                f"{path.relative_to(ROOT)}:{node.lineno}: missing symbol {base}.{alias.name}"
+                            )
+                if module.startswith("palimpsest.") and base.startswith("experiments"):
+                    problems.append(
+                        f"{path.relative_to(ROOT)}:{node.lineno}: library imports experiment {base}"
+                    )
+            elif isinstance(node, ast.Import):
+                for alias in node.names:
+                    if module.startswith("palimpsest.") and alias.name.startswith(
+                        "experiments"
+                    ):
+                        problems.append(
+                            f"{path.relative_to(ROOT)}:{node.lineno}: library imports experiment {alias.name}"
+                        )
             elif isinstance(node, ast.Constant) and isinstance(node.value, str):
                 value = node.value.replace("\\", "/")
                 if value.startswith("experiments/") and value.endswith((".py", ".ps1")):
@@ -53,7 +94,7 @@ def main() -> None:
                         )
 
     documents = [ROOT / "README.md", ROOT / "work/README.md"]
-    for folder in ("docs", "outputs", "sources", "experiments"):
+    for folder in ("docs", "reports", "sources", "experiments", "configs"):
         documents.extend((ROOT / folder).rglob("*.md"))
     links = 0
     for path in documents:

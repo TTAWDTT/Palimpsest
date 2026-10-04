@@ -6,7 +6,9 @@ uncompressed bytes are checked against its ZIP CRC before saving to E:.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import WORK_DIR
 
 import argparse
 import hashlib
@@ -27,7 +29,7 @@ from experiments.dragotti.probe_dragotti_range import read_member
 SETUP = "light1/pos1/cloud_np"
 NUMBERS = (1, 2, 3, 31, 63, 95, 125)
 TEST_NUMBERS = (1, 2, 3)
-DEST = Path(r"E:\ai_image_origin_research\data\derived\compennetpp_raw_ref_probe")
+DEST = DATA_ROOT / "derived/compennetpp_raw_ref_probe"
 OUT = WORK_DIR / "compennetpp_raw_ref_probe.json"
 
 

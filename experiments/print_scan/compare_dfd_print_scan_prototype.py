@@ -1,18 +1,17 @@
 """One fixed-condition sanity comparison, not a calibrated printer validation."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import json
 from dataclasses import replace
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
 
-from origin_simulation.print_scan import PrintScanParameters, simulate_print_scan
+from palimpsest.simulation.print_scan import PrintScanParameters, simulate_print_scan
 
 
-SOURCE = Path(
-    r"E:\ai_image_origin_research\data\derived\dfd_probe\D5_DC1_x_800_P3_S1_T1_2111_1.tiff"
-)
+SOURCE = DATA_ROOT / "derived/dfd_probe/D5_DC1_x_800_P3_S1_T1_2111_1.tiff"
 ROI = (5100, 1800, 5612, 2312)
 
 
@@ -86,7 +85,7 @@ out = {
         for k, v in vars(params).items()
     },
 }
-Path("work/dfd_print_scan_prototype_comparison.json").write_text(
+WORK_DIR / "dfd_print_scan_prototype_comparison.json".write_text(
     json.dumps(out, indent=2) + "\n", encoding="utf-8"
 )
 print(

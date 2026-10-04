@@ -7,16 +7,17 @@ unpublished DESCAN preprocessing, only a controlled processing counterexample.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import WORK_DIR
 
 import json
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
 
 
-SOURCE = Path(r"E:\ai_image_origin_research\data\derived\dfd_probe")
+SOURCE = DATA_ROOT / "derived/dfd_probe"
 MEASUREMENTS = WORK_DIR / "dfd_tone_lattice.json"
 OUTPUT = WORK_DIR / "dfd_resampling_peak_probe.json"
 

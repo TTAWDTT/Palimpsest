@@ -2,18 +2,19 @@
 
 from __future__ import annotations
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import hashlib
 import io
 import json
-from pathlib import Path
 
 import requests
 from PIL import Image
 
 
 REPO = "baolp/demoireing_with_focused_and_defocused_images_pairs"
-ROOT = Path("E:/ai_image_origin_research/data/raw/fdnet_real_screen_pairs")
-OUT = Path("work/fdnet_real_screen_pairs_audit.json")
+ROOT = DATA_ROOT / "raw/fdnet_real_screen_pairs"
+OUT = WORK_DIR / "fdnet_real_screen_pairs_audit.json"
 PREFIX = "datasets/realscreenmoire/"
 
 

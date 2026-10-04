@@ -2,7 +2,11 @@
 
 from __future__ import annotations
 
-from experiments.paths import REPO_ROOT
+from palimpsest.paths import WORK_DIR
+
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import REPO_ROOT
 
 import hashlib
 import json
@@ -10,7 +14,7 @@ from pathlib import Path
 
 
 ROOT = REPO_ROOT
-DATA = Path(r"E:\ai_image_origin_research\data\derived\dragotti_probe")
+DATA = DATA_ROOT / "derived/dragotti_probe"
 OUTPUT = ROOT / "outputs" / "03_过程模拟" / "Dragotti跨设备配对审计_2026-09-24.json"
 
 
@@ -81,13 +85,13 @@ def main():
                 "D40-015",
                 source_015,
                 DATA / "D40-015_manifest.json",
-                ROOT / "work" / "dragotti_D40_015_analysis.json",
+                WORK_DIR / "dragotti_D40_015_analysis.json",
             ),
             collect(
                 "D40-016",
                 source_016,
                 DATA / "D40-016_recaptured_manifest.json",
-                ROOT / "work" / "dragotti_D40_016_analysis.json",
+                WORK_DIR / "dragotti_D40_016_analysis.json",
             ),
         ],
     }

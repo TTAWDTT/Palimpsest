@@ -8,7 +8,9 @@ fits on a common test-content mask. No test texture enters either fit.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import WORK_DIR
 
 import json
 from pathlib import Path
@@ -35,10 +37,8 @@ from experiments.projector.evaluate_compennetpp_raw_forward_pilot import (
 )
 
 
-FIRST_SL = Path(r"E:\ai_image_origin_research\data\derived\compennetpp_sl_one_setup")
-SECOND_SL = Path(
-    r"E:\ai_image_origin_research\data\derived\compennetpp_sl_light3_pos1_cloud"
-)
+FIRST_SL = DATA_ROOT / "derived/compennetpp_sl_one_setup"
+SECOND_SL = DATA_ROOT / "derived/compennetpp_sl_light3_pos1_cloud"
 FIRST_JSON = WORK_DIR / "compennetpp_raw_forward_pilot.json"
 SECOND_JSON = WORK_DIR / "compennetpp_cross_setup_display_probe.json"
 OUT = WORK_DIR / "compennetpp_display_fit_identifiability.json"

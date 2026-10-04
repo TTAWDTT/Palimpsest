@@ -6,27 +6,28 @@ scale, RIP, paper and scanner settings; 300/1200/600 PPI are nominal choices.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import WORK_DIR
 
 import io
 import json
 import zipfile
 from collections import defaultdict
 from dataclasses import replace
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
 
-from origin_simulation.color_print_scan import (
+from palimpsest.simulation.color_print_scan import (
     ColorPrintScanParameters,
     simulate_color_print_scan,
 )
-from origin_simulation.publication import PublicationParameters, apply_publication
+from palimpsest.simulation.publication import PublicationParameters, apply_publication
 
 
 BASE = WORK_DIR
-DATA = Path(r"E:\ai_image_origin_research\data\raw\descan18k")
+DATA = DATA_ROOT / "raw/descan18k"
 
 
 def _read(archive: zipfile.ZipFile, path: str) -> np.ndarray:

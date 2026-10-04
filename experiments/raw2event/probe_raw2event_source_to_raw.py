@@ -7,6 +7,8 @@ automobile capture; the airplane capture is a cross-content check.
 
 from __future__ import annotations
 
+from palimpsest.paths import WORK_DIR
+
 import json
 from pathlib import Path
 import time
@@ -15,11 +17,11 @@ import cv2
 import numpy as np
 from PIL import Image
 
-from origin_simulation.screen_capture import (
+from palimpsest.simulation.screen_capture import (
     ScreenCaptureParameters,
     render_screen_capture,
 )
-from origin_simulation.screen_pipeline import (
+from palimpsest.simulation.screen_pipeline import (
     DisplayRasterParameters,
     rasterize_display_source,
 )
@@ -37,17 +39,17 @@ PREFIXES = (
     "1000_airplane_1_9934_20251222_161953",
 )
 AUDITS = (
-    Path("work/raw2event_probe_pixel_audit.json"),
-    Path("work/raw2event_probe_airplane_pixel_audit.json"),
+    WORK_DIR / "raw2event_probe_pixel_audit.json",
+    WORK_DIR / "raw2event_probe_airplane_pixel_audit.json",
 )
-SOURCE_DIR = Path("work/raw2event_cifar_matches")
+SOURCE_DIR = WORK_DIR / "raw2event_cifar_matches"
 RGB_CORNERS = np.asarray(
     [[237, 180], [409, 195], [397, 370], [219, 353]], dtype=np.float32
 )
 DISPLAY_SIDE = 192  # explicit assumed display lattice; actual screen raster unpublished
 BLUR_SIGMA_SENSOR_PIXELS = 0.8  # virtual optical PSF, not device-measured
 INNER_FRACTION = 0.06
-OUT = Path("work/raw2event_source_to_raw_probe.json")
+OUT = WORK_DIR / "raw2event_source_to_raw_probe.json"
 
 
 def prepare(

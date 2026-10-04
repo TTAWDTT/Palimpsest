@@ -5,23 +5,24 @@ template is verified across SPIs; the same physical paper is NOT established.
 This script does not tune parameters on these samples.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import json
 from dataclasses import replace
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
 
-from origin_simulation.print_scan import PrintScanParameters, simulate_print_scan
+from palimpsest.simulation.print_scan import PrintScanParameters, simulate_print_scan
 
 
-PROBE = Path(r"E:\ai_image_origin_research\data\derived\csgc_probe")
+PROBE = DATA_ROOT / "derived/csgc_probe"
 PARAMS = PrintScanParameters(
     **json.loads(
-        Path("work/csgc_binary_forward_holdout.json").read_text(encoding="utf-8")
+        WORK_DIR / "csgc_binary_forward_holdout.json".read_text(encoding="utf-8")
     )["params"]
 )
-OUT = Path("work/csgc_cross_spi_forward_probe.json")
+OUT = WORK_DIR / "csgc_cross_spi_forward_probe.json"
 IDS = (1, 101, 501, 901)
 SCALES = ((2400, 4), (4800, 8), (9600, 16))
 

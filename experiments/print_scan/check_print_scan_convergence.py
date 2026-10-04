@@ -5,7 +5,7 @@ import json
 
 import numpy as np
 
-from origin_simulation.print_scan import PrintScanParameters, simulate_print_scan
+from palimpsest.simulation.print_scan import PrintScanParameters, simulate_print_scan
 
 
 digital = np.full((128, 128), 0.72, dtype=np.float32)

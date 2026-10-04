@@ -7,7 +7,9 @@ simulator or a fair held-out detection benchmark.
 
 from __future__ import annotations
 
-from experiments.paths import REPO_ROOT
+from palimpsest.data.images import resize_unit_float as downsample
+
+from palimpsest.paths import REPO_ROOT
 
 import argparse
 import hashlib
@@ -51,15 +53,6 @@ def select_sources(sources, count_per_class, max_pixels):
             raise ValueError(f"not enough eligible sources for {label}")
         chosen.extend(selected)
     return chosen
-
-
-def downsample(image: Image.Image, side: int) -> np.ndarray:
-    return (
-        np.asarray(
-            image.resize((side, side), Image.Resampling.BICUBIC), dtype=np.float32
-        )
-        / 255
-    )
 
 
 def evaluate_pair(group, condition, side):

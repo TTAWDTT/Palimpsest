@@ -1,50 +1,41 @@
 """Separate score compression from common offset on frozen Chimera development."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import csv
 import json
-from pathlib import Path
 
 import numpy as np
 
-from experiments.chimera.evaluate_chimera_size_control import validated_inference
+from palimpsest.data.inference import validated_inference
 
 
-SPLIT = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_simulation_source_split.csv"
-)
-BASE_MANIFEST = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_bfree_manifest.csv"
-)
-REAL_MANIFEST = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_recap256_bfree_manifest.csv"
-)
+SPLIT = DATA_ROOT / "manifests/chimera_simulation_source_split.csv"
+BASE_MANIFEST = DATA_ROOT / "manifests/chimera_bfree_manifest.csv"
+REAL_MANIFEST = DATA_ROOT / "manifests/chimera_recap256_bfree_manifest.csv"
 SIM_MANIFESTS = {
     "striped": (
-        Path(
-            "E:/ai_image_origin_research/data/manifests/chimera_virtual_screen_mac_dev256_manifest.csv"
-        ),
-        Path("work/chimera_virtual_screen_mac_dev256_bfree.csv"),
-        Path("work/chimera_virtual_screen_mac_dev256_bfree.json"),
+        DATA_ROOT / "manifests/chimera_virtual_screen_mac_dev256_manifest.csv",
+        WORK_DIR / "chimera_virtual_screen_mac_dev256_bfree.csv",
+        WORK_DIR / "chimera_virtual_screen_mac_dev256_bfree.json",
         "virtual_mac",
     ),
     "co_spatial_control": (
-        Path(
-            "E:/ai_image_origin_research/data/manifests/chimera_virtual_screen_mac_dev256_co_spatial_manifest.csv"
-        ),
-        Path("work/chimera_virtual_screen_mac_co_spatial_dev256_bfree.csv"),
-        Path("work/chimera_virtual_screen_mac_co_spatial_dev256_bfree.json"),
+        DATA_ROOT
+        / "manifests/chimera_virtual_screen_mac_dev256_co_spatial_manifest.csv",
+        WORK_DIR / "chimera_virtual_screen_mac_co_spatial_dev256_bfree.csv",
+        WORK_DIR / "chimera_virtual_screen_mac_co_spatial_dev256_bfree.json",
         "virtual_mac_co_spatial",
     ),
     "effective_fit": (
-        Path(
-            "E:/ai_image_origin_research/data/manifests/chimera_virtual_screen_mac_dev256_effective_fit_manifest.csv"
-        ),
-        Path("work/chimera_virtual_screen_mac_effective_fit_dev256_bfree.csv"),
-        Path("work/chimera_virtual_screen_mac_effective_fit_dev256_bfree.json"),
+        DATA_ROOT
+        / "manifests/chimera_virtual_screen_mac_dev256_effective_fit_manifest.csv",
+        WORK_DIR / "chimera_virtual_screen_mac_effective_fit_dev256_bfree.csv",
+        WORK_DIR / "chimera_virtual_screen_mac_effective_fit_dev256_bfree.json",
         "virtual_mac_effective_fit",
     ),
 }
-OUTPUT = Path("work/chimera_score_contraction.json")
+OUTPUT = WORK_DIR / "chimera_score_contraction.json"
 
 
 def score_map(rows: list[dict]) -> dict[str, float]:
@@ -71,14 +62,14 @@ def main() -> None:
         raise RuntimeError("expected 120 development sources")
     base = validated_inference(
         BASE_MANIFEST,
-        Path("work/chimera_bfree_full.csv"),
-        Path("work/chimera_bfree_full.json"),
+        WORK_DIR / "chimera_bfree_full.csv",
+        WORK_DIR / "chimera_bfree_full.json",
         3600,
     )
     real = validated_inference(
         REAL_MANIFEST,
-        Path("work/chimera_bfree_recap256.csv"),
-        Path("work/chimera_bfree_recap256.json"),
+        WORK_DIR / "chimera_bfree_recap256.csv",
+        WORK_DIR / "chimera_bfree_recap256.json",
         2400,
     )
     tables = {

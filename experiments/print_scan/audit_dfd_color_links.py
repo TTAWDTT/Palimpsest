@@ -5,14 +5,16 @@ Name matches are packaging relationships, not source-to-print digital pairs.
 
 from __future__ import annotations
 
+from palimpsest.paths import WORK_DIR
+
 import json
 import re
 from collections import Counter, defaultdict
-from pathlib import Path, PurePosixPath
+from pathlib import PurePosixPath
 
 
-INVENTORY = Path("work/dfd_color_inventory.json")
-OUT = Path("work/dfd_color_links.json")
+INVENTORY = WORK_DIR / "dfd_color_inventory.json"
+OUT = WORK_DIR / "dfd_color_links.json"
 CROP_SUFFIX = re.compile(r"_c\d+(?:_\d+x\d+)?$", re.IGNORECASE)
 
 

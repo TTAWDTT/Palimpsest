@@ -7,6 +7,8 @@ TIFF and PNG files whose encoded resolutions can differ.
 
 from __future__ import annotations
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import io
 import json
 import tarfile
@@ -16,10 +18,8 @@ from pathlib import Path
 from PIL import Image
 
 
-ARCHIVE = Path(
-    r"E:\ai_image_origin_research\data\raw\dfd_halftone\HalftoneImages-BW.tar.gz"
-)
-OUT = Path("work/dfd_halftone_image_metadata.json")
+ARCHIVE = DATA_ROOT / "raw/dfd_halftone/HalftoneImages-BW.tar.gz"
+OUT = WORK_DIR / "dfd_halftone_image_metadata.json"
 EXPECTED_BYTES = 4_259_915_309
 
 
@@ -60,7 +60,7 @@ def main() -> None:
         folders[parts[1]][record["extension"]] += 1
     report = {
         "archive_sha256_from_verified_audit": json.loads(
-            Path("work/dfd_halftone_audit.json").read_text(encoding="utf-8")
+            WORK_DIR / "dfd_halftone_audit.json".read_text(encoding="utf-8")
         )["archive_sha256"],
         "count": len(records),
         "extension_dpi_counts": [

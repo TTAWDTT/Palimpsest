@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import json
 import subprocess
 import argparse
@@ -12,7 +14,7 @@ import numpy as np
 
 
 DEFAULT_PREFIX = "10000_automobile_5_1087_20251224_105416"
-ROOT = Path("E:/ai_image_origin_research/data/raw/raw2event_probe")
+ROOT = DATA_ROOT / "raw/raw2event_probe"
 
 
 def probe(path: Path) -> dict:
@@ -95,7 +97,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--prefix", default=DEFAULT_PREFIX)
     parser.add_argument(
-        "--out", type=Path, default=Path("work/raw2event_tar_vs_direct_audit.json")
+        "--out", type=Path, default=WORK_DIR / "raw2event_tar_vs_direct_audit.json"
     )
     args = parser.parse_args()
     prefix = args.prefix

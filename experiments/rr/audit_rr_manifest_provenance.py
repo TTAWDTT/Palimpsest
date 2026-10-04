@@ -2,16 +2,17 @@
 
 from __future__ import annotations
 
-from experiments.paths import REPO_ROOT
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import REPO_ROOT
 
 import csv
 import json
 from collections import Counter, defaultdict
-from pathlib import Path
 
 
 BASE = REPO_ROOT
-MANIFEST = Path(r"E:\ai_image_origin_research\data\manifests\rr_test_files.csv")
+MANIFEST = DATA_ROOT / "manifests/rr_test_files.csv"
 OUTPUT = BASE / "work" / "rr_manifest_provenance.json"
 
 

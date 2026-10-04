@@ -1,14 +1,15 @@
 """Source-level paired descriptions for the exploratory CFA phase probe."""
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import numpy as np
 
 
-PHASE = Path("work/raw2event_cfa_phase_probe.json")
-MIX = Path("work/raw2event_spectral_mix_v1.json")
-OUT = Path("work/raw2event_cfa_phase_summary.json")
+PHASE = WORK_DIR / "raw2event_cfa_phase_probe.json"
+MIX = WORK_DIR / "raw2event_spectral_mix_v1.json"
+OUT = WORK_DIR / "raw2event_cfa_phase_summary.json"
 
 
 def development(condition: dict) -> dict:

@@ -4,9 +4,10 @@ The calibrated fine spatial renderer is the numerical reference here, not a
 real camera. This candidate only handles positive axis-aligned geometry.
 """
 
+from palimpsest.paths import WORK_DIR
+
 import json
 from dataclasses import replace
-from pathlib import Path
 from time import perf_counter
 
 import cv2
@@ -14,11 +15,11 @@ import numpy as np
 from scipy.signal import fftconvolve
 from scipy.special import j0, roots_legendre
 
-from origin_simulation.screen_capture import render_screen_capture
+from palimpsest.simulation.screen_capture import render_screen_capture
 from experiments.screen_numerics.probe_physical_focus_display_lattice import camera
 
 
-OUT = Path("work/wave_display_prefilter_probe.json")
+OUT = WORK_DIR / "wave_display_prefilter_probe.json"
 
 
 def emitter_raster(frame: np.ndarray, params, samples: int) -> np.ndarray:

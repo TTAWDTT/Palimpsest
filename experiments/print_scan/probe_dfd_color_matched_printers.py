@@ -6,8 +6,9 @@ nominal filenames do not certify identical RIP, toner, paper, or scanner optics.
 
 from __future__ import annotations
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import cv2
 import numpy as np
@@ -16,8 +17,8 @@ from PIL import Image
 from experiments.print_scan.probe_dfd_color_sample_spectra import peaks
 
 
-METADATA = Path("work/dfd_color_fullpage_metadata.json")
-OUT = Path("work/dfd_color_matched_printers.json")
+METADATA = WORK_DIR / "dfd_color_fullpage_metadata.json"
+OUT = WORK_DIR / "dfd_color_matched_printers.json"
 FOLDERS = ("D5_HPCLJ5550", "D6_HPCLJ5550")
 BLUE = (3171, 3439, 3683, 3951)
 PAPER = (5000, 7000, 5512, 7512)

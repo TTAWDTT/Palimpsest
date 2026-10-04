@@ -4,15 +4,16 @@ The two apertures are paper-level Dragotti EOS 600D possibilities; no actual
 published PNG has been assigned an aperture by this script.
 """
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 from time import perf_counter
 
 import numpy as np
 from scipy.signal import fftconvolve
 
-from origin_simulation.optical_psf import circular_pupil_defocus_psf_display
-from origin_simulation.screen_capture import (
+from palimpsest.simulation.optical_psf import circular_pupil_defocus_psf_display
+from palimpsest.simulation.screen_capture import (
     ScreenCaptureParameters,
     _display_emitter_raster,
     _integrate_display_raster,
@@ -20,7 +21,7 @@ from origin_simulation.screen_capture import (
 )
 
 
-OUT = Path("work/focused_diffraction_prefilter_probe.json")
+OUT = WORK_DIR / "focused_diffraction_prefilter_probe.json"
 
 
 def fast(

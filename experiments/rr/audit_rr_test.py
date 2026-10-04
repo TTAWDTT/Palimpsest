@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import argparse
 import csv
 import hashlib
@@ -14,21 +16,13 @@ from pathlib import Path
 from PIL import Image, ImageFile
 
 
-ROOT = Path("E:/ai_image_origin_research/data/derived/rr_test")
-ARCHIVE_MANIFEST = Path(
-    "E:/ai_image_origin_research/data/manifests/rr_test_archive_files.csv"
-)
-IMAGE_MANIFEST = Path("E:/ai_image_origin_research/data/manifests/rr_test_files.csv")
-BFREE_MANIFEST = Path(
-    "E:/ai_image_origin_research/data/manifests/rr_test_bfree_manifest.csv"
-)
-UNMATCHED_MANIFEST = Path(
-    "E:/ai_image_origin_research/data/manifests/rr_test_unmatched_sources.csv"
-)
-TRAINVAL_MANIFEST = Path(
-    "E:/ai_image_origin_research/data/manifests/rr_trainval_files.csv"
-)
-SUMMARY = Path("work/rr_test_audit.json")
+ROOT = DATA_ROOT / "derived/rr_test"
+ARCHIVE_MANIFEST = DATA_ROOT / "manifests/rr_test_archive_files.csv"
+IMAGE_MANIFEST = DATA_ROOT / "manifests/rr_test_files.csv"
+BFREE_MANIFEST = DATA_ROOT / "manifests/rr_test_bfree_manifest.csv"
+UNMATCHED_MANIFEST = DATA_ROOT / "manifests/rr_test_unmatched_sources.csv"
+TRAINVAL_MANIFEST = DATA_ROOT / "manifests/rr_trainval_files.csv"
+SUMMARY = WORK_DIR / "rr_test_audit.json"
 CONDITIONS = ("original", "transfer", "redigital")
 EXPECTED_IMAGES_PER_CLASS_AND_CONDITION = 8500
 IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp", ".bmp", ".tif", ".tiff"}

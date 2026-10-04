@@ -150,12 +150,13 @@ def main():
     with zipfile.ZipFile(remote) as archive:
         original_camera, image_number = args.key.split("-")
         if args.archive == "recaptured":
-            selected = lambda info: info.filename.endswith(f"%{args.key}.png") and (
-                not args.cameras or info.filename.split("/")[1] in args.cameras
+            selected = lambda info: (
+                info.filename.endswith(f"%{args.key}.png")
+                and (not args.cameras or info.filename.split("/")[1] in args.cameras)
             )
         else:
-            selected = (
-                lambda info: info.filename.endswith(
+            selected = lambda info: (
+                info.filename.endswith(
                     f"-{int(image_number):04d}-S%{original_camera}.JPG"
                 )
                 and "not used" not in info.filename.lower()

@@ -2,23 +2,25 @@
 
 from __future__ import annotations
 
+from palimpsest.paths import WORK_DIR
+
 import csv
 import json
 import random
 from collections import defaultdict
 from pathlib import Path
 
-from experiments.baselines.evaluate_rr_bfree import paired_change
-from experiments.baselines.score_published_logits import evaluate
+from palimpsest.evaluation.pairing import paired_change
+from palimpsest.evaluation.classification import evaluate
 
 
 PILOT_FILES = {
-    "Fourier-5NN": Path("work/fourier_knn_rr_pilot.csv"),
-    "Benford-RF": Path("work/benford_rr_pilot.csv"),
-    "D3": Path("work/d3_rr_pilot.csv"),
+    "Fourier-5NN": WORK_DIR / "fourier_knn_rr_pilot.csv",
+    "Benford-RF": WORK_DIR / "benford_rr_pilot.csv",
+    "D3": WORK_DIR / "d3_rr_pilot.csv",
 }
-BFREE_FILE = Path("work/rr_bfree_complete.csv")
-OUTPUT = Path("work/matched_rr_pilot_evaluation.json")
+BFREE_FILE = WORK_DIR / "rr_bfree_complete.csv"
+OUTPUT = WORK_DIR / "matched_rr_pilot_evaluation.json"
 
 
 def read(path: Path) -> list[dict[str, str]]:

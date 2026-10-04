@@ -1,24 +1,27 @@
 """Audit matched RRDataset predictions and compare full baseline results."""
 
-from experiments.paths import REPO_ROOT
+from palimpsest.paths import WORK_DIR
+
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import REPO_ROOT
 
 import csv
 import hashlib
 import json
 import math
-from pathlib import Path
 
 import numpy as np
 
 
 ROOT = REPO_ROOT
-WORK = ROOT / "work"
+WORK = WORK_DIR
 FILES = {
     "D3": WORK / "d3_rr_full.csv",
     "B-Free": WORK / "rr_bfree_complete.csv",
     "Benford-RF": WORK / "benford_rr_full.csv",
 }
-TEST_MANIFEST = Path(r"E:\ai_image_origin_research\data\manifests\rr_test_files.csv")
+TEST_MANIFEST = DATA_ROOT / "manifests/rr_test_files.csv"
 EXPECTED_COUNTS = {"original": 16986, "transfer": 16986, "redigital": 16985}
 PAIRS = (("D3", "B-Free"), ("D3", "Benford-RF"), ("B-Free", "Benford-RF"))
 EXCLUDED_SOURCES = set(

@@ -4,9 +4,10 @@ Uses frozen old ten-calibration color weights; ten already-inspected phase
 confirmation sources are diagnostic only, not a fresh confirmatory holdout.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import csv
 import json
-from pathlib import Path
 
 import numpy as np
 
@@ -20,13 +21,11 @@ from experiments.raw2event.probe_raw2event_source_to_raw import prepare
 from experiments.raw2event.audit_raw2event_probe import WIDTH, HEIGHT
 
 
-MANIFEST = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_phase_confirmation_v1.csv"
-)
-GEOM = Path("work/raw2event_sensor_geometry_audit.json")
-OLD = Path("work/raw2event_phase_confirmation_evaluation.json")
-WEIGHTS = Path("work/raw2event_cfa_phase_probe.json")
-OUT = Path("work/raw2event_geometry_transfer_evaluation.json")
+MANIFEST = DATA_ROOT / "manifests/raw2event_phase_confirmation_v1.csv"
+GEOM = WORK_DIR / "raw2event_sensor_geometry_audit.json"
+OLD = WORK_DIR / "raw2event_phase_confirmation_evaluation.json"
+WEIGHTS = WORK_DIR / "raw2event_cfa_phase_probe.json"
+OUT = WORK_DIR / "raw2event_geometry_transfer_evaluation.json"
 METHOD = "simple_rgb_sample_control"
 PHASE = "BGGR"
 

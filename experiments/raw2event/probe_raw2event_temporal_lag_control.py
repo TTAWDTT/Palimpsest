@@ -5,8 +5,9 @@ scale at lag 1 and lag 5. A growth implicates movement/display/other temporal
 variation and prevents treating the lag-1 residual as pure sensor noise.
 """
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import cv2
 import numpy as np
@@ -20,7 +21,7 @@ from experiments.raw2event.probe_raw2event_temporal_residual import (
 )
 
 
-OUT = Path("work/raw2event_temporal_lag_control.json")
+OUT = WORK_DIR / "raw2event_temporal_lag_control.json"
 
 
 def main() -> None:

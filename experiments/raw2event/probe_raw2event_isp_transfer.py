@@ -6,8 +6,9 @@ white-balance, lens shading, denoise, tone, and device metadata supervision.
 
 from __future__ import annotations
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import cv2
 import numpy as np
@@ -24,11 +25,11 @@ from experiments.raw2event.audit_raw2event_probe import (
 AUTOMOBILE = "10000_automobile_5_1087_20251224_105416"
 AIRPLANE = "1000_airplane_1_9934_20251222_161953"
 AUDITS = {
-    AUTOMOBILE: Path("work/raw2event_probe_pixel_audit.json"),
-    AIRPLANE: Path("work/raw2event_probe_airplane_pixel_audit.json"),
+    AUTOMOBILE: WORK_DIR / "raw2event_probe_pixel_audit.json",
+    AIRPLANE: WORK_DIR / "raw2event_probe_airplane_pixel_audit.json",
 }
-OUT = Path("work/raw2event_isp_transfer.json")
-VIEW = Path("work/raw2event_probe_airplane/isp_transfer")
+OUT = WORK_DIR / "raw2event_isp_transfer.json"
+VIEW = WORK_DIR / "raw2event_probe_airplane/isp_transfer"
 PHASES = {
     "RG": cv2.COLOR_BayerRG2RGB,
     "BG": cv2.COLOR_BayerBG2RGB,

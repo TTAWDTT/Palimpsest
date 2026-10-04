@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import csv
 import json
 from collections import Counter, defaultdict
-from pathlib import Path
 
 
-MANIFEST = Path(r"E:\ai_image_origin_research\data\manifests\rr_trainval_files.csv")
-OUTPUT = Path("work/rr_format_shortcut.json")
+MANIFEST = DATA_ROOT / "manifests/rr_trainval_files.csv"
+OUTPUT = WORK_DIR / "rr_format_shortcut.json"
 
 
 def main() -> None:

@@ -1,0 +1,10 @@
+# Copy to workspace.local.toml if the sibling-directory defaults do not fit.
+# Relative paths are resolved against the repository root, not shell cwd.
+[paths]
+workspace = ".."
+data = "../data"
+models = "../models"
+envs = "../envs"
+cache = "../cache"
+work = "work"
+reports = "reports"

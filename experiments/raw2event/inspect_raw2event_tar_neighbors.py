@@ -1,8 +1,9 @@
 """Read TAR member headers only via HTTP Range; never unpack whole archive."""
 
+from palimpsest.paths import WORK_DIR
+
 import json
 import tarfile
-from pathlib import Path
 
 import requests
 
@@ -36,7 +37,7 @@ def main() -> None:
             {"header_offset": file_offset, "name": actual.name, "size": actual.size}
         )
         offset = file_offset + 512 + ((actual.size + 511) // 512) * 512
-    out = Path("work/raw2event_raw_tar_first_headers.json")
+    out = WORK_DIR / "raw2event_raw_tar_first_headers.json"
     out.write_text(json.dumps(entries, indent=2), encoding="utf-8")
     print(json.dumps(entries, indent=2))
 

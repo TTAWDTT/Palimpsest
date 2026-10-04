@@ -1,5 +1,7 @@
 """Evaluate one frozen virtual forward chain against paired real Chimera Mac recaptures."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import json
 from pathlib import Path
 
@@ -10,7 +12,7 @@ from experiments.chimera.evaluate_chimera_bfree import (
     file_sha256,
     paired_metrics,
 )
-from experiments.chimera.evaluate_chimera_size_control import validated_inference
+from palimpsest.data.inference import validated_inference
 from experiments.chimera.evaluate_chimera_simulation_score_transfer import transfer
 from experiments.chimera.probe_chimera_screen_observables import (
     features,
@@ -20,32 +22,26 @@ from experiments.chimera.probe_chimera_screen_observables import (
 )
 
 
-BASE_MANIFEST = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_bfree_manifest.csv"
+BASE_MANIFEST = DATA_ROOT / "manifests/chimera_bfree_manifest.csv"
+REAL_MANIFEST = DATA_ROOT / "manifests/chimera_recap256_bfree_manifest.csv"
+SIM_MANIFEST = DATA_ROOT / "manifests/chimera_virtual_screen_mac_dev256_manifest.csv"
+AUDIT = WORK_DIR / "chimera_virtual_screen_mac_dev256_audit.json"
+SIM_CSV = WORK_DIR / "chimera_virtual_screen_mac_dev256_bfree.csv"
+SIM_SUMMARY = WORK_DIR / "chimera_virtual_screen_mac_dev256_bfree.json"
+CONTROL_MANIFEST = (
+    DATA_ROOT / "manifests/chimera_virtual_screen_mac_dev256_co_spatial_manifest.csv"
 )
-REAL_MANIFEST = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_recap256_bfree_manifest.csv"
+CONTROL_AUDIT = WORK_DIR / "chimera_virtual_screen_mac_dev256_co_spatial_audit.json"
+CONTROL_CSV = WORK_DIR / "chimera_virtual_screen_mac_co_spatial_dev256_bfree.csv"
+CONTROL_SUMMARY = WORK_DIR / "chimera_virtual_screen_mac_co_spatial_dev256_bfree.json"
+FIT_MANIFEST = (
+    DATA_ROOT / "manifests/chimera_virtual_screen_mac_dev256_effective_fit_manifest.csv"
 )
-SIM_MANIFEST = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_virtual_screen_mac_dev256_manifest.csv"
-)
-AUDIT = Path("work/chimera_virtual_screen_mac_dev256_audit.json")
-SIM_CSV = Path("work/chimera_virtual_screen_mac_dev256_bfree.csv")
-SIM_SUMMARY = Path("work/chimera_virtual_screen_mac_dev256_bfree.json")
-CONTROL_MANIFEST = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_virtual_screen_mac_dev256_co_spatial_manifest.csv"
-)
-CONTROL_AUDIT = Path("work/chimera_virtual_screen_mac_dev256_co_spatial_audit.json")
-CONTROL_CSV = Path("work/chimera_virtual_screen_mac_co_spatial_dev256_bfree.csv")
-CONTROL_SUMMARY = Path("work/chimera_virtual_screen_mac_co_spatial_dev256_bfree.json")
-FIT_MANIFEST = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_virtual_screen_mac_dev256_effective_fit_manifest.csv"
-)
-FIT_AUDIT = Path("work/chimera_virtual_screen_mac_dev256_effective_fit_audit.json")
-FIT_CSV = Path("work/chimera_virtual_screen_mac_effective_fit_dev256_bfree.csv")
-FIT_SUMMARY = Path("work/chimera_virtual_screen_mac_effective_fit_dev256_bfree.json")
-FIT_GRID = Path("work/chimera_virtual_screen_mac_effective_fit.json")
-OUTPUT = Path("work/chimera_virtual_screen_mac_score_transfer.json")
+FIT_AUDIT = WORK_DIR / "chimera_virtual_screen_mac_dev256_effective_fit_audit.json"
+FIT_CSV = WORK_DIR / "chimera_virtual_screen_mac_effective_fit_dev256_bfree.csv"
+FIT_SUMMARY = WORK_DIR / "chimera_virtual_screen_mac_effective_fit_dev256_bfree.json"
+FIT_GRID = WORK_DIR / "chimera_virtual_screen_mac_effective_fit.json"
+OUTPUT = WORK_DIR / "chimera_virtual_screen_mac_score_transfer.json"
 
 
 def index(rows: list[dict[str, str]]) -> dict[str, dict[str, str]]:
@@ -82,14 +78,14 @@ def main() -> None:
         raise RuntimeError("effective fit changed after materialization")
     base = validated_inference(
         BASE_MANIFEST,
-        Path("work/chimera_bfree_full.csv"),
-        Path("work/chimera_bfree_full.json"),
+        WORK_DIR / "chimera_bfree_full.csv",
+        WORK_DIR / "chimera_bfree_full.json",
         3600,
     )
     real = validated_inference(
         REAL_MANIFEST,
-        Path("work/chimera_bfree_recap256.csv"),
-        Path("work/chimera_bfree_recap256.json"),
+        WORK_DIR / "chimera_bfree_recap256.csv",
+        WORK_DIR / "chimera_bfree_recap256.json",
         2400,
     )
     sim = validated_inference(SIM_MANIFEST, SIM_CSV, SIM_SUMMARY, 120)

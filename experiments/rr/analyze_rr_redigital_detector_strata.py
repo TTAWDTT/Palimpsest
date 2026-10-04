@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from experiments.paths import REPO_ROOT
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import REPO_ROOT
 
 import csv
 import json
@@ -13,9 +15,9 @@ from PIL import Image, JpegImagePlugin
 
 
 BASE = REPO_ROOT
-ROOT = Path(r"E:\ai_image_origin_research\data\derived\rr_test")
-MANIFEST = Path(r"E:\ai_image_origin_research\data\manifests\rr_test_files.csv")
-TRAINVAL = Path(r"E:\ai_image_origin_research\data\manifests\rr_trainval_files.csv")
+ROOT = DATA_ROOT / "derived/rr_test"
+MANIFEST = DATA_ROOT / "manifests/rr_test_files.csv"
+TRAINVAL = DATA_ROOT / "manifests/rr_trainval_files.csv"
 METHODS = {
     "B-Free": BASE / "work" / "rr_bfree_complete.csv",
     "D3": BASE / "work" / "d3_rr_full.csv",

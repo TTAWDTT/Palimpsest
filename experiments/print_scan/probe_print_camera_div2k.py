@@ -7,7 +7,9 @@ probe, not a device-fidelity score or a parameter fit.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import WORK_DIR
 
 import io
 import json
@@ -17,19 +19,19 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 
-from origin_simulation.color_print_scan import (
+from palimpsest.simulation.color_print_scan import (
     ColorPrintScanParameters,
     simulate_color_print_surface,
 )
-from origin_simulation.print_camera import (
+from palimpsest.simulation.print_camera import (
     PrintCameraParameters,
     photograph_print_surface,
 )
-from origin_simulation.publication import PublicationParameters, apply_publication
+from palimpsest.simulation.publication import PublicationParameters, apply_publication
 
 
-RAW = Path(r"E:\ai_image_origin_research\data\raw\div2k_scan")
-SOURCE = Path(r"E:\ai_image_origin_research\data\derived\div2k_scan_original_probe")
+RAW = DATA_ROOT / "raw/div2k_scan"
+SOURCE = DATA_ROOT / "derived/div2k_scan_original_probe"
 OUTPUT = WORK_DIR / "div2k_print_camera_probe.json"
 PATCH_SIDE = 256
 PHOTO_WIDTH_INCHES = 7.5 / 2.54

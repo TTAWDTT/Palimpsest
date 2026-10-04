@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import WORK_DIR
 
 import html
 import hashlib
@@ -13,7 +15,6 @@ import urllib.parse
 import urllib.request
 import zipfile
 from collections import Counter
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
@@ -59,7 +60,7 @@ def main() -> None:
             "light1/pos1/cloud_np/cam/raw/test/img_0001.png",
             "light1/pos1/cloud_np/cam/raw/ref/img_0126.png",
         ]
-        sample_dir = Path(r"E:\ai_image_origin_research\data\derived\compennetpp_probe")
+        sample_dir = DATA_ROOT / "derived/compennetpp_probe"
         sample_dir.mkdir(parents=True, exist_ok=True)
         samples = []
         for name in sample_names:

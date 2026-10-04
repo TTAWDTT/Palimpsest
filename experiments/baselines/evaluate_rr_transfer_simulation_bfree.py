@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from experiments.paths import REPO_ROOT
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import REPO_ROOT
 
 import argparse
 import csv
@@ -18,10 +20,8 @@ BASE = REPO_ROOT
 INDEX = BASE / "work" / "rr_transfer_simulation_dev_index.json"
 ACTUAL = BASE / "work" / "rr_bfree_complete.csv"
 SIMULATED = BASE / "work" / "rr_transfer_simulation_dev_bfree.csv"
-SIMULATION_ROOT = Path(r"E:\ai_image_origin_research\data\derived\rr_simulation_dev")
-SIMULATION_MANIFEST = Path(
-    r"E:\ai_image_origin_research\data\manifests\rr_transfer_simulation_dev_bfree.csv"
-)
+SIMULATION_ROOT = DATA_ROOT / "derived/rr_simulation_dev"
+SIMULATION_MANIFEST = DATA_ROOT / "manifests/rr_transfer_simulation_dev_bfree.csv"
 OUTPUT = BASE / "work" / "rr_transfer_simulation_dev_score_evaluation.json"
 EXPECTED_ACTUAL_SHA256 = (
     "0e4b82ea9a3134ea464cc89575303a76de4d9420056f34bb2601731351570a9b"

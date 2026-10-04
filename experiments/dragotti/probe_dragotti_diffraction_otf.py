@@ -5,15 +5,16 @@ This only checks whether our finite PSF kernel respects a known ideal-OTF
 prediction at a conditional lattice projection scale.
 """
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import numpy as np
 
-from origin_simulation.optical_psf import circular_pupil_defocus_psf
+from palimpsest.simulation.optical_psf import circular_pupil_defocus_psf
 
 
-OUT = Path("work/dragotti_ideal_diffraction_otf_probe.json")
+OUT = WORK_DIR / "dragotti_ideal_diffraction_otf_probe.json"
 FOCAL_MM = 30.0
 PITCH_MM = 0.00430652
 LATTICE_SENSOR_FREQUENCY = 1 / 1.3272

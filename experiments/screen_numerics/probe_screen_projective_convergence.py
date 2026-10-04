@@ -1,21 +1,22 @@
 """Check numerical convergence before designing a fast tilted-screen renderer."""
 
+from palimpsest.paths import WORK_DIR
+
 import json
 import time
-from pathlib import Path
 
 import numpy as np
 
-from origin_simulation.screen_capture import (
+from palimpsest.simulation.screen_capture import (
     ScreenCaptureParameters,
     render_screen_capture,
 )
-from experiments.screen_numerics.projective_area_reference import (
+from palimpsest.simulation.reference import (
     projective_area_reference,
 )
 
 
-OUTPUT = Path("work/screen_projective_convergence.json")
+OUTPUT = WORK_DIR / "screen_projective_convergence.json"
 
 
 def pose(perspective: bool) -> np.ndarray:

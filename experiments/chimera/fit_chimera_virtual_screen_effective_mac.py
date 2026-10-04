@@ -4,6 +4,8 @@ The selected settings remain confounded with display placement, ISP and crop;
 this script never uses development/reserved pixels or B-Free scores to fit.
 """
 
+from palimpsest.paths import WORK_DIR
+
 import csv
 import hashlib
 import json
@@ -11,14 +13,14 @@ import time
 from dataclasses import replace
 from pathlib import Path
 
-from experiments.paths import simulation_code_sha256
+from palimpsest.io.provenance import simulation_code_sha256
 
 import numpy as np
 from PIL import Image
 from scipy.ndimage import sobel
 
-from origin_simulation.capture_kit import sha256
-from origin_simulation.screen_pipeline import run_screen_pipeline
+from palimpsest.simulation.capture_kit import sha256
+from palimpsest.simulation.screen_pipeline import run_screen_pipeline
 from experiments.chimera.materialize_chimera_virtual_screen_mac import (
     SPLIT,
     SOURCE_ROOT,
@@ -28,7 +30,7 @@ from experiments.chimera.materialize_chimera_virtual_screen_mac import (
 from experiments.chimera.probe_chimera_screen_observables import CONTROL
 
 
-OUTPUT = Path("work/chimera_virtual_screen_mac_effective_fit.json")
+OUTPUT = WORK_DIR / "chimera_virtual_screen_mac_effective_fit.json"
 EXPOSURES = (40000, 55000, 70000)
 SIGMAS = (0.55, 2.5, 4.5)
 NORMALIZERS = {

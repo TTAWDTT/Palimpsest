@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from experiments.paths import REPO_ROOT
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import REPO_ROOT
 
 import hashlib
 import json
@@ -10,7 +12,7 @@ from pathlib import Path
 
 
 ROOT = REPO_ROOT
-DATA = Path(r"E:\ai_image_origin_research\data\derived\dragotti_probe")
+DATA = DATA_ROOT / "derived/dragotti_probe"
 OLD = ROOT / "outputs/03_过程模拟/02_拍屏实测/Dragotti跨设备配对审计_2026-09-24.json"
 OUT = ROOT / "outputs/03_过程模拟/02_拍屏实测/Dragotti跨场景几何复核_2026-09-24.json"
 

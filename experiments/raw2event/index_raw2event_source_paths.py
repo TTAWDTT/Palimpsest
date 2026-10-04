@@ -4,6 +4,8 @@ This reads a pinned Hugging Face directory listing and the MD5-verified official
 CIFAR-10 archive. It does not download any additional capture videos.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 from collections import Counter, defaultdict
 import csv
 import hashlib
@@ -27,10 +29,8 @@ from experiments.raw2event.fetch_cifar10_python import (
 REPO = "raw2event/raw2event"
 REVISION = "9df99d9ed09e5ed705f50cae011e49cb2af620b9"
 ROOT_URL = f"https://huggingface.co/api/datasets/{REPO}/tree/{REVISION}"
-REGISTRY = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_cifar_source_index.csv"
-)
-SUMMARY = Path("work/raw2event_cifar_source_index_audit.json")
+REGISTRY = DATA_ROOT / "manifests/raw2event_cifar_source_index.csv"
+SUMMARY = WORK_DIR / "raw2event_cifar_source_index_audit.json"
 NAME = re.compile(r"^(\d+)_([a-z]+)_([^_]+)_(\d+)_(\d{8})_(\d{6})\.mkv$")
 CLASSES = [
     "airplane",

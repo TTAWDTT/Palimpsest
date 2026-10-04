@@ -6,7 +6,9 @@ confuse a remote directory listing with a locally verified dataset.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import WORK_DIR
 
 import hashlib
 import html
@@ -28,7 +30,7 @@ from experiments.dragotti.probe_dragotti_range import RangeFile, read_member
 FILE_ID = "1gUTWZLfiGRBgOnZe66ik-m315h4h0gPt"
 SIZE = 2_282_667_301
 OUTPUT = WORK_DIR / "compennet_remote_zip_probe.json"
-SAMPLE_DIR = Path(r"E:\ai_image_origin_research\data\derived\compennet_probe")
+SAMPLE_DIR = DATA_ROOT / "derived/compennet_probe"
 
 
 def _confirmed_url() -> str:

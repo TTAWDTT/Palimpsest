@@ -4,6 +4,8 @@ This tests causal stage order, not a claimed MacBook/iPhone device calibration.
 The 840 reserved sources are excluded. All chosen parameters are declared here.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import argparse
 import csv
 import hashlib
@@ -12,33 +14,25 @@ import time
 from dataclasses import replace
 from pathlib import Path
 
-from experiments.paths import simulation_code_sha256
+from palimpsest.io.provenance import simulation_code_sha256
 
 import numpy as np
 from PIL import Image
 
-from origin_simulation.capture_kit import sha256
-from origin_simulation.publication import PublicationParameters
-from origin_simulation.screen_capture import ScreenCaptureParameters
-from origin_simulation.screen_pipeline import (
+from palimpsest.simulation.capture_kit import sha256
+from palimpsest.simulation.publication import PublicationParameters
+from palimpsest.simulation.screen_capture import ScreenCaptureParameters
+from palimpsest.simulation.screen_pipeline import (
     DisplayRasterParameters,
     run_screen_pipeline,
 )
 
 
-SPLIT = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_simulation_source_split.csv"
-)
-SOURCE_ROOT = Path(
-    "E:/ai_image_origin_research/data/derived/chimera_paired/stylegan2_orig"
-)
-OUTPUT_ROOT = Path(
-    "E:/ai_image_origin_research/data/derived/chimera_virtual_screen_mac_dev256"
-)
-MANIFEST = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_virtual_screen_mac_dev256_manifest.csv"
-)
-AUDIT = Path("work/chimera_virtual_screen_mac_dev256_audit.json")
+SPLIT = DATA_ROOT / "manifests/chimera_simulation_source_split.csv"
+SOURCE_ROOT = DATA_ROOT / "derived/chimera_paired/stylegan2_orig"
+OUTPUT_ROOT = DATA_ROOT / "derived/chimera_virtual_screen_mac_dev256"
+MANIFEST = DATA_ROOT / "manifests/chimera_virtual_screen_mac_dev256_manifest.csv"
+AUDIT = WORK_DIR / "chimera_virtual_screen_mac_dev256_audit.json"
 
 
 def virtual_settings(emitter_layout: str):

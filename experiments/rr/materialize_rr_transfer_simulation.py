@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from experiments.paths import REPO_ROOT
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import REPO_ROOT
 
 import argparse
 import csv
@@ -25,13 +27,9 @@ from experiments.rr.rr_simulator_v0 import (
 
 BASE = REPO_ROOT
 DEVELOPMENT = BASE / "work" / "rr_simulator_crop_independent_1000_evaluation.json"
-OUTPUT_ROOT = Path(r"E:\ai_image_origin_research\data\derived\rr_simulation_dev")
-MANIFEST = Path(
-    r"E:\ai_image_origin_research\data\manifests\rr_transfer_simulation_dev_bfree.csv"
-)
-REGISTRY = Path(
-    r"E:\ai_image_origin_research\data\manifests\rr_simulation_source_registry.csv"
-)
+OUTPUT_ROOT = DATA_ROOT / "derived/rr_simulation_dev"
+MANIFEST = DATA_ROOT / "manifests/rr_transfer_simulation_dev_bfree.csv"
+REGISTRY = DATA_ROOT / "manifests/rr_simulation_source_registry.csv"
 INDEX = BASE / "work" / "rr_transfer_simulation_dev_index.json"
 MAX_PIXELS = 8_000_000
 NEIGHBORS = 30

@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from experiments.paths import REPO_ROOT
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import REPO_ROOT
 
 import csv
 import hashlib
@@ -21,9 +23,7 @@ BASE = REPO_ROOT
 EVALUATION = BASE / "work" / "rr_simulator_crop_1000_evaluation.json"
 DIAGNOSTIC = BASE / "work" / "rr_simulation_diagnostic.json"
 ORACLE = BASE / "work" / "rr_oracle_codec_control.json"
-OUTPUT = Path(
-    r"E:\ai_image_origin_research\data\manifests\rr_simulation_source_registry.csv"
-)
+OUTPUT = DATA_ROOT / "manifests/rr_simulation_source_registry.csv"
 SUMMARY = BASE / "work" / "rr_simulation_source_registry.json"
 MANUALLY_INSPECTED = {
     "real/real_004508",

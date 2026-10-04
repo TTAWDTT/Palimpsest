@@ -7,7 +7,7 @@ incorrect structured-light bits and foreground/background boundaries remain.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import WORK_DIR
 
 import argparse
 import json

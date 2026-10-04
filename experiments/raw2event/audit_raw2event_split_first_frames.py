@@ -4,11 +4,12 @@ The fixed content quadrilateral is a preregistered approximate registration
 probe. Low scores are flags for follow-up, not grounds for dropping images.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import argparse
 import csv
 import io
 import json
-from pathlib import Path
 import pickle
 import tarfile
 import warnings
@@ -18,8 +19,6 @@ import numpy as np
 
 from experiments.raw2event.audit_raw2event_probe import (
     ROOT,
-    WIDTH,
-    HEIGHT,
     detect_tag,
     extract_frame,
 )
@@ -30,13 +29,11 @@ from experiments.raw2event.match_raw2event_cifar_source import (
 )
 
 
-SPLIT = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_process_split_v1.csv"
-)
-AUDIT_DIR = Path("work/raw2event_process_split_downloads")
-OUT = Path("work/raw2event_process_split_first_frame_audit.json")
+SPLIT = DATA_ROOT / "manifests/raw2event_process_split_v1.csv"
+AUDIT_DIR = WORK_DIR / "raw2event_process_split_downloads"
+OUT = WORK_DIR / "raw2event_process_split_first_frame_audit.json"
 SOURCE_QUAD = [[237, 180], [409, 195], [397, 370], [219, 353]]
-REFERENCE_AUDIT = Path("work/raw2event_probe_pixel_audit.json")
+REFERENCE_AUDIT = WORK_DIR / "raw2event_probe_pixel_audit.json"
 
 
 def load_originals(rows: list[dict]) -> dict[str, np.ndarray]:
@@ -99,7 +96,7 @@ def main() -> None:
         raw_tag_corners, raw_tag_id = detect_tag(raw_view)
         if raw_tag_id != tag_id:
             raise RuntimeError(f"RAW/RGB tag mismatch for {prefix}")
-        tmp = Path("work/raw2event_split_audit_frame0.png")
+        tmp = WORK_DIR / "raw2event_split_audit_frame0.png"
         cv2.imwrite(str(tmp), cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR))
         query = query_from_photo(tmp, SOURCE_QUAD)
         source = originals[prefix]

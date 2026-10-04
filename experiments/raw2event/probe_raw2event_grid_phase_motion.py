@@ -1,7 +1,8 @@
 """Check whether a flat-field spectral peak follows screen motion or sensor."""
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import numpy as np
 from scipy.ndimage import gaussian_filter
@@ -14,7 +15,7 @@ PREFIXES = (
     "48340_ship_1_4036_20260117_195215",
 )
 FRAMES = (0, 79, 159, 238)
-OUT = Path("work/raw2event_flat_field_phase_motion.json")
+OUT = WORK_DIR / "raw2event_flat_field_phase_motion.json"
 
 
 def complex_peak(raw: np.ndarray) -> dict:

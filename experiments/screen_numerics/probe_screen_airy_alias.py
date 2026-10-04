@@ -5,18 +5,19 @@ the causal frequency and contrast response only; all optical settings are
 illustrative rather than assigned to published photos.
 """
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import numpy as np
 
-from origin_simulation.screen_capture import (
+from palimpsest.simulation.screen_capture import (
     ScreenCaptureParameters,
     render_screen_capture,
 )
 
 
-OUT = Path("work/screen_airy_alias_probe.json")
+OUT = WORK_DIR / "screen_airy_alias_probe.json"
 frame = np.ones((128, 128, 3), dtype=np.float32)
 rows = []
 for projected_pitch in (1.25, 4 / 3, 1.5):

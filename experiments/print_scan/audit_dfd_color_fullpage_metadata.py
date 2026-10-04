@@ -6,6 +6,8 @@ This checks encoded scan scale without assuming the website's generic 800 ppi.
 
 from __future__ import annotations
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import argparse
 import hashlib
 import json
@@ -15,12 +17,10 @@ from pathlib import Path
 from PIL import Image
 
 
-ARCHIVE = Path(
-    r"E:\ai_image_origin_research\data\raw\dfd_halftone_color\HalftoneImages-Color.tar.gz"
-)
-INVENTORY = Path("work/dfd_color_inventory.json")
-DEST = Path(r"E:\ai_image_origin_research\data\derived\dfd_color_fullpage_sample")
-OUT = Path("work/dfd_color_fullpage_metadata.json")
+ARCHIVE = DATA_ROOT / "raw/dfd_halftone_color/HalftoneImages-Color.tar.gz"
+INVENTORY = WORK_DIR / "dfd_color_inventory.json"
+DEST = DATA_ROOT / "derived/dfd_color_fullpage_sample"
+OUT = WORK_DIR / "dfd_color_fullpage_metadata.json"
 EXPECTED_BYTES = 25_818_121_374
 
 

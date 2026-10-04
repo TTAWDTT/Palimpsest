@@ -1,5 +1,7 @@
 """Check released Chimera filename pairing with image-content pHashes."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import csv
 import hashlib
 from pathlib import Path
@@ -10,9 +12,9 @@ from PIL import Image
 from scipy.fft import dctn
 
 
-ROOT = Path("E:/ai_image_origin_research/data/derived/chimera_paired")
-MANIFEST = Path("E:/ai_image_origin_research/data/manifests/chimera_bfree_manifest.csv")
-OUTPUT = Path("work/chimera_content_pair_audit.json")
+ROOT = DATA_ROOT / "derived/chimera_paired"
+MANIFEST = DATA_ROOT / "manifests/chimera_bfree_manifest.csv"
+OUTPUT = WORK_DIR / "chimera_content_pair_audit.json"
 EXPECTED_MANIFEST_SHA = (
     "39da9e9eac3bd2d133c53769f9c5a158c1769039c67560c0bbfc4660d09a7d24"
 )

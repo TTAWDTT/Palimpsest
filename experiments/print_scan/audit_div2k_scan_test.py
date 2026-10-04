@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import WORK_DIR
 
 import hashlib
 import io
@@ -16,8 +18,8 @@ import numpy as np
 from PIL import Image
 
 
-RAW = Path(r"E:\ai_image_origin_research\data\raw\div2k_scan")
-PROBE = Path(r"E:\ai_image_origin_research\data\derived\div2k_scan_original_probe")
+RAW = DATA_ROOT / "raw/div2k_scan"
+PROBE = DATA_ROOT / "derived/div2k_scan_original_probe"
 OUTPUT = WORK_DIR / "div2k_scan_test_audit.json"
 
 

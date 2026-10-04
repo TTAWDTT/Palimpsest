@@ -2,7 +2,11 @@
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import DATA_ROOT, MODELS_ROOT
+
+from palimpsest.io.hashing import file_sha256 as sha256
+
+from palimpsest.paths import WORK_DIR
 
 import argparse
 import csv
@@ -22,8 +26,9 @@ import timm.layers.helpers as timm_helpers
 from PIL import Image
 from torchvision import transforms
 
-from experiments.baselines.evaluate_rr_bfree import paired_change, percentile
-from experiments.baselines.score_published_logits import evaluate
+from palimpsest.evaluation.pairing import paired_change
+from palimpsest.evaluation.timing import percentile
+from palimpsest.evaluation.classification import evaluate
 
 
 VENDOR = WORK_DIR / "vendor" / "d3"
@@ -34,12 +39,10 @@ from models.clip import clip  # noqa: E402
 from models.clip_models import CLIPModelShuffleAttentionPenultimateLayer  # noqa: E402
 
 
-ROOT = Path(r"E:\ai_image_origin_research\data\derived\rr_test")
-MANIFEST = Path(r"E:\ai_image_origin_research\data\manifests\rr_test_files.csv")
-TRAINVAL_MANIFEST = Path(
-    r"E:\ai_image_origin_research\data\manifests\rr_trainval_files.csv"
-)
-CLIP_CHECKPOINT = Path(r"E:\ai_image_origin_research\models\d3\ViT-L-14.pt")
+ROOT = DATA_ROOT / "derived/rr_test"
+MANIFEST = DATA_ROOT / "manifests/rr_test_files.csv"
+TRAINVAL_MANIFEST = DATA_ROOT / "manifests/rr_trainval_files.csv"
+CLIP_CHECKPOINT = MODELS_ROOT / "d3/ViT-L-14.pt"
 HEAD_CHECKPOINT = VENDOR / "ckpt" / "classifier.pth"
 CLIP_SHA256 = "b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836"
 
@@ -47,14 +50,6 @@ CLIP_SHA256 = "b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836"
 def read_csv(path: Path) -> list[dict[str, str]]:
     with path.open(newline="", encoding="utf-8-sig") as handle:
         return list(csv.DictReader(handle))
-
-
-def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(4 * 1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 def select_test_rows(limit: int) -> tuple[list[dict[str, str]], int]:

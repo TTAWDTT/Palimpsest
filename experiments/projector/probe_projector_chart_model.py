@@ -7,21 +7,22 @@ surface parameters individually. No test image is used to fit parameters.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import WORK_DIR
 
 import argparse
 import io
 import json
 import time
 import zipfile
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
 from scipy.ndimage import gaussian_filter
 
 
-ARCHIVE = Path(r"E:\ai_image_origin_research\data\raw\compennet\CompenNetDataset.zip")
+ARCHIVE = DATA_ROOT / "raw/compennet/CompenNetDataset.zip"
 AUDIT = WORK_DIR / "compennet_full_audit.json"
 OUT = WORK_DIR / "projector_chart_probe.json"
 LEVELS = np.array([0, 64, 128, 191, 255], dtype=np.float32) / 255

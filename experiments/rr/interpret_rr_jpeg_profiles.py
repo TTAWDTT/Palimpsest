@@ -2,13 +2,12 @@
 
 from __future__ import annotations
 
-from experiments.paths import REPO_ROOT
+from palimpsest.paths import REPO_ROOT
 
 import hashlib
 import io
 import json
 from collections import Counter
-from pathlib import Path
 
 import numpy as np
 from PIL import Image

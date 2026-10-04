@@ -4,10 +4,11 @@ The ten new prefixes were selected and written before any new RAW/RGB file was
 opened. All count mappings come from earlier ten-source calibration only.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import csv
 import hashlib
 import json
-from pathlib import Path
 
 import cv2
 import numpy as np
@@ -40,17 +41,13 @@ from experiments.raw2event.verify_raw2event_split_content import (
 from experiments.raw2event.fetch_cifar10_python import md5
 
 
-MANIFEST = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_phase_confirmation_v1.csv"
-)
+MANIFEST = DATA_ROOT / "manifests/raw2event_phase_confirmation_v1.csv"
 EXPECTED_SHA = "c699c6b9ce8ce779f892c5caaab11e19b4c24e0e697ec8116b94115c0175e372"
-OLDER_SPLIT = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_process_split_v1.csv"
-)
-DOWNLOADS = Path("work/raw2event_phase_confirmation_downloads")
-PHASE_WEIGHTS = Path("work/raw2event_cfa_phase_probe.json")
-MIX_WEIGHTS = Path("work/raw2event_spectral_mix_v1.json")
-OUT = Path("work/raw2event_phase_confirmation_evaluation.json")
+OLDER_SPLIT = DATA_ROOT / "manifests/raw2event_process_split_v1.csv"
+DOWNLOADS = WORK_DIR / "raw2event_phase_confirmation_downloads"
+PHASE_WEIGHTS = WORK_DIR / "raw2event_cfa_phase_probe.json"
+MIX_WEIGHTS = WORK_DIR / "raw2event_spectral_mix_v1.json"
+OUT = WORK_DIR / "raw2event_phase_confirmation_evaluation.json"
 METHODS = ("vertical_rgb", "co_spatial_rgb_control", "simple_rgb_sample_control")
 PHASES = ("RGGB", "BGGR", "GRBG", "GBRG")
 DEST = np.asarray([[0, 0], [31, 0], [31, 31], [0, 31]], dtype=np.float32)

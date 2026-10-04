@@ -1,8 +1,8 @@
 """Compare fixed B-Free source-score changes on real vs composite proxy recaptures."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import json
-import math
-from pathlib import Path
 
 import numpy as np
 
@@ -11,20 +11,14 @@ from experiments.chimera.evaluate_chimera_bfree import (
     file_sha256,
     paired_metrics,
 )
-from experiments.chimera.evaluate_chimera_size_control import validated_inference
+from palimpsest.data.inference import validated_inference
 
 
-BASE_MANIFEST = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_bfree_manifest.csv"
-)
-REAL_MANIFEST = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_recap256_bfree_manifest.csv"
-)
-SIM_MANIFEST = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_composite_sim_dev256_manifest.csv"
-)
-AUDIT = Path("work/chimera_composite_sim_dev256_audit.json")
-OUTPUT = Path("work/chimera_composite_sim_score_transfer.json")
+BASE_MANIFEST = DATA_ROOT / "manifests/chimera_bfree_manifest.csv"
+REAL_MANIFEST = DATA_ROOT / "manifests/chimera_recap256_bfree_manifest.csv"
+SIM_MANIFEST = DATA_ROOT / "manifests/chimera_composite_sim_dev256_manifest.csv"
+AUDIT = WORK_DIR / "chimera_composite_sim_dev256_audit.json"
+OUTPUT = WORK_DIR / "chimera_composite_sim_score_transfer.json"
 
 
 def index(rows: list[dict[str, str]]) -> dict[str, dict[str, str]]:
@@ -71,20 +65,20 @@ def main() -> None:
         raise RuntimeError("simulation manifest changed")
     base = validated_inference(
         BASE_MANIFEST,
-        Path("work/chimera_bfree_full.csv"),
-        Path("work/chimera_bfree_full.json"),
+        WORK_DIR / "chimera_bfree_full.csv",
+        WORK_DIR / "chimera_bfree_full.json",
         3600,
     )
     real = validated_inference(
         REAL_MANIFEST,
-        Path("work/chimera_bfree_recap256.csv"),
-        Path("work/chimera_bfree_recap256.json"),
+        WORK_DIR / "chimera_bfree_recap256.csv",
+        WORK_DIR / "chimera_bfree_recap256.json",
         2400,
     )
     sim = validated_inference(
         SIM_MANIFEST,
-        Path("work/chimera_composite_sim_bfree_dev.csv"),
-        Path("work/chimera_composite_sim_bfree_dev.json"),
+        WORK_DIR / "chimera_composite_sim_bfree_dev.csv",
+        WORK_DIR / "chimera_composite_sim_bfree_dev.json",
         240,
     )
     if set(sim) != {"recap_mac", "recap_monitor"}:
@@ -94,7 +88,7 @@ def main() -> None:
         "warning": "composite proxy is fitted in published RGB space, not validated physical capture process",
         "manifest_sha256": file_sha256(SIM_MANIFEST),
         "sim_inference_csv_sha256": file_sha256(
-            Path("work/chimera_composite_sim_bfree_dev.csv")
+            WORK_DIR / "chimera_composite_sim_bfree_dev.csv"
         ),
         "conditions": {},
     }

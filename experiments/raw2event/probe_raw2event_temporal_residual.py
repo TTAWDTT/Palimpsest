@@ -7,6 +7,8 @@ exposure remain mixed. The script uses unsupervised flatness masks only.
 
 from __future__ import annotations
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import json
 import subprocess
 from pathlib import Path
@@ -15,13 +17,13 @@ import cv2
 import numpy as np
 
 
-ROOT = Path("E:/ai_image_origin_research/data/raw/raw2event_probe/frames_raw")
+ROOT = DATA_ROOT / "raw/raw2event_probe/frames_raw"
 PREFIXES = (
     "10000_automobile_5_1087_20251224_105416",
     "1000_airplane_1_9934_20251222_161953",
     "54380_truck_1_4340_20260121_043430",
 )
-OUT = Path("work/raw2event_temporal_residual_probe.json")
+OUT = WORK_DIR / "raw2event_temporal_residual_probe.json"
 WIDTH, HEIGHT = 692, 520
 THRESHOLDS = (2.0, 4.0, 8.0)
 INTENSITY_EDGES = (0, 128, 256, 384, 512, 1024)

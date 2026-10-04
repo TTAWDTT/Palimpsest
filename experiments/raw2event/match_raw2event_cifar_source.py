@@ -6,6 +6,8 @@ from RGB frame 0 and must not be interpreted as calibrated screen geometry.
 
 from __future__ import annotations
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import io
 import hashlib
 import json
@@ -21,21 +23,19 @@ from PIL import Image
 from experiments.raw2event.fetch_cifar10_python import md5
 
 
-ARCHIVE = Path(
-    "E:/ai_image_origin_research/data/raw/cifar10_official/cifar-10-python.tar.gz"
-)
-AUDIT = Path("work/cifar10_python_download_audit.json")
-OUT = Path("work/raw2event_cifar_source_match.json")
-VIEWS = Path("work/raw2event_cifar_matches")
+ARCHIVE = DATA_ROOT / "raw/cifar10_official/cifar-10-python.tar.gz"
+AUDIT = WORK_DIR / "cifar10_python_download_audit.json"
+OUT = WORK_DIR / "raw2event_cifar_source_match.json"
+VIEWS = WORK_DIR / "raw2event_cifar_matches"
 SAMPLES = {
     "10000_automobile_5_1087_20251224_105416": {
         "label": 1,
-        "rgb": Path("work/raw2event_probe/rgb_000.png"),
+        "rgb": WORK_DIR / "raw2event_probe/rgb_000.png",
         "corners_tl_tr_br_bl": [[237, 180], [409, 195], [397, 370], [219, 353]],
     },
     "1000_airplane_1_9934_20251222_161953": {
         "label": 0,
-        "rgb": Path("work/raw2event_probe_airplane/rgb_000.png"),
+        "rgb": WORK_DIR / "raw2event_probe_airplane/rgb_000.png",
         "corners_tl_tr_br_bl": [[237, 180], [409, 195], [397, 370], [219, 353]],
     },
 }

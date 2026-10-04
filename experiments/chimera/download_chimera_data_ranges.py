@@ -4,9 +4,10 @@ The fixed official size and MD5 are taken from the Zenodo record. Range parts
 stay on E: until the assembled archive passes its whole-file digest.
 """
 
+from palimpsest.paths import DATA_ROOT
+
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import hashlib
-from pathlib import Path
 import shutil
 import time
 import urllib.request
@@ -15,7 +16,7 @@ import urllib.request
 URL = "https://zenodo.org/api/records/14736478/files/data.tar.gz/content"
 EXPECTED_SIZE = 3_784_718_041
 EXPECTED_MD5 = "e645697149fd75afe6382131020cc394"
-BASE = Path("E:/ai_image_origin_research/data/raw")
+BASE = DATA_ROOT / "raw"
 PARTIAL = BASE / "chimera_data.tar.gz.partial"
 FINAL = BASE / "chimera_data.tar.gz"
 PARTS = BASE / "chimera_data_range_parts"

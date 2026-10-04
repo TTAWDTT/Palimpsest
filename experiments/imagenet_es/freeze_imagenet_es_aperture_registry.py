@@ -1,5 +1,7 @@
 """Freeze the 20 ImageNet-ES aperture-development groups with local file hashes."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import argparse
 import csv
 import hashlib
@@ -8,10 +10,8 @@ from collections import defaultdict
 from pathlib import Path
 
 
-MANIFEST = Path("work/imagenet_es_20class_aperture_manifest.json")
-OUTPUT = Path(
-    r"E:\ai_image_origin_research\data\manifests\imagenet_es_aperture_development.csv"
-)
+MANIFEST = WORK_DIR / "imagenet_es_20class_aperture_manifest.json"
+OUTPUT = DATA_ROOT / "manifests/imagenet_es_aperture_development.csv"
 EXPECTED_PARAMS = (4, 13, 22)
 
 

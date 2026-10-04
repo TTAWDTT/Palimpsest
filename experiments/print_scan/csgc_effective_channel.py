@@ -6,18 +6,19 @@ from the dataset's acquisition documentation. Templates 1..100 calibrate,
 101..950 are never used in parameter selection.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import io
 import json
 import zipfile
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
 from scipy.ndimage import gaussian_filter
 
 
-ARCHIVE = Path(r"E:\ai_image_origin_research\data\raw\csgc\CSGC_scan2400spi.zip")
-OUT = Path("work/csgc_effective_channel.json")
+ARCHIVE = DATA_ROOT / "raw/csgc/CSGC_scan2400spi.zip"
+OUT = WORK_DIR / "csgc_effective_channel.json"
 SIGMAS = (0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0)
 INNER = np.s_[8:-8, 8:-8]
 
@@ -111,7 +112,7 @@ def aggregate(rows: list[dict]) -> dict:
 
 report = {
     "archive_sha256": json.loads(
-        Path("work/csgc2400_full_audit.json").read_text(encoding="utf-8")
+        WORK_DIR / "csgc2400_full_audit.json".read_text(encoding="utf-8")
     )["archive_sha256"],
     "calibration_ids": "00001-00100",
     "holdout_ids": "00101-00950",

@@ -1,19 +1,20 @@
 """Compare the analytic frontal Gaussian screen renderer with fine quadrature."""
 
+from palimpsest.paths import WORK_DIR
+
 import argparse
 import json
 import time
-from pathlib import Path
 
 import numpy as np
 
-from origin_simulation.screen_capture import (
+from palimpsest.simulation.screen_capture import (
     ScreenCaptureParameters,
     render_screen_capture,
 )
 
 
-OUTPUT = Path("work/screen_analytic_benchmark.json")
+OUTPUT = WORK_DIR / "screen_analytic_benchmark.json"
 
 
 def timed(

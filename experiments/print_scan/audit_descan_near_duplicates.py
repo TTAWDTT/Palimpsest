@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from experiments.paths import REPO_ROOT
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import REPO_ROOT
 
 import io
 import json
@@ -15,7 +17,7 @@ from scipy.fft import dctn
 
 
 BASE = REPO_ROOT
-ARCHIVE_ROOT = Path(r"E:\ai_image_origin_research\data\raw\descan18k")
+ARCHIVE_ROOT = DATA_ROOT / "raw/descan18k"
 OUTPUT = BASE / "work" / "descan_near_duplicate_screen.json"
 
 

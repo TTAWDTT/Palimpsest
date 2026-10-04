@@ -7,16 +7,17 @@ pre-registered population estimator or device calibration.
 
 from __future__ import annotations
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import json
-from pathlib import Path
 
 import cv2
 import numpy as np
 from PIL import Image
 
 
-ROOT = Path("E:/ai_image_origin_research/data/raw/fdnet_real_screen_pairs")
-OUT = Path("work/fdnet_focus_pair_process_probe.json")
+ROOT = DATA_ROOT / "raw/fdnet_real_screen_pairs"
+OUT = WORK_DIR / "fdnet_focus_pair_process_probe.json"
 ROIS = {
     "0003.png": {"moire": [82, 20, 165, 86], "content": [40, 110, 215, 218]},
     "0004.png": {"moire": [145, 24, 205, 100], "content": [43, 110, 215, 214]},

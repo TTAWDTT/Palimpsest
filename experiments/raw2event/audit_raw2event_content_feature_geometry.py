@@ -4,8 +4,9 @@ Raw/RGB content is used only to diagnose geometry. No simulation weights or
 held-out RAW prediction are fitted here.
 """
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import cv2
 import numpy as np
@@ -13,8 +14,8 @@ import numpy as np
 from experiments.raw2event.audit_raw2event_probe import ROOT, extract_frame
 
 
-GEOM = Path("work/raw2event_sensor_geometry_audit.json")
-OUT = Path("work/raw2event_content_feature_geometry_audit.json")
+GEOM = WORK_DIR / "raw2event_sensor_geometry_audit.json"
+OUT = WORK_DIR / "raw2event_content_feature_geometry_audit.json"
 
 
 def gray_views(prefix: str) -> tuple[np.ndarray, np.ndarray]:

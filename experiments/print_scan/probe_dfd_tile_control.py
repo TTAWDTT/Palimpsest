@@ -4,16 +4,15 @@ This is an observational control for the halftone peak, not a measurement of
 printer RIP settings. Coordinates refer to the first verified P3 TIFF only.
 """
 
+from palimpsest.paths import DATA_ROOT
+
 import json
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
 
 
-SOURCE = Path(
-    r"E:\ai_image_origin_research\data\derived\dfd_probe\D5_DC1_x_800_P3_S1_T1_2111_1.tiff"
-)
+SOURCE = DATA_ROOT / "derived/dfd_probe/D5_DC1_x_800_P3_S1_T1_2111_1.tiff"
 ROIS = {
     "light_gray_tile": (5100, 1800, 5612, 2312),
     "medium_gray_tile": (3200, 1800, 3712, 2312),

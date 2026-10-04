@@ -7,12 +7,11 @@ predeclared before running this probe. This remains an effective RGB model.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import WORK_DIR
 
 import json
 import time
 import zipfile
-from pathlib import Path
 
 import numpy as np
 

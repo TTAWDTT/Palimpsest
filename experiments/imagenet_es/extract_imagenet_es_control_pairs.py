@@ -1,5 +1,7 @@
 """Fetch a bounded set of official ImageNet-ES same-source aperture pairs."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import argparse
 import hashlib
 import io
@@ -20,8 +22,8 @@ from experiments.imagenet_es.audit_imagenet_es_remote_index import (
 from experiments.dragotti.probe_dragotti_range import read_member
 
 
-ROOT = Path(r"E:\ai_image_origin_research\data\derived\imagenet_es_probe")
-OUT = Path("work/imagenet_es_control_probe_manifest.json")
+ROOT = DATA_ROOT / "derived/imagenet_es_probe"
+OUT = WORK_DIR / "imagenet_es_control_probe_manifest.json"
 PARAM_IDS = (4, 5, 13, 14, 22, 23)  # ISO 250/2000, 1/60 s, f/5/9/16
 
 

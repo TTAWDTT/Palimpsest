@@ -7,7 +7,9 @@ archive download. Neither photo nor original is assumed pixel-aligned.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import WORK_DIR
 
 import hashlib
 import http.client
@@ -16,7 +18,6 @@ import time
 import urllib.request
 import zipfile
 from io import BytesIO
-from pathlib import Path
 
 from PIL import Image
 
@@ -26,7 +27,7 @@ from experiments.dragotti.probe_dragotti_range import RangeFile, read_member
 URL = "https://data.vision.ee.ethz.ch/cvl/DIV2K/DIV2K_valid_HR.zip"
 SIZE = 448_993_893
 IDS = ("0801", "0802", "0803")
-OUT = Path(r"E:\ai_image_origin_research\data\derived\div2k_scan_original_probe")
+OUT = DATA_ROOT / "derived/div2k_scan_original_probe"
 MANIFEST = WORK_DIR / "div2k_scan_original_range_probe.json"
 
 

@@ -8,7 +8,7 @@ import json
 import statistics
 from pathlib import Path
 
-from experiments.baselines.score_published_logits import evaluate
+from palimpsest.evaluation.classification import evaluate
 
 
 def main() -> None:

@@ -1,8 +1,8 @@
 # 协作说明
 
-[仓库首页](../README.md) · [开发与复算](README.md) · [研究结论](../outputs/README.md)
+[仓库首页](../README.md) · [开发与复算](README.md) · [研究结论](../reports/README.md)
 
-代码仓库的本机位置为 `E:\ai_image_origin_research\repo`，GitHub 为私有仓库 `TTAWDTT/ai-image-origin-research`。数据、环境和模型位于同级的 `data/`、`envs/`、`models/`；本机 `work/` 产物仍按复算指南管理。
+代码仓库的本机位置为 `E:\ai_image_origin_research\repo`，GitHub 为私有仓库 `TTAWDTT/Palimpsest`。数据、环境和模型位于同级的 `data/`、`envs/`、`models/`；本机 `work/` 产物仍按复算指南管理。
 
 代码和本机产物已复制并校验到 E 盘，后续以 E 盘仓库为准。原 C 盘 Codex 任务目录被进程占用，目前仍是旧副本，尚未切换成目录链接；不要在旧副本继续修改。
 
@@ -19,7 +19,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools\finish_repo_migration.
 
 ## 先一起整理
 
-当前整理版作为共同起点。后续优先核查这三件事，再讨论研究恢复：
+本轮模块化已完成，见[整理记录](refactor_2026-10-04.md)和[代码结构](architecture.md)。后续优先核查这三件事，再讨论研究恢复：
 
 1. 研究报告中的有效结论、失败证据和待验证假设是否能清楚区分。
 2. 通用模型接口是否易于理解，哪些历史实验需要保留为复算入口。
@@ -31,7 +31,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools\finish_repo_migration.
 
 - `main` 保存可阅读、经过相应检查的版本；新整理或研发使用 `ttawdtt/<主题>` 分支。
 - 一次提交围绕一个具体目的，说明改动及其验证；较大的改动通过 pull request 讨论。
-- 阅读文档从 `outputs/README.md` 进入；代码修改遵循 `docs/README.md` 的阶段划分。
+- 阅读文档从 `reports/README.md` 进入；代码修改遵循 `docs/README.md` 的阶段划分。
 - 原始图像、权重、虚拟环境、下载档案和本机缓存由 `.gitignore` 排除，报告和必要的关键指标进入 Git。
 - 历史指标、清单和代码指纹保留原口径；目录整理不代表实验已重新运行。
 

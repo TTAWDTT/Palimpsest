@@ -1,5 +1,7 @@
 """Range-extract one independently selected RAW TAR member with a known direct counterpart."""
 
+from palimpsest.paths import WORK_DIR
+
 import hashlib
 import json
 import subprocess
@@ -12,7 +14,7 @@ from experiments.raw2event.fetch_raw2event_first_raw_tar_member import URL, ROOT
 
 
 TARGET_PREFIX = "10034_automobile_5_1356_20251224_110057"
-OUT = Path("work/raw2event_second_raw_tar_member_audit.json")
+OUT = WORK_DIR / "raw2event_second_raw_tar_member_audit.json"
 
 
 def main() -> None:

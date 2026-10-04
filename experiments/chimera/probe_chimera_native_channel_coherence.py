@@ -4,9 +4,10 @@ Coherence is descriptive. Sensor, display, ISP and publication effects remain
 entangled in the published RGB PNG. Reserved sources are not read.
 """
 
+from palimpsest.paths import WORK_DIR
+
 import csv
 import json
-from pathlib import Path
 
 import cv2
 import numpy as np
@@ -20,7 +21,7 @@ from experiments.chimera.probe_chimera_native_frequency import (
 )
 
 
-OUTPUT = Path("work/chimera_native_channel_coherence.json")
+OUTPUT = WORK_DIR / "chimera_native_channel_coherence.json"
 
 
 def patches(source_id: str, condition: str, warp: np.ndarray) -> dict[str, np.ndarray]:

@@ -6,6 +6,8 @@ to a verified final name. Archive names are data, never filesystem targets.
 
 from __future__ import annotations
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import json
 import hashlib
 import tarfile
@@ -16,12 +18,10 @@ from pathlib import Path, PurePosixPath
 from PIL import Image
 
 
-ARCHIVE = Path(
-    r"E:\ai_image_origin_research\data\raw\dfd_halftone_color\HalftoneImages-Color.tar.gz"
-)
-OUT = Path("work/dfd_color_inventory.json")
+ARCHIVE = DATA_ROOT / "raw/dfd_halftone_color/HalftoneImages-Color.tar.gz"
+OUT = WORK_DIR / "dfd_color_inventory.json"
 EXPECTED_BYTES = 25_818_121_374
-SAMPLE_DIR = Path(r"E:\ai_image_origin_research\data\derived\dfd_color_one_per_folder")
+SAMPLE_DIR = DATA_ROOT / "derived/dfd_color_one_per_folder"
 MAX_SAMPLE_BYTES = 384 * 1024 * 1024
 
 

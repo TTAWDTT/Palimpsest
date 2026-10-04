@@ -4,14 +4,15 @@ This compares numerical output to the previously cached fine renderer and
 its score on RAW. All physical parameters and count weights are unchanged.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import csv
 import json
-from pathlib import Path
 import time
 
 import numpy as np
 
-from origin_simulation.screen_capture import (
+from palimpsest.simulation.screen_capture import (
     ScreenCaptureParameters,
     render_screen_capture,
 )
@@ -31,13 +32,11 @@ from experiments.screen_numerics.probe_screen_display_prefilter import (
 )
 
 
-MANIFEST = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_phase_confirmation_v1.csv"
-)
-GEOM = Path("work/raw2event_sensor_geometry_audit.json")
-CORNERS = Path("work/raw2event_phase_confirmation_evaluation.json")
-FINE_FIT = Path("work/raw2event_global_geometry_process_evaluation.json")
-OUT = Path("work/raw2event_display_prefilter_evaluation.json")
+MANIFEST = DATA_ROOT / "manifests/raw2event_phase_confirmation_v1.csv"
+GEOM = WORK_DIR / "raw2event_sensor_geometry_audit.json"
+CORNERS = WORK_DIR / "raw2event_phase_confirmation_evaluation.json"
+FINE_FIT = WORK_DIR / "raw2event_global_geometry_process_evaluation.json"
+OUT = WORK_DIR / "raw2event_display_prefilter_evaluation.json"
 DISPLAY_SAMPLES = 8
 SENSOR_SAMPLES = 4
 

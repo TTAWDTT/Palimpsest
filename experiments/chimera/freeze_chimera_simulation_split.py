@@ -1,28 +1,19 @@
 """Freeze source-level, stratified Chimera splits before simulator calibration."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
+from palimpsest.io.hashing import file_sha256 as file_hash
+
 import csv
 import hashlib
 import json
-from pathlib import Path
 
 
-SOURCE_MANIFEST = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_bfree_manifest.csv"
-)
+SOURCE_MANIFEST = DATA_ROOT / "manifests/chimera_bfree_manifest.csv"
 EXPECTED_SHA = "39da9e9eac3bd2d133c53769f9c5a158c1769039c67560c0bbfc4660d09a7d24"
-OUTPUT = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_simulation_source_split.csv"
-)
-AUDIT = Path("work/chimera_simulation_source_split.json")
+OUTPUT = DATA_ROOT / "manifests/chimera_simulation_source_split.csv"
+AUDIT = WORK_DIR / "chimera_simulation_source_split.json"
 SALT = b"chimera-screen-physical-simulation-split-v1"
-
-
-def file_hash(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        while block := stream.read(1024 * 1024):
-            digest.update(block)
-    return digest.hexdigest()
 
 
 def main() -> None:

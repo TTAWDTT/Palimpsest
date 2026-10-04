@@ -4,9 +4,10 @@ The true RAW frame is explicitly used to optimize source alignment. This can
 locate a registration bottleneck but cannot validate a forward simulator.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import csv
 import json
-from pathlib import Path
 
 import cv2
 import numpy as np
@@ -19,11 +20,9 @@ from experiments.raw2event.probe_raw2event_source_to_raw import prepare
 from experiments.raw2event.refine_raw2event_content_geometry import adjusted_corners
 
 
-SPLIT = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_process_split_v1.csv"
-)
-REFINED_RGB = Path("work/raw2event_content_registered_geometry.json")
-OUT = Path("work/raw2event_raw_target_registration_diagnostic.json")
+SPLIT = DATA_ROOT / "manifests/raw2event_process_split_v1.csv"
+REFINED_RGB = WORK_DIR / "raw2event_content_registered_geometry.json"
+OUT = WORK_DIR / "raw2event_raw_target_registration_diagnostic.json"
 DEST = np.asarray([[0, 0], [31, 0], [31, 31], [0, 31]], dtype=np.float32)
 BOUNDS = [(-20, 20), (-20, 20), (0.90, 1.10), (-0.12, 0.12)]
 

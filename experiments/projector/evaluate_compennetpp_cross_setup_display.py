@@ -7,7 +7,9 @@ placement using only its train images 1-2 is a diagnostic, not a test fit.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import WORK_DIR
 
 import hashlib
 import json
@@ -32,12 +34,8 @@ from experiments.projector.evaluate_compennetpp_raw_forward_pilot import (
 
 
 SETUP = "light3/pos1/cloud_np"
-FOLDER = Path(
-    r"E:\ai_image_origin_research\data\derived\compennetpp_sl_light3_pos1_cloud"
-)
-PROBE = Path(
-    r"E:\ai_image_origin_research\data\derived\compennetpp_raw_ref_probe_light3_pos1_cloud_np"
-)
+FOLDER = DATA_ROOT / "derived/compennetpp_sl_light3_pos1_cloud"
+PROBE = DATA_ROOT / "derived/compennetpp_raw_ref_probe_light3_pos1_cloud_np"
 PROBE_MANIFEST = WORK_DIR / "compennetpp_light3_initial_probe.json"
 PRIMARY_MANIFEST = WORK_DIR / "compennetpp_light3_primary_curve_probe.json"
 TEST_MANIFEST = WORK_DIR / "compennetpp_light3_test20_extension_probe.json"

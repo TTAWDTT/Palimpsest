@@ -1,19 +1,20 @@
 """Stress the fast display-prefilter candidate beyond near-front-facing poses."""
 
+from palimpsest.paths import WORK_DIR
+
 import json
 import time
-from pathlib import Path
 
 import numpy as np
 
-from origin_simulation.screen_capture import (
+from palimpsest.simulation.screen_capture import (
     ScreenCaptureParameters,
     render_screen_capture,
 )
 from experiments.screen_numerics.probe_screen_display_prefilter import approximate_bands
 
 
-OUT = Path("work/screen_display_prefilter_stress.json")
+OUT = WORK_DIR / "screen_display_prefilter_stress.json"
 
 
 def pose(degrees: float, perspective: float) -> np.ndarray:

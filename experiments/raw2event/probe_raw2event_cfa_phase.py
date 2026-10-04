@@ -1,9 +1,10 @@
 """Four CFA phase hypotheses on the same cached screen irradiance fields."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import csv
 import hashlib
 import json
-from pathlib import Path
 
 import numpy as np
 from scipy.optimize import nnls
@@ -16,12 +17,10 @@ from experiments.raw2event.evaluate_raw2event_spectral_mix import (
 from experiments.raw2event.probe_raw2event_source_to_raw import prepare
 
 
-SPLIT = Path(
-    "E:/ai_image_origin_research/data/manifests/raw2event_process_split_v1.csv"
-)
+SPLIT = DATA_ROOT / "manifests/raw2event_process_split_v1.csv"
 SPLIT_SHA = "471fbff8020f88c1b73664e5794285df28da4792e5fb77bdfe682b5ee9bb7a43"
-GEOMETRY = Path("work/raw2event_content_registered_geometry.json")
-OUT = Path("work/raw2event_cfa_phase_probe.json")
+GEOMETRY = WORK_DIR / "raw2event_content_registered_geometry.json"
+OUT = WORK_DIR / "raw2event_cfa_phase_probe.json"
 PHASES = {
     "RGGB": ((0, 1), (1, 2)),
     "BGGR": ((2, 1), (1, 0)),

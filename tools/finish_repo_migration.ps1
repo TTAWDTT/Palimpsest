@@ -39,11 +39,30 @@ $sourceEntries = @(Get-ChildItem -LiteralPath $source -Recurse -Force)
 if (@($sourceEntries | Where-Object { $_.Attributes -band [IO.FileAttributes]::ReparsePoint }).Count) {
     throw 'Unexpected directory links appeared in the old workspace.'
 }
-if (@($sourceEntries | Where-Object { -not $_.PSIsContainer }).Count -ne $audit.Count) {
+function Test-VolatileMigrationPath([string]$relative) {
+    return ($relative -match '^\.git[\\/]' -or $relative -match '^\.venv[\\/]' -or
+        $relative -match '(^|[\\/])(__pycache__|\.pytest_cache|\.ruff_cache|\.mypy_cache)[\\/]')
+}
+# Codex updates turn-diff Git refs while the task is open; package/test caches
+# can also change. Business files, including local results, are checked strictly.
+$stableAudit = @($audit | Where-Object { -not (Test-VolatileMigrationPath $_.RelativePath) })
+$stableSourceFiles = @($sourceEntries | Where-Object {
+    -not $_.PSIsContainer -and -not (Test-VolatileMigrationPath $_.FullName.Substring($source.Length + 1))
+})
+if ($stableSourceFiles.Count -ne $stableAudit.Count) {
     throw 'The old workspace file count changed. Preserve and review its changes.'
 }
 
-foreach ($record in $audit) {
+# Tracked sources may have been intentionally refactored after the copy. Their
+# original bytes are preserved in Git history; only untracked local artifacts
+# must still occupy their original paths on E:.
+$originalCommit = '8a0e9c7d346b75e0391372ce890f213b3064705c'
+$trackedPaths = @(& git -C $destination ls-tree -r --name-only $originalCommit)
+if ($LASTEXITCODE -ne 0 -or $trackedPaths.Count -eq 0) {
+    throw 'The original migration commit is missing from the E: Git history.'
+}
+
+foreach ($record in $stableAudit) {
     $relative = [string]$record.RelativePath
     $oldFile = Join-Path $source $relative
     $newFile = Join-Path $destination $relative
@@ -51,13 +70,11 @@ foreach ($record in $audit) {
         (Get-FileHash -LiteralPath $oldFile -Algorithm SHA256).Hash -ne $record.SHA256) {
         throw "The old workspace changed: $relative"
     }
-    # Git remote/index and the rebuilt environment intentionally changed on E:.
-    # Tests also regenerate disposable interpreter/test caches. The collaboration
-    # notes record this pending switch; other migrated files must still match.
+    # Git, environment and disposable caches intentionally changed on E:.
+    # Original tracked sources/reports are recoverable from the migration commit.
     if ($relative -match '^\.git[\\/]' -or $relative -match '^\.venv[\\/]' -or
         $relative -match '(^|[\\/])(__pycache__|\.pytest_cache|\.ruff_cache|\.mypy_cache)[\\/]' -or
-        $relative -eq 'README.md' -or
-        $relative -eq 'docs\collaboration.md' -or $relative -eq 'docs/collaboration.md') {
+        $trackedPaths -contains $relative.Replace('\', '/')) {
         continue
     }
     if (-not (Test-Path -LiteralPath $newFile -PathType Leaf) -or
@@ -66,7 +83,7 @@ foreach ($record in $audit) {
         throw "The destination differs from the migration audit: $relative"
     }
 }
-Write-Output 'Migration audit passed. All original C: files remain unchanged.'
+Write-Output 'Migration audit passed. Original business files remain unchanged; Git refs and caches are excluded.'
 if (-not $Finalize) {
     Write-Output 'Verification only. Close Codex and run with -Finalize to switch directories.'
     exit 0

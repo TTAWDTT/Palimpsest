@@ -1,18 +1,19 @@
 """Full-entry audit of official CSGC 2400-spi paired archive."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import hashlib
 import io
 import json
 import re
 import zipfile
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
 
 
-ARCHIVE = Path(r"E:\ai_image_origin_research\data\raw\csgc\CSGC_scan2400spi.zip")
-OUT = Path("work/csgc2400_full_audit.json")
+ARCHIVE = DATA_ROOT / "raw/csgc/CSGC_scan2400spi.zip"
+OUT = WORK_DIR / "csgc2400_full_audit.json"
 EXPECTED_BYTES = 113_349_148
 PATTERN = re.compile(
     r"^2400dpi_NEW/(bin_exact_crop_4|resize_exact_crop)/Scan(\d{5})\.tif$"

@@ -5,15 +5,16 @@ The optical Gaussian is pushed into display coordinates using the homography
 Jacobian at image center and approximated as axis-aligned in that space.
 """
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 import time
 
 import cv2
 import numpy as np
 from scipy.ndimage import gaussian_filter
 
-from origin_simulation.screen_capture import (
+from palimpsest.simulation.screen_capture import (
     ScreenCaptureParameters,
     render_screen_capture,
     _homography_jacobian,
@@ -21,7 +22,7 @@ from origin_simulation.screen_capture import (
 from experiments.screen_numerics.probe_screen_projective_convergence import pose
 
 
-OUT = Path("work/screen_display_prefilter_probe.json")
+OUT = WORK_DIR / "screen_display_prefilter_probe.json"
 
 
 def geometry_diagnostics(transform: np.ndarray, sensor_shape: tuple[int, int]) -> dict:

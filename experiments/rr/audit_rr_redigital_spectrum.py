@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-from experiments.paths import REPO_ROOT
+from palimpsest.paths import REPO_ROOT
 
 import json
 import math
 from collections import defaultdict
-from pathlib import Path
 
 import numpy as np
 from PIL import Image, ImageOps, JpegImagePlugin

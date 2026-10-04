@@ -6,13 +6,14 @@ alone as content validation. Input archives stay on E:; JSON stays in work/.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.io.hashing import file_sha256 as _sha256
+
+from palimpsest.paths import WORK_DIR
 
 import hashlib
 import io
 import json
 import zipfile
-from pathlib import Path
 
 import numpy as np
 from PIL import Image
@@ -28,14 +29,6 @@ OUTPUT = WORK_DIR / "div2k_scan_100_pair_audit.json"
 EXPECTED_SOURCE_BYTES = 448_993_893
 EXPECTED_CAPTURE_BYTES = 315_574_703
 MIN_SIFT_INLIERS_FOR_CONTENT_EVIDENCE = 12
-
-
-def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as stream:
-        for chunk in iter(lambda: stream.read(8 * 1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
 
 
 def main() -> None:

@@ -33,3 +33,6 @@ __pycache__/
 .vscode/
 .DS_Store
 Thumbs.db
+
+# Machine-specific research paths
+/configs/workspace.local.toml

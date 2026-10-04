@@ -4,6 +4,8 @@ This is exploratory. A residual spectral peak is not automatically moire or
 evidence for a specific display subpixel/CFA mechanism.
 """
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import csv
 import json
 from pathlib import Path
@@ -21,13 +23,11 @@ from experiments.chimera.evaluate_chimera_composite_photometry import (
 )
 
 
-GEOMETRY = Path("work/chimera_fixed_publication_geometry.json")
-PHOTOMETRY = Path("work/chimera_composite_photometry.json")
-BLUR = Path("work/chimera_effective_blur_proxy.json")
-SPLIT = Path(
-    "E:/ai_image_origin_research/data/manifests/chimera_simulation_source_split.csv"
-)
-OUTPUT = Path("work/chimera_residual_spectrum_development.json")
+GEOMETRY = WORK_DIR / "chimera_fixed_publication_geometry.json"
+PHOTOMETRY = WORK_DIR / "chimera_composite_photometry.json"
+BLUR = WORK_DIR / "chimera_effective_blur_proxy.json"
+SPLIT = DATA_ROOT / "manifests/chimera_simulation_source_split.csv"
+OUTPUT = WORK_DIR / "chimera_residual_spectrum_development.json"
 
 
 def luminance(rgb: np.ndarray) -> np.ndarray:
@@ -106,8 +106,8 @@ def main() -> None:
                 for row in csv.DictReader(stream)
             }
 
-    real_scores = score_by_condition(Path("work/chimera_bfree_recap256.csv"))
-    sim_scores = score_by_condition(Path("work/chimera_composite_sim_bfree_dev.csv"))
+    real_scores = score_by_condition(WORK_DIR / "chimera_bfree_recap256.csv")
+    sim_scores = score_by_condition(WORK_DIR / "chimera_composite_sim_bfree_dev.csv")
     result = {
         "scope": "development-only real minus frozen proxy residual, at common 256px size",
         "warning": "frequency peaks are descriptive; neither moire nor physical noise labels",

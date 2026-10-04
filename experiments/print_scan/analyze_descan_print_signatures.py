@@ -7,19 +7,20 @@ scanner, without inferring unknown physical scanner/print DPI.
 
 from __future__ import annotations
 
-from experiments.paths import WORK_DIR
+from palimpsest.paths import DATA_ROOT
+
+from palimpsest.paths import WORK_DIR
 
 import io
 import json
 import zipfile
-from collections import defaultdict
 from pathlib import Path
 
 import numpy as np
 from PIL import Image
 
 
-ROOT = Path(r"E:\ai_image_origin_research\data\raw\descan18k")
+ROOT = DATA_ROOT / "raw/descan18k"
 OUTPUT = WORK_DIR / "descan_print_signatures.json"
 TILE = 128
 

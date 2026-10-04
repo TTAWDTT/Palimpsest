@@ -1,5 +1,7 @@
 """Render a small, attributed visual comparison of verified author examples."""
 
+from palimpsest.paths import DATA_ROOT, WORK_DIR
+
 import json
 from pathlib import Path
 
@@ -9,8 +11,8 @@ import numpy as np
 from PIL import Image
 
 
-DATA = Path("E:/ai_image_origin_research/data/raw/fdnet_real_screen_pairs")
-PROBE = Path("work/fdnet_focus_pair_process_probe.json")
+DATA = DATA_ROOT / "raw/fdnet_real_screen_pairs"
+PROBE = WORK_DIR / "fdnet_focus_pair_process_probe.json"
 OUT = Path("outputs/03_过程模拟/02_拍屏实测/FDNet真实失焦与成片模糊对照_2026-09-25.png")
 
 

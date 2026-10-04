@@ -6,8 +6,9 @@ not a fitted forward simulator or CMYK color-separation recovery.
 
 from __future__ import annotations
 
+from palimpsest.paths import WORK_DIR
+
 import json
-from pathlib import Path
 
 import cv2
 import numpy as np
@@ -16,8 +17,8 @@ from PIL import Image
 from experiments.print_scan.probe_dfd_color_matched_printers import top_spectral_peaks
 
 
-METADATA = Path("work/dfd_color_fullpage_metadata.json")
-OUT = Path("work/dfd_color_multitile_transfer.json")
+METADATA = WORK_DIR / "dfd_color_fullpage_metadata.json"
+OUT = WORK_DIR / "dfd_color_multitile_transfer.json"
 FOLDERS = ("D5_HPCLJ5550", "D6_HPCLJ5550")
 ROIS = {
     "red": (1020, 3439, 1532, 3951),
