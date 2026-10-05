@@ -2,7 +2,7 @@
 
 研究图像经过数字传播与物理再拍后，如何判断其原始视觉内容来自自然摄影还是 AI 生成。
 
-**当前进行完整任务接口与 baseline 接入整理。** 新研究训练和全量复算仍暂停。已有数据审计、来源 baseline、定位/分割适配和前向原型；尚未完成 simulation 的充分真实验证或自研的高速稳健来源方法。
+**本轮完整任务接口与 baseline 接入整理已完成。** 新研究训练和全量复算仍暂停。已有数据审计、来源 baseline、定位/分割适配和前向原型；尚未完成 simulation 的充分真实验证或自研的高速稳健来源方法。
 
 本机代码：`E:\ai_image_origin_research\repo`。GitHub：[TTAWDTT/Palimpsest](https://github.com/TTAWDTT/Palimpsest)（公开）。
 

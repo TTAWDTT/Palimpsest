@@ -12,7 +12,7 @@
 | 6 | 移除 origin_simulation 和入口私有别名；更新所有调用、构建和文档 | 完成 |
 | 7 | 补定位、来源、配对传播与 simulation 响应评价；训练效用留出扩展边界 | 完成接口，未实施训练收益试验 |
 | 8 | 小规模真实权重接入检查、针对性测试、构建与历史结果指纹比对 | 完成 |
-| 9 | 更新导航、记录完成范围和缺口；提交可审阅 PR | 导航/记录完成，提交中 |
+| 9 | 更新导航、记录完成范围和缺口；提交可审阅 PR | 完成：[PR #3](https://github.com/TTAWDTT/Palimpsest/pull/3) |
 
 ## 判断依据
 
@@ -27,6 +27,8 @@
 ## 验证记录（2026-10-05）
 
 全套 **131 项测试通过**；新增模块相关 **13 项测试再次通过**。Ruff、内部导入/文档链接检查、wheel 构建通过。wheel 包含 localization/detection/pipelines/training，且不包含旧 namespace。导入测试证明无需 Torch/sklearn、数据或权重即可导入核心与 baseline 适配模块。
+
+GitHub Linux CI 在代码提交 `1b9ea75` 上全部通过：[运行记录](https://github.com/TTAWDTT/Palimpsest/actions/runs/37271162015)。PR #3 以尚未合并的目录整理 PR #2 为基底，应先合并 #2。本段后的提交仅补完成状态记录。
 
 685 个既有非文档产物与上轮维护快照逐项 SHA-256 一致（本机 `cache/detection_foundation_verification.json`）。本轮没有重跑 RR 全量，没有训练新的研究模型，没有调整 simulation。单元测试拟合的小树仅验证导出表示，非研究模型。
 
