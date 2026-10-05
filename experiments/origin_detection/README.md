@@ -44,8 +44,10 @@
 
 [第十四轮核读出](kernel_readout/README.md)：固定随机Fourier非线性容量，完整可移植map+head规则，不将核近似误作物理稳定保证。
 
-- [color_relations](color_relations/README.md)：第十五轮固定RGB偏序/联合残差，检验旧独立通道表示遗漏的信息；人工控制与60张计时已通过，完整开发提取进行中。
+- [color_relations](color_relations/README.md)：第十五轮固定RGB偏序/联合残差，检验旧独立通道表示遗漏的信息；人工控制与完整开发评测已完成，强编码退化仍失败。
 
 ## 继续迭代
 
 [冻结CLIP表示](frozen_clip/README.md)固定现有预训练编码器，检查其类别信号与处理退化；[冻结读出](frozen_readout/README.md)提供公共逐候选评测。
+
+[来源内风险](source_view_risk/README.md)：第十七轮固定2×2对照，六头完整评价已完成；[小型冻结编码器](compact_frozen_encoder/README.md)：第十八轮，固定一个较小既有神经表示，运行控制与提取入口。
