@@ -12,6 +12,7 @@
 |---|---|
 | 当前证据、失败结果与待验证问题 | [研究结论](reports/README.md) |
 | 公共模块如何划分、实验依赖什么 | [代码结构](docs/architecture.md) |
+| 从源码目录理解业务链路与扩展位置 | [源码导览](src/README.md) |
 | 区域定位、来源判别、可调用链与能力缺口 | [推理接入指南](docs/detection_pipeline.md) |
 | 整理清单、接入验证与研究待办 | [本轮处理记录](docs/maintenance/detection_foundation_checklist.md) |
 | 模型约定、安装和历史复算 | [开发指南](docs/README.md) |
