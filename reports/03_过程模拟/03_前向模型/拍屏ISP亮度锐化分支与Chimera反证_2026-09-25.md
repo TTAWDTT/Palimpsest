@@ -23,4 +23,4 @@ Mac 的改善很小；Monitor 的亮度频带改善约 2.30 dB，但仍留 5.31 
 
 **决定：**保留默认关闭的 ISP 锐化分支，供将来有 RAW 或受控拍屏图时做机制消融；不把 `a=5` 写进设备配置，也不据此生成最终训练集。下一版真正值得投入的过程验证，应在同源真实图上同时检查源亮度依赖、高频亮度/色差功率、RGB 互频谱、边缘过冲及固定检测器的同源分数转移。如果缺 RAW，发布图只能约束这些复合观测量，不能把 ISP 与显示、镜头及作者重采样独立标定。
 
-复算：`python -m experiments.chimera.test_chimera_luma_sharpen_hypothesis` 得 `work/chimera_luma_sharpen_hypothesis.json`。通道和内容诊断见[前一报告](../02_拍屏实测/Chimera高频的内容混杂与RGB通道结构_2026-09-25.md)。代码验证：`python -m pytest tests/test_screen_capture.py tests/test_screen_capture_projective.py tests/test_capture_kit.py -q`。
+复算：`python -m experiments.screen_capture.photometry.chimera.evaluate_luma_sharpen_hypothesis` 得 `work/chimera_luma_sharpen_hypothesis.json`。通道和内容诊断见[前一报告](../02_拍屏实测/Chimera高频的内容混杂与RGB通道结构_2026-09-25.md)。代码验证：`python -m pytest tests/test_screen_capture.py tests/test_screen_capture_projective.py tests/test_capture_kit.py -q`。

@@ -39,7 +39,7 @@
 机器文件：`work/chimera_bfree_full.csv`、`work/chimera_bfree_full.json`、`work/chimera_bfree_evaluation.json`。冻结推理清单为 E 盘 `chimera_bfree_manifest.csv`，SHA256 `39da9e9eac3bd2d133c53769f9c5a158c1769039c67560c0bbfc4660d09a7d24`；完整 CSV 的 SHA256 为 `24012eacbd52b3d23c698c8f631edbf688e1560b836e859173413460f67e0d6e`。复算汇总：
 
 ```powershell
-uv run python -m experiments.chimera.evaluate_chimera_bfree
+uv run python -m experiments.origin_detection.score_transfer.chimera.evaluate_bfree
 ```
 
 ## 尺寸敏感性对照：实拍发布图统一缩到 256×256
@@ -58,6 +58,6 @@ Mac 统一尺寸后的 BA 相对发布尺寸 **提高 8.83 点**（区间 +6.17 
 尺寸对照的 E 盘清单 `chimera_recap256_bfree_manifest.csv` SHA256 为 `33df4795ca8610739670781486332cbd9107a6d8eaa867ae82ebf77315a9426d`；逐图缩小图哈希及方法在 `work/chimera_recap256_audit.json`。推理 CSV `work/chimera_bfree_recap256.csv` 的 SHA256 是 `ce32c7fa1b29ee7886968f3f8e4f63c0e296efc31405234b468ba321a544d7d3`，其 summary 为同名 `.json`，比较结果为 `work/chimera_bfree_size_control_evaluation.json`。复算：
 
 ```powershell
-uv run python -m experiments.chimera.prepare_chimera_size_control
-uv run python -m experiments.chimera.evaluate_chimera_size_control
+uv run python -m experiments.data_preparation.chimera.prepare_size_control
+uv run python -m experiments.origin_detection.score_transfer.chimera.evaluate_size_control
 ```

@@ -18,7 +18,7 @@
 
 [DESCAN 官方仓库](https://github.com/jhcha08/Descanning)说明其扫描图来自真实杂志页，数字目标来自对应 PDF；图像经历页面及裁切后的两轮 AKAZE 配准，Valid 用 scanner03/04，Test 用 scanner01/02。E 盘 `Valid.zip` 和 `Test.zip` 已在此前审计中分别核对 360 个同名配对，档案 SHA-256 见[数据可用性审计](../01_原理与协议/Simulation受控采集准备与数据可用性审计_2026-09-24.md)。仓库未为这些 1024 裁切图提供逐图印刷 LPI、纸墨、ICC、原始扫描 DPI 或配准变换，因此只能作观察性约束，不能拟合绝对物理参数。
 
-本次脚本 `experiments/print_scan/analyze_descan_print_signatures.py` 固定读取**每台扫描器按文件名排序前 30 张**，只依据干净数字图挑选不重叠的 128×128 块：亮度均值 0.15–0.90，标准差 <0.045。四设备共入选 **24/46/55/94 块**，来自 **6/10/12/15 页**。扫描图没有参与选块。高频/低频功率比采用 0.18–0.42 与 0.03–0.18 cycles/pixel 两个频带；代表性中位数如下。全部逐块记录在 `work/descan_print_signatures.json`。
+本次脚本 `experiments/print_capture/print_signatures/descan/evaluate_descan_print_signatures.py` 固定读取**每台扫描器按文件名排序前 30 张**，只依据干净数字图挑选不重叠的 128×128 块：亮度均值 0.15–0.90，标准差 <0.045。四设备共入选 **24/46/55/94 块**，来自 **6/10/12/15 页**。扫描图没有参与选块。高频/低频功率比采用 0.18–0.42 与 0.03–0.18 cycles/pixel 两个频带；代表性中位数如下。全部逐块记录在 `work/descan_print_signatures.json`。
 
 | 扫描器 | 入选块 | 数字图高/低频比 | 真扫描高/低频比 |
 |---|---:|---:|---:|
@@ -31,7 +31,7 @@
 
 ## 用固定参数直接尝试反证
 
-从入选记录中，每台扫描器按顺序取四张不同页面的首块，共 **16 块**。不按真扫描结果调参，固定原型的数字/渲染/扫描 PPI 为 300/1200/600、网点 100 LPI、纸张散射 10 μm、扫描光学 8 μm，其余为代码默认值；模拟图再缩到 128×128，与发布配准块同尺寸比较。脚本 `experiments/print_scan/probe_color_print_scan_descan.py`，逐块值与完整参数在 `work/descan_color_forward_probe.json`。
+从入选记录中，每台扫描器按顺序取四张不同页面的首块，共 **16 块**。不按真扫描结果调参，固定原型的数字/渲染/扫描 PPI 为 300/1200/600、网点 100 LPI、纸张散射 10 μm、扫描光学 8 μm，其余为代码默认值；模拟图再缩到 128×128，与发布配准块同尺寸比较。脚本 `experiments/print_capture/print_signatures/descan/run_color_print_scan_descan.py`，逐块值与完整参数在 `work/descan_color_forward_probe.json`。
 
 频谱指标为 0.08–0.42 cycles/pixel 环带内**最强 3×3 峰邻域功率占该环带总功率的比例**：数字原图中位 **0.029**，真扫描中位 **0.021**，模拟中位 **0.219**。四台扫描器上的真扫描/模拟中位数分别为 0.013/0.151、0.007/0.154、0.022/0.244、0.055/0.238。16 块里模拟值全高于对应真扫描值。**对这组固定参数和比较尺度，理想有序网点过度相干。**这与早先单色 DFD 灰块的同类失败一致，但不能断言实际设备使用随机网点：未知物理比例、真实 RIP、光学 MTF、套准变化、纸纹及作者的配准重采样，都可能使发布图中的周期峰变化；目前不能分解贡献。
 
@@ -39,7 +39,7 @@
 
 ## 追加反证：真机周期峰也会被发布缩放抹去
 
-用已核验的 DFD 灰阶原始扫描做**处理链对照**：D5/D6 同配置、800 ppi 的各 8 个较亮灰块，共 16 个 512×512 物理区域，原扫描有约 141 线/英寸强峰。保持区域内容不变，仅用 Lanczos 分别输出 512、256、128 像素，再按上述峰占比口径测量。脚本 `experiments/print_scan/dfd_resampling_peak_probe.py`，逐块记录 `work/dfd_resampling_peak_probe.json`。
+用已核验的 DFD 灰阶原始扫描做**处理链对照**：D5/D6 同配置、800 ppi 的各 8 个较亮灰块，共 16 个 512×512 物理区域，原扫描有约 141 线/英寸强峰。保持区域内容不变，仅用 Lanczos 分别输出 512、256、128 像素，再按上述峰占比口径测量。脚本 `experiments/print_capture/gray_halftone/dfd/run_resampling_peak_probe.py`，逐块记录 `work/dfd_resampling_peak_probe.json`。
 
 | 同一物理区域输出边长 | 峰功率占比中位 | 峰/环带功率中位 | 灰块标准差中位 |
 |---:|---:|---:|---:|
@@ -59,8 +59,8 @@
 
 要前进一步，应取得同一已知数字彩图与真实印张的**物理输出尺寸、RIP/ICC 或至少网点实测、色卡/空白纸、扫描 PPI、重复印张与不同扫描参数**。然后先锁定设备级参数，在未见图/未见设置上比较色卡、网点二维峰与功率、边缘、噪声和固定来源检测器的配对分数变化。公开候选中，[DFD 彩色网点档案](https://dfd.inf.tu-dresden.de/dataset/)记录打印/扫描设置并有色块与两张图片，但 24 GB 档案尚未取得且未核实数字源是否发布；[L3i DocCopies](https://l3i-share.univ-lr.fr/datasets/DocCopiesWebsite/DocCopiesDataset.html)有多打印机及 300/600 dpi 扫描设置，但下载需要向作者联系，目前没有访问权。不能把这两个线索写成已可用的配对标定集。
 
-**档案获取状态补充：**DFD 彩色包的官方 HEAD 报告 25,818,121,374 字节且支持 HTTP Range；已用 `experiments/print_scan/download_dfd_color.ps1` 启动 E 盘续传，目标路径为 `E:\ai_image_origin_research\data\raw\dfd_halftone_color\HalftoneImages-Color.tar.gz`。在完整字节数、SHA-256 和 tar/gzip 遍历完成前，它仅是 `.partial`，不可纳入样本统计。官方页面未给出预期哈希，本机 SHA 只可识别本次下载版本。
+**档案获取状态补充：**DFD 彩色包的官方 HEAD 报告 25,818,121,374 字节且支持 HTTP Range；已用 `experiments/data_preparation/dfd/prepare_color.ps1` 启动 E 盘续传，目标路径为 `E:\ai_image_origin_research\data\raw\dfd_halftone_color\HalftoneImages-Color.tar.gz`。在完整字节数、SHA-256 和 tar/gzip 遍历完成前，它仅是 `.partial`，不可纳入样本统计。官方页面未给出预期哈希，本机 SHA 只可识别本次下载版本。
 
 **2026-09-25 后续状态：**上段记录下载当时的准入限制；现已完成字节、SHA 与 gzip/tar 核验，实包目录和物理尺度检查见 [DFD 彩色网点整包审计](DFD彩色网点整包审计与物理尺度反证_2026-09-25.md)。该包依然没有足够信息把未知写真店印张过程完整标定出来。
 
-运行方式：`uv run pytest -q`、`uv run python -m experiments.print_scan.analyze_descan_print_signatures`、`uv run python -m experiments.print_scan.probe_color_print_scan_descan`。原始档案留在 E 盘；脚本输出仅在 `work/`，此报告是当前用户入口。
+运行方式：`uv run pytest -q`、`uv run python -m experiments.print_capture.print_signatures.descan.evaluate_descan_print_signatures`、`uv run python -m experiments.print_capture.print_signatures.descan.run_color_print_scan_descan`。原始档案留在 E 盘；脚本输出仅在 `work/`，此报告是当前用户入口。

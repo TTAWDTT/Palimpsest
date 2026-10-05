@@ -45,4 +45,4 @@
 2. **过程链应同时预测功率与通道关系。** 未来增加候选组件后，必须看其在固定源块上的亮度/色差功率、RGB 互频谱、暗亮区斜率及处理前后检测器同源分数变化；只改善其中一个数不足以接受组件。
 3. **优先找真实 RAW/受控显示图。** Chimera 无逐图曝光、焦距、屏幕距离、显示像素布局和 RAW；目前无法验证 CFA 前后哪个阶段生成了额外高频。用户暂时无法实拍时，继续利用已核实的公开配对检验可观察部分，不从输出 PNG 反称物理参数已恢复。
 
-复算：`python -m experiments.chimera.analyze_chimera_highband_confounders` 与 `python -m experiments.chimera.probe_chimera_native_channel_coherence`。机器统计分别在 `work/chimera_highband_confounders.json`、`work/chimera_native_channel_coherence.json`，逐来源混杂表在 `work/chimera_highband_confounders.csv`。这是使用既有划分的探索性诊断，bootstrap 区间未覆盖数据集选择或匹配规则不确定性，不作显著性宣称。
+复算：`python -m experiments.screen_capture.spectral_structure.chimera.evaluate_highband_confounders` 与 `python -m experiments.screen_capture.spectral_structure.chimera.run_native_channel_coherence`。机器统计分别在 `work/chimera_highband_confounders.json`、`work/chimera_native_channel_coherence.json`，逐来源混杂表在 `work/chimera_highband_confounders.csv`。这是使用既有划分的探索性诊断，bootstrap 区间未覆盖数据集选择或匹配规则不确定性，不作显著性宣称。

@@ -1,0 +1,215 @@
+"""Shared source-to-RAW preparation under the frozen virtual display assumptions.
+
+192-pixel assumed display, Lanczos encoded-sRGB resampling, parity-preserving
+ROI, 6% inner mask, and optical proxy remain historical protocol settings.
+These are not measured device parameters.
+"""
+
+from __future__ import annotations
+
+from palimpsest.paths import WORK_DIR
+
+import json
+from pathlib import Path
+import time
+
+import cv2
+import numpy as np
+from PIL import Image
+
+from palimpsest.simulation.screen_capture import (
+    ScreenCaptureParameters,
+    render_screen_capture,
+)
+from palimpsest.simulation.screen_pipeline import (
+    DisplayRasterParameters,
+    rasterize_display_source,
+)
+from palimpsest.data.raw2event import ROOT, WIDTH, HEIGHT, detect_tag, extract_frame
+
+
+PREFIXES = (
+    "10000_automobile_5_1087_20251224_105416",
+    "1000_airplane_1_9934_20251222_161953",
+)
+AUDITS = (
+    WORK_DIR / "raw2event_probe_pixel_audit.json",
+    WORK_DIR / "raw2event_probe_airplane_pixel_audit.json",
+)
+SOURCE_DIR = WORK_DIR / "raw2event_cifar_matches"
+RGB_CORNERS = np.asarray(
+    [[237, 180], [409, 195], [397, 370], [219, 353]], dtype=np.float32
+)
+DISPLAY_SIDE = 192  # explicit assumed display lattice; actual screen raster unpublished
+BLUR_SIGMA_SENSOR_PIXELS = 0.8  # virtual optical PSF, not device-measured
+INNER_FRACTION = 0.06
+OUT = WORK_DIR / "raw2event_source_to_raw_probe.json"
+
+
+def prepare(
+    prefix: str,
+    audit_path: Path | None = None,
+    source_rgb: np.ndarray | None = None,
+    rgb_content_corners: np.ndarray | None = None,
+    raw_to_rgb_override: np.ndarray | None = None,
+) -> dict:
+    raw = extract_frame(ROOT / "frames_raw" / f"{prefix}.mkv", 0, "gray16le", 1, "<u2")
+    if audit_path is None:
+        rgb = extract_frame(ROOT / "frames_rgb" / f"{prefix}.mkv", 0, "rgb24", 3, "u1")
+        raw_view = np.minimum(raw.astype(np.float32) / 1023 * 255, 255).astype(np.uint8)
+        raw_tag, raw_id = detect_tag(raw_view)
+        rgb_tag, rgb_id = detect_tag(rgb)
+        if raw_id != rgb_id or raw_id != 0:
+            raise RuntimeError(f"unexpected AprilTag association for {prefix}")
+        h_raw_to_rgb = cv2.getPerspectiveTransform(raw_tag, rgb_tag)
+    else:
+        audit = json.loads(audit_path.read_text(encoding="utf-8"))
+        h_raw_to_rgb = np.asarray(
+            audit["samples"]["0"]["tag"]["raw_to_rgb_tag_homography"]
+        )
+    if raw_to_rgb_override is not None:
+        override = np.asarray(raw_to_rgb_override, dtype=np.float64)
+        if override.shape == (2, 3):
+            h_raw_to_rgb = np.vstack((override, [0.0, 0.0, 1.0]))
+        elif override.shape == (3, 3):
+            h_raw_to_rgb = override
+        else:
+            raise ValueError("raw_to_rgb_override must be affine 2x3 or projective 3x3")
+    corners = (
+        RGB_CORNERS
+        if rgb_content_corners is None
+        else np.asarray(rgb_content_corners, dtype=np.float32)
+    )
+    if corners.shape != (4, 2):
+        raise ValueError("content corners must be TL,TR,BR,BL with shape 4x2")
+    raw_corners = cv2.perspectiveTransform(corners[None], np.linalg.inv(h_raw_to_rgb))[
+        0
+    ]
+    left, top = np.floor(raw_corners.min(axis=0) - 8).astype(int)
+    right, bottom = np.ceil(raw_corners.max(axis=0) + 8).astype(int)
+    left, top = max(0, left), max(0, top)
+    # The renderer starts its RGGB hypothesis at local (0,0); preserve the
+    # global sensor parity when extracting a RAW ROI.
+    left -= left % 2
+    top -= top % 2
+    right, bottom = min(WIDTH, right), min(HEIGHT, bottom)
+    roi = (left, top, right, bottom)
+    local = raw_corners - np.asarray([left, top], dtype=np.float32)
+    display_corners = np.asarray(
+        [[0, 0], [DISPLAY_SIDE, 0], [DISPLAY_SIDE, DISPLAY_SIDE], [0, DISPLAY_SIDE]],
+        dtype=np.float32,
+    )
+    sensor_to_display = cv2.getPerspectiveTransform(local, display_corners)
+    yy, xx = np.indices((bottom - top, right - left), dtype=np.float32)
+    projected = cv2.perspectiveTransform(
+        np.stack((xx + 0.5, yy + 0.5), axis=-1).reshape(1, -1, 2), sensor_to_display
+    ).reshape(bottom - top, right - left, 2)
+    lower, upper = DISPLAY_SIDE * INNER_FRACTION, DISPLAY_SIDE * (1 - INNER_FRACTION)
+    mask = (
+        (projected[..., 0] >= lower)
+        & (projected[..., 0] < upper)
+        & (projected[..., 1] >= lower)
+        & (projected[..., 1] < upper)
+    )
+    source = (
+        np.asarray(Image.open(SOURCE_DIR / f"{prefix}_source32.png").convert("RGB"))
+        if source_rgb is None
+        else np.asarray(source_rgb, dtype=np.uint8)
+    )
+    drive = rasterize_display_source(
+        source,
+        DisplayRasterParameters(
+            raster_size=(DISPLAY_SIDE, DISPLAY_SIDE),
+            resampling="lanczos",
+            resample_space="encoded_srgb",
+        ),
+    )
+    return {
+        "prefix": prefix,
+        "roi": roi,
+        "raw_corners": raw_corners,
+        "rgb_corners": corners,
+        "H": sensor_to_display,
+        "mask": mask,
+        "actual": raw[top:bottom, left:right].astype(np.float32),
+        "drive": drive,
+    }
+
+
+def render(prepared: dict, emitter_layout: str) -> tuple[np.ndarray, float]:
+    shape = prepared["actual"].shape
+    params = ScreenCaptureParameters(
+        sensor_to_display=prepared["H"],
+        fill_fraction=0.85,
+        emitter_layout=emitter_layout,
+        display_gamma=2.2,
+        optical_blur_sigma_sensor_pixels=BLUR_SIGMA_SENSOR_PIXELS,
+        exposure_electrons_per_unit=None,
+        read_noise_electrons=0.0,
+    )
+    start = time.perf_counter()
+    result = render_screen_capture(
+        prepared["drive"],
+        shape,
+        params,
+        spatial_method="fine",
+        tile_size_sensor_pixels=96,
+    )
+    return result.noiseless_mosaic, time.perf_counter() - start
+
+
+def direct_sample_control(prepared: dict) -> tuple[np.ndarray, float]:
+    """Digital interpolation plus Gaussian blur, with no emitter geometry."""
+    start = time.perf_counter()
+    height, width = prepared["actual"].shape
+    yy, xx = np.indices((height, width), dtype=np.float32)
+    xy = np.stack((xx + 0.5, yy + 0.5), axis=-1).reshape(1, -1, 2)
+    uv = cv2.perspectiveTransform(xy, prepared["H"]).reshape(height, width, 2)
+    radiance = prepared["drive"] ** 2.2
+    mapped = cv2.remap(
+        radiance,
+        uv[..., 0].astype(np.float32),
+        uv[..., 1].astype(np.float32),
+        cv2.INTER_LINEAR,
+        borderMode=cv2.BORDER_CONSTANT,
+        borderValue=0,
+    )
+    mapped = cv2.GaussianBlur(mapped, (0, 0), BLUR_SIGMA_SENSOR_PIXELS)
+    y, x = np.indices((height, width))
+    channel = np.where(
+        (y % 2 == 0) & (x % 2 == 0), 0, np.where((y % 2 == 1) & (x % 2 == 1), 2, 1)
+    )
+    mosaic = np.take_along_axis(mapped, channel[..., None], axis=-1)[..., 0]
+    return mosaic, time.perf_counter() - start
+
+
+def cfa_design(simulated: np.ndarray) -> np.ndarray:
+    y, x = np.indices(simulated.shape)
+    r = (y % 2 == 0) & (x % 2 == 0)
+    b = (y % 2 == 1) & (x % 2 == 1)
+    g = ~(r | b)
+    return np.stack(
+        (np.ones_like(simulated), simulated * r, simulated * g, simulated * b), axis=-1
+    )
+
+
+def fit_counts(
+    simulated: np.ndarray, actual: np.ndarray, mask: np.ndarray
+) -> np.ndarray:
+    design = cfa_design(simulated)[mask]
+    return np.linalg.lstsq(design, actual[mask], rcond=None)[0]
+
+
+def evaluate(
+    simulated: np.ndarray, actual: np.ndarray, mask: np.ndarray, weights: np.ndarray
+) -> dict:
+    predicted = cfa_design(simulated) @ weights
+    residual = predicted[mask] - actual[mask]
+    return {
+        "n": int(mask.sum()),
+        "mae_counts": float(np.abs(residual).mean()),
+        "rmse_counts": float(np.sqrt(np.mean(residual**2))),
+        "pearson": float(np.corrcoef(predicted[mask], actual[mask])[0, 1]),
+        "actual_mean": float(actual[mask].mean()),
+        "predicted_mean": float(predicted[mask].mean()),
+    }

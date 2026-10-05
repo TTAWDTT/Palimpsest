@@ -51,8 +51,8 @@
 
 ## 复算文件
 
-- 全量清单统计、800 来源像素抽样：`experiments/rr/analyze_rr_simulation_inputs.py` → `work/rr_simulation_diagnostic.json`。运行：`E:\ai_image_origin_research\envs\bfree\Scripts\python.exe -m experiments.rr.analyze_rr_simulation_inputs --sample-per-class 400 --output work\rr_simulation_diagnostic.json`。脚本 SHA-256 `7f619238bf52a338dfec97a69afd163149cf08dbbea60b9a6be9610e3e1388a1`；结果 SHA-256 `37daa25040f8568e14535380fb2b3d7c3189e2d5b047f0ce894b0176b861b037`。
-- 已知尺寸和 JPEG 参数的单次处理对照：`experiments/rr/rr_oracle_codec_control.py` → `work/rr_oracle_codec_control.json`。运行：`E:\ai_image_origin_research\envs\bfree\Scripts\python.exe -m experiments.rr.rr_oracle_codec_control --sources-per-class 60 --output work\rr_oracle_codec_control.json`。脚本 SHA-256 `d7b6a3821794d3cb556ea21d9692ef560c74c57f0ce94086da44d2e93dd0fc2b`；结果 SHA-256 `be3d695c54d8db8c617dde1fa0443068ab7df8f9dfd85f6b2c7d229191d68c29`。
+- 全量清单统计、800 来源像素抽样：`experiments/origin_detection/platform_statistics/rr/audit_inputs.py` → `work/rr_simulation_diagnostic.json`。运行：`E:\ai_image_origin_research\envs\bfree\Scripts\python.exe -m experiments.origin_detection.platform_statistics.rr.audit_inputs --sample-per-class 400 --output work\rr_simulation_diagnostic.json`。脚本 SHA-256 `7f619238bf52a338dfec97a69afd163149cf08dbbea60b9a6be9610e3e1388a1`；结果 SHA-256 `37daa25040f8568e14535380fb2b3d7c3189e2d5b047f0ce894b0176b861b037`。
+- 已知尺寸和 JPEG 参数的单次处理对照：`experiments/origin_detection/encoding_shortcuts/rr/run_oracle_codec_control.py` → `work/rr_oracle_codec_control.json`。运行：`E:\ai_image_origin_research\envs\bfree\Scripts\python.exe -m experiments.origin_detection.encoding_shortcuts.rr.run_oracle_codec_control --sources-per-class 60 --output work\rr_oracle_codec_control.json`。脚本 SHA-256 `d7b6a3821794d3cb556ea21d9692ef560c74c57f0ce94086da44d2e93dd0fc2b`；结果 SHA-256 `be3d695c54d8db8c617dde1fa0443068ab7df8f9dfd85f6b2c7d229191d68c29`。
 - 这两项是**simulation 开发前的诊断和简单对照**；尚无自研模拟方法的泛化性能或检测器训练收益结论。
 
 ## 2026-09-24 来源口径补充

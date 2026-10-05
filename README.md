@@ -4,7 +4,7 @@
 
 **研究目前暂停。** 已有数据审计、三种 baseline 和前向模型原型；尚未完成 simulation 的充分真实验证，也尚未形成自研的高速稳健检测算法或模型。
 
-本机代码：`E:\ai_image_origin_research\repo`。GitHub：[TTAWDTT/Palimpsest](https://github.com/TTAWDTT/Palimpsest)（私有）。
+本机代码：`E:\ai_image_origin_research\repo`。GitHub：[TTAWDTT/Palimpsest](https://github.com/TTAWDTT/Palimpsest)（公开）。
 
 ## 阅读入口
 
@@ -13,7 +13,7 @@
 | 当前证据、失败结果与待验证问题 | [研究结论](reports/README.md) |
 | 公共模块如何划分、实验依赖什么 | [代码结构](docs/architecture.md) |
 | 模型约定、安装和历史复算 | [开发指南](docs/README.md) |
-| 某个数据集的实验脚本 | [实验目录](experiments/README.md) |
+| 某个研究问题的实验入口 | [实验工作流](experiments/README.md) |
 | 配置数据、权重和结果路径 | [配置说明](configs/README.md) |
 | 一起审阅、整理和商定下一步 | [协作说明](docs/collaboration.md) |
 
@@ -28,7 +28,7 @@ src/palimpsest/
   paths.py          本机路径配置
 src/origin_simulation/  历史模块命令的兼容入口
 configs/            路径模板与虚拟模型配置
-experiments/        数据集协议、拟合与历史实验入口
+experiments/        按问题组织的历史工作流；角色入口与 protocol.py
 reports/            研究结论、指标与图表
 sources/            文献和官方来源记录
 work/               本机结果、日志与第三方代码（多数不提交）

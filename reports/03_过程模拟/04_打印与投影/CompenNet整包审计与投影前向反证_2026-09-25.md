@@ -10,7 +10,7 @@
 - **20,709 个非目录成员全部 ZIP CRC 通过**，无重名路径；24 组设置各有完整的 500 个 `cam/warp/train`、200 个 `cam/warp/test`、126 个 `cam/warp/ref` 路径。原输入 `train` 500、`test` 200、`ref` 126 路径也齐全。部分设置另有文本或 Poisson 图，不纳入本次配对。
 - 原始色块 `ref/img_0001`–`0125` 是 5×5×5 的均匀 RGB 网格，级别为 0、64、128、191、255；编号按 **R 最快、G 次之、B 最慢**变化。每组相机输出的前 125 个色块逐文件 SHA 均不同。
 - 根目录另有 `ref/img_gray.png`，其像素是 RGB(77,77,77)。**不能把每组输出 `cam/warp/ref/img_0126.png` 视作它的一张独立测量：**在 24 组中，该文件分别与已有的色块 0063（15 组）、0094（7 组）、0032（2 组）**逐字节相同**，对应均匀灰 128、191、64。故前向标定只采用已核实的一一对应 125 色块；不为 `img_gray` 臆造对应输出。
-- 审计程序 `experiments/projector/audit_compennet_full.py`，机器可读明细 `work/compennet_full_audit.json`。PNG 发布图为 256×256 RGB，其中相机结果路径明确是 `cam/warp`，**不能视作原生相机帧或传感器 RAW**。
+- 审计程序 `experiments/data_preparation/compennet/audit_full.py`，机器可读明细 `work/compennet_full_audit.json`。PNG 发布图为 256×256 RGB，其中相机结果路径明确是 `cam/warp`，**不能视作原生相机帧或传感器 RAW**。
 
 ## 2. 实验口径
 
@@ -65,14 +65,14 @@
 在本仓库运行：
 
 ```powershell
-uv run python -m experiments.projector.audit_compennet_full
-uv run python -m experiments.projector.probe_projector_chart_model --all --train-count 16 --test-count 200
-uv run python -m experiments.projector.probe_projector_channel_basis --all
-uv run python -m experiments.projector.probe_projector_full_lut --all
-uv run python -m experiments.projector.probe_projector_transfer
-uv run python -m experiments.projector.probe_projector_channel_transfer
-uv run python -m experiments.projector.diagnose_projector_residuals
-uv run python -m experiments.projector.benchmark_projector_forward_speed
+uv run python -m experiments.data_preparation.compennet.audit_full
+uv run python -m experiments.projection_capture.chart_response.compennet.run_chart_model --all --train-count 16 --test-count 200
+uv run python -m experiments.projection_capture.chart_response.compennet.run_channel_basis --all
+uv run python -m experiments.projection_capture.chart_response.compennet.run_full_lut --all
+uv run python -m experiments.projection_capture.chart_response.compennet.run_transfer
+uv run python -m experiments.projection_capture.chart_response.compennet.run_channel_transfer
+uv run python -m experiments.projection_capture.chart_response.compennet.evaluate_residuals
+uv run python -m experiments.projection_capture.chart_response.compennet.benchmark_forward_speed
 ```
 
 逐设置、逐测试图 MAE、训练尺度选择、档案 SHA 与完整审计分别落在 `work/compennet_full_audit.json`、`work/projector_chart_probe.json`、`work/projector_channel_basis_probe.json`、`work/projector_full_lut_probe.json`、`work/projector_transfer_probe.json`、`work/projector_channel_transfer_probe.json`、`work/projector_residual_diagnosis.json` 和 `work/projector_forward_speed.json`。这些 JSON 是本机中间计算记录；上述程序和 E 盘档案提供可复算入口。已有[物理顺序与证据边界](../../../docs/projector_camera_model_contract.md)进一步区分投影、表面、相机与发布处理。

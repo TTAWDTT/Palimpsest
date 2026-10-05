@@ -29,11 +29,11 @@
 
 第一、第二组都支持“局部几何 + 输入通道非线性色阶”这个**条件前向结构**，但每组仍需自己的结构光/色块采集。测得的是投影、表面与 RGB 相机发布链合成后的有效响应；没有分离 DLP 时序、光谱、BRDF、PSF、传感器 CFA 或 ISP。它也不能代替手机拍屏、打印扫描或 AI/自然来源标签。下一步应在**不借测试纹理调参**的前提下，比较少量混色参考能否稳健解释留出混色和高频纹理，以及颜色标定减少后跨设置性能如何变化。
 
-复算程序为 `experiments/projector/evaluate_compennetpp_cross_setup_display.py`，机器可读逐图结果为 `work/compennetpp_cross_setup_display_probe.json`。第二组新图在 `E:\ai_image_origin_research\data\derived\compennetpp_raw_ref_probe_light3_pos1_cloud_np`，此前结构光图在 `E:\ai_image_origin_research\data\derived\compennetpp_sl_light3_pos1_cloud`。在前一实验和第二组结构光审计已完成的前提下：
+复算程序为 `experiments/projection_capture/raw_response/compennetpp/evaluate_cross_setup_display.py`，机器可读逐图结果为 `work/compennetpp_cross_setup_display_probe.json`。第二组新图在 `E:\ai_image_origin_research\data\derived\compennetpp_raw_ref_probe_light3_pos1_cloud_np`，此前结构光图在 `E:\ai_image_origin_research\data\derived\compennetpp_sl_light3_pos1_cloud`。在前一实验和第二组结构光审计已完成的前提下：
 
 ```powershell
-uv run python -m experiments.projector.probe_compennetpp_raw_reference_pairs --setup light3/pos1/cloud_np --ref-numbers 1 5 21 101 125 --train-numbers 1 2 --test-numbers 1 2 3 --output-json work/compennetpp_light3_initial_probe.json
-uv run python -m experiments.projector.probe_compennetpp_raw_reference_pairs --setup light3/pos1/cloud_np --ref-numbers 2 3 4 6 11 16 26 51 76 --test-numbers --output-json work/compennetpp_light3_primary_curve_probe.json
-uv run python -m experiments.projector.probe_compennetpp_raw_reference_pairs --setup light3/pos1/cloud_np --ref-numbers --test-numbers 10 35 37 40 48 88 97 98 112 113 114 116 153 183 185 189 198 --output-json work/compennetpp_light3_test20_extension_probe.json
-uv run python -m experiments.projector.evaluate_compennetpp_cross_setup_display
+uv run python -m experiments.data_preparation.compennetpp.run_raw_reference_pairs --setup light3/pos1/cloud_np --ref-numbers 1 5 21 101 125 --train-numbers 1 2 --test-numbers 1 2 3 --output-json work/compennetpp_light3_initial_probe.json
+uv run python -m experiments.data_preparation.compennetpp.run_raw_reference_pairs --setup light3/pos1/cloud_np --ref-numbers 2 3 4 6 11 16 26 51 76 --test-numbers --output-json work/compennetpp_light3_primary_curve_probe.json
+uv run python -m experiments.data_preparation.compennetpp.run_raw_reference_pairs --setup light3/pos1/cloud_np --ref-numbers --test-numbers 10 35 37 40 48 88 97 98 112 113 114 116 153 183 185 189 198 --output-json work/compennetpp_light3_test20_extension_probe.json
+uv run python -m experiments.projection_capture.raw_response.compennetpp.evaluate_cross_setup_display
 ```

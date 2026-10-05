@@ -25,8 +25,8 @@
 复算所选子集和两 setup 比较：
 
 ```powershell
-uv run python -m experiments.projector.extract_compennetpp_sl_one_setup --setup light3/pos1/cloud_np --folder E:\ai_image_origin_research\data\derived\compennetpp_sl_light3_pos1_cloud --manifest work\compennetpp_sl_light3_pos1_cloud_manifest.json --reuse-source-folder E:\ai_image_origin_research\data\derived\compennetpp_sl_one_setup
-uv run --extra analysis python -m experiments.projector.decode_compennetpp_sl_one_setup --manifest work\compennetpp_sl_light3_pos1_cloud_manifest.json --folder E:\ai_image_origin_research\data\derived\compennetpp_sl_light3_pos1_cloud --output-json work\compennetpp_sl_light3_pos1_cloud_decoding.json --preview work\compennetpp_sl_light3_pos1_cloud_preview.png
-uv run --extra analysis python -m experiments.projector.evaluate_compennetpp_geometry_surrogates --manifest work\compennetpp_sl_light3_pos1_cloud_manifest.json --folder E:\ai_image_origin_research\data\derived\compennetpp_sl_light3_pos1_cloud --output-json work\compennetpp_sl_light3_pos1_cloud_holdout.json
-uv run --extra analysis python -m experiments.projector.compare_compennetpp_light_setups
+uv run python -m experiments.data_preparation.compennetpp.prepare_sl_one_setup --setup light3/pos1/cloud_np --folder E:\ai_image_origin_research\data\derived\compennetpp_sl_light3_pos1_cloud --manifest work\compennetpp_sl_light3_pos1_cloud_manifest.json --reuse-source-folder E:\ai_image_origin_research\data\derived\compennetpp_sl_one_setup
+uv run --extra analysis python -m experiments.projection_capture.structured_light.compennetpp.prepare_sl_one_setup --manifest work\compennetpp_sl_light3_pos1_cloud_manifest.json --folder E:\ai_image_origin_research\data\derived\compennetpp_sl_light3_pos1_cloud --output-json work\compennetpp_sl_light3_pos1_cloud_decoding.json --preview work\compennetpp_sl_light3_pos1_cloud_preview.png
+uv run --extra analysis python -m experiments.projection_capture.structured_light.compennetpp.evaluate_geometry_surrogates --manifest work\compennetpp_sl_light3_pos1_cloud_manifest.json --folder E:\ai_image_origin_research\data\derived\compennetpp_sl_light3_pos1_cloud --output-json work\compennetpp_sl_light3_pos1_cloud_holdout.json
+uv run --extra analysis python -m experiments.projection_capture.chart_response.compennet.evaluate_light_setups
 ```

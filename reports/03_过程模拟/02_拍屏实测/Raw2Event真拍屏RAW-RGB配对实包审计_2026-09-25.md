@@ -8,7 +8,7 @@
 
 [Raw2Event 官方数据卡](https://huggingface.co/datasets/raw2event/raw2event/blob/d400d349292a6ae1c8ea967e9ae99624d8b156cd/README.md)说明，CIFAR-10 图像显示在屏幕上，由 Raspberry Pi Camera Module 3 同时记录 Bayer RAW 与经 ISP 的 RGB 视频，另有事件相机和元数据。官方描述为 59,454 个通过跨模态质检的录制前缀，轨迹为固定圆周运动。它提供 **真实屏幕→光学/传感器→ISP** 的观测机会，但刺激是 CIFAR-10 小图，不是本课题的“自然摄影／AI 生成”整图分类；已审样本中没有可直接使用的逐帧数字显示缓冲区。
 
-本次下载两个前缀的 RAW MKV、RGB MKV 与 DAT，均放在 E 盘 `data/raw/raw2event_probe/`。获取脚本 `experiments/raw2event/fetch_raw2event_pair.py` 分别生成 `work/raw2event_probe_download_audit.json` 和 `work/raw2event_probe_airplane_download_audit.json`。
+本次下载两个前缀的 RAW MKV、RGB MKV 与 DAT，均放在 E 盘 `data/raw/raw2event_probe/`。获取脚本 `experiments/data_preparation/raw2event/prepare_download_pair.py` 分别生成 `work/raw2event_probe_download_audit.json` 和 `work/raw2event_probe_airplane_download_audit.json`。
 
 | 前缀 | RAW MKV | RGB MKV | DAT |
 |---|---:|---:|---:|
@@ -48,7 +48,7 @@
 
 线性光形式跨内容略好，但内容块仍有约 **21/255** 的平均通道绝对误差；大面积浅色背景使全有效区指标显得更好，不能拿它掩盖图像内容误差。残差混合了 Tag 角点/平面插值误差、真实 ISP 的白平衡/色调/降噪/锐化，以及未测的相机设置；**无法从这两个视频中独立归因**。这项检验仅说明低维映射可以迁移部分颜色，不是实际 ISP 的辨识结果。
 
-更重要的是一个严格的**不可辨识性**：若允许自由的 3×3 颜色矩阵，互换 RAW 去马赛克的红蓝通道，可由矩阵反向交换而获得完全相同的预测。实测 `RG` 对 `BG`、`GR` 对 `GB` 的 airplane 内容块 MAE 最大差仅约 $1.1\times10^{-12}$/255。故前文的 Bayer 周期观察不能被这项拟合“确认相位”；需要独立色块/设备说明或受约束的光谱响应。复算结果在 `work/raw2event_isp_transfer.json`，代码为 `experiments/raw2event/probe_raw2event_isp_transfer.py`。
+更重要的是一个严格的**不可辨识性**：若允许自由的 3×3 颜色矩阵，互换 RAW 去马赛克的红蓝通道，可由矩阵反向交换而获得完全相同的预测。实测 `RG` 对 `BG`、`GR` 对 `GB` 的 airplane 内容块 MAE 最大差仅约 $1.1\times10^{-12}$/255。故前文的 Bayer 周期观察不能被这项拟合“确认相位”；需要独立色块/设备说明或受约束的光谱响应。复算结果在 `work/raw2event_isp_transfer.json`，代码为 `experiments/screen_capture/isp_transfer/raw2event/run_isp_transfer.py`。
 
 ## 已从官方 CIFAR-10 包找回这两张数字源
 
@@ -77,7 +77,7 @@
 
 日期和内容类别也高度耦合：bird、cat、deer、dog、frog、horse、truck 的直列录像各几乎只在一个日期，airplane／automobile／ship 才有少量第二日期。因而**跨类别测试同时往往是跨采集日期测试**，不能从误差单独辨别内容泛化还是采集日/对焦/照明变化。后续应同时报告同类别同日不同来源留出，以及跨类别/日期压力测试。
 
-数据卡所说约 **59,454** 组是更大总语料；这次只验到三个**直列逐文件目录**各 5,914，未核验远程 `raw/*.tar` 分包内的其余成员或其与 CIFAR 的对应。不能把这份索引扩称为全库清单。脚本 `experiments/raw2event/index_raw2event_source_paths.py` 与机器审计 `work/raw2event_cifar_source_index_audit.json` 可复查目录、类别和批次；无需下载另外 5,912 条大型视频。
+数据卡所说约 **59,454** 组是更大总语料；这次只验到三个**直列逐文件目录**各 5,914，未核验远程 `raw/*.tar` 分包内的其余成员或其与 CIFAR 的对应。不能把这份索引扩称为全库清单。脚本 `experiments/data_preparation/raw2event/prepare_source_paths.py` 与机器审计 `work/raw2event_cifar_source_index_audit.json` 可复查目录、类别和批次；无需下载另外 5,912 条大型视频。
 
 ## 首次用已知数字源检验前向 RAW，而不是只拟合发布图
 
@@ -89,7 +89,7 @@
 | 同光子量 RGB 共址发光 | 29.49 | 50.92 | 0.8202 | 7.61 s |
 | 直接数字插值＋相同 Gaussian 模糊 | 30.28 | 52.53 | 0.8091 | **0.005 s** |
 
-竖条与共址仅差 **0.02–0.03 个 RAW 计数 MAE**，这组设置不能支持“已从真实数据辨认子像素排列”的说法。完整前向比直接插值在单个留出内容上少 **1.64 个计数 MAE**，但仍有 **50.9/1023** 的平均误差，且项目当前透视细网格渲染比简单对照慢三个数量级左右；这里的时间只是单个 RAW ROI 渲染，不含解码或优化。两张图、未知显示栅格和未知 CFA 相位不足以把微小改善归因到真实物理机制，也不能拿来训练最终来源模型。机器结果 `work/raw2event_source_to_raw_probe.json`，复算 `python -m experiments.raw2event.probe_raw2event_source_to_raw`。
+竖条与共址仅差 **0.02–0.03 个 RAW 计数 MAE**，这组设置不能支持“已从真实数据辨认子像素排列”的说法。完整前向比直接插值在单个留出内容上少 **1.64 个计数 MAE**，但仍有 **50.9/1023** 的平均误差，且项目当前透视细网格渲染比简单对照慢三个数量级左右；这里的时间只是单个 RAW ROI 渲染，不含解码或优化。两张图、未知显示栅格和未知 CFA 相位不足以把微小改善归因到真实物理机制，也不能拿来训练最终来源模型。机器结果 `work/raw2event_source_to_raw_probe.json`，复算 `python -m experiments.screen_capture.source_to_raw.raw2event.run_two_sources`。
 
 ## 对过程 simulation 的具体作用和限制
 
@@ -104,15 +104,15 @@
 ## 复算
 
 ```powershell
-python -m experiments.raw2event.fetch_raw2event_pair
-python -m experiments.raw2event.audit_raw2event_probe
-python -m experiments.raw2event.fetch_raw2event_pair --prefix 1000_airplane_1_9934_20251222_161953 --audit work/raw2event_probe_airplane_download_audit.json
-python -m experiments.raw2event.audit_raw2event_probe --prefix 1000_airplane_1_9934_20251222_161953 --out-dir work/raw2event_probe_airplane --report work/raw2event_probe_airplane_pixel_audit.json
-python -m experiments.raw2event.probe_raw2event_isp_transfer
-python -m experiments.raw2event.fetch_cifar10_python
-python -m experiments.raw2event.match_raw2event_cifar_source
-python -m experiments.raw2event.index_raw2event_source_paths
-python -m experiments.raw2event.probe_raw2event_source_to_raw
+python -m experiments.data_preparation.raw2event.prepare_download_pair
+python -m experiments.data_preparation.raw2event.audit_probe
+python -m experiments.data_preparation.raw2event.prepare_download_pair --prefix 1000_airplane_1_9934_20251222_161953 --audit work/raw2event_probe_airplane_download_audit.json
+python -m experiments.data_preparation.raw2event.audit_probe --prefix 1000_airplane_1_9934_20251222_161953 --out-dir work/raw2event_probe_airplane --report work/raw2event_probe_airplane_pixel_audit.json
+python -m experiments.screen_capture.isp_transfer.raw2event.run_isp_transfer
+python -m experiments.data_preparation.raw2event.prepare_download_cifar10_python
+python -m experiments.screen_capture.source_matching.raw2event.run_cifar_source
+python -m experiments.data_preparation.raw2event.prepare_source_paths
+python -m experiments.screen_capture.source_to_raw.raw2event.run_two_sources
 ```
 
 抽帧、PTS、Tag 角点、亮度对照和经验元数据结构记录在 `work/raw2event_probe_pixel_audit.json` 与 `work/raw2event_probe_airplane_pixel_audit.json`；示意图源帧位于各自的 `work/raw2event_probe*/`。CIFAR 档案验收在 `work/cifar10_python_download_audit.json`。脚本不执行来源检测器推理。

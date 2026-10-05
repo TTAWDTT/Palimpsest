@@ -50,10 +50,10 @@
 ## 复算
 
 ```powershell
-python -m experiments.raw2event.freeze_raw2event_phase_confirmation
-python -m experiments.raw2event.fetch_raw2event_phase_confirmation
-python -m experiments.raw2event.evaluate_raw2event_phase_confirmation
-python -m experiments.raw2event.summarize_raw2event_phase_confirmation
+python -m experiments.data_preparation.raw2event.prepare_registry_phase_confirmation
+python -m experiments.data_preparation.raw2event.prepare_download_phase_confirmation
+python -m experiments.screen_capture.cfa_phase.raw2event.evaluate_phase_confirmation
+python -m experiments.screen_capture.cfa_phase.raw2event.evaluate_summary_phase_confirmation
 ```
 
 冻结选择和下载验收见 `work/raw2event_phase_confirmation_freeze.json`、`work/raw2event_phase_confirmation_download_audit.json`；每文件指纹在 `work/raw2event_phase_confirmation_downloads/`。新来源每种假设的逐图分数、内容匹配排名、几何诊断、旧拟合文件 SHA256 与代码指纹在 `work/raw2event_phase_confirmation_evaluation.json`；配对差及抽样区间在 `work/raw2event_phase_confirmation_summary.json`。原始数据与派生缓存均在 E 盘。
