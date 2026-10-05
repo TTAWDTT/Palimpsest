@@ -76,6 +76,9 @@ def test_eval_only_jpeg_bytes_and_audit_rejections(tmp_path, monkeypatch):
     row = {'filename': 'plant.png', 'src': 'plant', 'domain': 'rr', 'scene': 'all', 'condition': 'original',
            'role': 'selection', 'label': 'REAL', 'sha256': file_sha256(path), 'width': 49, 'height': 37}
     monkeypatch.setattr(runner, 'image_path', lambda _: path)
+    parent = tmp_path/'parent'; parent.mkdir()
+    (parent/'features.json').write_text('{"independent_test_receipt": true}', encoding='utf-8')
+    monkeypatch.setattr(runner, 'PARENT', parent)
     result = runner.extract_intervention([row], tmp_path)
     records = read_rows(tmp_path/'features.csv')
     assert result['images'] == 1
