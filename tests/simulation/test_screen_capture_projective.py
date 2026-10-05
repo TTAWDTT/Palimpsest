@@ -3,9 +3,9 @@ from scipy.ndimage import gaussian_filter
 
 from palimpsest.simulation.screen_capture import (
     ScreenCaptureParameters,
-    _optical_blur,
     render_screen_capture,
 )
+from palimpsest.simulation._screen.optics import _optical_blur
 
 
 def test_projective_emitter_quadrature_converges_on_uniform_screen():

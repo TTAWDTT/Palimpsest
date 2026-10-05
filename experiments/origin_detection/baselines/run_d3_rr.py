@@ -3,6 +3,9 @@
 from __future__ import annotations
 
 from palimpsest.paths import DATA_ROOT, MODELS_ROOT
+from palimpsest.detection.baselines.d3 import D3Detector, CLIP_SHA256
+from palimpsest.detection.baselines import d3 as d3_backend
+from palimpsest.detection.files import predict_file
 
 from palimpsest.io.hashing import file_sha256 as sha256
 
@@ -16,12 +19,9 @@ import json
 import math
 import os
 import statistics
-import sys
-import time
 from collections import defaultdict
 from pathlib import Path
 
-from PIL import Image
 
 from palimpsest.evaluation.pairing import paired_change
 from palimpsest.evaluation.timing import percentile
@@ -31,25 +31,11 @@ from palimpsest.evaluation.classification import evaluate
 VENDOR = WORK_DIR / "vendor" / "d3"
 
 
-def load_vendor():
-    """Load the official D3 package only when inference is explicitly requested."""
-    import timm.layers.helpers as timm_helpers
-
-    sys.path.insert(0, str(VENDOR))
-    # The released D3 package imports unused MOCO modules with an older timm path.
-    sys.modules["timm.models.layers.helpers"] = timm_helpers
-    from models.clip import clip
-    from models.clip_models import CLIPModelShuffleAttentionPenultimateLayer
-
-    return clip, CLIPModelShuffleAttentionPenultimateLayer
-
-
 ROOT = DATA_ROOT / "derived/rr_test"
 MANIFEST = DATA_ROOT / "manifests/rr_test_files.csv"
 TRAINVAL_MANIFEST = DATA_ROOT / "manifests/rr_trainval_files.csv"
 CLIP_CHECKPOINT = MODELS_ROOT / "d3/ViT-L-14.pt"
 HEAD_CHECKPOINT = VENDOR / "ckpt" / "classifier.pth"
-CLIP_SHA256 = "b8cca3fd41ae0c99ba7e8951adf17d267cdb84cd88be6f7c2e0eca1737a03836"
 
 
 def read_csv(path: Path) -> list[dict[str, str]]:
@@ -123,7 +109,6 @@ def main() -> None:
     parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
     import torch
-    from torchvision import transforms
 
     rows, excluded_count = select_test_rows(args.test_sources_per_class)
     if not rows:
@@ -142,6 +127,7 @@ def main() -> None:
         "clip_sha256": CLIP_SHA256,
         "head_sha256": head_hash,
         "script_sha256": sha256(Path(__file__)),
+        "backend_sha256": sha256(Path(d3_backend.__file__)),
         "test_sources_per_class": args.test_sources_per_class,
     }
     checkpoint = (
@@ -178,37 +164,11 @@ def main() -> None:
     completed = int(checkpoint["index"]) if checkpoint else 0
     if completed != len(previous):
         raise ValueError("RNG checkpoint index and CSV prefix disagree")
-    # Use the preverified E: checkpoint without the vendor loader writing to home.
-    clip, model_class = load_vendor()
-    clip._download = lambda _url, _root: str(CLIP_CHECKPOINT)
-    model = model_class("ViT-L/14", shuffle_times=1, original_times=1, patch_size=[14])
-    state = torch.load(HEAD_CHECKPOINT, map_location="cpu", weights_only=True)
-    model.attention_head.load_state_dict(state, strict=True)
-    model.eval().cuda()
-    transform = transforms.Compose(
-        [
-            transforms.Resize((224, 224)),
-            transforms.ToTensor(),
-            transforms.Normalize(
-                mean=[0.48145466, 0.4578275, 0.40821073],
-                std=[0.26862954, 0.26130258, 0.27577711],
-            ),
-        ]
-    )
-    torch.backends.cudnn.benchmark = False
-    torch.backends.cuda.matmul.allow_tf32 = False
-    torch.backends.cudnn.allow_tf32 = False
+    detector = D3Detector(VENDOR, CLIP_CHECKPOINT, HEAD_CHECKPOINT)
+    if checkpoint:
+        detector.cpu_rng = checkpoint["cpu_rng"]
+        detector.cuda_rng = checkpoint["cuda_rng"]
     with torch.inference_mode():
-        for _ in range(3):
-            model(torch.zeros(1, 3, 224, 224, device="cuda"))
-        torch.cuda.synchronize()
-        # The official validation script seeds the RNG once before inference.
-        if checkpoint:
-            torch.set_rng_state(checkpoint["cpu_rng"])
-            torch.cuda.set_rng_state(checkpoint["cuda_rng"])
-        else:
-            torch.manual_seed(418)
-            torch.cuda.manual_seed_all(418)
         results: list[dict[str, object]] = list(previous)
         fields = (
             "filename",
@@ -224,15 +184,13 @@ def main() -> None:
             writer.writeheader()
             writer.writerows(previous)
             for index, row in enumerate(rows[completed:], completed + 1):
-                start = time.perf_counter()
-                with Image.open(ROOT / row["filename"]) as loaded:
-                    image = loaded.convert("RGB")
-                    image_tensor = transform(image).unsqueeze(0)
-                decode_ms = (time.perf_counter() - start) * 1000
-                image_tensor = image_tensor.cuda()
-                score = float(model(image_tensor).flatten()[0].item())
-                torch.cuda.synchronize()
-                total_ms = (time.perf_counter() - start) * 1000
+                file_result = predict_file(detector, ROOT / row["filename"])
+                score = file_result.prediction.score
+                decode_ms = (
+                    file_result.decode_ms
+                    + file_result.prediction.timing_ms["preprocess"]
+                )
+                total_ms = file_result.end_to_end_ms
                 if not math.isfinite(score):
                     raise ValueError(f"Nonfinite D3 score at {row['filename']}")
                 result = {
@@ -254,8 +212,8 @@ def main() -> None:
                     torch.save(
                         {
                             "index": index,
-                            "cpu_rng": torch.get_rng_state(),
-                            "cuda_rng": torch.cuda.get_rng_state(),
+                            "cpu_rng": detector.cpu_rng,
+                            "cuda_rng": detector.cuda_rng,
                             "protocol": protocol,
                             "csv_offset": csv_offset,
                             "csv_sha256": sha256(output_csv),

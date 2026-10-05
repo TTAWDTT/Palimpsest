@@ -1,11 +1,31 @@
 # Palimpsest 代码结构
 
-[仓库首页](../README.md) · [开发与复算](README.md) · [研究结论](../reports/README.md)
+[仓库首页](../README.md) · [来源推理接入](detection_pipeline.md) · [研究结论](../reports/README.md)
+
+## 完整任务与能力边界
+
+给定经过未知传播的图像，判断原始内容来自自然摄影还是 AI。`localization` 负责区域定位，`detection` 负责来源判别，`pipelines` 串接解码、定位、原像素裁切和来源推理，`simulation` 支持处理机制与鲁棒性研究。
+
+| 模块 | 当前状态 |
+|---|---|
+| [contracts](../src/palimpsest/contracts.py) | RGB、Box、Region、Prediction：坐标、标签、分数方向、阈值与计时 |
+| [localization](../src/palimpsest/localization/README.md) | 四边形提议、SAM 2 自动分割已接入；图像表面筛选与跟踪待开发 |
+| [detection](../src/palimpsest/detection/README.md) | B-Free/D3 推理、Benford 特征与森林导出/加载；自研 algorithms/models 待开发 |
+| [pipelines](../src/palimpsest/pipelines/README.md) | 图片链可调用；视频/手机实时应用待开发 |
+| [training](../src/palimpsest/training/README.md) | 训练/标定协议预留，无默认训练器，本轮不训练研究模型 |
+
+定位和来源模块共用 contracts，彼此不导入。前向模拟不依赖真假标签选择参数，组合来源推理不偷偷执行模拟。未实现的目录提供职责与协议，不制造预测。
 
 ## 依赖方向
 
 ```mermaid
 flowchart TD
+    Input[文件或 RGB 图] --> Chain[pipelines 图片链]
+    Chain --> Locator[localization 区域定位]
+    Locator --> Crop[原像素裁切]
+    Crop --> Detector[detection 原始来源判别]
+    Detector --> Results[区域结果与阶段计时]
+    Results --> M
     E[experiments：数据集协议和实验入口] --> S[palimpsest.simulation：前向模型]
     E --> D[palimpsest.data：数据与清单校验]
     E --> M[palimpsest.evaluation：评分和配对统计]
@@ -42,10 +62,10 @@ flowchart TD
 
 新增实验应显式记录配置、输入清单及指纹、代码版本、随机种子、指标和日志。此前审查发现的顶层研究操作已移到显式入口，维护检查和无数据导入测试覆盖这些边界。当前未实现统一实验调度器；不要批量运行历史脚本。
 
-## 安装和兼容
+## 扩展与复算
 
-Python 使用 `src` 布局，需要先 `uv sync --locked --extra dev`。标准命令为 `palimpsest-render`、`palimpsest-pipeline`、`palimpsest-capture-kit`。
+Python 使用 `src` 布局。核心命令为 `palimpsest-render`、`palimpsest-simulate`、`palimpsest-capture-kit`、`palimpsest-detect`。来源推理的依赖、协议与命令见[接入指南](detection_pipeline.md)。
 
-[origin_simulation](../src/origin_simulation/__init__.py) 仅为历史模块命令保留 namespace 入口，没有第二份模拟实现。新代码和当前文档使用 `palimpsest.simulation`。
+旧命名空间与入口私有助手转发已移除，调用直接引用实现模块。新增定位器实现 `RegionLocator`；新增传统/神经来源检测器实现 `OriginDetector`。阈值标定、掩膜处理、透视校正或聚合策略需要独立验证，不能悄悄作为默认处理。
 
 重构改变代码路径和指纹，旧缓存不能视作新代码运行结果。要精确恢复旧实验，使用报告记录的历史 Git 版本与原依赖环境。

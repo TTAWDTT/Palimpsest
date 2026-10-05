@@ -5,58 +5,24 @@ into _screen/parameters, emission, optics, spatial and temporal; sensor.py
 contains the Bayer/ISP primitives shared with the paper-camera model.
 All parameters remain hypotheses until verified against real devices.
 
-Private helper aliases remain available for existing experiment imports.
+Helpers are imported directly from their owning implementation modules.
 """
 
 import numpy as np
 
-from ._screen.emission import _display_emitter_raster as _display_emitter_raster
-from ._screen.emission import _screen_radiance as _screen_radiance
-from ._screen.emission import _screen_radiance_projective as _screen_radiance_projective
-from ._screen.optics import _airy_kernel as _airy_kernel
-from ._screen.optics import _airy_radius_sensor_pixels as _airy_radius_sensor_pixels
-from ._screen.optics import _defocus_disk_blur as _defocus_disk_blur
-from ._screen.optics import _diffraction_blur as _diffraction_blur
-from ._screen.optics import (
-    _effective_diffraction_f_number as _effective_diffraction_f_number,
-)
-from ._screen.optics import _optical_blur as _optical_blur
-from ._screen.optics import _optical_halo_sensor_pixels as _optical_halo_sensor_pixels
-from ._screen.optics import _wave_defocus_blur as _wave_defocus_blur
-from ._screen.optics import (
-    thin_lens_coc_radius_sensor_pixels as thin_lens_coc_radius_sensor_pixels,
-)
-from ._screen.optics import (
-    thin_lens_frontoparallel_sensor_to_display as thin_lens_frontoparallel_sensor_to_display,
-)
 from ._screen.parameters import ScreenCaptureParameters as ScreenCaptureParameters
 from ._screen.parameters import ScreenCaptureResult as ScreenCaptureResult
-from ._screen.spatial import _axis_emitter_matrix as _axis_emitter_matrix
-from ._screen.spatial import _emitter_pixel_weight as _emitter_pixel_weight
-from ._screen.spatial import _homography_jacobian as _homography_jacobian
-from ._screen.spatial import _integrate_display_raster as _integrate_display_raster
-from ._screen.spatial import _is_axis_aligned_positive as _is_axis_aligned_positive
-from ._screen.spatial import (
-    _minimum_samples_for_projection as _minimum_samples_for_projection,
-)
-from ._screen.spatial import _normal_cdf_antiderivative as _normal_cdf_antiderivative
-from ._screen.spatial import _spatial_axis_analytic as _spatial_axis_analytic
-from ._screen.spatial import _spatial_prefilter as _spatial_prefilter
-from ._screen.spatial import _spatial_tile as _spatial_tile
-from ._screen.spatial import _spatial_wave_prefilter as _spatial_wave_prefilter
-from ._screen.spatial import integrate_screen_radiance
-from ._screen.temporal import _pwm_row_gain as _pwm_row_gain
-from .sensor import _bayer_masks as _bayer_masks
-from .sensor import _demosaic_bilinear as _demosaic_bilinear
-from .sensor import _isp_luma_unsharp as _isp_luma_unsharp
-from .sensor import _linear_to_srgb as _linear_to_srgb
+from ._screen.spatial import integrate_screen_radiance as integrate_screen_radiance
+from ._screen.temporal import _pwm_row_gain
+from .sensor import _bayer_masks
+from .sensor import _demosaic_bilinear
+from .sensor import _isp_luma_unsharp
+from .sensor import _linear_to_srgb
 
 __all__ = [
     "ScreenCaptureParameters",
     "ScreenCaptureResult",
     "render_screen_capture",
-    "thin_lens_coc_radius_sensor_pixels",
-    "thin_lens_frontoparallel_sensor_to_display",
 ]
 
 

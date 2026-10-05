@@ -1,0 +1,189 @@
+{
+  "scope": "integration/parity only; no accuracy claim; no real recapture fixture",
+  "tolerance": 0.0001,
+  "model_load_ms": {
+    "bfree": 14330.26399999926,
+    "d3": 22944.6853999998
+  },
+  "bfree": [
+    {
+      "filename": "original/ai/Culture_&_Religion_000001.png",
+      "sha256": "c5098bce0337d236402a8deec55627f6e41d0b159bffc9a7b0b9253a816290e2",
+      "historical_score": -3.4459640979766846,
+      "new_score": -3.4459640979766846,
+      "absolute_difference": 0.0,
+      "preprocess": "full_projection",
+      "end_to_end_ms": 1254.5701999997618
+    },
+    {
+      "filename": "original/ai/Culture_&_Religion_000002.png",
+      "sha256": "16d0bb3e897cb55f19f1a9afcdc1754df76dd768020a00fc4fa5a96ab827f4b4",
+      "historical_score": -0.3780435025691986,
+      "new_score": -0.3780435025691986,
+      "absolute_difference": 0.0,
+      "preprocess": "full_projection",
+      "end_to_end_ms": 354.2154999995546
+    },
+    {
+      "filename": "original/ai/normal_006231.jpg",
+      "sha256": "0e34fa8a1cecfa843d96fb57b5a2fa11325cb2ab9349bea6274b9fbbc739233a",
+      "historical_score": 4.576065540313721,
+      "new_score": 4.576065540313721,
+      "absolute_difference": 0.0,
+      "preprocess": "crop_first_5patch",
+      "end_to_end_ms": 809.2371000002458
+    }
+  ],
+  "d3": [
+    {
+      "filename": "original/ai/Culture_&_Religion_000001.png",
+      "historical_score": 6.512004852294922,
+      "new_score": 6.512004852294922,
+      "absolute_difference": 0.0,
+      "end_to_end_ms": 124.81290000050649
+    },
+    {
+      "filename": "original/ai/Culture_&_Religion_000002.png",
+      "historical_score": 3.9573519229888916,
+      "new_score": 3.9573519229888916,
+      "absolute_difference": 0.0,
+      "end_to_end_ms": 67.17620000017632
+    }
+  ],
+  "region_chains": {
+    "opencv_quadrilateral": {
+      "image_size": [
+        760,
+        650
+      ],
+      "mode": "opencv_quadrilateral",
+      "timing_ms": {
+        "decode": 13.195900000027905,
+        "localization": 132.56769999952667,
+        "crop": 0.2238000006400398,
+        "detection": 239.00529999991704,
+        "end_to_end": 387.1036999998978
+      },
+      "mask_representation": "source-sized bool in Python API; JSON contains area only",
+      "regions": [
+        {
+          "region_id": "0",
+          "box_xyxy": [
+            120,
+            59,
+            637,
+            577
+          ],
+          "kind": "quadrilateral_surface_candidate",
+          "localization_confidence": null,
+          "mask_area": 266517,
+          "crop_policy": "unwarped_bounding_box_including_background",
+          "origin": "natural",
+          "score": -3.9664368629455566,
+          "score_kind": "logit",
+          "threshold": 0.0,
+          "ai_probability": null,
+          "method": "B-Free",
+          "metadata": {
+            "preprocess_mode": "full_projection",
+            "protocol": "official five-crop; crop-first above 8M pixels"
+          },
+          "timing_ms": {
+            "crop": 0.2238000006400398,
+            "detection": 239.00529999991704,
+            "preprocess": 2.0806000002266956,
+            "forward": 236.73330000019632
+          }
+        }
+      ]
+    },
+    "sam2.1_automatic": {
+      "image_size": [
+        760,
+        650
+      ],
+      "mode": "sam2.1_automatic",
+      "timing_ms": {
+        "decode": 5.772699999397446,
+        "localization": 1830.6541000001744,
+        "crop": 0.08109999998850981,
+        "detection": 512.6145999993241,
+        "end_to_end": 2351.4322000000902
+      },
+      "mask_representation": "source-sized bool in Python API; JSON contains area only",
+      "regions": [
+        {
+          "region_id": "0",
+          "box_xyxy": [
+            256,
+            61,
+            536,
+            331
+          ],
+          "kind": "class_agnostic_segment",
+          "localization_confidence": 0.9807522892951965,
+          "mask_area": 39265,
+          "crop_policy": "unwarped_bounding_box_including_background",
+          "origin": "natural",
+          "score": -0.6889804005622864,
+          "score_kind": "logit",
+          "threshold": 0.0,
+          "ai_probability": null,
+          "method": "B-Free",
+          "metadata": {
+            "preprocess_mode": "full_projection",
+            "protocol": "official five-crop; crop-first above 8M pixels"
+          },
+          "timing_ms": {
+            "crop": 0.03860000015265541,
+            "detection": 259.0900999994119,
+            "preprocess": 1.0050000000774162,
+            "forward": 257.95469999957277
+          }
+        },
+        {
+          "region_id": "1",
+          "box_xyxy": [
+            453,
+            62,
+            635,
+            500
+          ],
+          "kind": "class_agnostic_segment",
+          "localization_confidence": 0.9093626141548157,
+          "mask_area": 46178,
+          "crop_policy": "unwarped_bounding_box_including_background",
+          "origin": "ai",
+          "score": 0.07534420490264893,
+          "score_kind": "logit",
+          "threshold": 0.0,
+          "ai_probability": null,
+          "method": "B-Free",
+          "metadata": {
+            "preprocess_mode": "full_projection",
+            "protocol": "official five-crop; crop-first above 8M pixels"
+          },
+          "timing_ms": {
+            "crop": 0.042499999835854396,
+            "detection": 253.52449999991222,
+            "preprocess": 1.2289000005694106,
+            "forward": 252.1932999998171
+          }
+        }
+      ]
+    }
+  },
+  "scene_sha256": "af8f97eb753347d961ea8a874ee357913f50588f64088c9e88a0f0f82dbc5ba5",
+  "sam2_code_commit": "2b90b9f5ceec907a1c18123530e92e794ad901a4",
+  "sam2_checkpoint_sha256": "7402e0d864fa82708a20fbd15bc84245c2f26dff0eb43a4b5b93452deb34be69",
+  "versions": {
+    "numpy": "2.5.2",
+    "Pillow": "12.3.0",
+    "torch": "2.7.1+cu126",
+    "torchvision": "0.22.1+cu126",
+    "timm": "1.0.12",
+    "scipy": "1.17.1",
+    "opencv-python-headless": "4.13.0.92",
+    "SAM-2": "1.0"
+  }
+}
