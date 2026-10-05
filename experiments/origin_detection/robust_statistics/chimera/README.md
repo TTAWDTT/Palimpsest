@@ -12,3 +12,14 @@ uv run --locked python -m experiments.origin_detection.robust_statistics.chimera
 ```
 
 结果位于`work/robust_statistics/chimera_first_iteration/`。RR的reserved仍不读取；本诊断无论成功失败都不反向修改该冻结规则。
+
+## 2026-10-05：第二轮规则复用此入口
+
+增加显式`--projection`选项，只有第二轮RR注册门槛通过且代码/参数指纹一致时运行。结果写入`work/robust_statistics/chimera_paired_projection/`，旧颜色结果保持原位置且不覆盖。两种规则复用同一解码、逐图SHA、覆盖审计与缓存baseline评测，不复制另一个推理脚本。
+
+```powershell
+uv run --locked python -m experiments.origin_detection.robust_statistics.chimera.run_algorithm --projection --limit 60
+uv run --locked python -m experiments.origin_detection.robust_statistics.chimera.run_algorithm --projection
+```
+
+新增统计权重只来自RR fit，阈值只来自RR threshold；Chimera旧结果已暴露，只作固定参数诊断。pilot与完整结果分别保存，避免把计时pilot当完整准确率。

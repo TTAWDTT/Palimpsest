@@ -1,6 +1,7 @@
 """Bounded second iteration using frozen features; no image reads or refits on holdout."""
 
 from collections import defaultdict
+import argparse
 from datetime import datetime, timezone
 import json
 from time import perf_counter
@@ -83,8 +84,8 @@ def screen_iteration(table, config, manifest_sha, old_worst_auc):
                                                   for c in ("transfer", "redigital")
                                                   for key in ("real_accuracy_at_zero", "fake_accuracy_at_zero")),
         }
-        candidate["criteria"] = criteria
-        candidate["selection_gate"] = all(criteria.values())
+        candidate["criteria"] = {key: bool(value) for key, value in criteria.items()}
+        candidate["selection_gate"] = all(candidate["criteria"].values())
     passing = [name for name, value in candidates.items() if value["selection_gate"]]
     chosen = min(passing, key=lambda name: (-candidates[name]["worst_processed_auc"], rules[name].removed_rank)) if passing else None
     return {"candidates": candidates, "chosen": chosen, "candidate_count": 2, "reference_count": 1}, rules
@@ -135,7 +136,13 @@ def previous_capture_diagnosis():
 
 
 def main():
-    if OUTPUT.exists():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--recover-serialization", action="store_true",
+                        help="Recompute after JSON serialization failure; compare all three provisional rules")
+    args = parser.parse_args()
+    provisional = {f"rank{rank}_rule.json" for rank in (0, 1, 3)}
+    if OUTPUT.exists() and (not args.recover_serialization
+                            or {p.name for p in OUTPUT.iterdir()} != provisional):
         raise FileExistsError("Second iteration exists; preserve registered results")
     started, clock_start = datetime.now(timezone.utc).isoformat(), perf_counter()
     with CONFIG.open("rb") as stream:
@@ -158,12 +165,12 @@ def main():
                                     screening["candidates"][screening["chosen"]]["worst_processed_selection_auc"])
     result["previous_rule_rr_score_drift"] = score_drift(table, old_rule, "selection", config)
     result["previous_rule_capture_diagnosis"] = previous_capture_diagnosis()
-    OUTPUT.mkdir(parents=True)
     result["rule_files"] = {}
     for name, rule in rules.items():
         path = OUTPUT / f"{name}_rule.json"
-        rule.save(path)
-        result["rule_files"][name] = {"path": str(path), "sha256": file_sha256(path)}
+        if path.exists() and rule.fingerprint != type(rule).load(path).fingerprint:
+            raise ValueError("Provisional rule differs from validated recomputation")
+        result["rule_files"][name] = {"path": str(path), "parameter_sha256": rule.fingerprint}
     result.update({"started_utc": started, "completed_utc": datetime.now(timezone.utc).isoformat(),
                    "elapsed_seconds": perf_counter() - clock_start,
                    "scope": "second exploratory iteration; identical previously exposed development roles",
@@ -178,8 +185,18 @@ def main():
                        "experiments/origin_detection/robust_statistics/rr/evaluate_features.py")},
                    "old_feature_code_fingerprints": receipt["code_fingerprints"],
                    "reserved_images_opened": 0, "new_chimera_inference": False,
+                   "recovered_serialization_failure": args.recover_serialization,
                    "status": "RR development gate passed; frozen diagnosis pending" if result["chosen"]
                    else "no projected candidate passed; stop this recipe without holdout or speed optimization"})
+    # Serialize before writing any new artifact: a failed encoding must not leave
+    # a partly signed experiment. Recovery never changes provisional rules.
+    json.dumps(result, allow_nan=False)
+    OUTPUT.mkdir(parents=True, exist_ok=args.recover_serialization)
+    for name, rule in rules.items():
+        path = OUTPUT / f"{name}_rule.json"
+        if not path.exists():
+            rule.save(path)
+        result["rule_files"][name]["sha256"] = file_sha256(path)
     write_json(OUTPUT / "iteration.json", result)
     print(json.dumps({"chosen": result["chosen"], "status": result["status"],
                       "elapsed_seconds": result["elapsed_seconds"]}, ensure_ascii=False), flush=True)

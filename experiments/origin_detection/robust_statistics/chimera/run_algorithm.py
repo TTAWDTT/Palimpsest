@@ -11,11 +11,12 @@ import cv2
 
 from palimpsest.contracts import Origin
 from palimpsest.detection.algorithms.local_statistics.detector import LocalStatisticsDetector, StatisticsRule
+from palimpsest.detection.algorithms.local_statistics.projection import PairedProjectionDetector, ProjectionRule
 from palimpsest.detection.files import predict_file
 from palimpsest.evaluation.cached import CachedRun, ExpectedImage, evaluate_cached_method
 from palimpsest.io.hashing import file_sha256
 from palimpsest.io.tables import read_rows
-from palimpsest.paths import DATA_ROOT, WORK_DIR
+from palimpsest.paths import DATA_ROOT, REPO_ROOT, WORK_DIR
 
 MANIFEST = DATA_ROOT / "manifests/chimera_bfree_manifest.csv"
 AUDIT = DATA_ROOT / "manifests/chimera_paired_image_audit.csv"
@@ -29,13 +30,35 @@ CONDITIONS = {"stylegan2_orig": "original", "recap_mac": "mac_iphone", "recap_mo
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--limit", type=int, default=0)
+    parser.add_argument("--projection", action="store_true", help="Use the gated second-iteration frozen rule")
     args = parser.parse_args()
     if args.limit < 0:
         raise ValueError("Limit must be nonnegative")
     if file_sha256(MANIFEST) != "39da9e9eac3bd2d133c53769f9c5a158c1769039c67560c0bbfc4660d09a7d24":
         raise ValueError("Chimera manifest changed")
-    screening = json.loads(SCREENING.read_text(encoding="utf-8"))
-    if file_sha256(RULE) != screening["selected_rule_sha256"]:
+    if args.projection:
+        iteration_dir = WORK_DIR / "robust_statistics/rr_paired_projection"
+        selection_path = iteration_dir / "iteration.json"
+        screening = json.loads(selection_path.read_text(encoding="utf-8"))
+        chosen = screening["chosen"]
+        if chosen is None or not screening["candidates"][chosen]["selection_gate"]:
+            raise ValueError("No projection candidate passed the registered development gate")
+        for name, fingerprint in screening["code_fingerprints"].items():
+            if file_sha256(REPO_ROOT / name) != fingerprint:
+                raise ValueError("Registered projection code/config changed")
+        rule_path = iteration_dir / f"{chosen}_rule.json"
+        fingerprint = screening["rule_files"][chosen]["sha256"]
+        rule = ProjectionRule.load(rule_path)
+        detector = PairedProjectionDetector(rule)
+        output_dir = WORK_DIR / "robust_statistics/chimera_paired_projection"
+    else:
+        selection_path = SCREENING
+        screening = json.loads(SCREENING.read_text(encoding="utf-8"))
+        rule_path, fingerprint = RULE, screening["selected_rule_sha256"]
+        rule = StatisticsRule.load(rule_path)
+        detector = LocalStatisticsDetector(rule)
+        output_dir = OUTPUT
+    if file_sha256(rule_path) != fingerprint:
         raise ValueError("Frozen RR rule changed")
     rows = read_rows(MANIFEST)
     audited = {row["filename"]: row for row in read_rows(AUDIT)}
@@ -53,12 +76,10 @@ def main():
     random.Random(20261005).shuffle(rows)
     rows = rows[:args.limit] if args.limit else rows
     prefix = f"pilot_{args.limit}" if args.limit else "frozen_rule"
-    path, receipt = OUTPUT / f"{prefix}.csv", OUTPUT / f"{prefix}.json"
+    path, receipt = output_dir / f"{prefix}.csv", output_dir / f"{prefix}.json"
     if path.exists() or receipt.exists():
         raise FileExistsError("External run exists; no silent overwrite/resume")
-    OUTPUT.mkdir(parents=True, exist_ok=True)
-    rule = StatisticsRule.load(RULE)
-    detector = LocalStatisticsDetector(rule)
+    output_dir.mkdir(parents=True, exist_ok=True)
     cv2.setNumThreads(1)
     started, start, progress = datetime.now(timezone.utc).isoformat(), perf_counter(), []
     with path.open("x", encoding="utf-8", newline="") as stream:
@@ -83,7 +104,10 @@ def main():
                       f"{item['elapsed_seconds']:.1f}s", flush=True)
     result = {"scope": "timing pilot" if args.limit else "frozen RR rule, full external dataset diagnostic",
               "images": len(rows), "started_utc": started, "elapsed_seconds": perf_counter() - start,
-              "progress": progress, "rule_sha256": file_sha256(RULE), "csv_sha256": file_sha256(path),
+              "progress": progress, "rule_sha256": file_sha256(rule_path), "csv_sha256": file_sha256(path),
+              "rule_kind": "paired_projection" if args.projection else "color_rule",
+              "selection_receipt_sha256": file_sha256(selection_path),
+              "runner_sha256": file_sha256(REPO_ROOT / "experiments/origin_detection/robust_statistics/chimera/run_algorithm.py"),
               "manifest_sha256": file_sha256(MANIFEST), "image_audit_sha256": file_sha256(AUDIT),
               "opencv_threads": cv2.getNumThreads(),
               "limitations": "Chimera previously used by project; only StyleGAN2/three scenes/two capture rigs; "
@@ -96,6 +120,13 @@ def main():
             expected, [CachedRun(WORK_DIR / "chimera_bfree_full.csv", condition_map=CONDITIONS,
                                 expected_sha256="24012eacbd52b3d23c698c8f631edbf688e1560b836e859173413460f67e0d6e")],
             method="B-Free", score_kind="logit")
+        if args.projection:
+            old_receipt = json.loads((OUTPUT / "frozen_rule.json").read_text(encoding="utf-8"))
+            result["previous_color_rule"], _ = evaluate_cached_method(
+                expected, [CachedRun(OUTPUT / "frozen_rule.csv", condition_map=CONDITIONS,
+                                    expected_sha256=old_receipt["csv_sha256"])],
+                method="previous-color-rule", threshold=old_receipt["algorithm"]["threshold"],
+                score_kind="statistical_score")
     receipt.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 

@@ -2,6 +2,7 @@
 
 from dataclasses import replace
 import csv
+import json
 
 import numpy as np
 from PIL import Image
@@ -57,6 +58,7 @@ def test_gate_recovers_planted_nuisance_confound_and_refuses_bad_gain(tmp_path):
     inventory, rows, config = axis_fixture(tmp_path, confounded=True)
     table = validate_feature_rows(rows, inventory, config)
     result, _ = screen_iteration(table, config, "constructed-manifest", 0.5)
+    assert json.loads(json.dumps(result, allow_nan=False))["chosen"] == "rank1"
     assert result["chosen"] == "rank1"
     assert result["candidates"]["rank0"]["worst_processed_auc"] < 1
     assert result["candidates"]["rank1"]["selection_gate"]
