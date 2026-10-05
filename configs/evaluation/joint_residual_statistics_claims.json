@@ -8,6 +8,9 @@
     },
     "f": {
       "path": "../../work/robust_statistics/joint_residual_statistics/features.json"
+    },
+    "b": {
+      "path": "../../work/robust_statistics/joint_residual_statistics/benchmark.json"
     }
   },
   "claims": [
@@ -312,6 +315,78 @@
       "quoted": "12600",
       "expr": "f('f','/records')",
       "mode": "exact"
+    },
+    {
+      "section": "ordinal256/at_most_2MP",
+      "label": "predict_ms p50",
+      "quoted": "4.29",
+      "expr": "f('b','/methods/ordinal256/summaries/at_most_2MP/predict_ms/p50')"
+    },
+    {
+      "section": "ordinal256/at_most_2MP",
+      "label": "predict_ms p95",
+      "quoted": "6.35",
+      "expr": "f('b','/methods/ordinal256/summaries/at_most_2MP/predict_ms/p95')"
+    },
+    {
+      "section": "ordinal256/at_most_2MP",
+      "label": "end_to_end_ms p50",
+      "quoted": "9.41",
+      "expr": "f('b','/methods/ordinal256/summaries/at_most_2MP/end_to_end_ms/p50')"
+    },
+    {
+      "section": "ordinal256/at_most_2MP",
+      "label": "end_to_end_ms p95",
+      "quoted": "20.16",
+      "expr": "f('b','/methods/ordinal256/summaries/at_most_2MP/end_to_end_ms/p95')"
+    },
+    {
+      "section": "hybrid/at_most_2MP",
+      "label": "predict_ms p50",
+      "quoted": "10.54",
+      "expr": "f('b','/methods/hybrid/summaries/at_most_2MP/predict_ms/p50')"
+    },
+    {
+      "section": "hybrid/at_most_2MP",
+      "label": "predict_ms p95",
+      "quoted": "13.94",
+      "expr": "f('b','/methods/hybrid/summaries/at_most_2MP/predict_ms/p95')"
+    },
+    {
+      "section": "hybrid/at_most_2MP",
+      "label": "end_to_end_ms p50",
+      "quoted": "15.56",
+      "expr": "f('b','/methods/hybrid/summaries/at_most_2MP/end_to_end_ms/p50')"
+    },
+    {
+      "section": "hybrid/at_most_2MP",
+      "label": "end_to_end_ms p95",
+      "quoted": "23.55",
+      "expr": "f('b','/methods/hybrid/summaries/at_most_2MP/end_to_end_ms/p95')"
+    },
+    {
+      "section": "hybrid/all",
+      "label": "predict_ms p50",
+      "quoted": "10.68",
+      "expr": "f('b','/methods/hybrid/summaries/all/predict_ms/p50')"
+    },
+    {
+      "section": "hybrid/all",
+      "label": "predict_ms p95",
+      "quoted": "14.44",
+      "expr": "f('b','/methods/hybrid/summaries/all/predict_ms/p95')"
+    },
+    {
+      "section": "hybrid/all",
+      "label": "end_to_end_ms p50",
+      "quoted": "15.87",
+      "expr": "f('b','/methods/hybrid/summaries/all/end_to_end_ms/p50')"
+    },
+    {
+      "section": "hybrid/all",
+      "label": "end_to_end_ms p95",
+      "quoted": "25.64",
+      "expr": "f('b','/methods/hybrid/summaries/all/end_to_end_ms/p95')"
     }
   ]
 }
