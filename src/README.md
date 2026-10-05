@@ -122,3 +122,5 @@ flowchart LR
 公共库不导入 `experiments/`。具体数据集选择、冻结划分、拟合和实验调度位于仓库外层的 [experiments](../experiments/README.md)；数据与权重通过 [路径配置](../configs/README.md) 获取，研究报告位于 [reports](../reports/README.md)。导入适配模块不会下载权重或启动推理，模型在显式调用时加载。
 
 算法候选另有[闭合相位统计](palimpsest/detection/algorithms/phase_statistics/README.md)；第四轮未通过真实处理准确度门槛。公共[特征缓存审计和文件计时](palimpsest/evaluation/README.md)供实验复用。
+
+第六轮新增[残差／顺序统计候选](palimpsest/detection/algorithms/residual_statistics/README.md)，使用[可读JSON特征森林](palimpsest/detection/algorithms/forest.py)实现NumPy推理。实验拟合与像素推理分开，两个候选的真实准入仍需评测；不是默认可用的成功检测器。

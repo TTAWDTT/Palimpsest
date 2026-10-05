@@ -22,3 +22,5 @@
 [phase_statistics](phase_statistics/README.md)：第四轮闭合相位及多原型预登记、签名缓存与速度入口，失败结果已归档。
 
 [frozen_readout](frozen_readout/README.md)：第五轮，冻结灰度顺序／相位缓存上的固定RF与来源标签置乱诊断；不解码图像。
+
+[residual_statistics](residual_statistics/README.md)：第六轮，256尺度的归一化RGB残差共生与顺序统计；原图／处理联合标定、两个消融候选、便携树推理、重编码与文件速度对照。
