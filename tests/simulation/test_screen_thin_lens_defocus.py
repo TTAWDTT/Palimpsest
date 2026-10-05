@@ -4,6 +4,8 @@ import pytest
 from palimpsest.simulation.screen_capture import (
     ScreenCaptureParameters,
     render_screen_capture,
+)
+from palimpsest.simulation._screen.optics import (
     thin_lens_coc_radius_sensor_pixels,
     thin_lens_frontoparallel_sensor_to_display,
 )

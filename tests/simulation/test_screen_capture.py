@@ -2,10 +2,10 @@ import numpy as np
 
 from palimpsest.simulation.screen_capture import (
     ScreenCaptureParameters,
-    _airy_kernel,
-    _bayer_masks,
     render_screen_capture,
 )
+from palimpsest.simulation._screen.optics import _airy_kernel
+from palimpsest.simulation.sensor import _bayer_masks
 
 
 def parameters(display_pixels_per_sensor_pixel: float, blur_sigma: float = 0.0):

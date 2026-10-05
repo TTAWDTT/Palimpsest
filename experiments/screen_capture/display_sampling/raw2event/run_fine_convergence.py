@@ -9,9 +9,9 @@ import numpy as np
 
 from palimpsest.simulation.screen_capture import (
     ScreenCaptureParameters,
-    _minimum_samples_for_projection,
     render_screen_capture,
 )
+from palimpsest.simulation._screen.spatial import _minimum_samples_for_projection
 from palimpsest.data.cifar10 import load_originals
 from experiments.screen_capture.cfa_phase.raw2event.evaluate_phase_confirmation import (
     predict_phase,
