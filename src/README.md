@@ -25,6 +25,7 @@ src/
     ├── detection/             判别原始自然摄影/AI 内容
     │   ├── interfaces.py      OriginDetector 来源预测协议
     │   ├── algorithms/        自研非深度学习统计原型（稳健性未通过）
+    │   ├── representations/   已有预训练表示的显式冻结接口（鲁棒性待审）
     │   ├── models/            自研神经模型（待开发）
     │   ├── baselines/         B-Free、D3、Benford 参考实现适配
     │   └── files.py           单检测器的文件解码与推理计时

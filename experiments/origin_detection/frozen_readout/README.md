@@ -27,3 +27,9 @@
 `python -m experiments.origin_detection.frozen_readout.run_diagnostic --pilot`仅测完整fit＋threshold，不看selection；记录实测后再开始四个固定拟合。读取父缓存先核验代码、清单、文件指纹，输出目录拒绝覆盖。
 
 已检索BootLoops索引：emitall负责报告数字核验，符号积分／精确代数工具不适合此分类诊断；现有sklearn随机森林负责学习，复用项目来源缓存、feature_views、AUC、配对bootstrap与choose_threshold，仅新增实验编排，不新增公共算法或兼容转发层。
+
+## 公共筛选
+
+[evaluate_representation.py](evaluate_representation.py)供后续冻结表示试验复用：调用既有凸读出拟合、阈值标定、逐类与同源退化评测、精确率边界审计和单图／批量一致性。历史已签名实验实现保留，后续不再复制筛选逻辑。
+
+[benchmark_clip.py](benchmark_clip.py)使用第十六轮已选定规则，复用文件级计时与缓存／实测分数核对。120张真实图（既有RR60＋Chimera60）各重复三次，CUDA batch1且含解码；预热文件缓存、模型加载与区域定位不包含。

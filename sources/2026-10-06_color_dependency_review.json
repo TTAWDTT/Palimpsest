@@ -46,7 +46,7 @@
       "relied_on": "Compact product-order ranks are prior art. Our strict/tie definitions and fixed 3x3 pyramid are explicit adaptations, not paper parity. Color mixing and averaging fall outside component-wise monotone fixed-grid preservation."
     },
     {
-      "title": "VIPPrint: A Large Scale Dataset of Printed and Scanned Images for Synthetic Face Images Detection and Source Linking",
+      "title": "VIPPrint: Validating Synthetic Image Detection and Source Linking Methods on a Large Scale Dataset of Printed Documents",
       "authors": [
         "Anselmo Ferreira",
         "Ehsan Nowroozi",
@@ -77,5 +77,13 @@
     "order_counterexamples.json": "4e8cf3886aa8e84fafbf28194645bd75593cbe832224ec13bf6403e2bb490d01",
     "vipprint_table8_audit.json": "5a6dfdda5268849d63085c0a9402cf847e249d998707f71a27dff2c56329486a"
   },
-  "decision_before_real_extraction": "Fixed joint-color representation check with two planted controls and disclosed adapted product order; no new neural training or simulation. Existing frozen source roles and same fixed readouts."
+  "decision_before_real_extraction": "Fixed joint-color representation check with two planted controls and disclosed adapted product order; no new neural training or simulation. Existing frozen source roles and same fixed readouts.",
+  "corrections": [
+    {
+      "field": "sources/2/title",
+      "previous": "VIPPrint: A Large Scale Dataset of Printed and Scanned Images for Synthetic Face Images Detection and Source Linking",
+      "corrected": "VIPPrint: Validating Synthetic Image Detection and Source Linking Methods on a Large Scale Dataset of Printed Documents",
+      "reason": "Exact front article-title metadata checked in retained primary XML; descriptive paraphrase was incorrectly used as title."
+    }
+  ]
 }
