@@ -2,7 +2,7 @@
 
 研究图像经过数字传播与物理再拍后，如何判断其原始视觉内容来自自然摄影还是 AI 生成。
 
-**当前推进统一缓存评测与数字传播对照**，见[实验协议与验收](docs/propagation_evaluation.md)。自研判别算法、模型训练和其他历史探索暂缓；已有全量 baseline 不重复推理。已有数据审计、来源 baseline、定位/分割适配和前向原型；尚未完成 simulation 的充分真实验证或自研的高速稳健来源方法。
+**当前进入传播后 AI／非 AI 非深度学习算法的设计阶段**，见[算法研发流程](docs/robust_ai_detection_plan.md)。先核对数据使用历史，再筛选稳健统计信号、实现明确规则并评测准确率与速度。Simulation 研发与神经模型训练暂缓；已有全量 baseline 不重复推理。已有数据审计、baseline、定位/分割适配和前向原型；自研高速稳健算法尚未实现。
 
 本机代码：`E:\ai_image_origin_research\repo`。GitHub：[TTAWDTT/Palimpsest](https://github.com/TTAWDTT/Palimpsest)（公开）。
 
@@ -11,7 +11,8 @@
 | 要了解什么 | 入口 |
 |---|---|
 | 当前证据、失败结果与待验证问题 | [研究结论](reports/README.md) |
-| 当前两项工作、固定对照与验收条件 | [统一评测与传播对照](docs/propagation_evaluation.md) |
+| 当前算法开发步骤、数据划分与验收条件 | [算法研发流程](docs/robust_ai_detection_plan.md) |
+| 已有缓存汇总、数字传播对照协议 | [统一评测与传播对照](docs/propagation_evaluation.md) |
 | 公共模块如何划分、实验依赖什么 | [代码结构](docs/architecture.md) |
 | 从源码目录理解业务链路与扩展位置 | [源码导览](src/README.md) |
 | 区域定位、来源判别、可调用链与能力缺口 | [推理接入指南](docs/detection_pipeline.md) |

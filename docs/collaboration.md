@@ -29,6 +29,10 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools\finish_repo_migration.
 
 研究目前保持暂停。恢复模拟研发、下载、全量评测或训练的具体范围，待共同商定。
 
+### 2026-10-05：阶段更新
+
+上述暂停记录属于此前整理阶段。用户已要求转向传播后 AI／非 AI 判别算法，并授权制定详细开发流程，见[当前计划](robust_ai_detection_plan.md)。本次交付为设计文档；数据使用历史审计、候选特征实验与算法实现尚待依计划执行。Simulation 研发与神经模型训练继续暂缓，旧全量 baseline 直接复用。
+
 ## 提交与讨论
 
 - `main` 保存可阅读、经过相应检查的版本；新整理或研发使用 `ttawdtt/<主题>` 分支。
