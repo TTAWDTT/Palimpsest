@@ -17,7 +17,7 @@ from palimpsest.io.provenance import MODEL_ROOT, simulation_code_files
 import numpy as np
 from scipy.optimize import nnls
 
-from palimpsest.simulation.screen_capture import (
+from palimpsest.simulation.screen_capture.capture import (
     ScreenCaptureParameters,
     render_screen_capture,
 )

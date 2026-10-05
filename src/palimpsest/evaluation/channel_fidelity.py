@@ -44,5 +44,75 @@ def compare_detector_response(
         "real_failure_recall": len(real_fail & sim_fail) / len(real_fail)
         if real_fail
         else None,
+        "simulated_failure_precision": len(real_fail & sim_fail) / len(sim_fail)
+        if sim_fail
+        else None,
+        "processed_decision_agreement": sum(
+            real[k].origin == simulated[k].origin for k in keys
+        )
+        / len(keys),
         "scope": "matched fixed-detector response only; not physical validation or training utility",
+    }
+
+
+def paired_score_error_gain(
+    real: dict[str, Prediction],
+    candidate: dict[str, Prediction],
+    comparator: dict[str, Prediction],
+    labels: dict[str, Origin],
+    *,
+    seed: int,
+    replicates: int = 2000,
+) -> dict:
+    """Positive gain means candidate better matches real scores than comparator.
+
+    Resample whole source groups independently within the two origin classes.
+    A detector's score units are only comparable within its fixed protocol.
+    """
+    if not real or not (
+        real.keys() == candidate.keys() == comparator.keys() == labels.keys()
+    ):
+        raise ValueError("Require identical nonempty source keys")
+    if (
+        len(
+            {
+                (p.method, p.threshold, p.score_kind)
+                for group in (real, candidate, comparator)
+                for p in group.values()
+            }
+        )
+        != 1
+    ):
+        raise ValueError("Require one fixed detector protocol")
+    if replicates < 2 or any(
+        not isinstance(label, Origin) for label in labels.values()
+    ):
+        raise ValueError("Require valid labels and at least two bootstrap replicates")
+    groups = []
+    for label in (Origin.NATURAL, Origin.AI):
+        values = np.array(
+            [
+                abs(real[k].score - comparator[k].score)
+                - abs(real[k].score - candidate[k].score)
+                for k in sorted(labels)
+                if labels[k] == label
+            ]
+        )
+        if not len(values):
+            raise ValueError("Require both origin classes")
+        groups.append(values)
+    rng = np.random.default_rng(seed)
+    estimates = np.zeros(replicates)
+    for values in groups:
+        for start in range(0, replicates, 100):
+            count = min(100, replicates - start)
+            indices = rng.integers(len(values), size=(count, len(values)))
+            estimates[start : start + count] += values[indices].mean(axis=1) / 2
+    return {
+        "sources": len(labels),
+        "class_balanced_mae_gain": float(np.mean([v.mean() for v in groups])),
+        "ci95": np.quantile(estimates, [0.025, 0.975]).tolist(),
+        "seed": seed,
+        "replicates": replicates,
+        "positive_means": "candidate has lower paired score error than comparator",
     }

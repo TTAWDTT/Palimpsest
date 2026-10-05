@@ -20,8 +20,8 @@ import numpy as np
 from PIL import Image
 from scipy.ndimage import sobel
 
-from palimpsest.simulation.capture_kit import sha256
-from palimpsest.simulation.screen_pipeline import run_screen_pipeline
+from palimpsest.io.hashing import file_sha256 as sha256
+from palimpsest.simulation.screen_capture.pipeline import run_screen_pipeline
 from experiments.screen_capture.source_to_rgb.chimera.prepare_virtual_mac import (
     SPLIT,
     SOURCE_ROOT,

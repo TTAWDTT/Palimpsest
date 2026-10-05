@@ -15,7 +15,7 @@ import numpy as np
 from scipy.signal import fftconvolve
 from scipy.special import j0, roots_legendre
 
-from palimpsest.simulation.screen_capture import render_screen_capture
+from palimpsest.simulation.screen_capture.capture import render_screen_capture
 from experiments.screen_capture.focus_response.synthetic.run_physical_focus_display_lattice import (
     camera,
 )

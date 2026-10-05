@@ -13,7 +13,7 @@ from dataclasses import replace
 import numpy as np
 from PIL import Image
 
-from palimpsest.simulation.print_scan import PrintScanParameters, simulate_print_scan
+from palimpsest.simulation.print_scan.monochrome import PrintScanParameters, simulate_print_scan
 
 
 PROBE = DATA_ROOT / "derived/csgc_probe"

@@ -16,19 +16,19 @@ import zipfile
 import numpy as np
 from PIL import Image
 
-from palimpsest.simulation.color_print_scan import (
+from palimpsest.simulation.print_scan.color import (
     ColorPrintScanParameters,
     simulate_color_print_surface,
 )
-from palimpsest.simulation.photo_paper import (
+from palimpsest.simulation.print_capture.photo_paper import (
     PhotoPaperParameters,
     simulate_photo_paper_surface,
 )
-from palimpsest.simulation.print_camera import (
+from palimpsest.simulation.print_capture.camera import (
     PrintCameraParameters,
     photograph_print_surface,
 )
-from palimpsest.simulation.publication import PublicationParameters, apply_publication
+from palimpsest.simulation.digital.publication import PublicationParameters, apply_publication
 from experiments.data_preparation.div2k.audit_scan_test import RAW, _source_3_2
 from experiments.print_capture.paper_response.div2k.run_print_camera import (
     DIGITAL_PPI,

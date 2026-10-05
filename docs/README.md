@@ -2,34 +2,34 @@
 
 [仓库首页](../README.md) · [研究结论](../reports/README.md) · [实验脚本](../experiments/README.md)
 
-先读[代码结构](architecture.md)理解完整任务、当前能力和依赖方向。区域与来源推理见[接入指南](detection_pipeline.md)；模拟器按以下顺序阅读。
+先读[代码结构](architecture.md)理解完整任务、当前能力和依赖方向。区域与来源推理见[接入指南](detection_pipeline.md)；模拟器先读[事件目录说明](../src/palimpsest/simulation/README.md)，下面给出拍屏原型的阅读顺序。
 
 ## 代码阅读顺序
 
-先读 [screen_pipeline.py](../src/palimpsest/simulation/screen_pipeline.py)，了解完整的来源图→显示→相机→发布流程；再读 [screen_capture.py](../src/palimpsest/simulation/screen_capture.py) 的 `render_screen_capture`，了解相机内部阶段。
+先读 [screen_capture/pipeline.py](../src/palimpsest/simulation/screen_capture/pipeline.py)，了解完整的来源图→显示→相机→发布流程；再读 [screen_capture/capture.py](../src/palimpsest/simulation/screen_capture/capture.py) 的 `render_screen_capture`，了解相机内部阶段。
 
 | 阶段 | 文件 | 责任 |
 |---|---|---|
-| 输入与显示栅格 | [screen_pipeline.py](../src/palimpsest/simulation/screen_pipeline.py) | 数字图缩放、放置、量化，串接拍摄与发布 |
-| 参数与结果类型 | [_screen/parameters.py](../src/palimpsest/simulation/_screen/parameters.py) | 参数单位、允许范围、互斥条件与输出数组 |
-| 面板发光 | [_screen/emission.py](../src/palimpsest/simulation/_screen/emission.py) | RGB 发光区域和共址机制负对照 |
-| 光学 | [_screen/optics.py](../src/palimpsest/simulation/_screen/optics.py)、[optical_psf.py](../src/palimpsest/simulation/optical_psf.py) | 模糊、薄透镜、衍射和瞳孔积分 |
-| 空间采样 | [_screen/spatial.py](../src/palimpsest/simulation/_screen/spatial.py) | 细网格积分、解析积分及受限快速路径 |
-| 曝光时间 | [_screen/temporal.py](../src/palimpsest/simulation/_screen/temporal.py) | PWM 与逐行曝光积分 |
-| 传感器与 ISP | [screen_capture.py](../src/palimpsest/simulation/screen_capture.py)、[sensor.py](../src/palimpsest/simulation/sensor.py) | 光子噪声、读出增益、Bayer、去马赛克与色调 |
-| 发布处理 | [publication.py](../src/palimpsest/simulation/publication.py) | 裁切、缩放、PNG/JPEG 编码 |
+| 输入与显示栅格 | [screen_capture/pipeline.py](../src/palimpsest/simulation/screen_capture/pipeline.py) | 数字图缩放、放置、量化，串接拍摄与发布 |
+| 参数与结果类型 | [screen_capture/_render/parameters.py](../src/palimpsest/simulation/screen_capture/_render/parameters.py) | 参数单位、允许范围、互斥条件与输出数组 |
+| 面板发光 | [screen_capture/_render/emission.py](../src/palimpsest/simulation/screen_capture/_render/emission.py) | RGB 发光区域和共址机制负对照 |
+| 光学 | [screen_capture/_render/optics.py](../src/palimpsest/simulation/screen_capture/_render/optics.py)、[shared/optical_psf.py](../src/palimpsest/simulation/shared/optical_psf.py) | 模糊、薄透镜、衍射和瞳孔积分 |
+| 空间采样 | [screen_capture/_render/spatial.py](../src/palimpsest/simulation/screen_capture/_render/spatial.py) | 细网格积分、解析积分及受限快速路径 |
+| 曝光时间 | [screen_capture/_render/temporal.py](../src/palimpsest/simulation/screen_capture/_render/temporal.py) | PWM 与逐行曝光积分 |
+| 传感器与 ISP | [screen_capture/capture.py](../src/palimpsest/simulation/screen_capture/capture.py)、[shared/sensor.py](../src/palimpsest/simulation/shared/sensor.py) | 光子噪声、读出增益、Bayer、去马赛克与色调 |
+| 发布处理 | [digital/publication.py](../src/palimpsest/simulation/digital/publication.py) | 裁切、缩放、PNG/JPEG 编码 |
 
-`screen_capture` 的公共入口和参数名保留；历史实验使用的私有函数也暂保留显式导出。新内部实现直接引用所属模块，避免依赖入口文件中的私有函数。
+`screen_capture/capture.py` 提供拍屏入口。空间/时间实现位于事件内的 `_render/`，跨事件共用机制在 `shared/`；所有调用直接引用实现，旧平铺路径不保留转发。
 
-其他路径：`print_scan.py` 为单色打印扫描；`color_print_scan.py` 为 CMYK 代理；`photo_paper.py` 为连续色调代理；`print_camera.py` 把纸面接入相机。有效范围见[打印约定](print_scan_model_contract.md)。投影实验位于 `experiments/projection_capture/`，见[投影约定](projector_camera_model_contract.md)。
+其他事件：`digital/publication.py` 为数字裁切/缩放/编码；`print_scan/` 提供单色与 CMYK 打印扫描原型；`print_capture/` 提供连续色调相纸与拍纸面原型。有效范围见[打印约定](print_scan_model_contract.md)。截屏和独立拍投影前向模块待开发；已有投影实验位于 `experiments/projection_capture/`，见[投影约定](projector_camera_model_contract.md)。
 
 ## 运行和验证
 
 ```powershell
 uv sync --locked --extra dev --extra classical
 uv run --locked --extra dev --extra classical python -m pytest -q
-uv run --locked python -m palimpsest.simulation.render_cli --help
-uv run --locked python -m palimpsest.simulation.pipeline_cli --help
+uv run --locked python -m palimpsest.simulation.screen_capture.render_cli --help
+uv run --locked python -m palimpsest.simulation.screen_capture.pipeline_cli --help
 uv run --locked python tools/check_layout.py
 ```
 
@@ -66,6 +66,8 @@ $env:PYTHONPATH = "$PWD\src;$PWD"
 整理前版本：`0f675d6d544de407dae5c162e26100245edf79ef`。恢复要求原代码指纹的断点时，应在该版本的独立 checkout 中恢复原环境。新布局下不手工覆盖旧指纹；RAW 模拟缓存现在对整个 `src/palimpsest/simulation/` 包计算代码指纹，避免漏掉已拆分的模块。
 
 2026-10-04 重构前版本：`649c601b6bc15a1e132cbb3c25f63ed4fb342c40`。本轮采用 `src/palimpsest`，提取共享评测、数据和文件校验；报告从 `outputs/` 移入 `reports/`。新代码指纹改变，旧数据、结果和指标保留原值。
+
+2026-10-05 事件目录重构前版本：`9c5ffcb`。simulation 按事件归档并提取共用函数，直接更新实验、测试和 CLI 调用；未重跑旧研究结果或改写已冻结的工件指纹。
 
 ## 数据采集与文献
 

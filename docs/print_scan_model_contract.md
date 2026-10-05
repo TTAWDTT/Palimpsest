@@ -1,13 +1,13 @@
 # Print-scan forward model: measurement contract
 
 Status: research design plus restricted monochrome and color structural
-prototypes in `src/palimpsest/simulation/print_scan.py` and
-`src/palimpsest/simulation/color_print_scan.py`. A separate continuous-tone photo-paper
-surface hypothesis lives in `src/palimpsest/simulation/photo_paper.py`: effective
+prototypes in `src/palimpsest/simulation/print_scan/monochrome.py` and
+`src/palimpsest/simulation/print_scan/color.py`. A separate continuous-tone photo-paper
+surface hypothesis lives in `src/palimpsest/simulation/print_capture/photo_paper.py`: effective
 exposure spot, developed dye density, physical dye spread and frozen paper
 granularity. Neither color surface has device-specific ICC/RIP, spectral,
 chemical or optical calibration. Publication-stage crop, resampling and codec
-are separately represented in `src/palimpsest/simulation/publication.py`. A composite channel has been fitted on 100
+are separately represented in `src/palimpsest/simulation/digital/publication.py`. A composite channel has been fitted on 100
 CSGC binary codes and evaluated on 850 unseen codes, but the printer, paper,
 scanner and publication-stage effects have not been individually calibrated.
 
@@ -28,7 +28,7 @@ scatter -> scanner illumination / optics -> scanner sampling -> scanner ISP
 
 The camera-of-print branch now shares the print and paper stages through
 `simulate_color_print_surface()`, then uses scene illumination, paper pose
-and the restricted camera optics/RAW/ISP in `src/palimpsest/simulation/print_camera.py`
+and the restricted camera optics/RAW/ISP in `src/palimpsest/simulation/print_capture/camera.py`
 instead of the flatbed scanner. A geometric warp of a scanner image is not a
 physical substitute for that branch. The camera model has point + ambient
 lighting and Lambertian paper only; real lab photo paper, specular BRDF,

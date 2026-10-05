@@ -7,11 +7,11 @@ import time
 
 import numpy as np
 
-from palimpsest.simulation.screen_capture import (
+from palimpsest.simulation.screen_capture.capture import (
     ScreenCaptureParameters,
     render_screen_capture,
 )
-from palimpsest.simulation.reference import (
+from palimpsest.simulation.screen_capture.reference import (
     projective_area_reference,
 )
 

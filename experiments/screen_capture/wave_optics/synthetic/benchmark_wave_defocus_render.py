@@ -7,8 +7,8 @@ from time import perf_counter
 
 import numpy as np
 
-from palimpsest.simulation.optical_psf import circular_pupil_defocus_psf
-from palimpsest.simulation.screen_capture import render_screen_capture
+from palimpsest.simulation.shared.optical_psf import circular_pupil_defocus_psf
+from palimpsest.simulation.screen_capture.capture import render_screen_capture
 from experiments.screen_capture.focus_response.synthetic.run_physical_focus_display_lattice import (
     camera,
 )

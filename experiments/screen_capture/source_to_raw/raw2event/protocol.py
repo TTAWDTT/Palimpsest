@@ -17,11 +17,11 @@ import cv2
 import numpy as np
 from PIL import Image
 
-from palimpsest.simulation.screen_capture import (
+from palimpsest.simulation.screen_capture.capture import (
     ScreenCaptureParameters,
     render_screen_capture,
 )
-from palimpsest.simulation.screen_pipeline import (
+from palimpsest.simulation.screen_capture.pipeline import (
     DisplayRasterParameters,
     rasterize_display_source,
 )

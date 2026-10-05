@@ -7,7 +7,7 @@ from time import perf_counter
 
 import numpy as np
 
-from palimpsest.simulation.screen_capture import (
+from palimpsest.simulation.screen_capture.capture import (
     ScreenCaptureParameters,
     render_screen_capture,
 )

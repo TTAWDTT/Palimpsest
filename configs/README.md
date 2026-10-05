@@ -4,6 +4,7 @@
 
 - [workspace.example.toml](workspace.example.toml)：本机数据、权重、环境、缓存和结果目录的配置模板。
 - [screen/virtual_screen.example.json](screen/virtual_screen.example.json)：未标定的虚拟拍屏参数示例；不是已校准设备。
+- [evaluation/rr_propagation.toml](evaluation/rr_propagation.toml)：本轮 RR 内部传播对照的固定 resize/JPEG、描述性统计与 bootstrap 参数，见[评测协议](../docs/propagation_evaluation.md)。
 
 默认数据和权重位于仓库同级的 `data/`、`models/`；结果默认仍在仓库的 `work/`。配置读取不创建目录，也不启动任何实验。
 

@@ -40,7 +40,7 @@ flowchart TD
 
 | 模块 | 职责 | 边界 |
 |---|---|---|
-| [simulation](../src/palimpsest/simulation/__init__.py) | 显示、光学、传感器、ISP、打印扫描和发布编码 | 物理与数值假设；不负责划分数据集 |
+| [simulation](../src/palimpsest/simulation/README.md) | 按 digital、screen_capture、print_scan、print_capture 等事件组织；共用机制进入 shared | 截屏/独立拍投影实现待开发；不负责划分数据集 |
 | [data/inference.py](../src/palimpsest/data/inference.py) | 推理结果与清单的顺序、身份、完整性和有限分数校验 | 不证明训练无重叠或物理标签真实 |
 | [data/images.py](../src/palimpsest/data/images.py) | 有明确插值和数值范围的图像变换 | 不代替物理模拟或检测器预处理 |
 | [data/video.py](../src/palimpsest/data/video.py)、[raw2event.py](../src/palimpsest/data/raw2event.py) | 帧解码、时间戳与发布尺寸/标记约定 | ffmpeg/ffprobe 为显式运行依赖；不把发布约定当设备物理参数 |

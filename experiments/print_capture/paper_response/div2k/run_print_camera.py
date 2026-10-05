@@ -19,15 +19,15 @@ from pathlib import Path
 import numpy as np
 from PIL import Image
 
-from palimpsest.simulation.color_print_scan import (
+from palimpsest.simulation.print_scan.color import (
     ColorPrintScanParameters,
     simulate_color_print_surface,
 )
-from palimpsest.simulation.print_camera import (
+from palimpsest.simulation.print_capture.camera import (
     PrintCameraParameters,
     photograph_print_surface,
 )
-from palimpsest.simulation.publication import PublicationParameters, apply_publication
+from palimpsest.simulation.digital.publication import PublicationParameters, apply_publication
 
 
 RAW = DATA_ROOT / "raw/div2k_scan"

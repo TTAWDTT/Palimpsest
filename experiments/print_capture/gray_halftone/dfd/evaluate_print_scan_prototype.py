@@ -8,7 +8,7 @@ from dataclasses import replace
 import numpy as np
 from PIL import Image
 
-from palimpsest.simulation.print_scan import PrintScanParameters, simulate_print_scan
+from palimpsest.simulation.print_scan.monochrome import PrintScanParameters, simulate_print_scan
 
 
 SOURCE = DATA_ROOT / "derived/dfd_probe/D5_DC1_x_800_P3_S1_T1_2111_1.tiff"

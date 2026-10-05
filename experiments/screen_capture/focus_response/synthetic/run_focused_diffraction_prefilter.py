@@ -12,13 +12,13 @@ from time import perf_counter
 import numpy as np
 from scipy.signal import fftconvolve
 
-from palimpsest.simulation.optical_psf import circular_pupil_defocus_psf_display
-from palimpsest.simulation.screen_capture import (
+from palimpsest.simulation.shared.optical_psf import circular_pupil_defocus_psf_display
+from palimpsest.simulation.screen_capture.capture import (
     ScreenCaptureParameters,
     render_screen_capture,
 )
-from palimpsest.simulation._screen.emission import _display_emitter_raster
-from palimpsest.simulation._screen.spatial import _integrate_display_raster
+from palimpsest.simulation.screen_capture._render.emission import _display_emitter_raster
+from palimpsest.simulation.screen_capture._render.spatial import _integrate_display_raster
 
 
 OUT = WORK_DIR / "focused_diffraction_prefilter_probe.json"

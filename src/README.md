@@ -27,11 +27,14 @@ src/
     ├── pipelines/             组合区域定位与来源判别
     │   ├── image.py           ImageOriginPipeline 图片业务链
     │   └── cli.py             palimpsest-detect 命令入口
-    ├── simulation/            传播/再数字化的前向处理原型
-    │   ├── screen_pipeline.py 来源图→显示栅格→拍屏→发布处理
-    │   ├── screen_capture.py  拍屏渲染入口
-    │   ├── _screen/           显示发光、光学、空间/时间采样
-    │   └── …                 传感器/ISP、打印/纸面、发布编码等
+    ├── simulation/            按处理事件组织的前向原型
+    │   ├── digital/           数字裁切、缩放与编码
+    │   ├── screen_capture/    拍屏原型、组合入口和采集校准工具
+    │   ├── print_scan/        打印扫描原型
+    │   ├── print_capture/     拍打印件与相纸原型
+    │   ├── screenshot/        截屏事件（待开发）
+    │   ├── projection_capture/ 拍投影事件（待开发）
+    │   └── shared/            共用图像、光学、传感器与单位函数
     ├── training/              训练与标定扩展边界（实现待开发）
     │   └── interfaces.py      TrainingExample 与 OriginTrainer
     ├── data/                  数据集配对、清单校验与特定解码约定
@@ -47,13 +50,15 @@ src/
 | [localization](palimpsest/localization/README.md) | 输出候选区域的框、可选掩膜和定位置信度 | 已有几何提议和通用分割；承载图像区域的筛选、跟踪待开发 |
 | [detection](palimpsest/detection/README.md) | 对输入像素输出原始来源分数与判定 | B-Free/D3 已接真实权重；Benford 支持特征及已拟合森林加载；自研方法待开发 |
 | [pipelines](palimpsest/pipelines/README.md) | 串接解码、定位、裁切、预测和计时 | 图片链可调用；视频/手机实时链待开发 |
-| [simulation](palimpsest/simulation/__init__.py) | 按显式参数生成经过处理的图像 | 已有前向原型，尚未充分验证真实设备有效性 |
+| [simulation](palimpsest/simulation/README.md) | 按事件与显式参数生成经过处理的图像 | 数字处理可调用，物理事件已有受限原型，截屏/独立拍投影实现待开发 |
 | [training](palimpsest/training/README.md) | 定义训练/验证样本与拟合产物出口 | 只有扩展协议，没有默认训练器 |
 | [data](palimpsest/data/__init__.py) | 处理数据身份、配对、来源组和清单 | 不负责预测，也不保证未知训练重叠已排除 |
 | [evaluation](palimpsest/evaluation/__init__.py) | 计算预测、区域、传播变化与延迟指标 | 评测输入和来源划分由实验协议提供 |
 | [io](palimpsest/io/__init__.py)、[paths](palimpsest/paths.py) | 文件完整性、溯源和本机资源路径 | 不调度研究实验或自动加载模型 |
 
 ## 业务链路
+
+已有逐图结果可通过 [evaluation/cached.py](palimpsest/evaluation/cached.py) 校验并汇总；[RR 统一入口](../experiments/origin_detection/baselines/evaluate_rr_suite.py) 直接读取原 CSV，输出分类、同源变化、时间与模拟响应对照。此链路不加载模型、不启动推理或训练；具体来源与验收见[评测协议](../docs/propagation_evaluation.md)。
 
 ### 1. 图片来源推理：当前可调用
 
@@ -89,7 +94,7 @@ flowchart LR
     E --> F[evaluation 同源准确率变化、分数变化与延迟]
 ```
 
-以拍屏为例，[screen_pipeline.py](palimpsest/simulation/screen_pipeline.py) 串接来源图放置/缩放、显示、相机采样与发布编码。它与来源推理链分别调用；推理时不会自动猜测并重建未知拍摄过程。
+以拍屏为例，[screen_capture/pipeline.py](palimpsest/simulation/screen_capture/pipeline.py) 串接来源图放置/缩放、显示、相机采样与 digital 发布编码。事件可以组合，共用机制集中在 shared；详见 [simulation 目录说明](palimpsest/simulation/README.md)。它与来源推理链分别调用；推理时不会自动猜测并重建未知拍摄过程。
 
 `evaluation` 可比较原图、真实处理图与模拟图的检测器响应。物理过程是否正确、生成图是否相似、是否改善训练后的真实传播检测能力，需要分别验证；响应相似本身不能证明另外两项。
 
