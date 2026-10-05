@@ -1,0 +1,108 @@
+{
+  "campaign": "Mechanism review transcription 2026-10-06",
+  "register": "Math/data index checks only; not final detector evidence",
+  "quote_source": "reports/04_算法研发/鲁棒判别跨学科机制补充调研_2026-10-06.md",
+  "receipts": {
+    "g": {
+      "path": "../../work/robust_statistics/gaussian_shift_counterexample.json"
+    },
+    "d": {
+      "path": "../../work/robust_statistics/extended_review_2026-10-06/robust_detector/deepshield_pair_index_audit.json"
+    },
+    "c": {
+      "path": "../../work/robust_statistics/extended_review_2026-10-06/robust_detector/deepshield_range_cost_plan_with_headers.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "Gaussian fixed threshold",
+      "label": "initial AUC percent",
+      "quoted": "92.14",
+      "expr": "100*f('g','/cases/0/auc')"
+    },
+    {
+      "section": "Gaussian fixed threshold",
+      "label": "shifted AUC percent",
+      "quoted": "92.14",
+      "expr": "100*f('g','/cases/3/auc')"
+    },
+    {
+      "section": "Gaussian fixed threshold",
+      "label": "initial BA percent",
+      "quoted": "84.13",
+      "expr": "100*f('g','/cases/0/balanced_accuracy')"
+    },
+    {
+      "section": "Gaussian fixed threshold",
+      "label": "shifted BA percent",
+      "quoted": "51.14",
+      "expr": "100*f('g','/cases/3/balanced_accuracy')"
+    },
+    {
+      "section": "Gaussian fixed threshold",
+      "label": "BA drop pp",
+      "quoted": "33.00",
+      "expr": "100*f('g','/balanced_accuracy_drop')"
+    },
+    {
+      "section": "DeepShield directory",
+      "label": "X/files",
+      "quoted": "10000",
+      "expr": "f('d','/X/files')"
+    },
+    {
+      "section": "DeepShield directory",
+      "label": "X/exact_basename_stem_matches",
+      "quoted": "10000",
+      "expr": "f('d','/X/exact_basename_stem_matches')"
+    },
+    {
+      "section": "DeepShield directory",
+      "label": "Telegram/files",
+      "quoted": "10000",
+      "expr": "f('d','/Telegram/files')"
+    },
+    {
+      "section": "DeepShield directory",
+      "label": "Telegram/exact_basename_stem_matches",
+      "quoted": "10000",
+      "expr": "f('d','/Telegram/exact_basename_stem_matches')"
+    },
+    {
+      "section": "DeepShield directory",
+      "label": "Facebook/files",
+      "quoted": "10000",
+      "expr": "f('d','/Facebook/files')"
+    },
+    {
+      "section": "DeepShield directory",
+      "label": "Facebook/exact_basename_stem_matches",
+      "quoted": "10000",
+      "expr": "f('d','/Facebook/exact_basename_stem_matches')"
+    },
+    {
+      "section": "DeepShield plannedsubset",
+      "label": "800source compressedbytes",
+      "quoted": "1681172020",
+      "expr": "f('c','/800/total_compressed_bytes')"
+    },
+    {
+      "section": "DeepShield plannedsubset",
+      "label": "800source selectedimages",
+      "quoted": "3200",
+      "expr": "f('c','/800/image_count')"
+    },
+    {
+      "section": "DeepShield plannedsubset",
+      "label": "800source pacedseconds",
+      "quoted": "6400",
+      "expr": "f('c','/800/request_pacing_seconds_at_2s')"
+    },
+    {
+      "section": "DeepShield plannedsubset",
+      "label": "800source rangebytes GB",
+      "quoted": "1.684",
+      "expr": "f('c','/800/estimated_range_bytes_plus_1024_header_allowance')/1000000000"
+    }
+  ]
+}

@@ -23,3 +23,11 @@
 信任前要求手写树真值、阈值等号和float32边界控制通过，与sklearn输出的误差≤1e-12，并验证JSON保存加载与故意破坏参数的拒绝。它们验证树推理与导出；数据来源、标签质量及真实泛化需要各实验另审。当前工具的控制在`tests/detection/test_residual_statistics.py`，不会修改已冻结的第三至第五轮实现。
 
 [paired_stability.py](paired_stability.py)：同源处理分数变化的加权ridge目标，显式特征规则与像素适配；训练配对性质不代表未见处理稳健性。
+
+[conditional_residual.py](conditional_residual.py)：像素统计门控＋条件读出，参数显式保存；第十轮未过准确度筛选，不作为默认检测器。
+
+[wavelet_envelopes.py](wavelet_envelopes.py)：固定离散Morlet模值及二阶包络统计；第十一轮开发中。不是完整散射或拍屏不变性证明。
+
+`gaussian_readout.py` 提供非神经的共享协方差、Gaussian朴素贝叶斯与收缩QDA显式规则；仅用fit统计，无目标批次适应，稳健性尚待验证。
+
+`group_margin.py` 以凸logistic目标检验均值风险、熵组风险与配对约束；复用显式`StableRule`推理/导出，目标及参数由实验收据区分。

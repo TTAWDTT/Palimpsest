@@ -30,3 +30,14 @@
 [第八轮配对分数稳定](paired_stability/README.md)：冻结表示与来源，零约束和两个稳定惩罚，保留信号抹除反例。
 
 [第九轮阈值标定](threshold_calibration/README.md)：三个冻结读出、两个已见标定范围，不改变特征或权重；加入编码后两类准入。
+
+[第十轮像素条件读出](conditional_residual/README.md)：按来源交叉拟合的编码门控和条件线性读出；人工通道反转对照先行，真实判别仍失败。
+
+[第十一轮小波包络](wavelet_envelopes/README.md)：固定一阶／二阶／合并／残差合并四表示，检验较大范围的空间调制能否保留来源线索。
+
+`threshold_diagnostics/audit_gaussian_shift.py`：独立高斯平移反例，核验AUC稳定并不保证固定阈值BA稳定。
+
+- [`gaussian_readout`](gaussian_readout/README.md)：第十二轮固定均值、方差和协方差读出，复用签名表示。
+- `threshold_diagnostics/audit_rate_boundaries.py`：从真假整数正确数追加审计比例边界，保存原收据。
+
+[第十三轮组风险与配对](group_margin/README.md)：固定凸目标四消融，错源配对与来源标签置乱控制。
