@@ -17,5 +17,9 @@ def test_hand_interval_open_boundary_and_conflicting_views():
     assert a['feasible'] and b['feasible']
     assert max(a['lower_inclusive'], b['lower_inclusive']) >= min(a['upper_exclusive'], b['upper_exclusive'])
     assert not threshold_interval([0, 0], [0, 1])['feasible']
+    # IEEE multiplication yields .55*100 = 55.00000000000001; requiring 56 is wrong.
+    hundred = threshold_interval([*range(100), *range(200, 300)], [0]*100+[1]*100)
+    assert hundred['required_natural_correct'] == hundred['required_ai_correct'] == 55
+    assert hundred['lower_inclusive'] == 54 and hundred['upper_exclusive'] == 245
     for s, y, minimum in [([float('nan'), 0], [0, 1], .55), ([0, 1], [0, 0], .55), ([0, 1], [0, 1], 0)]:
         with pytest.raises(ValueError): threshold_interval(s, y, minimum)

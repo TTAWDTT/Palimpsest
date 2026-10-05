@@ -1,6 +1,8 @@
 """Locate threshold-role class conflicts in frozen paired readouts."""
 
+import argparse
 import json
+from pathlib import Path
 
 from palimpsest.detection.algorithms.paired_stability import StableRule
 from palimpsest.detection.algorithms.residual_statistics.features import FEATURE_NAMES
@@ -13,7 +15,9 @@ from experiments.origin_detection.paired_stability.run_iteration import OUTPUT a
 
 
 def main():
-    output = WORK_DIR/'robust_statistics/threshold_diagnostics.json'
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output', type=Path, default=WORK_DIR/'robust_statistics/threshold_diagnostics.json')
+    output = parser.parse_args().output
     if output.exists(): raise FileExistsError('Preserve finite threshold diagnostics')
     rows, _, _ = load_inputs()
     parent = json.loads((PARENT/'iteration.json').read_text(encoding='utf-8'))

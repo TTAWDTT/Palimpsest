@@ -1,6 +1,6 @@
 """Exact finite-sample threshold intervals for two class-accuracy requirements."""
 
-import math
+from bisect import bisect_left
 
 import numpy as np
 
@@ -16,7 +16,10 @@ def threshold_interval(scores, labels, minimum=.55):
             or not np.isfinite(s).all() or not np.isfinite(minimum) or not 0 < minimum <= 1):
         raise ValueError('Invalid finite threshold interval inputs')
     natural, ai = np.sort(s[y == 0]), np.sort(s[y == 1])
-    n = math.ceil(minimum*len(natural)); a = math.ceil(minimum*len(ai))
+    # Binary search uses the same k/N >= minimum comparison as accuracy metrics.
+    # ceil(minimum*N) alone can round .55*100 above 55 and incorrectly require 56.
+    n = bisect_left(range(len(natural)+1), minimum, key=lambda k: k/len(natural))
+    a = bisect_left(range(len(ai)+1), minimum, key=lambda k: k/len(ai))
     lower, upper = float(natural[n-1]), float(ai[len(ai)-a])
     return {'lower_inclusive': lower, 'upper_exclusive': upper, 'feasible': lower < upper,
             'natural_records': len(natural), 'ai_records': len(ai),
