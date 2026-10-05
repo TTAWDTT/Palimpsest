@@ -328,3 +328,7 @@ B-Free/D3历史记录是GPU协议，Benford为CPU；可作各自部署成本参�
 ## 19. 第六轮预登记（2026-10-06）
 
 [协议](../experiments/origin_detection/residual_statistics/README.md)固定两个候选：ordinal256，以及其与归一化RGB多尺度残差三元共生的组合。十二视图原图／处理联合fit及阈值标定，八处理视图准确度、重编码和单图速度分别验收。来源角色不变，真实开发数据仍已暴露；不打开RR保留集。便携树导出与推理先过独立已知答案、浮点边界及sklearn对照，再做实际像素计时。
+
+## 20. 第七轮预登记：域权重与训练编码
+
+第六轮组合在拍屏开发数据改善，但RR再数字化及JPEG对照失败。依[固定四对照协议](../experiments/origin_detection/residual_training/README.md)，冻结379维表示与来源，仅比较等视图／两域等权×raw／加JPEG90；阈值均用同十二raw视图，基础候选必须完全复现第六轮。另留JPEG70/4:2:0仅评测，不能称独立来源测试。先人工控制、小试计时、后实际计算，不用RR reserved。
