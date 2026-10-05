@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-06",
+  "scope": "Bounded primary-source follow-up; not exhaustive novelty or physical robustness certification",
+  "search_queries": [
+    "Compact Color Texture Descriptor product code Fernandez2017",
+    "RTPO texture github",
+    "CrossCoNet RGB co-occurrence code",
+    "Partial order rank features colour space code"
+  ],
+  "sources": [
+    {
+      "title": "Detection of GAN-generated images by cross co-occurrence matrices",
+      "authors": [
+        "Mauro Barni",
+        "Khalil Kallas",
+        "Ehsan Nowroozi",
+        "Benedetta Tondi"
+      ],
+      "version": "arXiv2007.12909v2,2020-10-02,WIFS2020",
+      "url": "https://arxiv.org/pdf/2007.12909",
+      "read_scope": "Main text and references of six PDF pages, web extracted text; no figure pixel audit or model reproduction",
+      "locations": [
+        "cross-channel construction",
+        "JPEG-aware and unaware experiments",
+        "limitations/future work"
+      ],
+      "relied_on": "Cross-channel association is direct prior work; JPEG-aware gains do not establish print/screen recapture stability. This is a CNN method."
+    },
+    {
+      "title": "Compact Color Texture Descriptor Based on Rank Transform and Product Ordering in the RGB Color Space",
+      "authors": [
+        "Antonio Fernandez",
+        "David Lima",
+        "Francesco Bianconi",
+        "Fabrizio Smeraldi"
+      ],
+      "version": "ICCV2017 workshop,9PDFpages",
+      "url": "https://openaccess.thecvf.com/content_ICCV_2017_workshops/papers/w18/Fernandez_Compact_Color_Texture_ICCV_2017_paper.pdf",
+      "read_scope": "All extracted text,sections1-6,tables,references; figures not visually audited, no independent proof or author implementation parity",
+      "local_pdf_sha256": "7a8ec2ed3f644de004d0fb438a3556f33598e1e7bfc49781faef7e0cba4df5db",
+      "locations": [
+        "Section4.2 product order",
+        "Section4.3 strict RTPO Eq9-13",
+        "Section5 general texture tests"
+      ],
+      "relied_on": "Compact product-order ranks are prior art. Our strict/tie definitions and fixed 3x3 pyramid are explicit adaptations, not paper parity. Color mixing and averaging fall outside component-wise monotone fixed-grid preservation."
+    },
+    {
+      "title": "VIPPrint: A Large Scale Dataset of Printed and Scanned Images for Synthetic Face Images Detection and Source Linking",
+      "authors": [
+        "Anselmo Ferreira",
+        "Ehsan Nowroozi",
+        "Mauro Barni"
+      ],
+      "version": "Journal of Imaging2021,7(3)50",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8321306/fullTextXML",
+      "doi": "10.3390/jimaging7030050",
+      "read_scope": "Front metadata and all body Sections1-6 text; Tables6 and8 explicitly checked. Other table numbers/figures and back-reference list not completely audited. Not complete PDF visual reading.",
+      "xml_sha256": "172477c25abb9dd7c9a2072400b5efddf2bd5be4d10fda0ab4bc2c8fe19a82bb",
+      "locations": [
+        "GAN digital-fit/physical-test experiment",
+        "Table6",
+        "Table8"
+      ],
+      "relied_on": "Digital-trained GAN classifiers failed printed/scanned tests; CrossCoNet Table8 BA=50.4%, not all-five fake recall zero. This does not rule out printed-aware training.",
+      "dataset_entry": "https://zenodo.org/records/4454971",
+      "dataset_audit": "Public record and extraction instructions only,14split7z pieces146.7GB; no archive/image bytes downloaded or integrity verified."
+    },
+    {
+      "title": "Partial Order Rank Features in Colour Space",
+      "url": "https://www.mdpi.com/2076-3417/10/2/499",
+      "version": "Applied Sciences2020,10(2)499",
+      "read_scope": "Search-provided abstract and Section3.1 excerpt only; full MDPI fetch429. Identified as related work, not relied on for implementation or performance claim."
+    }
+  ],
+  "own_audits": {
+    "order_counterexamples.json": "4e8cf3886aa8e84fafbf28194645bd75593cbe832224ec13bf6403e2bb490d01",
+    "vipprint_table8_audit.json": "5a6dfdda5268849d63085c0a9402cf847e249d998707f71a27dff2c56329486a"
+  },
+  "decision_before_real_extraction": "Fixed joint-color representation check with two planted controls and disclosed adapted product order; no new neural training or simulation. Existing frozen source roles and same fixed readouts."
+}

@@ -31,3 +31,7 @@
 `gaussian_readout.py` 提供非神经的共享协方差、Gaussian朴素贝叶斯与收缩QDA显式规则；仅用fit统计，无目标批次适应，稳健性尚待验证。
 
 `group_margin.py` 以凸logistic目标检验均值风险、熵组风险与配对约束；复用显式`StableRule`推理/导出，目标及参数由实验收据区分。
+
+`kernel_readout.py` 提供固定Fourier映射和显式嵌套读出，先验证核近似及从原特征到最终分数的复算，当前稳健性尚未通过。
+
+`color_relations.py`：RTPO启发的显式适配，351维RGB偏序/平局与同位置联合残差；固定网格的有限关系不变性不扩展到颜色混合/缩放。暂无合格部署规则。

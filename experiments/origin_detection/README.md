@@ -41,3 +41,7 @@
 - `threshold_diagnostics/audit_rate_boundaries.py`：从真假整数正确数追加审计比例边界，保存原收据。
 
 [第十三轮组风险与配对](group_margin/README.md)：固定凸目标四消融，错源配对与来源标签置乱控制。
+
+[第十四轮核读出](kernel_readout/README.md)：固定随机Fourier非线性容量，完整可移植map+head规则，不将核近似误作物理稳定保证。
+
+- [color_relations](color_relations/README.md)：第十五轮固定RGB偏序/联合残差，检验旧独立通道表示遗漏的信息；人工控制与60张计时已通过，完整开发提取进行中。
