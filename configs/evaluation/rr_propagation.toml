@@ -1,0 +1,10 @@
+# Prespecified RR development comparison; no reserved sources or score fitting.
+protocol_id = "rr-propagation-controls-20261005"
+max_long_edge = 1024
+jpeg_quality = 40
+jpeg_subsampling = 2
+resampling = "lanczos"
+diagnostic_side = 128
+bootstrap_seed = 20261005
+bootstrap_replicates = 2000
+

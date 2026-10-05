@@ -4,6 +4,8 @@
 
 ## 范围与状态
 
+新统一缓存汇总见 [evaluate_rr_suite.py](evaluate_rr_suite.py)：`--scope baselines` 复用三个全量 baseline，`--scope all` 加入[数字传播对照](../propagation_controls/rr/README.md)。该入口不启动推理；本轮只显式运行新对照图片的 B-Free。
+
 历史固定检测器评测；官方环境、权重和断点均有独立约束。推理/特征实现已提取到 `palimpsest.detection.baselines`，本目录保留选择数据、调度、训练旧 RF 和汇总协议。研究训练和全量复算暂停；少量接入核对见[接口验证](../integration/rr/README.md)。
 
 ## 前置条件与执行顺序

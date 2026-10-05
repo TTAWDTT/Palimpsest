@@ -2,7 +2,7 @@
 
 [仓库首页](../README.md) · [命名与执行约定](../docs/experiment_conventions.md) · [迁移清单](../docs/maintenance/experiment_migration.csv)
 
-目录按“研究什么”划分，数据集是问题内的协议范围，文件名说明执行角色。`src/palimpsest/` 保存可复用实现；问题内 `protocol.py` 保存冻结设置与专用共享步骤。研究目前暂停，不自动运行这些历史实验。
+目录按“研究什么”划分，数据集是问题内的协议范围，文件名说明执行角色。`src/palimpsest/` 保存可复用实现；问题内 `protocol.py` 保存冻结设置与专用共享步骤。当前只推进[统一缓存评测与数字传播对照](../docs/propagation_evaluation.md)，其余历史探索暂缓，不自动运行。
 
 | 主题 | 内容 |
 |---|---|

@@ -55,6 +55,8 @@ src/
 
 ## 业务链路
 
+已有逐图结果可通过 [evaluation/cached.py](palimpsest/evaluation/cached.py) 校验并汇总；[RR 统一入口](../experiments/origin_detection/baselines/evaluate_rr_suite.py) 直接读取原 CSV，输出分类、同源变化、时间与模拟响应对照。此链路不加载模型、不启动推理或训练；具体来源与验收见[评测协议](../docs/propagation_evaluation.md)。
+
 ### 1. 图片来源推理：当前可调用
 
 ```mermaid
