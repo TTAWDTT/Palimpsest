@@ -8,7 +8,7 @@
 
 业务包括区域定位、来源判别、处理过程模拟、数据与评测，以及后续自研算法/模型训练。下面分别说明可调用的能力与预留接口。
 
-当前非深度学习算法处于设计阶段，具体开发流程见[算法研发计划](../docs/robust_ai_detection_plan.md)；候选实现和成绩尚未产生。
+当前非深度学习算法已有[局部统计原型](palimpsest/detection/algorithms/local_statistics/README.md)，具体流程见[开发计划](../docs/robust_ai_detection_plan.md)。[首轮真实拍屏诊断](../reports/04_算法研发/首轮局部统计算法_开发筛选与真实拍屏诊断_2026-10-05.md)失败，不能视作已经可部署的稳健方法。
 
 ## 目录结构
 
@@ -22,7 +22,7 @@ src/
     │   └── baselines/         四边形提议与 SAM 2 自动分割
     ├── detection/             判别原始自然摄影/AI 内容
     │   ├── interfaces.py      OriginDetector 来源预测协议
-    │   ├── algorithms/        自研非深度学习方法（待开发）
+    │   ├── algorithms/        自研非深度学习统计原型（稳健性未通过）
     │   ├── models/            自研神经模型（待开发）
     │   ├── baselines/         B-Free、D3、Benford 参考实现适配
     │   └── files.py           单检测器的文件解码与推理计时
@@ -50,7 +50,7 @@ src/
 | 模块 | 负责什么 | 当前边界 |
 |---|---|---|
 | [localization](palimpsest/localization/README.md) | 输出候选区域的框、可选掩膜和定位置信度 | 已有几何提议和通用分割；承载图像区域的筛选、跟踪待开发 |
-| [detection](palimpsest/detection/README.md) | 对输入像素输出原始来源分数与判定 | B-Free/D3 已接真实权重；Benford 支持特征及已拟合森林加载；自研方法待开发 |
+| [detection](palimpsest/detection/README.md) | 对输入像素输出原始来源分数与判定 | B-Free/D3 已接真实权重；Benford 支持特征及已拟合森林加载；局部统计规则为未通过稳健性验证的原型 |
 | [pipelines](palimpsest/pipelines/README.md) | 串接解码、定位、裁切、预测和计时 | 图片链可调用；视频/手机实时链待开发 |
 | [simulation](palimpsest/simulation/README.md) | 按事件与显式参数生成经过处理的图像 | 数字处理可调用，物理事件已有受限原型，截屏/独立拍投影实现待开发 |
 | [training](palimpsest/training/README.md) | 定义训练/验证样本与拟合产物出口 | 只有扩展协议，没有默认训练器 |

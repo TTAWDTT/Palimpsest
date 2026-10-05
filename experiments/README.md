@@ -2,7 +2,7 @@
 
 [仓库首页](../README.md) · [命名与执行约定](../docs/experiment_conventions.md) · [迁移清单](../docs/maintenance/experiment_migration.csv)
 
-目录按“研究什么”划分，数据集是问题内的协议范围，文件名说明执行角色。`src/palimpsest/` 保存可复用实现；问题内 `protocol.py` 保存冻结设置与专用共享步骤。当前进入[传播后 AI／非 AI 算法的设计阶段](../docs/robust_ai_detection_plan.md)，其中的新实验路径是拟定结构，尚未实现。已有[统一缓存评测](../docs/propagation_evaluation.md)可复用；历史探索不自动运行。
+目录按“研究什么”划分，数据集是问题内的协议范围，文件名说明执行角色。`src/palimpsest/` 保存可复用实现；问题内 `protocol.py` 保存冻结设置与专用共享步骤。当前推进[传播后 AI／非 AI 算法迭代](../docs/robust_ai_detection_plan.md)，已实现[统计候选筛选](origin_detection/robust_statistics/rr/README.md)与[固定规则拍屏诊断](origin_detection/robust_statistics/chimera/README.md)。已有[统一缓存评测](../docs/propagation_evaluation.md)可复用；历史探索不自动运行。
 
 | 主题 | 内容 |
 |---|---|

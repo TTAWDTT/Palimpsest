@@ -35,6 +35,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools\finish_repo_migration.
 
 ## 提交与讨论
 
+2026-10-05算法迭代更新：用户已授权按流程实施，并使用BootLoops技能/工具辅助。首轮结果见[算法记录](../reports/04_算法研发/首轮局部统计算法_开发筛选与真实拍屏诊断_2026-10-05.md)：局部统计原型已实现，当前规则的真实拍屏稳健性未通过。Simulation和神经训练继续暂缓；研究不设置自动定时探索。
+
 - `main` 保存可阅读、经过相应检查的版本；新整理或研发使用 `ttawdtt/<主题>` 分支。
 - 一次提交围绕一个具体目的，说明改动及其验证；较大的改动通过 pull request 讨论。
 - 阅读文档从 `reports/README.md` 进入；代码修改遵循 `docs/README.md` 的阶段划分。

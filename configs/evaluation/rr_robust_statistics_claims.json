@@ -1,0 +1,40 @@
+{
+  "campaign": "Palimpsest first spatial-statistics iteration, 2026-10-05",
+  "register": "Selected report headline numbers only; no scientific independence or report-wide completeness claim",
+  "quote_source": "reports/04_算法研发/首轮局部统计算法_开发筛选与真实拍屏诊断_2026-10-05.md",
+  "receipts": {
+    "a": {"path": "../../work/robust_statistics/rr_first_iteration/source_audit.json"},
+    "f": {"path": "../../work/robust_statistics/rr_first_iteration/features.json"},
+    "s": {"path": "../../work/robust_statistics/rr_first_iteration/screening.json"},
+    "b": {"path": "../../work/robust_statistics/rr_first_iteration/benchmark.json"},
+    "e": {"path": "../../work/robust_statistics/chimera_first_iteration/frozen_rule.json"}
+  },
+  "claims": [
+    {"section": "DATA", "label": "development sources", "quoted": "900", "mode": "exact", "expr": "f('a','/development_sources')"},
+    {"section": "DATA", "label": "development images", "quoted": "2700", "mode": "exact", "expr": "f('a','/development_images')"},
+    {"section": "DATA", "label": "duplicate components", "quoted": "35", "mode": "exact", "expr": "len(f('a','/duplicate_components'))"},
+    {"section": "DATA", "label": "reserved historical duplicates", "quoted": "16", "mode": "exact", "expr": "f('a','/role_counts/excluded_duplicate_of_historical_exploration')"},
+    {"section": "DATA", "label": "feature records", "quoted": "10800", "mode": "exact", "expr": "f('f','/rows')"},
+    {"section": "SCREEN", "label": "candidate count", "quoted": "6", "mode": "exact", "expr": "f('s','/candidate_count')"},
+    {"section": "SCREEN", "label": "chosen candidate", "quoted": "color-512", "mode": "exact", "expr": "f('s','/chosen')"},
+    {"section": "SCREEN", "label": "original AUC", "quoted": "0.6920", "expr": "f('s','/candidates/color-512/selection/original/auc')"},
+    {"section": "SCREEN", "label": "transfer AUC", "quoted": "0.6826", "expr": "f('s','/candidates/color-512/selection/transfer/auc')"},
+    {"section": "SCREEN", "label": "redigital AUC", "quoted": "0.6272", "expr": "f('s','/candidates/color-512/selection/redigital/auc')"},
+    {"section": "SCREEN", "label": "permutation p", "quoted": "0.0020", "expr": "f('s','/selection_null_control/permutation_p')"},
+    {"section": "RR", "label": "original BA pct", "quoted": "67.78", "expr": "100*f('s','/selected_selection_classification/conditions/original/balanced_accuracy_at_zero')"},
+    {"section": "RR", "label": "transfer BA pct", "quoted": "62.78", "expr": "100*f('s','/selected_selection_classification/conditions/transfer/balanced_accuracy_at_zero')"},
+    {"section": "RR", "label": "redigital BA pct", "quoted": "56.11", "expr": "100*f('s','/selected_selection_classification/conditions/redigital/balanced_accuracy_at_zero')"},
+    {"section": "RR", "label": "redigital natural accuracy pct", "quoted": "34.44", "expr": "100*f('s','/selected_selection_classification/conditions/redigital/real_accuracy_at_zero')"},
+    {"section": "SPEED", "label": "2MP core P95 ms", "quoted": "33.81", "expr": "f('b','/summaries/at_most_2MP/predict_ms/p95')"},
+    {"section": "SPEED", "label": "2MP E2E P95 ms", "quoted": "44.93", "expr": "f('b','/summaries/at_most_2MP/end_to_end_ms/p95')"},
+    {"section": "EXTERNAL", "label": "Chimera images", "quoted": "3600", "mode": "exact", "expr": "f('e','/images')"},
+    {"section": "EXTERNAL", "label": "original BA pct", "quoted": "57.00", "expr": "100*f('e','/algorithm/conditions/original/balanced_accuracy_at_zero')"},
+    {"section": "EXTERNAL", "label": "Mac BA pct", "quoted": "47.75", "expr": "100*f('e','/algorithm/conditions/mac_iphone/balanced_accuracy_at_zero')"},
+    {"section": "EXTERNAL", "label": "LG BA pct", "quoted": "43.42", "expr": "100*f('e','/algorithm/conditions/lg_blackfly/balanced_accuracy_at_zero')"},
+    {"section": "EXTERNAL", "label": "LG AUC pct", "quoted": "39.70", "expr": "100*f('e','/algorithm/conditions/lg_blackfly/auc')"},
+    {"section": "EXTERNAL", "label": "LG natural accuracy pct", "quoted": "15.67", "expr": "100*f('e','/algorithm/conditions/lg_blackfly/real_accuracy_at_zero')"},
+    {"section": "EXTERNAL", "label": "Mac E2E P95 ms", "quoted": "51.42", "expr": "f('e','/algorithm/timing_ms/mac_iphone/end_to_end_ms/p95')"},
+    {"section": "EXTERNAL", "label": "B-Free Mac BA pct", "quoted": "57.58", "expr": "100*f('e','/B-Free/conditions/mac_iphone/balanced_accuracy_at_zero')"},
+    {"section": "EXTERNAL", "label": "B-Free LG BA pct", "quoted": "67.00", "expr": "100*f('e','/B-Free/conditions/lg_blackfly/balanced_accuracy_at_zero')"}
+  ]
+}
