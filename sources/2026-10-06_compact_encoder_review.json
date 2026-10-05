@@ -37,7 +37,7 @@
     "Author distillation is model provenance,not distillation performed by this project",
     "No physical robustness guarantee from parameter count or self-supervision"
   ],
-  "experimental_status": "Synthetic/runtime/software controls passed;60-image196-vector costpilot2.645s;full extraction active;no accuracy result",
+  "experimental_status": "Full20160vectors/fiveheads/native360timings complete;chosen minimumBA75%,worstscene drop8.75pp;goal unmet",
   "runtime_acquisition": {
     "code_commit": "7764ea0f912e53c92e82eb78a2a1631e92725fc8",
     "vendor_root": "E:\\ai_image_origin_research\\repo\\work\\vendor\\dinov2\\7764ea0f912e53c92e82eb78a2a1631e92725fc8",
@@ -170,5 +170,16 @@
     "scope": "Synthetic fixed tensor warm CUDA forward only;not image-to-decision or end-to-end speed",
     "source_receipt_sha256": "33a6f74e03a01657854386f157ba35079782a9293f02e54cad94a6515a27e60a",
     "script_sha256": "dc70fbd2bd16539d88f7b4c311358db0b62a49550a688f948b3d8ff9902fc2c3"
+  },
+  "history": [
+    {
+      "earlier_experimental_status": "Synthetic/runtime/software controls passed;60-image196-vector costpilot2.645s;full extraction active;no accuracy result"
+    }
+  ],
+  "completed_receipts": {
+    "features.json": "work\\robust_statistics\\compact_frozen_encoder\\features.json",
+    "iteration.json": "work\\robust_statistics\\compact_frozen_encoder\\iteration.json",
+    "benchmark.json": "work\\robust_statistics\\compact_frozen_encoder\\benchmark.json",
+    "score_counts_audit.json": "work\\robust_statistics\\compact_frozen_encoder\\score_counts_audit.json"
   }
 }

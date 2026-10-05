@@ -1,0 +1,85 @@
+{
+  "source": "OfficialOpenAI CLIP code/model card",
+  "code_commit": "d05afc436d78f1c48dc0dbf8e5980a9d471f35f6",
+  "source_pins": {
+    "clip_clip.py": "9540f200fbf8145479fa655382a56dab048d238cc698b9cbd8df3b6d86d3f1b6",
+    "clip_model.py": "9902cbe5ee90a1da2aa3e6f043e8a23dc1f8831193b963785c9af03d5c7bef2c",
+    "model-card.md": "7baf04f60c6234b301ec2c9ca39e67a3ca54b47c05e9509bddf732cbcbec8b7f",
+    "README.md": "f82c5c75e140532eb37a7d943921e1bdd57d740c6b40d0030985bc5b5d11d6f1",
+    "LICENSE": "987e63b32f6c89ff5160e429458a872ff048e6860b590a3912e938f9da8f14db"
+  },
+  "reading_scope": {
+    "clip_clip.py": "model map,download SHA,transform andload code read",
+    "clip_model.py": "VisionTransformer,CLIP constructor andbuild_model portions read;not full ResNet/text architecture",
+    "model-card.md": "Full card read;author evaluation tables not independently recomputed",
+    "README.md": "Usage/API excerpt read",
+    "paper": "Not newly read;no generic robustness result used as our evidence"
+  },
+  "own_hypothesis": "Retain image/text pretrained family while reducing one backbone;absolute AI signal/processing stability not implied by same family",
+  "weights": {
+    "author_sha256": "5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f",
+    "published_get_length": 350837078,
+    "status": "Downloaded350837078bytes and official SHA256 verified;no real image inference yet",
+    "verified_receipt": "work/robust_statistics/compact_semantic_review/weight_receipt.json"
+  },
+  "limitations": [
+    "Capacity,patch anddepth change together;no causal isolation of size",
+    "Neural frozen representation,not pure statistical pixel algorithm",
+    "No new backbone training",
+    "Pretrained image overlap unknown"
+  ],
+  "protocol": "experiments/origin_detection/compact_semantic_encoder/README.md",
+  "runtime_controls": {
+    "passed": true,
+    "synthetic_only": true,
+    "native_images_used": 0,
+    "preprocessing_cases": [
+      {
+        "height": 256,
+        "width": 256,
+        "maximum_preprocessing_difference": 0
+      },
+      {
+        "height": 301,
+        "width": 417,
+        "maximum_preprocessing_difference": 0
+      },
+      {
+        "height": 417,
+        "width": 301,
+        "maximum_preprocessing_difference": 0
+      }
+    ],
+    "encoder": {
+      "weights_sha256": "5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f",
+      "device": "cuda:0",
+      "torch": "2.7.1+cu126",
+      "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+      "precision": "official archive.visual fp16",
+      "backbone_parameters_trained": 0,
+      "all_parameters_frozen": true,
+      "layers": 12,
+      "patch": 16,
+      "descriptor_dimension": 512,
+      "jit_optimized_execution": false,
+      "synthetic_repeat_exact": true,
+      "input": "Same frozen_clip.prepare224;stored orientation",
+      "storage": "(L2_unit512+1)/2",
+      "torch_module": "E:\\ai_image_origin_research\\envs\\bfree\\Lib\\site-packages\\torch\\__init__.py",
+      "numpy_module": "E:\\ai_image_origin_research\\repo\\.venv\\Lib\\site-packages\\numpy\\__init__.py"
+    },
+    "forward_only_p50_ms": 6.5990000002784654,
+    "forward_only_p95_ms": 10.0166999931389,
+    "source_transform_sha256": "9540f200fbf8145479fa655382a56dab048d238cc698b9cbd8df3b6d86d3f1b6",
+    "script_sha256": "ec7bb947bf5bfd5c66e8ee4719a8a4af8518b5117cd58e61a279063dd358e985",
+    "representation_sha256": "8e436f05508ac2355c8ec4e8e6a694afce38893df1a263f9798f7d327e3dca94",
+    "scope": "Original AST transform helpers executed without expression edits;synthetic CUDA forward only,not end-to-end"
+  },
+  "experimental_status": "Runtime controls and60image196vector pilot completed;full20160vector extraction active;no accuracy result",
+  "pilot": {
+    "images": 60,
+    "records": 196,
+    "elapsed_s": 7.114771599997766,
+    "csv_sha256": "afc4e36ffe6a05d5e8a4c09a71f3b8dcdbf6667f05b0effa7bfd32e921417451"
+  }
+}

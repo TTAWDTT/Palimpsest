@@ -51,3 +51,7 @@
 [冻结CLIP表示](frozen_clip/README.md)固定现有预训练编码器，检查其类别信号与处理退化；[冻结读出](frozen_readout/README.md)提供公共逐候选评测。
 
 [来源内风险](source_view_risk/README.md)：第十七轮固定2×2对照，六头完整评价已完成；[小型冻结编码器](compact_frozen_encoder/README.md)：第十八轮，固定一个较小既有神经表示，运行控制与提取入口。
+
+[语义核](semantic_kernel/README.md)、[同源慢子空间](slow_subspace/README.md)、[来源分数一致性](source_score_consistency/README.md)：第十九至二十一轮，完整开发评测和失败记录；不继续事后调参。
+
+[小型语义编码器](compact_semantic_encoder/README.md)：第二十二轮单一CLIP-B/16预登记，尚无准确率结论。

@@ -16,3 +16,5 @@
 | [imagenet_es](imagenet_es/README.md) | imagenet_es | 3 |
 | [raw2event](raw2event/README.md) | raw2event | 13 |
 | [rr](rr/README.md) | rr | 7 |
+
+[DeepShield](deepshield/README.md)：冻结800来源3200图的真实平台外部验证元数据队列；只规划名单和字节预算，未下载新队列像素、未绑定方法，不算验证结果。

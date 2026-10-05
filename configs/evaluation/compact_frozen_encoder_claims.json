@@ -1,0 +1,393 @@
+{
+  "campaign": "Eighteenth compact frozen encoder2026-10-06",
+  "register": "Transcription only,not independent validation",
+  "quote_source": "reports/04_算法研发/第十八轮小型冻结表示_速度提高但绝对判别不足_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/compact_frozen_encoder/iteration.json"
+    },
+    "f": {
+      "path": "../../work/robust_statistics/compact_frozen_encoder/features.json"
+    },
+    "b": {
+      "path": "../../work/robust_statistics/compact_frozen_encoder/benchmark.json"
+    },
+    "u": {
+      "path": "../../work/robust_statistics/compact_frozen_encoder/runtime_controls.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "results",
+      "label": "cls/mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/cls~1mean/minimum_domain_ba')",
+      "quoted": "72.22"
+    },
+    {
+      "section": "results",
+      "label": "cls/mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/cls~1mean/minimum_scene_ba')",
+      "quoted": "77.50"
+    },
+    {
+      "section": "results",
+      "label": "cls/mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/cls~1mean/maximum_any_scene_drop')",
+      "quoted": "7.50"
+    },
+    {
+      "section": "results",
+      "label": "cls/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/cls~1source/minimum_domain_ba')",
+      "quoted": "71.11"
+    },
+    {
+      "section": "results",
+      "label": "cls/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/cls~1source/minimum_scene_ba')",
+      "quoted": "80.00"
+    },
+    {
+      "section": "results",
+      "label": "cls/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/cls~1source/maximum_any_scene_drop')",
+      "quoted": "6.25"
+    },
+    {
+      "section": "results",
+      "label": "cls_patch/mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/cls_patch~1mean/minimum_domain_ba')",
+      "quoted": "73.33"
+    },
+    {
+      "section": "results",
+      "label": "cls_patch/mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/cls_patch~1mean/minimum_scene_ba')",
+      "quoted": "86.25"
+    },
+    {
+      "section": "results",
+      "label": "cls_patch/mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/cls_patch~1mean/maximum_any_scene_drop')",
+      "quoted": "8.75"
+    },
+    {
+      "section": "results",
+      "label": "cls_patch/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/cls_patch~1source/minimum_domain_ba')",
+      "quoted": "75.00"
+    },
+    {
+      "section": "results",
+      "label": "cls_patch/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/cls_patch~1source/minimum_scene_ba')",
+      "quoted": "83.75"
+    },
+    {
+      "section": "results",
+      "label": "cls_patch/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/cls_patch~1source/maximum_any_scene_drop')",
+      "quoted": "8.75"
+    },
+    {
+      "section": "results",
+      "label": "cls_patch/source_source_shuffled_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/cls_patch~1source_source_shuffled_null/minimum_domain_ba')",
+      "quoted": "42.92"
+    },
+    {
+      "section": "results",
+      "label": "cls_patch/source_source_shuffled_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/cls_patch~1source_source_shuffled_null/minimum_scene_ba')",
+      "quoted": "36.25"
+    },
+    {
+      "section": "results",
+      "label": "cls_patch/source_source_shuffled_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/cls_patch~1source_source_shuffled_null/maximum_any_scene_drop')",
+      "quoted": "11.25"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/original/raw",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/rr~1all~1original~1raw/balanced_accuracy_at_zero')",
+      "quoted": "77.22"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/original/jpeg90_444_after_resize256",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/rr~1all~1original~1jpeg90_444_after_resize256/balanced_accuracy_at_zero')",
+      "quoted": "75.00"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/original/jpeg70_420_after_resize256",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/rr~1all~1original~1jpeg70_420_after_resize256/balanced_accuracy_at_zero')",
+      "quoted": "76.67"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/original/jpeg60_420_after_resize256",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/rr~1all~1original~1jpeg60_420_after_resize256/balanced_accuracy_at_zero')",
+      "quoted": "80.00"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/transfer/raw",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/rr~1all~1transfer~1raw/balanced_accuracy_at_zero')",
+      "quoted": "77.78"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/transfer/jpeg90_444_after_resize256",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/rr~1all~1transfer~1jpeg90_444_after_resize256/balanced_accuracy_at_zero')",
+      "quoted": "77.78"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/transfer/jpeg70_420_after_resize256",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/rr~1all~1transfer~1jpeg70_420_after_resize256/balanced_accuracy_at_zero')",
+      "quoted": "77.78"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/transfer/jpeg60_420_after_resize256",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/rr~1all~1transfer~1jpeg60_420_after_resize256/balanced_accuracy_at_zero')",
+      "quoted": "76.67"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/redigital/raw",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/rr~1all~1redigital~1raw/balanced_accuracy_at_zero')",
+      "quoted": "75.00"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/redigital/jpeg90_444_after_resize256",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/rr~1all~1redigital~1jpeg90_444_after_resize256/balanced_accuracy_at_zero')",
+      "quoted": "75.56"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/redigital/jpeg70_420_after_resize256",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/rr~1all~1redigital~1jpeg70_420_after_resize256/balanced_accuracy_at_zero')",
+      "quoted": "76.11"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/redigital/jpeg60_420_after_resize256",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/rr~1all~1redigital~1jpeg60_420_after_resize256/balanced_accuracy_at_zero')",
+      "quoted": "75.56"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/original/raw",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/chimera~1all~1original~1raw/balanced_accuracy_at_zero')",
+      "quoted": "91.67"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/original/jpeg90_444_after_resize256",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/chimera~1all~1original~1jpeg90_444_after_resize256/balanced_accuracy_at_zero')",
+      "quoted": "92.50"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/original/jpeg70_420_after_resize256",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/chimera~1all~1original~1jpeg70_420_after_resize256/balanced_accuracy_at_zero')",
+      "quoted": "92.50"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/original/jpeg60_420_after_resize256",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/chimera~1all~1original~1jpeg60_420_after_resize256/balanced_accuracy_at_zero')",
+      "quoted": "92.50"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/mac_iphone/raw",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/chimera~1all~1mac_iphone~1raw/balanced_accuracy_at_zero')",
+      "quoted": "89.58"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/mac_iphone/jpeg90_444_after_resize256",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/chimera~1all~1mac_iphone~1jpeg90_444_after_resize256/balanced_accuracy_at_zero')",
+      "quoted": "91.25"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/mac_iphone/jpeg70_420_after_resize256",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/chimera~1all~1mac_iphone~1jpeg70_420_after_resize256/balanced_accuracy_at_zero')",
+      "quoted": "90.00"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/mac_iphone/jpeg60_420_after_resize256",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/chimera~1all~1mac_iphone~1jpeg60_420_after_resize256/balanced_accuracy_at_zero')",
+      "quoted": "90.00"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/lg_blackfly/raw",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/chimera~1all~1lg_blackfly~1raw/balanced_accuracy_at_zero')",
+      "quoted": "92.08"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/lg_blackfly/jpeg90_444_after_resize256",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/chimera~1all~1lg_blackfly~1jpeg90_444_after_resize256/balanced_accuracy_at_zero')",
+      "quoted": "90.83"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/lg_blackfly/jpeg70_420_after_resize256",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/chimera~1all~1lg_blackfly~1jpeg70_420_after_resize256/balanced_accuracy_at_zero')",
+      "quoted": "90.83"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/lg_blackfly/jpeg60_420_after_resize256",
+      "expr": "100*f('i','/candidates/cls_patch~1source/metrics/chimera~1all~1lg_blackfly~1jpeg60_420_after_resize256/balanced_accuracy_at_zero')",
+      "quoted": "90.00"
+    },
+    {
+      "section": "cache",
+      "label": "images",
+      "expr": "f('f','/images')",
+      "quoted": "6300"
+    },
+    {
+      "section": "cache",
+      "label": "records",
+      "expr": "f('f','/records')",
+      "quoted": "20160"
+    },
+    {
+      "section": "cost",
+      "label": "feature seconds",
+      "expr": "f('f','/elapsed_s')",
+      "quoted": "288.35"
+    },
+    {
+      "section": "cost",
+      "label": "fit seconds",
+      "expr": "f('i','/elapsed_s')",
+      "quoted": "48.27"
+    },
+    {
+      "section": "timing",
+      "label": "all/predict_ms/p50",
+      "expr": "f('b','/summaries/all/predict_ms/p50')",
+      "quoted": "10.55"
+    },
+    {
+      "section": "timing",
+      "label": "all/predict_ms/p95",
+      "expr": "f('b','/summaries/all/predict_ms/p95')",
+      "quoted": "15.37"
+    },
+    {
+      "section": "timing",
+      "label": "all/end_to_end_ms/p50",
+      "expr": "f('b','/summaries/all/end_to_end_ms/p50')",
+      "quoted": "16.91"
+    },
+    {
+      "section": "timing",
+      "label": "all/end_to_end_ms/p95",
+      "expr": "f('b','/summaries/all/end_to_end_ms/p95')",
+      "quoted": "30.09"
+    },
+    {
+      "section": "timing",
+      "label": "all/images",
+      "expr": "f('b','/summaries/all/images')",
+      "quoted": "120"
+    },
+    {
+      "section": "timing",
+      "label": "all/measurements",
+      "expr": "f('b','/summaries/all/measurements')",
+      "quoted": "360"
+    },
+    {
+      "section": "timing",
+      "label": "at_most_2MP/predict_ms/p50",
+      "expr": "f('b','/summaries/at_most_2MP/predict_ms/p50')",
+      "quoted": "10.41"
+    },
+    {
+      "section": "timing",
+      "label": "at_most_2MP/predict_ms/p95",
+      "expr": "f('b','/summaries/at_most_2MP/predict_ms/p95')",
+      "quoted": "14.67"
+    },
+    {
+      "section": "timing",
+      "label": "at_most_2MP/end_to_end_ms/p50",
+      "expr": "f('b','/summaries/at_most_2MP/end_to_end_ms/p50')",
+      "quoted": "16.32"
+    },
+    {
+      "section": "timing",
+      "label": "at_most_2MP/end_to_end_ms/p95",
+      "expr": "f('b','/summaries/at_most_2MP/end_to_end_ms/p95')",
+      "quoted": "30.00"
+    },
+    {
+      "section": "timing",
+      "label": "at_most_2MP/images",
+      "expr": "f('b','/summaries/at_most_2MP/images')",
+      "quoted": "117"
+    },
+    {
+      "section": "timing",
+      "label": "at_most_2MP/measurements",
+      "expr": "f('b','/summaries/at_most_2MP/measurements')",
+      "quoted": "351"
+    },
+    {
+      "section": "timing",
+      "label": "above_2MP/predict_ms/p50",
+      "expr": "f('b','/summaries/above_2MP/predict_ms/p50')",
+      "quoted": "17.05"
+    },
+    {
+      "section": "timing",
+      "label": "above_2MP/predict_ms/p95",
+      "expr": "f('b','/summaries/above_2MP/predict_ms/p95')",
+      "quoted": "22.26"
+    },
+    {
+      "section": "timing",
+      "label": "above_2MP/end_to_end_ms/p50",
+      "expr": "f('b','/summaries/above_2MP/end_to_end_ms/p50')",
+      "quoted": "27.99"
+    },
+    {
+      "section": "timing",
+      "label": "above_2MP/end_to_end_ms/p95",
+      "expr": "f('b','/summaries/above_2MP/end_to_end_ms/p95')",
+      "quoted": "33.01"
+    },
+    {
+      "section": "timing",
+      "label": "above_2MP/images",
+      "expr": "f('b','/summaries/above_2MP/images')",
+      "quoted": "3"
+    },
+    {
+      "section": "timing",
+      "label": "above_2MP/measurements",
+      "expr": "f('b','/summaries/above_2MP/measurements')",
+      "quoted": "9"
+    },
+    {
+      "section": "control",
+      "label": "synthetic forward p95",
+      "expr": "f('u','/forward_only_p95_ms')",
+      "quoted": "7.60"
+    }
+  ]
+}
