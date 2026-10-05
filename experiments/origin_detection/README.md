@@ -28,3 +28,5 @@
 [第七轮训练干预](residual_training/README.md)：保持第六轮表示，四个预登记权重／编码对照，另留JPEG70评测。
 
 [第八轮配对分数稳定](paired_stability/README.md)：冻结表示与来源，零约束和两个稳定惩罚，保留信号抹除反例。
+
+[第九轮阈值标定](threshold_calibration/README.md)：三个冻结读出、两个已见标定范围，不改变特征或权重；加入编码后两类准入。

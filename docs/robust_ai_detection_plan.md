@@ -336,3 +336,7 @@ B-Free/D3历史记录是GPU协议，Benford为CPU；可作各自部署成本参�
 ## 21. 第八轮预登记：同源分数稳定约束
 
 第七轮留出JPEG仍失败；依[配对分数协议](../experiments/origin_detection/paired_stability/README.md)，固定表示与来源，解加权平方分类损失＋同源变化惩罚＋ridge的凸二次目标。λ仅0/1/10，零约束是同学习器对照；同时报告绝对准确度和除以raw分数方差的漂移。训练配对界不外推为物理不变性；不读取RR reserved、不调整selection阈值。
+
+## 22. 第九轮预登记：阈值目标与类别准入对齐
+
+第八轮零约束读出仅在留出JPEG拍屏跌幅上失败；旧maximin BA能遮蔽自然类失败。依[单阈值协议](../experiments/origin_detection/threshold_calibration/README.md)，冻结三个读出，仅比较raw／raw加JPEG90的类别最差正确率标定，六固定候选。新增两编码全部六条件真假≥55%门槛，不以JPEG70调参。
