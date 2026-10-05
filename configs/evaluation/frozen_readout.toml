@@ -1,0 +1,6 @@
+schema = 1
+seed = 20261005
+bootstrap_repetitions = 2000
+selection_auc_lower_gate = 0.5
+minimum_processed_class_accuracy = 0.55
+minimum_original_class_accuracy = 0.55
