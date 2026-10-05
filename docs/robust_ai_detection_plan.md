@@ -332,3 +332,7 @@ B-Free/D3历史记录是GPU协议，Benford为CPU；可作各自部署成本参�
 ## 20. 第七轮预登记：域权重与训练编码
 
 第六轮组合在拍屏开发数据改善，但RR再数字化及JPEG对照失败。依[固定四对照协议](../experiments/origin_detection/residual_training/README.md)，冻结379维表示与来源，仅比较等视图／两域等权×raw／加JPEG90；阈值均用同十二raw视图，基础候选必须完全复现第六轮。另留JPEG70/4:2:0仅评测，不能称独立来源测试。先人工控制、小试计时、后实际计算，不用RR reserved。
+
+## 21. 第八轮预登记：同源分数稳定约束
+
+第七轮留出JPEG仍失败；依[配对分数协议](../experiments/origin_detection/paired_stability/README.md)，固定表示与来源，解加权平方分类损失＋同源变化惩罚＋ridge的凸二次目标。λ仅0/1/10，零约束是同学习器对照；同时报告绝对准确度和除以raw分数方差的漂移。训练配对界不外推为物理不变性；不读取RR reserved、不调整selection阈值。

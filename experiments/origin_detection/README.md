@@ -26,3 +26,5 @@
 [residual_statistics](residual_statistics/README.md)：第六轮，256尺度的归一化RGB残差共生与顺序统计；原图／处理联合标定、两个消融候选、便携树推理、重编码与文件速度对照。
 
 [第七轮训练干预](residual_training/README.md)：保持第六轮表示，四个预登记权重／编码对照，另留JPEG70评测。
+
+[第八轮配对分数稳定](paired_stability/README.md)：冻结表示与来源，零约束和两个稳定惩罚，保留信号抹除反例。
