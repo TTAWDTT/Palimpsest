@@ -10,6 +10,7 @@ import cv2
 import numpy as np
 
 from palimpsest.detection.algorithms.local_statistics.detector import LocalStatisticsDetector, StatisticsRule
+from palimpsest.detection.algorithms.local_statistics.features import FEATURE_NAMES
 from palimpsest.detection.files import predict_file
 from palimpsest.io.hashing import file_sha256
 from .protocol import RESULT, ROOT, read_csv, settings, verified_inventory, write_json
@@ -26,8 +27,12 @@ def main():
     for condition in config["conditions"]:
         for label in ("ai", "real"):
             selected.extend([r for r in inventory if r["condition"] == condition and r["label"] == label][:10])
-    cached = {r["filename"]: np.array([float(r[f]) for f in json.loads(
-        (RESULT / "features.json").read_text(encoding="utf-8"))["feature_names"]])
+    feature_receipt = json.loads((RESULT / "features.json").read_text(encoding="utf-8"))
+    if feature_receipt["csv_sha256"] != file_sha256(RESULT / "features.csv"):
+        raise ValueError("Benchmark feature cache changed")
+    if feature_receipt["feature_names"] != list(FEATURE_NAMES):
+        raise ValueError("Benchmark feature schema differs")
+    cached = {r["filename"]: np.array([float(r[f]) for f in FEATURE_NAMES])
         for r in read_csv(RESULT / "features.csv")
         if r["variant"] == "raw" and int(r["long_edge"]) == rule.long_edge}
     detector = LocalStatisticsDetector(rule)
