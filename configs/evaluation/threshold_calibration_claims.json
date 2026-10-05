@@ -1,0 +1,162 @@
+{
+  "campaign": "Ninth class threshold calibration, 2026-10-06",
+  "register": "Numeric transcription checks, not generalization certification",
+  "quote_source": "reports/04_算法研发/第九轮类别阈值标定_单阈值可行性不足_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/threshold_calibration/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "lambda0/raw",
+      "label": "maximum worst calibration class percent",
+      "quoted": "50.00",
+      "expr": "100*f('i','/candidates/lambda0~1raw/calibration/worst_calibration_class_accuracy')"
+    },
+    {
+      "section": "lambda0/raw/selection_aggregate",
+      "label": "rr/original",
+      "quoted": "72.78",
+      "expr": "100*f('i','/candidates/lambda0~1raw/selection_aggregate/rr/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/raw/selection_aggregate",
+      "label": "rr/transfer",
+      "quoted": "68.89",
+      "expr": "100*f('i','/candidates/lambda0~1raw/selection_aggregate/rr/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/raw/selection_aggregate",
+      "label": "rr/redigital",
+      "quoted": "58.33",
+      "expr": "100*f('i','/candidates/lambda0~1raw/selection_aggregate/rr/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/raw/selection_aggregate",
+      "label": "chimera/original",
+      "quoted": "86.67",
+      "expr": "100*f('i','/candidates/lambda0~1raw/selection_aggregate/chimera/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/raw/selection_aggregate",
+      "label": "chimera/mac_iphone",
+      "quoted": "77.08",
+      "expr": "100*f('i','/candidates/lambda0~1raw/selection_aggregate/chimera/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/raw/selection_aggregate",
+      "label": "chimera/lg_blackfly",
+      "quoted": "78.75",
+      "expr": "100*f('i','/candidates/lambda0~1raw/selection_aggregate/chimera/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/raw90",
+      "label": "maximum worst calibration class percent",
+      "quoted": "40.00",
+      "expr": "100*f('i','/candidates/lambda0~1raw90/calibration/worst_calibration_class_accuracy')"
+    },
+    {
+      "section": "lambda0/raw90/selection_aggregate",
+      "label": "rr/original",
+      "quoted": "73.33",
+      "expr": "100*f('i','/candidates/lambda0~1raw90/selection_aggregate/rr/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/raw90/selection_aggregate",
+      "label": "rr/transfer",
+      "quoted": "70.00",
+      "expr": "100*f('i','/candidates/lambda0~1raw90/selection_aggregate/rr/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/raw90/selection_aggregate",
+      "label": "rr/redigital",
+      "quoted": "59.44",
+      "expr": "100*f('i','/candidates/lambda0~1raw90/selection_aggregate/rr/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/raw90/selection_aggregate",
+      "label": "chimera/original",
+      "quoted": "86.67",
+      "expr": "100*f('i','/candidates/lambda0~1raw90/selection_aggregate/chimera/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/raw90/selection_aggregate",
+      "label": "chimera/mac_iphone",
+      "quoted": "75.83",
+      "expr": "100*f('i','/candidates/lambda0~1raw90/selection_aggregate/chimera/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/raw90/selection_aggregate",
+      "label": "chimera/lg_blackfly",
+      "quoted": "80.42",
+      "expr": "100*f('i','/candidates/lambda0~1raw90/selection_aggregate/chimera/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/raw90/held_encoding_aggregate",
+      "label": "rr/original",
+      "quoted": "63.89",
+      "expr": "100*f('i','/candidates/lambda0~1raw90/held_encoding_aggregate/rr/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/raw90/held_encoding_aggregate",
+      "label": "rr/transfer",
+      "quoted": "65.56",
+      "expr": "100*f('i','/candidates/lambda0~1raw90/held_encoding_aggregate/rr/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/raw90/held_encoding_aggregate",
+      "label": "rr/redigital",
+      "quoted": "59.44",
+      "expr": "100*f('i','/candidates/lambda0~1raw90/held_encoding_aggregate/rr/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/raw90/held_encoding_aggregate",
+      "label": "chimera/original",
+      "quoted": "69.17",
+      "expr": "100*f('i','/candidates/lambda0~1raw90/held_encoding_aggregate/chimera/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/raw90/held_encoding_aggregate",
+      "label": "chimera/mac_iphone",
+      "quoted": "66.67",
+      "expr": "100*f('i','/candidates/lambda0~1raw90/held_encoding_aggregate/chimera/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/raw90/held_encoding_aggregate",
+      "label": "chimera/lg_blackfly",
+      "quoted": "69.17",
+      "expr": "100*f('i','/candidates/lambda0~1raw90/held_encoding_aggregate/chimera/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda1/raw",
+      "label": "maximum worst calibration class percent",
+      "quoted": "52.50",
+      "expr": "100*f('i','/candidates/lambda1~1raw/calibration/worst_calibration_class_accuracy')"
+    },
+    {
+      "section": "lambda1/raw90",
+      "label": "maximum worst calibration class percent",
+      "quoted": "40.00",
+      "expr": "100*f('i','/candidates/lambda1~1raw90/calibration/worst_calibration_class_accuracy')"
+    },
+    {
+      "section": "lambda10/raw",
+      "label": "maximum worst calibration class percent",
+      "quoted": "41.11",
+      "expr": "100*f('i','/candidates/lambda10~1raw/calibration/worst_calibration_class_accuracy')"
+    },
+    {
+      "section": "lambda10/raw90",
+      "label": "maximum worst calibration class percent",
+      "quoted": "37.50",
+      "expr": "100*f('i','/candidates/lambda10~1raw90/calibration/worst_calibration_class_accuracy')"
+    },
+    {
+      "section": "run",
+      "label": "elapsed seconds",
+      "quoted": "44.45",
+      "expr": "f('i','/elapsed_s')"
+    }
+  ]
+}
