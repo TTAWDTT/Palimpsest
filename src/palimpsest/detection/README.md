@@ -5,7 +5,7 @@
 | 目录 | 当前状态 |
 |---|---|
 | `baselines/` | B-Free、D3 真实权重适配；Benford 特征和已拟合森林的数值导出/推理 |
-| `algorithms/` | 自研非深度学习算法待开发 |
+| [algorithms](algorithms/README.md) | 局部统计规则原型可显式加载参数；首轮真实拍屏稳健性未通过，无默认成熟方法 |
 | `models/` | 自研高速模型待开发 |
 
 所有方法使用同一 `Prediction`，明确 raw logit、未校准概率差和阈值。未校准分数不填 `ai_probability`。具体环境、协议差异和安装见仓库 `docs/detection_pipeline.md`。
