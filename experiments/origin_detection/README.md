@@ -7,6 +7,7 @@
 | [固定检测器 baseline](baselines/README.md) | baselines | 17 |
 | [稳健统计算法首轮筛选](robust_statistics/rr/README.md) | rr开发来源，非最终测试 | 5个入口/协议 |
 | [固定规则真实拍屏诊断](robust_statistics/chimera/README.md) | chimera，参数不回调 | 1个入口 |
+| [配对处理方向投影](paired_projection/rr/README.md) | rr既有开发来源，两个候选及不投影参考 | 1个入口 |
 | [同源数字传播对照](propagation_controls/rr/README.md) | rr | 3个入口/协议 |
 | [接口与真实权重接入核对](integration/rr/README.md) | rr | 1 |
 | [编码捷径与对照](encoding_shortcuts/rr/README.md) | rr | 5 |
