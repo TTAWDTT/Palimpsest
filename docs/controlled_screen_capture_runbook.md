@@ -4,7 +4,7 @@
 
 ## 已准备的数字物料
 
-代码：`origin_simulation/capture_kit.py`。本机主屏当前显示模式由 Windows 报告为 1920×1080；已经在 `E:\ai_image_origin_research\data\derived\controlled_screen_capture\kit_1920x1080_v2\` 生成 17 张同尺寸、无损 RGB PNG，及 `pattern_manifest.json`、`session_template.json`、`capture_log_template.csv`。图案哈希和测量 ROI 在 manifest 中。**主屏当前模式不证明面板原生分辨率；模版把后者留为 `unknown`。**
+代码：`src/palimpsest/simulation/capture_kit.py`。本机主屏当前显示模式由 Windows 报告为 1920×1080；已经在 `E:\ai_image_origin_research\data\derived\controlled_screen_capture\kit_1920x1080_v2\` 生成 17 张同尺寸、无损 RGB PNG，及 `pattern_manifest.json`、`session_template.json`、`capture_log_template.csv`。图案哈希和测量 ROI 在 manifest 中。**主屏当前模式不证明面板原生分辨率；模版把后者留为 `unknown`。**
 
 | 图案 | 用途 |
 |---|---|

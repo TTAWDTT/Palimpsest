@@ -14,7 +14,8 @@ from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE_TREES = ("src", "experiments", "tests")
-PACKAGES = ("palimpsest", "origin_simulation", "experiments", "tests")
+PACKAGES = ("palimpsest", "experiments", "tests")
+FORBIDDEN_IMPORTS = {"origin_simulation"}
 LINK = re.compile(r"!?\[[^\]\n]*\]\(([^\s)]+)\)")
 DOMAINS = {
     "origin_detection",
@@ -200,6 +201,10 @@ def main() -> None:
         for node in ast.walk(trees[module]):
             if isinstance(node, ast.ImportFrom):
                 base = node.module or ""
+                if base.split(".")[0] in FORBIDDEN_IMPORTS:
+                    problems.append(
+                        f"{path.relative_to(ROOT)}:{node.lineno}: obsolete import {base}"
+                    )
                 if node.level:
                     prefix = package.split(".")[
                         : len(package.split(".")) - node.level + 1
@@ -225,6 +230,10 @@ def main() -> None:
                     )
             elif isinstance(node, ast.Import):
                 for alias in node.names:
+                    if alias.name.split(".")[0] in FORBIDDEN_IMPORTS:
+                        problems.append(
+                            f"{path.relative_to(ROOT)}:{node.lineno}: obsolete import {alias.name}"
+                        )
                     if module.startswith("palimpsest.") and alias.name.startswith(
                         "experiments"
                     ):
@@ -274,7 +283,7 @@ def main() -> None:
     )
 
     documents = [ROOT / "README.md", ROOT / "work/README.md"]
-    for folder in ("docs", "reports", "sources", "experiments", "configs"):
+    for folder in ("docs", "reports", "sources", "experiments", "configs", "src"):
         documents.extend((ROOT / folder).rglob("*.md"))
     links = 0
     for path in documents:

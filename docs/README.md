@@ -2,7 +2,7 @@
 
 [仓库首页](../README.md) · [研究结论](../reports/README.md) · [实验脚本](../experiments/README.md)
 
-先读[代码结构](architecture.md)理解公共模块和依赖方向，再按以下顺序阅读模拟器。
+先读[代码结构](architecture.md)理解完整任务、当前能力和依赖方向。区域与来源推理见[接入指南](detection_pipeline.md)；模拟器按以下顺序阅读。
 
 ## 代码阅读顺序
 
@@ -21,13 +21,13 @@
 
 `screen_capture` 的公共入口和参数名保留；历史实验使用的私有函数也暂保留显式导出。新内部实现直接引用所属模块，避免依赖入口文件中的私有函数。
 
-其他路径：`print_scan.py` 为单色打印扫描；`color_print_scan.py` 为 CMYK 代理；`photo_paper.py` 为连续色调代理；`print_camera.py` 把纸面接入相机。有效范围见[打印约定](print_scan_model_contract.md)。投影实验位于 `experiments/projector/`，见[投影约定](projector_camera_model_contract.md)。
+其他路径：`print_scan.py` 为单色打印扫描；`color_print_scan.py` 为 CMYK 代理；`photo_paper.py` 为连续色调代理；`print_camera.py` 把纸面接入相机。有效范围见[打印约定](print_scan_model_contract.md)。投影实验位于 `experiments/projection_capture/`，见[投影约定](projector_camera_model_contract.md)。
 
 ## 运行和验证
 
 ```powershell
-uv sync --locked --extra dev
-uv run --locked --extra dev python -m pytest -q
+uv sync --locked --extra dev --extra classical
+uv run --locked --extra dev --extra classical python -m pytest -q
 uv run --locked python -m palimpsest.simulation.render_cli --help
 uv run --locked python -m palimpsest.simulation.pipeline_cli --help
 uv run --locked python tools/check_layout.py
@@ -51,7 +51,7 @@ python -m experiments.origin_detection.baselines.evaluate_rr_bfree --help
 python -m experiments.screen_capture.source_to_rgb.chimera.evaluate_virtual_mac
 ```
 
-第二条会读取既有结果，需要对应本机产物；不是无数据示例。部分旧实验没有 CLI，会在模块顶层读取结果；运行前查看对应报告。路径由 `palimpsest.paths` 统一配置，历史冻结清单内部的绝对路径仍按原记录保留。深度学习 baseline 使用各自官方依赖环境，最小模型环境不包含 torch、timm、sklearn 等全部研究依赖。
+第二条会读取既有结果，需要对应本机产物；不是无数据示例。部分旧实验没有 CLI，显式执行入口时读取结果；运行前查看对应报告。路径由 `palimpsest.paths` 统一配置，历史冻结清单内部的绝对路径仍按原记录保留。深度学习 baseline 使用各自官方依赖环境，最小模型环境不包含 torch、timm、sklearn 等全部研究依赖。
 
 使用独立 baseline Python 时，将仓库和 `src` 加入模块路径：
 

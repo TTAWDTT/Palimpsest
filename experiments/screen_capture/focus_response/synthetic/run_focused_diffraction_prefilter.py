@@ -15,10 +15,10 @@ from scipy.signal import fftconvolve
 from palimpsest.simulation.optical_psf import circular_pupil_defocus_psf_display
 from palimpsest.simulation.screen_capture import (
     ScreenCaptureParameters,
-    _display_emitter_raster,
-    _integrate_display_raster,
     render_screen_capture,
 )
+from palimpsest.simulation._screen.emission import _display_emitter_raster
+from palimpsest.simulation._screen.spatial import _integrate_display_raster
 
 
 OUT = WORK_DIR / "focused_diffraction_prefilter_probe.json"

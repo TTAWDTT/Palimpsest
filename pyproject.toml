@@ -1,6 +1,6 @@
 [project]
 name = "palimpsest"
-version = "0.1.0"
+version = "0.2.0"
 description = "Image origin research through propagation and physical recapture"
 requires-python = ">=3.11"
 dependencies = [
@@ -12,14 +12,17 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest==8.3.5", "ruff==0.16.10"]
+classical = ["scikit-learn==1.7.2"]
+neural = ["torch==2.7.1", "torchvision==0.22.1", "timm==1.0.12", "PyYAML==6.0.2", "ftfy==6.3.1", "regex==2024.11.6"]
 
 [project.scripts]
 palimpsest-render = "palimpsest.simulation.render_cli:main"
-palimpsest-pipeline = "palimpsest.simulation.pipeline_cli:main"
+palimpsest-simulate = "palimpsest.simulation.pipeline_cli:main"
 palimpsest-capture-kit = "palimpsest.simulation.capture_kit:main"
+palimpsest-detect = "palimpsest.pipelines.cli:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/palimpsest", "src/origin_simulation"]
+packages = ["src/palimpsest"]
 
 [build-system]
 requires = ["hatchling==1.27.0"]
