@@ -18,3 +18,5 @@
 | [检测器分数迁移](score_transfer/chimera/README.md) | chimera | 4 |
 
 本轮同来源缓存baseline对照：`python -m experiments.origin_detection.robust_statistics.evaluate_development_comparison`；不重新推理。
+
+[phase_statistics](phase_statistics/README.md)：第四轮闭合相位及多原型预登记、签名缓存与速度入口，失败结果已归档。
