@@ -20,10 +20,10 @@ from palimpsest.io.provenance import simulation_code_sha256
 import numpy as np
 from PIL import Image
 
-from palimpsest.simulation.capture_kit import sha256
-from palimpsest.simulation.publication import PublicationParameters
-from palimpsest.simulation.screen_capture import ScreenCaptureParameters
-from palimpsest.simulation.screen_pipeline import (
+from palimpsest.io.hashing import file_sha256 as sha256
+from palimpsest.simulation.digital.publication import PublicationParameters
+from palimpsest.simulation.screen_capture.capture import ScreenCaptureParameters
+from palimpsest.simulation.screen_capture.pipeline import (
     DisplayRasterParameters,
     run_screen_pipeline,
 )

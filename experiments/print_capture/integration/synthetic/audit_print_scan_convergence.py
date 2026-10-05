@@ -5,7 +5,7 @@ import json
 
 import numpy as np
 
-from palimpsest.simulation.print_scan import PrintScanParameters, simulate_print_scan
+from palimpsest.simulation.print_scan.monochrome import PrintScanParameters, simulate_print_scan
 
 
 def main() -> None:

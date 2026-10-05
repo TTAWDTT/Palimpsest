@@ -15,7 +15,7 @@ import zipfile
 import numpy as np
 from PIL import Image
 
-from palimpsest.simulation.print_scan import PrintScanParameters, simulate_print_scan
+from palimpsest.simulation.print_scan.monochrome import PrintScanParameters, simulate_print_scan
 
 
 ARCHIVE = DATA_ROOT / "raw/csgc/CSGC_scan2400spi.zip"

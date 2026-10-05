@@ -14,11 +14,11 @@ import cv2
 import numpy as np
 from scipy.ndimage import gaussian_filter
 
-from palimpsest.simulation.screen_capture import (
+from palimpsest.simulation.screen_capture.capture import (
     ScreenCaptureParameters,
     render_screen_capture,
 )
-from palimpsest.simulation._screen.spatial import _homography_jacobian
+from palimpsest.simulation.screen_capture._render.spatial import _homography_jacobian
 from experiments.screen_capture.display_sampling.synthetic.run_projective_convergence import (
     pose,
 )

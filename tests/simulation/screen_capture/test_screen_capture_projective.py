@@ -1,0 +1,361 @@
+import numpy as np
+from scipy.ndimage import gaussian_filter
+
+from palimpsest.simulation.screen_capture.capture import (
+    ScreenCaptureParameters,
+    render_screen_capture,
+)
+from palimpsest.simulation.screen_capture._render.optics import _optical_blur
+
+
+def test_projective_emitter_quadrature_converges_on_uniform_screen():
+    display = np.ones((80, 80, 3), dtype=np.float32)
+    homography = np.array([[0.7, 0.03, 8], [0.02, 0.65, 8], [0.002, 0.001, 1]])
+    setup = ScreenCaptureParameters(sensor_to_display=homography)
+    medium = render_screen_capture(
+        display, (12, 12), setup, samples_per_sensor_pixel=32
+    )
+    fine = render_screen_capture(display, (12, 12), setup, samples_per_sensor_pixel=48)
+    assert np.isfinite(fine.irradiance).all()
+    assert np.max(np.abs(medium.irradiance - fine.irradiance)) < 0.025
+    assert abs(fine.irradiance.mean() - 0.85**2 / 3) < 0.02
+
+
+def test_projective_grid_responds_to_homography_tilt():
+    display = np.ones((100, 100, 3), dtype=np.float32)
+    front = ScreenCaptureParameters(
+        sensor_to_display=np.array([[0.25, 0, 5], [0, 0.25, 5], [0, 0, 1]])
+    )
+    tilted = ScreenCaptureParameters(
+        sensor_to_display=np.array([[0.25, 0.03, 5], [0.01, 0.25, 5], [0.002, 0, 1]])
+    )
+    first = render_screen_capture(display, (24, 24), front, samples_per_sensor_pixel=16)
+    second = render_screen_capture(
+        display, (24, 24), tilted, samples_per_sensor_pixel=32
+    )
+    assert second.irradiance.shape == first.irradiance.shape
+    assert not np.allclose(first.irradiance, second.irradiance)
+    with np.testing.assert_raises_regex(ValueError, "horizon"):
+        invalid = ScreenCaptureParameters(
+            sensor_to_display=np.array([[1, 0, 0], [0, 1, 0], [-0.1, 0, 1]])
+        )
+        render_screen_capture(display, (24, 24), invalid)
+
+
+def test_rolling_exposure_and_pwm_generate_rows_only_when_temporally_aliasing():
+    display = np.ones((40, 40, 3), dtype=np.float32)
+    homography = np.array([[0.25, 0, 5], [0, 0.25, 5], [0, 0, 1]])
+    short = ScreenCaptureParameters(
+        sensor_to_display=homography,
+        fill_fraction=1,
+        pwm_frequency_hz=100,
+        pwm_duty_cycle=0.25,
+        exposure_time_s=0.002,
+        sensor_row_interval_s=0.002,
+    )
+    long = ScreenCaptureParameters(
+        sensor_to_display=homography,
+        fill_fraction=1,
+        pwm_frequency_hz=100,
+        pwm_duty_cycle=0.25,
+        exposure_time_s=0.01,
+        sensor_row_interval_s=0.002,
+    )
+    moving = render_screen_capture(display, (12, 12), short)
+    averaged = render_screen_capture(display, (12, 12), long)
+    assert np.allclose(moving.row_exposure_gain[:5], [1, 0.25, 0, 0, 0])
+    assert np.allclose(averaged.row_exposure_gain, 0.25)
+    assert np.allclose(
+        moving.irradiance.mean(axis=(1, 2))[:5], moving.row_exposure_gain[:5] / 3
+    )
+    with np.testing.assert_raises_regex(ValueError, "PWM requires"):
+        ScreenCaptureParameters(sensor_to_display=homography, pwm_frequency_hz=100)
+
+
+def test_tiled_render_matches_whole_crop_with_optical_halo():
+    y, x = np.mgrid[0:64, 0:64]
+    display = np.stack(((x % 7) / 6, (y % 9) / 8, ((x + y) % 11) / 10), axis=-1).astype(
+        np.float32
+    )
+    transforms = (
+        np.array([[0.5, 0, 8], [0, 0.5, 8], [0, 0, 1]]),
+        np.array([[0.55, 0.03, 8], [0.02, 0.52, 8], [0.001, 0.0005, 1]]),
+    )
+    for homography in transforms:
+        setup = ScreenCaptureParameters(
+            sensor_to_display=homography, optical_blur_sigma_sensor_pixels=0.7
+        )
+        whole = render_screen_capture(
+            display, (24, 20), setup, samples_per_sensor_pixel=32
+        )
+        tiled = render_screen_capture(
+            display,
+            (24, 20),
+            setup,
+            samples_per_sensor_pixel=32,
+            tile_size_sensor_pixels=8,
+        )
+        assert np.max(np.abs(whole.irradiance - tiled.irradiance)) < 2e-5
+        assert np.allclose(whole.raw_mosaic, tiled.raw_mosaic, atol=2e-5, rtol=0)
+
+
+def test_fft_optical_blur_matches_reflected_spatial_filter():
+    fine = np.random.default_rng(9).random((480, 480, 3), dtype=np.float32)
+    direct = gaussian_filter(fine, (8, 8, 0), mode="reflect")
+    fast = _optical_blur(fine, 8)
+    assert np.max(np.abs(direct - fast)) < 2e-6
+
+
+def test_shutter_duration_couples_photon_count_to_pwm_integration():
+    display = np.ones((40, 40, 3), dtype=np.float32)
+    homography = np.array([[0.25, 0, 5], [0, 0.25, 5], [0, 0, 1]])
+    common = dict(
+        sensor_to_display=homography,
+        fill_fraction=1,
+        electron_rate_per_unit_s=200_000,
+        full_well_electrons=10000,
+        pwm_frequency_hz=100,
+        pwm_duty_cycle=0.5,
+        sensor_row_interval_s=0.001,
+    )
+    short = render_screen_capture(
+        display, (20, 20), ScreenCaptureParameters(**common, exposure_time_s=0.01)
+    )
+    long = render_screen_capture(
+        display, (20, 20), ScreenCaptureParameters(**common, exposure_time_s=0.02)
+    )
+    assert np.allclose(short.row_exposure_gain, 0.5)
+    assert np.allclose(long.row_exposure_gain, 0.5)
+    assert np.isclose(long.noiseless_mosaic.mean(), 2 * short.noiseless_mosaic.mean())
+    with np.testing.assert_raises_regex(
+        ValueError, "either integrated electrons or electron rate"
+    ):
+        ScreenCaptureParameters(
+            **common, exposure_time_s=0.01, exposure_electrons_per_unit=1000
+        )
+
+
+def test_pwm_duty_reduces_photons_for_fixed_peak_radiance():
+    display = np.ones((40, 40, 3), dtype=np.float32)
+    homography = np.array([[0.25, 0, 5], [0, 0.25, 5], [0, 0, 1]])
+    common = dict(
+        sensor_to_display=homography,
+        fill_fraction=1,
+        pwm_frequency_hz=100,
+        exposure_time_s=0.01,
+        electron_rate_per_unit_s=100_000,
+        full_well_electrons=10_000,
+    )
+    always = render_screen_capture(
+        display, (12, 12), ScreenCaptureParameters(**common, pwm_duty_cycle=1)
+    )
+    quarter = render_screen_capture(
+        display, (12, 12), ScreenCaptureParameters(**common, pwm_duty_cycle=0.25)
+    )
+    assert np.allclose(always.row_exposure_gain, 1)
+    assert np.allclose(quarter.row_exposure_gain, 0.25)
+    assert np.isclose(
+        quarter.noiseless_mosaic.mean(), always.noiseless_mosaic.mean() / 4
+    )
+
+
+def test_display_lattice_alias_frequency_tracks_projected_pixel_scale():
+    # A white digital image still emits through a physical subpixel lattice.
+    # Its observed frequency must fold at the sensor Nyquist limit as the
+    # camera-to-screen scale changes; this is a causal check, not image matching.
+    display = np.ones((128, 512, 3), dtype=np.float32)
+    for scale in (0.65, 0.85, 1.15):
+        H = np.array([[scale, 0, 50.33], [0, 0.18, 50.25], [0, 0, 1.0]])
+        setup = ScreenCaptureParameters(sensor_to_display=H)
+        oversampling = max(32, int(np.ceil(24 * scale / setup.fill_fraction)))
+        result = render_screen_capture(
+            display,
+            (4, 128),
+            setup,
+            samples_per_sensor_pixel=oversampling,
+            tile_size_sensor_pixels=32,
+        )
+        signal = result.irradiance[:, :, 1].mean(axis=0)
+        spectrum = np.abs(np.fft.rfft(signal - signal.mean()))
+        spectrum[0] = 0
+        measured = np.argmax(spectrum) / 128
+        expected = abs(scale - round(scale))
+        assert abs(measured - expected) <= 1 / 128
+
+
+def test_presampling_optical_blur_suppresses_lattice_alias():
+    display = np.ones((128, 512, 3), dtype=np.float32)
+    H = np.array([[0.85, 0, 50.33], [0, 0.18, 50.25], [0, 0, 1.0]])
+    amplitudes = []
+    for blur_sigma in (0, 0.5, 1.0):
+        setup = ScreenCaptureParameters(
+            sensor_to_display=H, optical_blur_sigma_sensor_pixels=blur_sigma
+        )
+        rendered = render_screen_capture(
+            display,
+            (4, 256),
+            setup,
+            samples_per_sensor_pixel=32,
+            tile_size_sensor_pixels=32,
+        )
+        # Ignore global crop boundaries: a finite reflected PSF can create
+        # artificial edge energy unrelated to the interior screen lattice.
+        signal = rendered.irradiance[:, :, 1].mean(axis=0)[64:192]
+        spectrum = np.abs(np.fft.rfft(signal - signal.mean()))
+        amplitudes.append(float(spectrum[round(0.15 * 128)]))
+    assert amplitudes[0] > 10 * amplitudes[1]
+    assert amplitudes[1] > 100 * amplitudes[2]
+
+
+def test_optional_post_tone_luma_sharpening_changes_rgb_not_raw():
+    display = np.empty((40, 40, 3), dtype=np.float32)
+    display[:] = (0.15, 0.25, 0.35)
+    display[:, 15:] = (0.35, 0.45, 0.55)
+    common = dict(
+        sensor_to_display=np.array([[0.5, 0, 5], [0, 0.5, 5], [0, 0, 1]]),
+        fill_fraction=1,
+        display_gamma=1,
+    )
+    baseline = render_screen_capture(
+        display,
+        (32, 32),
+        ScreenCaptureParameters(**common),
+        samples_per_sensor_pixel=16,
+    )
+    enhanced = render_screen_capture(
+        display,
+        (32, 32),
+        ScreenCaptureParameters(
+            **common, isp_luma_sharpen_amount=0.5, isp_luma_sharpen_sigma_pixels=1
+        ),
+        samples_per_sensor_pixel=16,
+    )
+    assert np.array_equal(baseline.raw_mosaic, enhanced.raw_mosaic)
+    assert np.array_equal(baseline.srgb, enhanced.srgb_before_sharpen)
+    assert np.array_equal(baseline.srgb, baseline.srgb_before_sharpen)
+    assert np.max(np.abs(enhanced.srgb - baseline.srgb)) > 0.001
+    delta = enhanced.srgb - enhanced.srgb_before_sharpen
+    unclipped = ((enhanced.srgb > 0.01) & (enhanced.srgb < 0.99)).all(axis=2)
+    assert np.max(np.abs(delta[unclipped, 0] - delta[unclipped, 1])) < 1e-6
+    assert np.max(np.abs(delta[unclipped, 1] - delta[unclipped, 2])) < 1e-6
+    with np.testing.assert_raises_regex(ValueError, "sharpening"):
+        ScreenCaptureParameters(**common, isp_luma_sharpen_amount=-0.1)
+
+
+def test_analytic_axis_rectangle_integral_matches_fine_reference():
+    display = np.random.default_rng(31).random((48, 52, 3), dtype=np.float32)
+    transform = np.array([[0.65, 0, 9.13], [0, 0.58, 8.27], [0, 0, 1]])
+    setup = ScreenCaptureParameters(
+        sensor_to_display=transform, fill_fraction=0.82, display_gamma=1.8
+    )
+    fine = render_screen_capture(display, (24, 26), setup, samples_per_sensor_pixel=32)
+    analytic = render_screen_capture(
+        display, (24, 26), setup, spatial_method="analytic"
+    )
+    assert np.max(np.abs(fine.irradiance - analytic.irradiance)) < 2e-6
+    assert np.max(np.abs(fine.srgb - analytic.srgb)) < 2e-5
+
+
+def test_analytic_axis_gaussian_matches_fine_in_sensor_interior():
+    display = np.random.default_rng(32).random((64, 64, 3), dtype=np.float32)
+    transform = np.array([[0.7, 0, 10.19], [0, 0.63, 9.41], [0, 0, 1]])
+    setup = ScreenCaptureParameters(
+        sensor_to_display=transform, optical_blur_sigma_sensor_pixels=0.55
+    )
+    fine = render_screen_capture(display, (32, 32), setup, samples_per_sensor_pixel=32)
+    analytic = render_screen_capture(
+        display, (32, 32), setup, spatial_method="analytic"
+    )
+    inner = np.s_[4:-4, 4:-4]
+    assert np.max(np.abs(fine.irradiance[inner] - analytic.irradiance[inner])) < 0.004
+    with np.testing.assert_raises_regex(ValueError, "axis alignment"):
+        tilted = ScreenCaptureParameters(
+            sensor_to_display=np.array([[0.7, 0.01, 10], [0, 0.7, 10], [0, 0, 1]])
+        )
+        render_screen_capture(display, (8, 8), tilted, spatial_method="analytic")
+
+
+def test_effective_spectral_mix_precedes_bayer_sampling():
+    display = np.zeros((32, 32, 3), dtype=np.float32)
+    display[..., 0] = 1
+    transform = np.array([[1, 0, 4.2], [0, 1, 4.3], [0, 0, 1]])
+    common = dict(sensor_to_display=transform, optical_blur_sigma_sensor_pixels=0.5)
+    unmixed = render_screen_capture(
+        display, (16, 16), ScreenCaptureParameters(**common), spatial_method="analytic"
+    )
+    mixed = render_screen_capture(
+        display,
+        (16, 16),
+        ScreenCaptureParameters(
+            **common, sensor_spectral_mix_rgb=((1, 0, 0), (0.25, 1, 0), (0.1, 0, 1))
+        ),
+        spatial_method="analytic",
+    )
+    np.testing.assert_array_equal(
+        mixed.emitter_band_irradiance, unmixed.emitter_band_irradiance
+    )
+    np.testing.assert_allclose(
+        mixed.irradiance[..., 1], 0.25 * unmixed.irradiance[..., 0], atol=1e-7
+    )
+    np.testing.assert_allclose(
+        mixed.irradiance[..., 2], 0.1 * unmixed.irradiance[..., 0], atol=1e-7
+    )
+    assert np.all(unmixed.noiseless_mosaic[0::2, 1::2] == 0)
+    assert np.all(mixed.noiseless_mosaic[0::2, 1::2] > 0)
+    assert np.all(mixed.noiseless_mosaic[1::2, 1::2] > 0)
+    with np.testing.assert_raises_regex(ValueError, "sensor spectral mix"):
+        ScreenCaptureParameters(
+            **common, sensor_spectral_mix_rgb=((1, 0, 0), (-0.1, 1, 0), (0, 0, 1))
+        )
+
+
+def test_projective_polygon_area_reference_matches_independent_axis_integral():
+    from palimpsest.simulation.screen_capture.reference import (
+        projective_area_reference,
+    )
+
+    display = np.random.default_rng(7).random((12, 12, 3), dtype=np.float32)
+    setup = ScreenCaptureParameters(
+        sensor_to_display=np.array([[0.8, 0, 2.13], [0, 0.7, 2.31], [0, 0, 1]]),
+        fill_fraction=0.83,
+    )
+    analytic = render_screen_capture(display, (8, 8), setup, spatial_method="analytic")
+    polygon = projective_area_reference(
+        np.power(display, setup.display_gamma),
+        (8, 8),
+        setup.sensor_to_display,
+        setup.fill_fraction,
+    )
+    np.testing.assert_allclose(polygon, analytic.irradiance, atol=1e-7, rtol=0)
+
+
+def test_co_spatial_emitter_control_holds_average_flux_but_removes_rgb_phase():
+    display = np.ones((72, 72, 3), dtype=np.float32)
+    common = dict(
+        sensor_to_display=np.array([[0.62, 0, 8.17], [0, 0.71, 7.39], [0, 0, 1]]),
+        fill_fraction=0.85,
+        optical_blur_sigma_sensor_pixels=0.4,
+    )
+    striped = render_screen_capture(
+        display, (64, 64), ScreenCaptureParameters(**common), spatial_method="analytic"
+    )
+    smooth_setup = ScreenCaptureParameters(
+        **common, emitter_layout="co_spatial_rgb_control"
+    )
+    smooth = render_screen_capture(
+        display, (64, 64), smooth_setup, spatial_method="analytic"
+    )
+    inner = np.s_[5:-5, 5:-5]
+    assert (
+        abs(striped.irradiance[inner].mean() - smooth.irradiance[inner].mean()) < 0.005
+    )
+    assert np.max(np.abs(striped.irradiance[inner] - smooth.irradiance[inner])) > 0.01
+    np.testing.assert_allclose(
+        smooth.irradiance[..., 0], smooth.irradiance[..., 1], atol=1e-7
+    )
+    fine = render_screen_capture(
+        display, (20, 20), smooth_setup, samples_per_sensor_pixel=32
+    )
+    np.testing.assert_allclose(
+        fine.irradiance[4:-4, 4:-4], smooth.irradiance[4:16, 4:16], atol=0.003
+    )

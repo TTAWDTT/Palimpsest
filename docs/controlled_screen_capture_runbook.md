@@ -4,7 +4,7 @@
 
 ## 已准备的数字物料
 
-代码：`src/palimpsest/simulation/capture_kit.py`。本机主屏当前显示模式由 Windows 报告为 1920×1080；已经在 `E:\ai_image_origin_research\data\derived\controlled_screen_capture\kit_1920x1080_v2\` 生成 17 张同尺寸、无损 RGB PNG，及 `pattern_manifest.json`、`session_template.json`、`capture_log_template.csv`。图案哈希和测量 ROI 在 manifest 中。**主屏当前模式不证明面板原生分辨率；模版把后者留为 `unknown`。**
+代码：`src/palimpsest/simulation/screen_capture/calibration/capture_kit.py`。本机主屏当前显示模式由 Windows 报告为 1920×1080；已经在 `E:\ai_image_origin_research\data\derived\controlled_screen_capture\kit_1920x1080_v2\` 生成 17 张同尺寸、无损 RGB PNG，及 `pattern_manifest.json`、`session_template.json`、`capture_log_template.csv`。图案哈希和测量 ROI 在 manifest 中。**主屏当前模式不证明面板原生分辨率；模版把后者留为 `unknown`。**
 
 | 图案 | 用途 |
 |---|---|
@@ -25,8 +25,8 @@
 3. 屏幕最好完整进入相机视野，至少首次 `geometry` 保留屏幕四角与部分边框。相机固定焦距；曝光、ISO、白平衡、对焦尽量手动锁定。若不能锁定，把自动状态逐张如实记录。保存原生 JPEG；可用时并存 DNG/RAW，不覆盖原件。
 
 ```powershell
-uv run python -m palimpsest.simulation.capture_kit validate --kit-dir E:\ai_image_origin_research\data\derived\controlled_screen_capture\kit_1920x1080_v2
-uv run python -m palimpsest.simulation.capture_kit present --kit-dir E:\ai_image_origin_research\data\derived\controlled_screen_capture\kit_1920x1080_v2 --pattern-id geometry
+uv run python -m palimpsest.simulation.screen_capture.calibration.capture_kit validate --kit-dir E:\ai_image_origin_research\data\derived\controlled_screen_capture\kit_1920x1080_v2
+uv run python -m palimpsest.simulation.screen_capture.calibration.capture_kit present --kit-dir E:\ai_image_origin_research\data\derived\controlled_screen_capture\kit_1920x1080_v2 --pattern-id geometry
 ```
 
 ## 第一轮空间响应：小矩阵
@@ -51,8 +51,8 @@ uv run python -m palimpsest.simulation.capture_kit present --kit-dir E:\ai_image
 `pilot_001` 空会话已建立在 `E:\ai_image_origin_research\data\raw\screen_capture_sessions\pilot_001\`，**无需重复初始化**。把相机原件放在其 `camera_originals/` 中，再运行 `record` 自动计算 SHA-256；`capture_log.csv` 每行对应一张 JPEG/RAW 配对。所有未知量保持 `unknown`，不能填猜测值。RAW 的图像内容暂只核字节哈希，JPEG 还会检查可解码。若另开会话，使用 `init-session` 并给新的目录和 ID。
 
 ```powershell
-uv run python -m palimpsest.simulation.capture_kit record --kit-dir E:\ai_image_origin_research\data\derived\controlled_screen_capture\kit_1920x1080_v2 --session-dir E:\ai_image_origin_research\data\raw\screen_capture_sessions\pilot_001 --capture-id pilot_001_001 --pattern-id geometry --condition-id C0_start --repeat-index 1 --jpeg-path camera_originals\pilot_001_001.jpg --distance-mm 250 --yaw-deg 0 --pitch-deg 0 --exposure-s 0.01 --iso 100
-uv run python -m palimpsest.simulation.capture_kit validate --kit-dir E:\ai_image_origin_research\data\derived\controlled_screen_capture\kit_1920x1080_v2 --session-dir E:\ai_image_origin_research\data\raw\screen_capture_sessions\pilot_001
+uv run python -m palimpsest.simulation.screen_capture.calibration.capture_kit record --kit-dir E:\ai_image_origin_research\data\derived\controlled_screen_capture\kit_1920x1080_v2 --session-dir E:\ai_image_origin_research\data\raw\screen_capture_sessions\pilot_001 --capture-id pilot_001_001 --pattern-id geometry --condition-id C0_start --repeat-index 1 --jpeg-path camera_originals\pilot_001_001.jpg --distance-mm 250 --yaw-deg 0 --pitch-deg 0 --exposure-s 0.01 --iso 100
+uv run python -m palimpsest.simulation.screen_capture.calibration.capture_kit validate --kit-dir E:\ai_image_origin_research\data\derived\controlled_screen_capture\kit_1920x1080_v2 --session-dir E:\ai_image_origin_research\data\raw\screen_capture_sessions\pilot_001
 ```
 
 上述 `250 mm`、`0.01 s` 等只是**命令语法示例**，不是已拍摄参数。实际采集时应把显示器型号、面板原生分辨率、模式/亮度/刷新率、相机型号、焦距、RAW 状态、白平衡和曝光锁定状态填入 `session.json`；逐图焦点与曝光变动填入记录命令。让 `validate` 的缺失字段告警尽量清零，然后再做模拟器拟合。
@@ -64,14 +64,14 @@ uv run python -m palimpsest.simulation.capture_kit validate --kit-dir E:\ai_imag
 首张真实 `geometry` 照片到手后可先做角点检查。`geometry_measure` 会用四角颜色判定棋盘方向，输出 77 个内部角点、显示帧到相机图的二维单应性、中心附近每个显示像素投影的相机像素尺度及残差；若屏幕四角不可见，它会拒绝给出有方向的结果。它不把二维投影换算成相机距离、镜头参数或真实面板子像素间距。
 
 ```powershell
-uv run python -m palimpsest.simulation.geometry_measure --kit-dir E:\ai_image_origin_research\data\derived\controlled_screen_capture\kit_1920x1080_v2 --image E:\ai_image_origin_research\data\raw\screen_capture_sessions\pilot_001\camera_originals\pilot_001_001.jpg --output-json E:\ai_image_origin_research\data\derived\controlled_screen_capture\pilot_001_001_geometry.json
+uv run python -m palimpsest.simulation.screen_capture.calibration.geometry_measure --kit-dir E:\ai_image_origin_research\data\derived\controlled_screen_capture\kit_1920x1080_v2 --image E:\ai_image_origin_research\data\raw\screen_capture_sessions\pilot_001\camera_originals\pilot_001_001.jpg --output-json E:\ai_image_origin_research\data\derived\controlled_screen_capture\pilot_001_001_geometry.json
 ```
 
 把已测的二维投影接入模拟器时，使用 `geometry_bridge`。`--crop-xyxy` 是原生相机图像的左上/右下像素边界，右下不包含；必须与后续用于对比的真实照片裁切一致。桥接程序仅替换 `sensor_to_display` 和输出尺寸，并重新由投影尺度决定过采样率；其他显示、光学、传感器参数仍来自未标定基准配置。棋盘测出的是**数字刺激图案**的投影；只有确认图案以 1:1 映射到面板原生像素，才可把同一坐标当作物理子像素格。生成配置会明确标注这一点。不能据此宣称整条链已经校准。
 
 ```powershell
-uv run python -m palimpsest.simulation.geometry_bridge --geometry-json E:\ai_image_origin_research\data\derived\controlled_screen_capture\pilot_001_001_geometry.json --base-config docs\virtual_screen_example.json --crop-xyxy 800 400 1056 656 --output-config E:\ai_image_origin_research\data\derived\controlled_screen_capture\pilot_001_001_geometry_only.json
-uv run python -m palimpsest.simulation.render_cli --input E:\ai_image_origin_research\data\derived\controlled_screen_capture\kit_1920x1080_v2\frames\frequency_x_high.png --config E:\ai_image_origin_research\data\derived\controlled_screen_capture\pilot_001_001_geometry_only.json --output-prefix E:\ai_image_origin_research\data\derived\controlled_screen_capture\pilot_001_001_sim_frequency
+uv run python -m palimpsest.simulation.screen_capture.calibration.geometry_bridge --geometry-json E:\ai_image_origin_research\data\derived\controlled_screen_capture\pilot_001_001_geometry.json --base-config docs\virtual_screen_example.json --crop-xyxy 800 400 1056 656 --output-config E:\ai_image_origin_research\data\derived\controlled_screen_capture\pilot_001_001_geometry_only.json
+uv run python -m palimpsest.simulation.screen_capture.render_cli --input E:\ai_image_origin_research\data\derived\controlled_screen_capture\kit_1920x1080_v2\frames\frequency_x_high.png --config E:\ai_image_origin_research\data\derived\controlled_screen_capture\pilot_001_001_geometry_only.json --output-prefix E:\ai_image_origin_research\data\derived\controlled_screen_capture\pilot_001_001_sim_frequency
 ```
 
 上面的裁切数值是命令语法示例；要先查看实拍图的屏幕位置再定实际裁切。`geometry` 照片测得的单应矩阵可以用于同机位、同焦距和同裁切下其他图案；若手持重新构图或改变对焦/焦距，应逐张复核，不沿用旧矩阵。

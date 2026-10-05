@@ -7,7 +7,7 @@ from dataclasses import replace
 
 import numpy as np
 
-from palimpsest.simulation.screen_capture import render_screen_capture
+from palimpsest.simulation.screen_capture.capture import render_screen_capture
 from experiments.screen_capture.focus_response.synthetic.run_physical_focus_display_lattice import (
     camera,
 )

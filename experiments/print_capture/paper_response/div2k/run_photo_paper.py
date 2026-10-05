@@ -15,15 +15,15 @@ import zipfile
 import numpy as np
 from PIL import Image
 
-from palimpsest.simulation.photo_paper import (
+from palimpsest.simulation.print_capture.photo_paper import (
     PhotoPaperParameters,
     simulate_photo_paper_surface,
 )
-from palimpsest.simulation.print_camera import (
+from palimpsest.simulation.print_capture.camera import (
     PrintCameraParameters,
     photograph_print_surface,
 )
-from palimpsest.simulation.publication import PublicationParameters, apply_publication
+from palimpsest.simulation.digital.publication import PublicationParameters, apply_publication
 from experiments.print_capture.paper_response.div2k.run_print_camera import (
     RAW,
     SOURCE,

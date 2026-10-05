@@ -31,5 +31,5 @@
 | [probe_wave_display_prefilter.py](../../../experiments/screen_capture/wave_optics/synthetic/run_wave_display_prefilter.py) | Experimental fast display-domain integration of a wave-optical screen PSF. |
 | [probe_wave_optical_defocus_psf.py](../../../experiments/screen_capture/wave_optics/synthetic/run_wave_optical_defocus_psf.py) | Compare a scalar circular-pupil PSF to the current Airy*disk approximation. |
 | [probe_wave_prefilter_scale.py](../../../experiments/screen_capture/wave_optics/synthetic/run_wave_prefilter_scale.py) | Independent virtual display-scale and emitter-fill stress for wave prefilter. |
-| [projective_area_reference.py](../../../src/palimpsest/simulation/reference.py) | Slow exact no-blur pixel-area reference for projective screen emitters. |
+| [projective_area_reference.py](../../../src/palimpsest/simulation/screen_capture/reference.py) | Slow exact no-blur pixel-area reference for projective screen emitters. |
 | [smoke_wave_prefilter_cli.py](../../../experiments/screen_capture/wave_optics/synthetic/audit_wave_prefilter_cli.py) | Exercise the public single-image CLI for the bounded wave prefilter path. |

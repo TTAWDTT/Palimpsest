@@ -11,7 +11,7 @@ import json
 
 import numpy as np
 
-from palimpsest.simulation.optical_psf import circular_pupil_defocus_psf
+from palimpsest.simulation.shared.optical_psf import circular_pupil_defocus_psf
 
 
 OUT = WORK_DIR / "dragotti_ideal_diffraction_otf_probe.json"

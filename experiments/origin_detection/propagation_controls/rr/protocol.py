@@ -16,7 +16,7 @@ from palimpsest.data.rr import load_pairs
 from palimpsest.evaluation.cached import ExpectedImage
 from palimpsest.io.hashing import file_sha256
 from palimpsest.paths import DATA_ROOT, REPO_ROOT, WORK_DIR
-from palimpsest.simulation.publication import PublicationParameters, apply_publication
+from palimpsest.simulation.digital.publication import PublicationParameters, apply_publication
 from experiments.origin_detection.platform_statistics.rr.protocol import (
     jpeg_settings,
     render_simulated_jpeg,

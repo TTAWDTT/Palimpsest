@@ -19,11 +19,11 @@ from dataclasses import replace
 import numpy as np
 from PIL import Image
 
-from palimpsest.simulation.color_print_scan import (
+from palimpsest.simulation.print_scan.color import (
     ColorPrintScanParameters,
     simulate_color_print_scan,
 )
-from palimpsest.simulation.publication import PublicationParameters, apply_publication
+from palimpsest.simulation.digital.publication import PublicationParameters, apply_publication
 
 
 BASE = WORK_DIR

@@ -13,7 +13,7 @@ import json
 
 import numpy as np
 
-from palimpsest.simulation.color_print_scan import (
+from palimpsest.simulation.print_scan.color import (
     ColorPrintScanParameters,
     simulate_color_print_scan,
 )

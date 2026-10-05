@@ -47,7 +47,7 @@ def main() -> None:
         command = [
             sys.executable,
             "-m",
-            "palimpsest.simulation.render_cli",
+            "palimpsest.simulation.screen_capture.render_cli",
             "--input",
             str(source),
             "--config",
