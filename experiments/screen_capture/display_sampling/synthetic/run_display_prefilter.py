@@ -17,8 +17,8 @@ from scipy.ndimage import gaussian_filter
 from palimpsest.simulation.screen_capture import (
     ScreenCaptureParameters,
     render_screen_capture,
-    _homography_jacobian,
 )
+from palimpsest.simulation._screen.spatial import _homography_jacobian
 from experiments.screen_capture.display_sampling.synthetic.run_projective_convergence import (
     pose,
 )

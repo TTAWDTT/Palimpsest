@@ -16,8 +16,9 @@ jobs:
       - uses: astral-sh/setup-uv@v10.2.0
         with:
           python-version: "3.12"
-      - run: uv sync --locked --extra dev
+      - run: uv sync --locked --extra dev --extra classical
       - run: uv run --locked ruff check src experiments tests tools
       - run: uv run --locked python tools/check_layout.py
-      - run: uv run --locked pytest -q
+      - run: uv run --locked --extra dev --extra classical pytest -q
+      - run: uv run --locked palimpsest-detect --help
       - run: uv build --wheel

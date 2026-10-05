@@ -7,7 +7,7 @@ import json
 
 from PIL import Image
 
-from experiments.origin_detection.baselines.run_bfree import (
+from palimpsest.detection.baselines.bfree import (
     crop_first_inputs,
     infer_crop_first,
     load_official_model,
