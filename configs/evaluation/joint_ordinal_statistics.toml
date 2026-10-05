@@ -1,0 +1,13 @@
+schema = 1
+seed = 20261005
+long_edge = 512
+radii = [1, 2, 4, 8]
+minimum_fit_auc = 0.55
+bootstrap_repetitions = 2000
+selection_auc_lower_gate = 0.5
+minimum_processed_class_accuracy = 0.55
+candidate_modes = ["original_agreement", "processed_agreement"]
+chimera_role_fractions = [0.6, 0.2, 0.2]
+minimum_chimera_sources_per_cell = 30
+core_p95_budget_ms = 10.0
+end_to_end_p95_budget_ms = 50.0
