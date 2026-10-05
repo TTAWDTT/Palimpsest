@@ -20,3 +20,5 @@
 本轮同来源缓存baseline对照：`python -m experiments.origin_detection.robust_statistics.evaluate_development_comparison`；不重新推理。
 
 [phase_statistics](phase_statistics/README.md)：第四轮闭合相位及多原型预登记、签名缓存与速度入口，失败结果已归档。
+
+[frozen_readout](frozen_readout/README.md)：第五轮，冻结灰度顺序／相位缓存上的固定RF与来源标签置乱诊断；不解码图像。
