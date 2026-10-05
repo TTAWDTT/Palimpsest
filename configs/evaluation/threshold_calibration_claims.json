@@ -5,6 +5,9 @@
   "receipts": {
     "i": {
       "path": "../../work/robust_statistics/threshold_calibration/iteration.json"
+    },
+    "d": {
+      "path": "../../work/robust_statistics/threshold_diagnostics.json"
     }
   },
   "claims": [
@@ -157,6 +160,42 @@
       "label": "elapsed seconds",
       "quoted": "44.45",
       "expr": "f('i','/elapsed_s')"
+    },
+    {
+      "section": "lambda0",
+      "label": "global_lower",
+      "quoted": "0.121794",
+      "expr": "f('d','/results/lambda0/global_lower')"
+    },
+    {
+      "section": "lambda0",
+      "label": "global_upper",
+      "quoted": "-0.063710",
+      "expr": "f('d','/results/lambda0/global_upper')"
+    },
+    {
+      "section": "lambda1",
+      "label": "global_lower",
+      "quoted": "0.112476",
+      "expr": "f('d','/results/lambda1/global_lower')"
+    },
+    {
+      "section": "lambda1",
+      "label": "global_upper",
+      "quoted": "-0.035578",
+      "expr": "f('d','/results/lambda1/global_upper')"
+    },
+    {
+      "section": "lambda10",
+      "label": "global_lower",
+      "quoted": "0.036267",
+      "expr": "f('d','/results/lambda10/global_lower')"
+    },
+    {
+      "section": "lambda10",
+      "label": "global_upper",
+      "quoted": "-0.041032",
+      "expr": "f('d','/results/lambda10/global_upper')"
     }
   ]
 }
