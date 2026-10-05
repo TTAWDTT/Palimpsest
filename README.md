@@ -8,6 +8,8 @@
 
 本机代码：`E:\ai_image_origin_research\repo`。GitHub：[TTAWDTT/Palimpsest](https://github.com/TTAWDTT/Palimpsest)（公开）。
 
+[第三轮灰度顺序统计](reports/04_算法研发/第三轮灰度顺序统计_跨数据开发与停止记录_2026-10-05.md)已完成：两套预登记规则均未通过处理后准确度门槛；含解码速度通过50ms预算，核心速度未过10ms。Chimera从本轮起登记为开发数据，不再作为独立测试。
+
 ## 阅读入口
 
 | 要了解什么 | 入口 |

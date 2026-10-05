@@ -177,6 +177,23 @@ def test_exact_components_transitive_and_no_false_merge():
     assert exact_source_components({"a": {"x"}, "d": {"x"}})["d"] != actual["d"]
 
 
+def test_actual_image_digest_refusal(tmp_path, monkeypatch):
+    # Added after the feature run: engineering regression only, not an
+    # independent pre-run control or retroactive scientific certification.
+    from palimpsest.io.hashing import file_sha256
+    from experiments.origin_detection.ordinal_statistics import run_iteration as runner
+    path = tmp_path / "source.png"
+    Image.fromarray(np.full((5, 5, 3), 100, np.uint8)).save(path)
+    row = {"filename": "fixture/source.png", "sha256": file_sha256(path), "width": "5", "height": "5"}
+    monkeypatch.setattr(runner, "image_path", lambda r: path)
+    runner.extract_inventory([row], tmp_path / "clean.csv")
+    assert (tmp_path / "clean.csv").exists()
+    Image.fromarray(np.full((5, 5, 3), 101, np.uint8)).save(path)
+    with pytest.raises(ValueError, match="digest changed"):
+        runner.extract_inventory([row], tmp_path / "broken.csv")
+    assert not (tmp_path / "broken.csv").exists()
+
+
 def test_chimera_audit_clean_overlap_and_label_failure():
     manifest, audit = [], []
     for scene in ("cat", "church", "horse"):

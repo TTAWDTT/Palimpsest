@@ -12,6 +12,8 @@
 
 ## 目录结构
 
+第三轮增加[灰度顺序统计](palimpsest/detection/algorithms/ordinal_statistics/README.md)，仍未通过处理后准确度门槛。`data/source_groups.py`提供可复用的精确文件来源连通组；它不是近重复检测器。
+
 ```text
 src/
 ├── README.md
