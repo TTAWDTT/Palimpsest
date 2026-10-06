@@ -1,0 +1,19 @@
+{
+  "scope": "Focused cross-discipline primary read;not a foundation model ranking for this detection task",
+  "primary": [{
+    "title": "Do computer vision foundation models learn the low-level characteristics of the human visual system?",
+    "authors": ["Yancheng Cai", "Fei Yin", "Dounia Hammou", "Rafal Mantiuk"],
+    "publication": "CVPR2025;arxiv2502.20256v2",
+    "url": "https://arxiv.org/pdf/2502.20256v2",
+    "bytes": 31139408,
+    "sha256": "4e43ba4a0fd5ec2f45016da357191eef20f3f118f6974d04a8bbfa43f1934eb8",
+    "pages": 20,
+    "read": "HTML introduction/framework;PDF pp3-8,11-12 text;pp13-14 captions only",
+    "locators": "p3 floating stimulus/color/relative angle;pp4-5 frequency and luminance;p7 masking;p8 partial contrast constancy/model variant differences;p12 practical correlation limitations",
+    "quotes": [],
+    "owed": "PDF pp1-2 layout,reference pp9-10,remaining supplementary pages15-20,full figure inspection and author code;full citation graph",
+    "boundary": "Psychophysical comparison uses controlled floating stimuli and relative-angle distance;not AI labels,native 8-bit JPEG recapture or fixed classifier BA. Alignment score does not provide processing robustness certification."
+  }],
+  "unresolved": "60 pixels-per-degree and upper frequency32cpd in table warrants source-code sampling inspection before reproducing stimuli;no claim of actual author numerical aliasing made",
+  "project_link": "Existing42 angular normalization failures and prospective46 frozen representation complementarity;no new backbone selection or pixel computation based on this paper"
+}
