@@ -97,3 +97,5 @@
 [cure_encoding_risk](cure_encoding_risk/README.md)：第41轮固定Q70训练支持，增量提取并保留Q60只作评价。
 
 [固定分数共同阈值诊断](score_feasibility/README.md)：五个已暴露标量分数的精确有限状态检查，不采用oracle阈值或重新认证方法。
+
+[全维配对度量支持](paired_metric_support/README.md)：第47轮固定Mahalanobis近邻距离与四对照，编码器冻结。

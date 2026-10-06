@@ -1,0 +1,18 @@
+{
+  "scope": "Focused primary mechanism read before iteration47 real fitting;not exact XQDA reproduction",
+  "title": "Person Re-identification by Local Maximal Occurrence Representation and Metric Learning",
+  "authors": [
+    "Shengcai Liao",
+    "Yang Hu",
+    "Xiangyu Zhu",
+    "Stan Z.Li"
+  ],
+  "publication": "CVPR2015 official10pagePDF",
+  "url": "https://openaccess.thecvf.com/content_cvpr_2015/papers/Liao_Person_Re-Identification_by_2015_CVPR_paper.pdf",
+  "bytes": 1532901,
+  "sha256": "f7f17e971594ea66f3983ca343308e5b801a9dbd1f88fb7a6514387183e81e64",
+  "read": "PDFpp3-6text/equations/tabletext;webPDF403 but directdownloadverifiedPDF",
+  "locators": "p3genuine/impostor Gaussian difference models andKISSME Eq1-4;p4XQDA generalizedRayleigh ratio and practical covarianceEq5-9;p5ridge/subspace andmatching protocol",
+  "owed": "Fullpp1-2,7-10;authorcode;citation/fullproofaudit;visualfigures",
+  "boundary": "Person identity matching,not AIclass prediction after publishing. Iteration47 uses only full label-blind genuine-pair covariance Mahalanobis distance with existing k5distinct-source support;no impostorGaussian difference ratio,XQDA dimensionalityselection,Retinex orLOMO. Prior20lowdimensionalSFA/31Euclidean bags distinct from full metric without truncation;not novel mechanism claim."
+}
