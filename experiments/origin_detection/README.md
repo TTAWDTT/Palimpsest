@@ -83,3 +83,5 @@
 - [cure_baseline](cure_baseline/README.md)：官方CuRe固定文件路径；完整开发对照、速度与身份／算术／摘录核查完成，非论文队列复现。
 
 [cure_readout](cure_readout/README.md)：第36轮冻结CuRe完整表示与128维子空间，六个预登记传统读出及配平负对照；原官方概率必须逐值一致，不称为官方模型结果。
+
+[semantic_group_risk](semantic_group_risk/README.md)：第37轮现有CLIP表示上的48细分组风险与同源约束；旧平均目标判决全一致作为接入门槛，另含错源配对及精确配平负对照。
