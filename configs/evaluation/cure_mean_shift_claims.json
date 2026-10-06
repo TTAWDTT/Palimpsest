@@ -1,0 +1,84 @@
+{
+  "campaign": "cure_mean_shift",
+  "register": "Selected transcription only",
+  "quote_source": "reports/04_算法研发/第四十三轮条件均值_小幅退化改善伴随判别损失_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/cure_mean_shift/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/source/minimum_domain_ba')",
+      "quoted": "79.44"
+    },
+    {
+      "section": "table",
+      "label": "source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/source/minimum_scene_ba')",
+      "quoted": "92.50"
+    },
+    {
+      "section": "table",
+      "label": "source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/source/maximum_any_scene_drop')",
+      "quoted": "5.00"
+    },
+    {
+      "section": "table",
+      "label": "mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/mean/minimum_domain_ba')",
+      "quoted": "80.00"
+    },
+    {
+      "section": "table",
+      "label": "mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/mean/minimum_scene_ba')",
+      "quoted": "91.25"
+    },
+    {
+      "section": "table",
+      "label": "mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/mean/maximum_any_scene_drop')",
+      "quoted": "6.25"
+    },
+    {
+      "section": "table",
+      "label": "source_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/source_null/minimum_domain_ba')",
+      "quoted": "47.08"
+    },
+    {
+      "section": "table",
+      "label": "source_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/source_null/minimum_scene_ba')",
+      "quoted": "31.25"
+    },
+    {
+      "section": "table",
+      "label": "source_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/source_null/maximum_any_scene_drop')",
+      "quoted": "12.50"
+    },
+    {
+      "section": "table",
+      "label": "wrong_processing/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/wrong_processing/minimum_domain_ba')",
+      "quoted": "81.67"
+    },
+    {
+      "section": "table",
+      "label": "wrong_processing/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/wrong_processing/minimum_scene_ba')",
+      "quoted": "95.00"
+    },
+    {
+      "section": "table",
+      "label": "wrong_processing/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/wrong_processing/maximum_any_scene_drop')",
+      "quoted": "5.56"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "scope": "Focused primary read;not a full review,author recency audit or novelty certificate",
+  "search_queries": [
+    "site.jmlr.org invariant representation classification nuisance tangent subspace paired domain generalization sufficient statistic",
+    "site.proceedings.mlr.press conditional invariant representation matched pairs nuisance generalized eigenvectors domain generalization"
+  ],
+  "primary": [{
+    "title": "Provable Domain Generalization via Invariant-Feature Subspace Recovery",
+    "authors": ["Haoxiang Wang", "Haozhe Si", "Bo Li", "Han Zhao"],
+    "publication": "ICML2022,PMLR162:23018–23033",
+    "url": "https://proceedings.mlr.press/v162/wang22x/wang22x.pdf",
+    "bytes": 672789,
+    "sha256": "d799bde552c2d5a31f2e172929775d2c77e171b9bcff370868098b939b0d5b92",
+    "pages": 16,
+    "read": "Main1-9 text-read;13-16 proofs and implementation text-read;11-12 reference context;page10 reference context owed",
+    "locators": "p3 Assumptions1-3,injective linear Gaussian mixture;pp4-5 Algorithm1/Thm1;pp5-6 ISR-Cov/Thm2;pp8-9 worst-group/pretrained evaluation;pp13-14 covariance-nullspace proof;pp15-16 practical scale suppression",
+    "quotes": [],
+    "debt": "author code not audited;full latest citation graph and author recency omitted;no physical paired source detection evidence",
+    "boundary": "Infinite samples and enough environmental mean variation for subspace identification. Practical author implementation reduces spurious scale and uses PCA/logistic;our finite complete-panel both-class projection/source-risk adaptation differs."
+  }],
+  "search_return_not_adopted": [
+    "Mahajan2021 causal matching already read;not counted as new",
+    "Zhao2019 invariant representation;abstract only in this search",
+    "Johansson2019 support/invertibility;abstract only",
+    "JMLR2026 invariance/diversity bound;unread",
+    "DICA2013;abstract only"
+  ],
+  "experiment": "experiments/origin_detection/cure_mean_shift/README.md",
+  "controls": "Artificial residual and assembly fixture failures preserved before real feature opening;unit columns explicitly renormalized,no tolerance widened."
+}
