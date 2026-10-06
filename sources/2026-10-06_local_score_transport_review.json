@@ -1,0 +1,29 @@
+{
+  "source": {
+    "title": "Feature-Level Domain Adaptation",
+    "pdf": {
+      "url": "https://jmlr.org/papers/volume17/15-206/15-206.pdf",
+      "bytes": 1220810,
+      "sha256": "bca9d44056df6a6d3c79faf49e8287ebdc955676df280d47842ab519b182c101"
+    },
+    "reading": "PDF32pages;main1-6read,includingtarget-riskconditionalindependence;laterderivations/experimentsunread",
+    "findings": [
+      "Featuretransfer/expectedriskisprior",
+      "Y independent oftargetgivenoriginalassumptioncannotbeimportedautomatically",
+      "Targetlikelihoodfittingoftransferdistributionnotimplementedhere"
+    ]
+  },
+  "own_method": "Matchedfit-source finite score corrections around unchanged stage29original-head;fixedk5;notoptimaltransportortruephysicalinverse",
+  "status": "Registeredbeforeselection;implementationpending",
+  "protocol": "experiments/origin_detection/local_score_transport/README.md",
+  "history": [
+    {
+      "stage": "implementation and complete exposed development evaluation",
+      "goal_achieved": false,
+      "report": "reports\\04_算法研发\\第三十三轮局部分数补偿_配对邻域未恢复判别_2026-10-06.md",
+      "minimum_domain_ba": 0.7375,
+      "worst_decline": 0.275,
+      "integer_audit": true
+    }
+  ]
+}
