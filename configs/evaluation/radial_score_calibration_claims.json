@@ -1,0 +1,84 @@
+{
+  "campaign": "radial_score_calibration",
+  "register": "Selected transcription only",
+  "quote_source": "reports/04_\u7b97\u6cd5\u7814\u53d1/\u7b2c\u56db\u5341\u516b\u8f6e\u5f84\u5411\u6821\u51c6_\u6761\u4ef6\u5206\u6570\u4ecd\u672a\u4fdd\u6301\u7a33\u5b9a\u6027_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/radial_score_calibration/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "constant_gaussian/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/constant_gaussian/minimum_domain_ba')",
+      "quoted": "81.67"
+    },
+    {
+      "section": "table",
+      "label": "constant_gaussian/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/constant_gaussian/minimum_scene_ba')",
+      "quoted": "95.00"
+    },
+    {
+      "section": "table",
+      "label": "constant_gaussian/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/constant_gaussian/maximum_any_scene_drop')",
+      "quoted": "5.56"
+    },
+    {
+      "section": "table",
+      "label": "radial/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/radial/minimum_domain_ba')",
+      "quoted": "81.11"
+    },
+    {
+      "section": "table",
+      "label": "radial/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/radial/minimum_scene_ba')",
+      "quoted": "93.75"
+    },
+    {
+      "section": "table",
+      "label": "radial/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/radial/maximum_any_scene_drop')",
+      "quoted": "6.25"
+    },
+    {
+      "section": "table",
+      "label": "wrong_radius/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/wrong_radius/minimum_domain_ba')",
+      "quoted": "82.78"
+    },
+    {
+      "section": "table",
+      "label": "wrong_radius/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/wrong_radius/minimum_scene_ba')",
+      "quoted": "93.75"
+    },
+    {
+      "section": "table",
+      "label": "wrong_radius/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/wrong_radius/maximum_any_scene_drop')",
+      "quoted": "6.25"
+    },
+    {
+      "section": "table",
+      "label": "source_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/source_null/minimum_domain_ba')",
+      "quoted": "44.44"
+    },
+    {
+      "section": "table",
+      "label": "source_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/source_null/minimum_scene_ba')",
+      "quoted": "35.00"
+    },
+    {
+      "section": "table",
+      "label": "source_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/source_null/maximum_any_scene_drop')",
+      "quoted": "8.75"
+    }
+  ]
+}
