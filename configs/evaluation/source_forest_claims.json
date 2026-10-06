@@ -1,0 +1,66 @@
+{
+  "campaign": "thirtyfourth source bootstrap forest",
+  "register": "Selected arithmetic only",
+  "quote_source": "reports/04_算法研发/第三十四轮来源重采样森林_非线性与配平仍未达标_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/source_bagged_forest/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "source_bagged/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/source_bagged/minimum_domain_ba')",
+      "quoted": "74.44"
+    },
+    {
+      "section": "table",
+      "label": "source_bagged/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/source_bagged/minimum_scene_ba')",
+      "quoted": "75.00"
+    },
+    {
+      "section": "table",
+      "label": "source_bagged/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/source_bagged/maximum_any_scene_drop')",
+      "quoted": "17.50"
+    },
+    {
+      "section": "table",
+      "label": "row_bagged/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/row_bagged/minimum_domain_ba')",
+      "quoted": "77.22"
+    },
+    {
+      "section": "table",
+      "label": "row_bagged/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/row_bagged/minimum_scene_ba')",
+      "quoted": "78.75"
+    },
+    {
+      "section": "table",
+      "label": "row_bagged/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/row_bagged/maximum_any_scene_drop')",
+      "quoted": "11.25"
+    },
+    {
+      "section": "table",
+      "label": "balanced_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/balanced_null/minimum_domain_ba')",
+      "quoted": "47.22"
+    },
+    {
+      "section": "table",
+      "label": "balanced_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/balanced_null/minimum_scene_ba')",
+      "quoted": "37.50"
+    },
+    {
+      "section": "table",
+      "label": "balanced_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/balanced_null/maximum_any_scene_drop')",
+      "quoted": "11.25"
+    }
+  ]
+}
