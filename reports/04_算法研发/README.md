@@ -161,3 +161,5 @@
 [局部核与同源图补读](局部核与同源图补读_有限正则目标及适用边界_2026-10-06.md)：已有图正则原理与本轮有限同源锚点适配。
 
 [第四十五轮局部核协议](../../experiments/origin_detection/paired_kernel/README.md)：四项人工检查先行，旧签名CLIP缓存上的四个固定头正在计算；尚无新真实独立证据。
+
+[第四十六轮CLIP＋CuRe协议](../../experiments/origin_detection/clip_cure_complement/README.md)：四项人工组合／拒错检查通过；完整1792维联合读出尚未打开组装，等待当前CPU计算结束以控制内存与运行成本。
