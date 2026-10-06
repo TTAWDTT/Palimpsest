@@ -9,6 +9,8 @@
 
 冻结CLIP使用已有权重，显式核验权重SHA与执行代码指纹、已知预处理和冻结参数。它是神经表示，读出拟合与来源评测在experiments执行，不把表示相似度当成来源判别成功。
 
-`frozen_dinov2_small.py`：固定DINOv2-S/14；速度较快但当前来源判别不足。`frozen_clip_base.py`为第二十二轮固定CLIP-B/16，不自动下载权重，待真实验证。
+`frozen_dinov2_small.py`：固定DINOv2-S/14；速度较快但当前来源判别不足。`frozen_clip_base.py`为第二十二轮固定CLIP-B/16，不自动下载权重；第二十二轮开发失败，未采用。
 
 `captured_clip.py`串行化静态CUDA图缓冲区，已通过人工与210个开发图像输入的旧缓存逐值核对；仅执行加速，不证明物理不变性。
+
+`intermediate_clip.py`固定第12块LN2与末端表示；第24轮未改善传播稳定性。`response_clip.py`固定高斯探针和第12块响应，区分新缓存前缀提取与原图24＋探针12块的现场执行；响应相似度不作为稳定性证明。

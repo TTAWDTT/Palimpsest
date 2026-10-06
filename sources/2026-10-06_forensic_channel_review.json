@@ -87,7 +87,10 @@
     "sha256": "430fde11debe1850ab24af43945b4d68f2bb3ee52a837d84cf525eb603ccde97",
     "elapsed_s": 28.65401309999288,
     "license": "CC BY-NC 4.0 and declared OpenRAIL-M use restrictions",
-    "pixels_inferred": 0
+    "pixels_inferred": "1260 selection images x4 encodings completed; plus execution controls and cost pilots separately recorded",
+    "pixels_inferred_history": [
+      0
+    ]
   },
   "author_results_not_ours": {
     "dear_r_table1_original_real": 0.974,
@@ -114,14 +117,18 @@
   },
   "own_inference": "Spatialforensiccue attribution maycomplementglobalrepresentations;neitherauthorneuralresultsnor pruning giveguaranteed physicalinvariance",
   "experiment": "experiments/origin_detection/dear_baseline/README.md",
-  "status": "Native cost pilot CUDA OOM;explicit tiled execution synthetic and12real parity passed;60image tiled pilot active",
+  "status": "Completed fixed tiled DEAR-r: 1260 images, 5040 records, no fitting; minimum domain BA46.67%, worst drop42.78pp; not adopted",
   "status_history": [
-    "OneofficialDEAR-rnativecostpilotrunning;no accuracyclaim"
+    "OneofficialDEAR-rnativecostpilotrunning;no accuracyclaim",
+    "Native cost pilot CUDA OOM;explicit tiled execution synthetic and12real parity passed;60image tiled pilot active"
   ],
   "execution_receipts": [
     "work/robust_statistics/dear_baseline_pilot/failed_native_pilot.json",
     "work/robust_statistics/dear_baseline/tiling_first_io_failure.json",
     "work/robust_statistics/dear_baseline/tiling_controls.json",
-    "work/robust_statistics/dear_baseline/real_tiling_controls.json"
+    "work/robust_statistics/dear_baseline/real_tiling_controls.json",
+    "work/robust_statistics/dear_baseline_tiled_pilot/iteration.json",
+    "work/robust_statistics/dear_baseline_tiled/iteration.json",
+    "work/robust_statistics/dear_baseline_tiled/score_counts_audit.json"
   ]
 }

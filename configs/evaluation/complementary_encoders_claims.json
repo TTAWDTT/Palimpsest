@@ -1,0 +1,123 @@
+{
+  "campaign": "twentyseventh complementary encoders",
+  "register": "Transcription only,notindependent scientificvalidation",
+  "quote_source": "reports/04_\u7b97\u6cd5\u7814\u53d1/\u7b2c\u4e8c\u5341\u4e03\u8f6e\u4e92\u8865\u51bb\u7ed3\u8868\u793a_\u9000\u5316\u7f29\u5c0f\u4e0e\u51c6\u786e\u5ea6\u901f\u5ea6\u53d6\u820d_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/complementary_encoders/iteration.json"
+    },
+    "b": {
+      "path": "../../work/robust_statistics/complementary_encoders/benchmark.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "weak_dino/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/weak_dino~1source/minimum_domain_ba')",
+      "quoted": "75.00"
+    },
+    {
+      "section": "table",
+      "label": "weak_dino/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/weak_dino~1source/minimum_scene_ba')",
+      "quoted": "85.00"
+    },
+    {
+      "section": "table",
+      "label": "weak_dino/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/weak_dino~1source/maximum_any_scene_drop')",
+      "quoted": "7.50"
+    },
+    {
+      "section": "table",
+      "label": "joint/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/joint~1source/minimum_domain_ba')",
+      "quoted": "82.22"
+    },
+    {
+      "section": "table",
+      "label": "joint/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/joint~1source/minimum_scene_ba')",
+      "quoted": "91.25"
+    },
+    {
+      "section": "table",
+      "label": "joint/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/joint~1source/maximum_any_scene_drop')",
+      "quoted": "5.00"
+    },
+    {
+      "section": "table",
+      "label": "joint/mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/joint~1mean/minimum_domain_ba')",
+      "quoted": "80.56"
+    },
+    {
+      "section": "table",
+      "label": "joint/mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/joint~1mean/minimum_scene_ba')",
+      "quoted": "91.25"
+    },
+    {
+      "section": "table",
+      "label": "joint/mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/joint~1mean/maximum_any_scene_drop')",
+      "quoted": "5.00"
+    },
+    {
+      "section": "table",
+      "label": "joint/source_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/joint~1source_null/minimum_domain_ba')",
+      "quoted": "46.25"
+    },
+    {
+      "section": "table",
+      "label": "joint/source_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/joint~1source_null/minimum_scene_ba')",
+      "quoted": "40.00"
+    },
+    {
+      "section": "table",
+      "label": "joint/source_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/joint~1source_null/maximum_any_scene_drop')",
+      "quoted": "10.00"
+    },
+    {
+      "section": "timing",
+      "label": "all/predict_ms/p95",
+      "expr": "f('b','/summaries/all/predict_ms/p95')",
+      "quoted": "41.71"
+    },
+    {
+      "section": "timing",
+      "label": "all/end_to_end_ms/p95",
+      "expr": "f('b','/summaries/all/end_to_end_ms/p95')",
+      "quoted": "54.61"
+    },
+    {
+      "section": "timing",
+      "label": "at_most_2MP/predict_ms/p95",
+      "expr": "f('b','/summaries/at_most_2MP/predict_ms/p95')",
+      "quoted": "39.51"
+    },
+    {
+      "section": "timing",
+      "label": "at_most_2MP/end_to_end_ms/p95",
+      "expr": "f('b','/summaries/at_most_2MP/end_to_end_ms/p95')",
+      "quoted": "52.95"
+    },
+    {
+      "section": "timing",
+      "label": "above_2MP/predict_ms/p95",
+      "expr": "f('b','/summaries/above_2MP/predict_ms/p95')",
+      "quoted": "47.74"
+    },
+    {
+      "section": "timing",
+      "label": "above_2MP/end_to_end_ms/p95",
+      "expr": "f('b','/summaries/above_2MP/end_to_end_ms/p95')",
+      "quoted": "59.86"
+    }
+  ]
+}

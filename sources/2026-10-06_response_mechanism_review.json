@@ -1,0 +1,90 @@
+{
+  "phase": "Algorithm mechanisms; no universal invariance claim",
+  "primary": [
+    {
+      "title": "RA-Det: Towards Universal Detection of AI-Generated Images via Robustness Asymmetry",
+      "url": "https://arxiv.org/abs/2603.01544",
+      "version": "v1",
+      "pdf": {
+        "url": "https://arxiv.org/pdf/2603.01544v1",
+        "bytes": 1582250,
+        "sha256": "f584ef573fcc3751d3e2b9f06aaa9812fbece4685b6e6f93120fd185d2e8ddd9"
+      },
+      "reading": "Main1-8 and Appendix12-15 text; page8 table/robustness panel visually checked; refs9-11 not deeply followed",
+      "code_commit": "591d4c0d24798b49dc881af58093883c6fdf45f9",
+      "downloaded_git_blob_verified_files": 47,
+      "read_code_scope": [
+        "README complete",
+        "configs/config.py recommended configuration",
+        "embedding_trainer.py classes1-380, evaluation586-765, training1679-1745",
+        "ensemble/branches.py L2/difference branches",
+        "ensemble/classifier.py forward153-207",
+        "ensemble/fusion.py MaxFusion and average; no entire pipeline execution"
+      ],
+      "findings": [
+        "Learned probing plus frozen backbone and trainable residual/discrepancy heads, not pure non-neural",
+        "Robustness testing mild JPEG95/90/85 and blur; not recapture",
+        "README training-batch advice does not by itself prove deployed batch dependence; read eval computes per-image L2 and differences with frozen BN",
+        "Evaluation explicitly max-fuses branch probabilities",
+        "Paper gamma.1 versus recommended code margin1 with relative normalization; separate protocols",
+        "No whole-model checkpoint loaded or benchmark executed"
+      ],
+      "author_numbers_not_ours": {
+        "blur_sigma08_acc": 82.93,
+        "blur_sigma15_acc": 78.73,
+        "derived_endpoint_change_pp": -4.2
+      },
+      "lemma_check": "Printed directional assumption implication has an exact zero-gap witness confirmed by Fraction polynomial and fresh SymPy/integration routes; scope excludes added curvature and conditionalKL bound; PROVISIONAL, not full protocolclosure"
+    },
+    {
+      "title": "Intermediate Representations are Strong AI-Generated Image Detectors",
+      "url": "https://arxiv.org/abs/2605.04358",
+      "version": "v1",
+      "pdf": {
+        "url": "https://arxiv.org/pdf/2605.04358v1",
+        "bytes": 10925326,
+        "sha256": "0c007c668e0eae17f322bf6ae2d194fbca1a4c5c75e5ef2b46f45abcb42fa48b"
+      },
+      "reading": "Main1-9 and Appendix13-17 text, page14 Table5 visual; refs10-12 partially inspected, source code not established",
+      "findings": [
+        "Labelled search picks layer and probe severity; frozen encoder is not no-data-use",
+        "Blur sensitivity is detection feature, not evidence that prior physical blur leaves classifier stable",
+        "Table5 selects13 for blur and24 for JPEG/noise; intermediate advantage depends on probe",
+        "No verified fixed single-threshold same-source physical drop or end-to-end phone-speed experiment"
+      ],
+      "prior_credit": "RIGID/MINDER response sensitivity and RINE intermediate features; own stage24 fixed12 is not this paper replication"
+    }
+  ],
+  "source_code_receipt": "work/robust_statistics/response_review/source_receipts.json",
+  "target_spec": "work/robust_statistics/response_review/lemma_target.md",
+  "own_next_hypotheses": [
+    "Differentiate sensing response amplitude from decision stability after unknown propagation",
+    "Test intermediate representation first, with same-source class rates; no post-result layer sweep",
+    "If class response disappears after real processing, stop that candidate rather than calling lower drift a success"
+  ],
+  "attempts": [
+    "Python requests absent; switched to stdlib urllib",
+    "main branch API422; queried defaultmaster then pinned immutable commit"
+  ],
+  "scientific_grade": "OPEN detector goal; exact local witness PROVISIONAL, full diversity/interface process not claimed",
+  "scope": "No new sealed data pixels, no model training, no source-code licensing inference from public availability",
+  "theory_receipts": {
+    "adversary": {
+      "path": "work/robust_statistics/response_review/adversary/certificate.json"
+    },
+    "fresh_verifier": {
+      "path": "work/robust_statistics/response_review/verifier/exact_result.json"
+    },
+    "local_replay": {
+      "path": "work/robust_statistics/response_review/replay.json"
+    }
+  },
+  "theory_script": "experiments/origin_detection/response_probe/audit_theory.py",
+  "prospective_experiment": "experiments/origin_detection/response_probe/README.md",
+  "experimental_status": "Complete fixed campaign,integer audit passed;not adopted;goal active",
+  "experimental_history": [
+    "Fixedsigma1/block12 registered;9 software controls passed;synthetic GPU prefix gate active;no new probe target images yet",
+    "Full20160 probe prefixes signed;unprobed stage24 reused;four fixed conventional heads evaluating"
+  ],
+  "own_result_report": "reports/04_\u7b97\u6cd5\u7814\u53d1/\u7b2c\u4e8c\u5341\u4e94\u8f6e\u56fa\u5b9a\u54cd\u5e94_\u5c0f\u6f02\u79fb\u672a\u5f62\u6210\u7a33\u5b9a\u5224\u522b_2026-10-06.md"
+}

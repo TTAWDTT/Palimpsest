@@ -58,4 +58,12 @@
 
 [DEAR-r局部法医对照](dear_baseline/README.md)：第二十三轮固定作者权重，区分原生OOM与经数值核对的空间分块执行。
 
-[中间表示](intermediate_encoder/README.md)：第二十四轮固定中点LN2与来源风险头；人工存储控制通过，CUDA和像素提取尚待序列执行。
+[中间表示](intermediate_encoder/README.md)：第二十四轮固定中点LN2与来源风险头；人工控制、CUDA原输出与196条小试末端特征逐值一致；完整提取与四头评测完成，最坏同源下降12.50pp，未采用。
+
+[受控响应与传播稳定性核查](../../reports/04_算法研发/受控响应与传播稳定性_机理前提及精确反例核查_2026-10-06.md)：区分探针判别与传播后决定；打印版方向敏感度条件的零间隔反例经两条精确路径核查，不能作为通用稳定性保证。
+
+[受控响应](response_probe/README.md)：第二十五轮固定sigma1与第12块，仅新探针前缀；原表示复用签名缓存。
+
+[有限视图间隔](source_hinge/README.md)：第二十六轮显式最大hinge与平均hinge对照，先检查求解核与成本。
+
+[互补冻结表示](complementary_encoders/README.md)：第二十七轮拼接原语义与自监督CLS/patchmean；无新提取，源码及缓存全签名核验。
