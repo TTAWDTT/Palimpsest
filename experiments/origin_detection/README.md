@@ -54,4 +54,8 @@
 
 [语义核](semantic_kernel/README.md)、[同源慢子空间](slow_subspace/README.md)、[来源分数一致性](source_score_consistency/README.md)：第十九至二十一轮，完整开发评测和失败记录；不继续事后调参。
 
-[小型语义编码器](compact_semantic_encoder/README.md)：第二十二轮单一CLIP-B/16预登记，尚无准确率结论。
+[小型语义编码器](compact_semantic_encoder/README.md)：第二十二轮CLIP-B/16已完成，最低汇总BA81.11%、细分下降11.25pp，未采用。
+
+[DEAR-r局部法医对照](dear_baseline/README.md)：第二十三轮固定作者权重，区分原生OOM与经数值核对的空间分块执行。
+
+[中间表示](intermediate_encoder/README.md)：第二十四轮固定中点LN2与来源风险头；人工存储控制通过，CUDA和像素提取尚待序列执行。

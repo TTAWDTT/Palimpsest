@@ -1,0 +1,332 @@
+{
+  "title": "Leveraging Representations from Intermediate Encoder-Blocks for Synthetic Image Detection",
+  "authors": [
+    "Christos Koutlis",
+    "Symeon Papadopoulos"
+  ],
+  "venue": "ECCV2024",
+  "doi": "10.1007/978-3-031-73220-1_23",
+  "primary": "https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/9160_ECCV_2024_paper.php",
+  "pdf": {
+    "url": "https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/09160.pdf",
+    "bytes": 3670216,
+    "sha256": "9564addeac17b779aa085ac53407830f5f1cd430c79a918119dbeacad254ff0b"
+  },
+  "code_commit": "9b7fd5857cc205d0412be6aeee0d7611b95bd620",
+  "archive_receipt": {
+    "url": "https://api.github.com/repos/mever-team/rine/tarball/9b7fd5857cc205d0412be6aeee0d7611b95bd620",
+    "bytes": 105244276,
+    "sha256": "41c0f1755c283165a6b64f8bdea3f0567b82ef1a76df9dddd60d08d3097413c7"
+  },
+  "reading_scope": {
+    "paper": "All18PDFpagesread;mainmethod3-6;perturbations11/13;Table5renderedvisuallychecked;no supplementarydownload orreferencechainfullread",
+    "code": "CompleteModel/Hook,perturbation,EvaluationDatasetread;utilsget_transformandREADMEevaluationread;notwholetrainpipelineexecution"
+  },
+  "proximity": "P3 frozenCLIP detection features andprocessing robustness",
+  "code_pins": {
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "src/models.py": "694076dbedb27009c469cb74d447aa20b92431917ade86683426ab1ed1bc6399",
+    "src/perturbation.py": "cc417ec7f1f190148041190ab30908d36e1145ad2620b7ed446dc06ec33bab4c",
+    "src/data.py": "0b49cf9859675c102d4e3417e5835c82b292dfd925bb7860d8e8e27ecc046275",
+    "src/utils.py": "9301faadab3f4883736ab478a8ccea90f697b9097f62e64220830c0a562164b0",
+    "scripts/perturbations.py": "feca8b2b92658ea36be961ac33b371722bb125c672c1328f272074e6a1c0ce86",
+    "README.md": "97e01a189b4cdee33a046cc2bc88b2c8603f3a2c69761bd596f2aeb6b557ba6a",
+    "requirements.txt": "d645ca4d2e9f68af5540b2971f95a0b27615cf4376e6c6c8ea67473f4019256d"
+  },
+  "author_results_not_ours": {
+    "table5_fourclass_acc_unperturbed": 91.5,
+    "combined": 82.7,
+    "derived_drop_pp": 8.8,
+    "scope": "AuthoraverageACC,50% stochastic perturbation mixture;notourmatchedBA orrealphysicalevidence"
+  },
+  "source_vs_formula": [
+    "Eq2describesblockCLSoutputs;releasedcode hooksln_2outputs beforeMLPwithinblock",
+    "Unperturbed inferencecenter224withoutresize;perturbedbranchforces256x256resize then224crop",
+    "EvaluationDatasetperturbsallclasssampleswithprobability.5;combinedsetsapplyallfourtransformsontriggeredbranch",
+    "JPEGfactor sampled10..74 ispassed asOpenCVparameterKEY withvalue90,not asJPEGquality value"
+  ],
+  "known_control": {
+    "source_sha256": "cc417ec7f1f190148041190ab30908d36e1145ad2620b7ed446dc06ec33bab4c",
+    "source_function": "jpeg executed from uneditedAST;controlled return forrandint",
+    "opencv": "4.13.0",
+    "tested_key_range": [
+      10,
+      74
+    ],
+    "all_default_equivalent": true,
+    "correct_quality10_differs": true,
+    "measurements": [
+      {
+        "parameter_key": 10,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 11,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 12,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 13,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 14,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 15,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 16,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 17,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 18,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 19,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 20,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 21,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 22,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 23,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 24,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 25,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 26,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 27,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 28,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 29,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 30,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 31,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 32,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 33,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 34,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 35,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 36,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 37,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 38,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 39,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 40,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 41,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 42,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 43,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 44,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 45,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 46,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 47,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 48,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 49,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 50,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 51,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 52,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 53,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 54,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 55,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 56,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 57,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 58,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 59,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 60,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 61,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 62,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 63,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 64,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 65,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 66,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 67,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 68,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 69,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 70,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 71,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 72,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 73,
+        "same_as_default_jpeg": true
+      },
+      {
+        "parameter_key": 74,
+        "same_as_default_jpeg": true
+      }
+    ],
+    "scope": "Known synthetic pixels only;localcurrentOpenCV,not reconstruction ofauthorrunenvironment"
+  },
+  "limits": [
+    "CurrentOpenCV4.13codecheckdoesnot reconstruct originalauthorsinstalledOpenCV",
+    "Authorsuppliednetworkmodulehastrainedheads/projections;notpurehandcraftedalgorithm",
+    "Partialcorruptionaveragecannot establishallaffectedimagesstability",
+    "Physicalscreenbenchmarknotinpaper"
+  ],
+  "own_next_hypothesis": "Intermediatefrozenfeatures mayretainclass evidence lostby final globalprojection;must testprocessingstability directly,with ownsource-riskhead andcreditedpriorwork",
+  "status": "Mechanism/codeaudited;no RINE inference ornewintermediate realextraction",
+  "prospective_experiment": "experiments/origin_detection/intermediate_encoder/README.md",
+  "experimental_status": "Eight known software controls passed;GPU runtime gate pending untilDEAR completes;no newmidpointpixels"
+}

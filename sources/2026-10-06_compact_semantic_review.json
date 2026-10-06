@@ -19,7 +19,7 @@
   "weights": {
     "author_sha256": "5806e77cd80f8b59890b7e101eabd078d9fb84e6937f9e85e4ecb61988df416f",
     "published_get_length": 350837078,
-    "status": "Downloaded350837078bytes and official SHA256 verified;no real image inference yet",
+    "status": "Official size/SHA verified;full development inference completed",
     "verified_receipt": "work/robust_statistics/compact_semantic_review/weight_receipt.json"
   },
   "limitations": [
@@ -75,11 +75,20 @@
     "representation_sha256": "8e436f05508ac2355c8ec4e8e6a694afce38893df1a263f9798f7d327e3dca94",
     "scope": "Original AST transform helpers executed without expression edits;synthetic CUDA forward only,not end-to-end"
   },
-  "experimental_status": "Runtime controls and60image196vector pilot completed;full20160vector extraction active;no accuracy result",
+  "experimental_status": "Completed;source head81.11% minimum aggregate,11.25pp max scene drop;not adopted",
   "pilot": {
     "images": 60,
     "records": 196,
     "elapsed_s": 7.114771599997766,
     "csv_sha256": "afc4e36ffe6a05d5e8a4c09a71f3b8dcdbf6667f05b0effa7bfd32e921417451"
+  },
+  "status_history": [
+    "Runtime controls and60image196vector pilot completed;full20160vector extraction active;no accuracy result"
+  ],
+  "result_receipts": {
+    "features.json": "work\\robust_statistics\\compact_semantic_encoder\\features.json",
+    "iteration.json": "work\\robust_statistics\\compact_semantic_encoder\\iteration.json",
+    "benchmark.json": "work\\robust_statistics\\compact_semantic_encoder\\benchmark.json",
+    "score_counts_audit.json": "work\\robust_statistics\\compact_semantic_encoder\\score_counts_audit.json"
   }
 }
