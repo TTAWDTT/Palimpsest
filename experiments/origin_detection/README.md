@@ -67,3 +67,9 @@
 [有限视图间隔](source_hinge/README.md)：第二十六轮显式最大hinge与平均hinge对照，先检查求解核与成本。
 
 [互补冻结表示](complementary_encoders/README.md)：第二十七轮拼接原语义与自监督CLS/patchmean；无新提取，源码及缓存全签名核验。
+
+[小型互补表示](compact_complement/README.md)：第二十八轮固定小型语义＋自监督结构；复用缓存及共享候选评测模块。
+
+- [condition_mixture](condition_mixture/README.md)：第29轮特征门控与均匀混合，完整开发结果未达标。
+- [balanced_null](balanced_null/README.md)：第30轮训练真类精确配平的伪标签控制，不能当作新算法。
+- [source_support](source_support/README.md)：第31轮固定类支持集距离，完整评测下降6.25pp，未采用。

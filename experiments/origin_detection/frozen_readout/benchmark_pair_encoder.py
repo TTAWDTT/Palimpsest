@@ -1,5 +1,6 @@
 """Live two-encoder scores and decode-inclusive timing on the signed120 queue."""
 
+import argparse
 import csv
 import json
 from pathlib import Path
@@ -9,6 +10,7 @@ from threadpoolctl import threadpool_limits
 
 from palimpsest.detection.algorithms.paired_stability import StableRule
 from palimpsest.detection.representations.frozen_clip import FrozenClip, FEATURE_NAMES as CLIP_NAMES
+from palimpsest.detection.representations.frozen_clip_base import FrozenClipBase, FEATURE_NAMES as BASE_NAMES
 from palimpsest.detection.representations.frozen_dinov2_small import FrozenDinoV2Small, FEATURE_NAMES as DINO_NAMES
 from palimpsest.detection.representations.feature_pair import FrozenFeaturePair
 from palimpsest.detection.representations.readout import FeatureReadoutDetector
@@ -30,17 +32,20 @@ def selected_rows(path, names):
 
 
 def main():
-    destination = OUTPUT/'benchmark.json'
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--compact',action='store_true');args=parser.parse_args()
+    output = OUTPUT.with_name('compact_complement') if args.compact else OUTPUT
+    destination = output/'benchmark.json'
     if destination.exists():
         raise FileExistsError('Preserve paired encoder live benchmark')
-    iteration_path = OUTPUT/'iteration.json'
+    iteration_path = output/'iteration.json'
     iteration = json.loads(iteration_path.read_text())
     if iteration['development_chosen'] != 'joint/source' or iteration['interpretation_refused']:
         raise ValueError('No specified joint development candidate')
     for relative,sha in iteration['code_pins'].items():
         if file_sha256(REPO_ROOT/relative) != sha:
             raise ValueError('Pair computation changed')
-    rule_path = OUTPUT/'joint_source_rule.json'
+    rule_path = output/'joint_source_rule.json'
     if file_sha256(rule_path) != iteration['rule_files']['joint/source']:
         raise ValueError('Pair rule changed')
     reference_path = WORK_DIR/'robust_statistics/frozen_clip/benchmark.json'
@@ -49,7 +54,7 @@ def main():
     if len(names) != 120 or len(reference['measurements']) != 360:
         raise ValueError('Timing reference changed')
     components = []
-    for directory in ('frozen_clip','compact_frozen_encoder'):
+    for directory in ('compact_semantic_encoder' if args.compact else 'frozen_clip','compact_frozen_encoder'):
         folder = WORK_DIR/'robust_statistics'/directory
         receipt = json.loads((folder/'features.json').read_text())
         if receipt['csv_sha256'] != file_sha256(folder/'features.csv'):
@@ -61,10 +66,11 @@ def main():
     rows = join_features(*components,DINO_NAMES)
     rule = StableRule.load(rule_path)
     cv2.setNumThreads(1)
-    first = FrozenClip(MODELS_ROOT/'d3/ViT-L-14.pt')
+    first = (FrozenClipBase(MODELS_ROOT/'clip_small/ViT-B-16.pt') if args.compact
+             else FrozenClip(MODELS_ROOT/'d3/ViT-L-14.pt'))
     second = FrozenDinoV2Small(MODELS_ROOT/'dinov2_small/dinov2_vits14_pretrain.pth',
         WORK_DIR/'robust_statistics/compact_encoder_review/runtime_receipt.json')
-    pair = FrozenFeaturePair(first,second,first_names=CLIP_NAMES,second_names=DINO_NAMES)
+    pair = FrozenFeaturePair(first,second,first_names=BASE_NAMES if args.compact else CLIP_NAMES,second_names=DINO_NAMES)
     detector = FeatureReadoutDetector(pair.extract,rule,feature_names=pair.feature_names,
         name='Frozen CLIP plus DINO source-risk development readout')
     with threadpool_limits(limits=1):

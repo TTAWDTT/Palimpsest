@@ -1,0 +1,30 @@
+{
+  "campaign": "thirtieth truth orthogonal control",
+  "register": "Selected quote arithmetic only",
+  "quote_source": "reports/04_\u7b97\u6cd5\u7814\u53d1/\u7b2c\u4e09\u5341\u8f6e\u914d\u5e73\u8d1f\u5bf9\u7167_\u6d88\u9664\u62df\u5408\u6807\u7b7e\u5076\u7136\u5173\u8054\u4e0d\u7b49\u4e8e\u9a8c\u8bc1\u901a\u8fc7_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/balanced_null/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "control",
+      "label": "minimum_domain_ba",
+      "expr": "100*f('i','/candidates/balanced_null/minimum_domain_ba')",
+      "quoted": "43.75"
+    },
+    {
+      "section": "control",
+      "label": "minimum_scene_ba",
+      "expr": "100*f('i','/candidates/balanced_null/minimum_scene_ba')",
+      "quoted": "38.75"
+    },
+    {
+      "section": "control",
+      "label": "maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/balanced_null/maximum_any_scene_drop')",
+      "quoted": "15.00"
+    }
+  ]
+}

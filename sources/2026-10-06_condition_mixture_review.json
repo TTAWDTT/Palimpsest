@@ -1,0 +1,44 @@
+{
+  "sources": [
+    {
+      "title": "Adaptive Mixtures of Local Experts",
+      "primary": "https://www.cs.toronto.edu/~hinton/absps/jjnh91.pdf",
+      "pdf": {
+        "url": "https://www.cs.toronto.edu/~hinton/absps/jjnh91.pdf",
+        "bytes": 634556,
+        "sha256": "4af682881464b93b8fe0371c9f3f451b080a4976156e982b39e1d28cac4be621"
+      },
+      "reading": "ScannedPDF9pages;textempty;visually readpages1-4 includingEq1.1-1.5;laterGaussian/vowel experimentsunread",
+      "findings": [
+        "Gating and expert decomposition is established1991prior",
+        "Competitive expert training differs from simple blended-output cooperation",
+        "Our separately fit conventional heads and Bernoulli probability pool are an adaptation,not replication ofauthor neuralcompetitivelearning"
+      ]
+    },
+    {
+      "title": "Robustness of Mixtures of Experts to Feature Noise",
+      "primary": "https://proceedings.mlr.press/v306/sun26af.html",
+      "reading": "Officialabstract/bibmetadataonly;PDF/codeunread",
+      "findings": [
+        "Latent modular feature noise and synthetic/language evidence;not direct physicalimagepropagation guarantee"
+      ],
+      "use": "Breadthlead,not theorem used in detector claim"
+    }
+  ],
+  "own_design": "Feature-only conventional gate fit toauthororiginal/processed conditions;two independently fitoriginheads;no inferencecondition metadata;uniform andshuffledcontrols",
+  "limits": [
+    "Condition prior balanced atfitnotwildposteriorcalibration",
+    "OriginalJPEGaugmentation stilloriginal marker;authorprocessedflagnot every possibletransformation",
+    "Gate prediction successnot AI origin success"
+  ],
+  "prospective_experiment": "experiments/origin_detection/condition_mixture/README.md",
+  "status": "Completed;soft_gate decline20pp,uniform10pp;not adopted;integer audit passed;no live speed measurement",
+  "history": [
+    {
+      "status": "Registered;five known software controls passed;fitactive"
+    },
+    {
+      "status": "Completed;soft_gate decline20pp,uniform10pp;not adopted;integer audit passed;no live speed measurement"
+    }
+  ]
+}
