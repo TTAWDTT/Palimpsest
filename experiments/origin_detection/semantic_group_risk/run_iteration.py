@@ -43,7 +43,13 @@ def code_pins():
         'experiments/origin_detection/compact_frozen_encoder/run_iteration.py',
         'experiments/origin_detection/threshold_calibration/fit_threshold.py',
         'tests/detection/test_group_margin.py')]
+    paths.append(REPO_ROOT / 'tests/evaluation/test_semantic_group_protocol.py')
     return {str(p.relative_to(REPO_ROOT)): file_sha256(p) for p in sorted(paths)}
+
+
+def wrong_weak_pairs(rows, names, seed):
+    """The inherited helper accepts exactly the two registered weak variants."""
+    return wrong_pairs([r for r in rows if r['variant'] in VARIANTS[:2]], names, seed)
 
 
 def fit_rule(rows, mode, manifest_sha):
@@ -61,7 +67,7 @@ def fit_rule(rows, mode, manifest_sha):
     mapping = {k: i for i, k in enumerate(unique)}
     groups = np.array([mapping[k] for k in keys])
     if mode == 'wrong_pair_both':
-        delta, pw, pair_control = wrong_pairs(rows, FEATURE_NAMES, CONFIG['seed'])
+        delta, pw, pair_control = wrong_weak_pairs(rows, FEATURE_NAMES, CONFIG['seed'])
     else:
         delta, pw = paired_deltas(rows, 'fit', VARIANTS[:2], FEATURE_NAMES)
         pair_control = {'pairs': len(delta), 'same_source_pairs': len(delta)}
@@ -104,7 +110,8 @@ def main():
     OUTPUT.mkdir(parents=True, exist_ok=True)
     if (OUTPUT / 'iteration.json').exists():
         raise FileExistsError('Preserve semantic group-risk campaign')
-    controls = json.loads((OUTPUT / 'software_controls.json').read_text())
+    control_file = 'software_controls_after_repair.json' if (OUTPUT / 'failure_attempt1.json').exists() else 'software_controls.json'
+    controls = json.loads((OUTPUT / control_file).read_text())
     if not controls['passed'] or any(file_sha256(REPO_ROOT / k) != v for k, v in controls['test_pins'].items()):
         raise ValueError('Group-risk known control changed')
     rows, parent = inputs()
@@ -124,6 +131,12 @@ def main():
                 reference_gate = check_mean_reference(margins)
             result.update({'fit_diagnostics': diagnostic, 'threshold': rule.threshold})
             results[mode], rules[mode], scores[mode] = result, rule, margins
+            failure_path = OUTPUT / 'failure_attempt1.json'
+            if failure_path.exists():
+                partial = json.loads(failure_path.read_text())['partial_printed_metrics']
+                if mode in partial and partial[mode] != [result[k] for k in
+                        ('minimum_domain_ba', 'minimum_scene_ba', 'maximum_any_scene_drop')]:
+                    raise ValueError('Adapter repair changed an earlier completed scientific result')
             print(json.dumps({'candidate': mode, 'minimum_ba': result['minimum_domain_ba'],
                 'minimum_scene_ba': result['minimum_scene_ba'],
                 'maximum_scene_drop': result['maximum_any_scene_drop']}), flush=True)
@@ -141,6 +154,7 @@ def main():
     write_json(OUTPUT / 'selection_scores.json', scores)
     write_json(OUTPUT / 'iteration.json', {'candidates': results, 'code_pins': code_pins(),
         'balanced_assignment_sha256': control['assignment_sha256'], 'mean_reference_gate': reference_gate,
+        'software_controls_sha256': file_sha256(OUTPUT / control_file),
         'null_raw_processed_auc_ci95': intervals, 'elapsed_s': perf_counter()-start,
         'inventory_sha256': parent['inventory_sha256'],
         'selection_scores_sha256': file_sha256(OUTPUT / 'selection_scores.json'),
