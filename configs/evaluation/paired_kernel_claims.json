@@ -1,0 +1,84 @@
+{
+  "campaign": "paired_kernel",
+  "register": "Selected transcription only",
+  "quote_source": "reports/04_算法研发/第四十五轮局部核_同源方差降低未保持分类能力_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/paired_kernel/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "zero/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/zero/minimum_domain_ba')",
+      "quoted": "76.11"
+    },
+    {
+      "section": "table",
+      "label": "zero/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/zero/minimum_scene_ba')",
+      "quoted": "73.75"
+    },
+    {
+      "section": "table",
+      "label": "zero/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/zero/maximum_any_scene_drop')",
+      "quoted": "18.75"
+    },
+    {
+      "section": "table",
+      "label": "paired/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/paired/minimum_domain_ba')",
+      "quoted": "76.11"
+    },
+    {
+      "section": "table",
+      "label": "paired/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/paired/minimum_scene_ba')",
+      "quoted": "75.00"
+    },
+    {
+      "section": "table",
+      "label": "paired/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/paired/maximum_any_scene_drop')",
+      "quoted": "17.50"
+    },
+    {
+      "section": "table",
+      "label": "source_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/source_null/minimum_domain_ba')",
+      "quoted": "52.50"
+    },
+    {
+      "section": "table",
+      "label": "source_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/source_null/minimum_scene_ba')",
+      "quoted": "37.50"
+    },
+    {
+      "section": "table",
+      "label": "source_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/source_null/maximum_any_scene_drop')",
+      "quoted": "13.75"
+    },
+    {
+      "section": "table",
+      "label": "wrong_source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/wrong_source/minimum_domain_ba')",
+      "quoted": "77.50"
+    },
+    {
+      "section": "table",
+      "label": "wrong_source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/wrong_source/minimum_scene_ba')",
+      "quoted": "73.75"
+    },
+    {
+      "section": "table",
+      "label": "wrong_source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/wrong_source/maximum_any_scene_drop')",
+      "quoted": "22.50"
+    }
+  ]
+}
