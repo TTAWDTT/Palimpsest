@@ -1,0 +1,19 @@
+{
+  "scope": "Focused reread and exact set-identity counterexample;not a new discovery of the response family,full review or author result replication",
+  "primary": [{
+    "title": "Understanding and Improving Training-Free AI-Generated Image Detections with Vision Foundation Models",
+    "url": "https://arxiv.org/pdf/2411.19117v1",
+    "revision": "v1,2024-11-28",
+    "bytes": 7191389,
+    "sha256": "a938d1ed1b4789554d13eabe537585198295323d548ed108358445625e177921",
+    "pages": 17,
+    "read": "HTML abstract and sections1-7;PDF pp3-8,reference context9-10,supplement12-13;text only",
+    "owed": "PDF pp1-2 visual layout,p11 reference context,pp14-17 supplementary tables,author implementation and full citation graph",
+    "locators": "p3 Eq1 sensitivity;pp5-6 contrastive blur and min rule;p6 printed union identity;p8 JPEG/AUC and task limits;p12 implementation clipping and printed intersection identity",
+    "quotes": [],
+    "boundary": "Reported ranking performance and digital corruption do not establish fixed-threshold BA or independent real screen-camera stability. Printed set identities are incorrect;minimum algorithm need not be invalid. Supplement writes both noise scales with the same subscript;author code needed before exact replication."
+  }],
+  "prior_credit": "RIGID/MINDER family already identified before iteration25;this reread adds printed min/max logic audit,not novelty claim",
+  "audit": "experiments/origin_detection/minder_logic/README.md",
+  "outcome": "Nine exact two-point metric instances;four failures of each printed identity;corrected identities and corrupt witness expectation gate pass. No independent-agent proof grade."
+}

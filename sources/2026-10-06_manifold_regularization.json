@@ -1,0 +1,24 @@
+{
+  "scope": "Focused primary mechanism and empirical representer/solver read;not a complete theory or novelty review",
+  "search_queries": [
+    "site.jmlr.org Belkin Niyogi Sindhwani 2006 Manifold Regularization geometric framework learning pdf",
+    "paired images transformation invariant kernel classifier manifold regularization source pairs"
+  ],
+  "primary": [{
+    "title": "Manifold Regularization: A Geometric Framework for Learning from Labeled and Unlabeled Examples",
+    "authors": ["Mikhail Belkin", "Partha Niyogi", "Vikas Sindhwani"],
+    "publication": "JMLR7(85):2399-2434,2006",
+    "url": "https://www.jmlr.org/papers/volume7/belkin06a/belkin06a.pdf",
+    "bytes": 416149,
+    "sha256": "f83f892575a6596aa587e3eddce1b7600f58e2eb9cad4e11ef141d3e8092efc6",
+    "pages": 36,
+    "read": "PDF pp3-7,9-11,13-17 text read",
+    "locators": "p5 conditional intrinsic smoothness;p7 empirical graph objective/Thm2;pp14-15 finite representer proof;pp15-16 RLS/LapRLS;pp16-17 unregularized bias context",
+    "quotes": [],
+    "owed": "pp1-2/8/12,remaining algorithms,experiments,discussion and references18-36;author implementation and full citation graph",
+    "boundary": "Our graph joins known matched source views and all labels are available;restricted1260 source-mean anchor span and coefficient nugget differ from full author neighbor-graph LapRLS. Neither representer theorem nor smoothness assumption establishes real recapture classification stability."
+  }],
+  "search_return_not_adopted": ["Niyogi2013 theoretical analysis:search result only", "DICA2013:abstract only", "Multiview Hessian Regularization2019:abstract only"],
+  "experiment": "experiments/origin_detection/paired_kernel/README.md",
+  "controls": "Four artificial checks completed before real signed cache opening;Fraction solution,active finite variance reduction,portable score equality and wrong-source panel integrity"
+}
