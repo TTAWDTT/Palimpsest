@@ -91,3 +91,5 @@
 [semantic_covariance_risk](semantic_covariance_risk/README.md)：第39轮来源质心二阶方向与同源风险目标；不改变原始编码器。
 
 [reconstruction_audit](reconstruction_audit/README.md)：生成流形重建相消的25例有限精确检查，非来源判别器。
+
+[cure_condition_risk](cure_condition_risk/README.md)：第40轮一个冻结CuRe编码器的处理条件传统读出；查询不读作者条件。
