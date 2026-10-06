@@ -1,0 +1,81 @@
+{
+  "campaign": "thirtyfifth fixed canonical JPEG",
+  "register": "Selected arithmetic only;not final scientific validation",
+  "quote_source": "reports/04_算法研发/第三十五轮共同重编码_数字退化减小但拍屏仍下降_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/canonical_jpeg/iteration.json"
+    },
+    "s": {
+      "path": "../../work/robust_statistics/canonical_jpeg/processing_extrema.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "canonical/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/canonical~1source/minimum_domain_ba')",
+      "quoted": "84.44"
+    },
+    {
+      "section": "table",
+      "label": "canonical/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/canonical~1source/minimum_scene_ba')",
+      "quoted": "78.75"
+    },
+    {
+      "section": "table",
+      "label": "canonical/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/canonical~1source/maximum_any_scene_drop')",
+      "quoted": "10.00"
+    },
+    {
+      "section": "table",
+      "label": "canonical/mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/canonical~1mean/minimum_domain_ba')",
+      "quoted": "83.89"
+    },
+    {
+      "section": "table",
+      "label": "canonical/mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/canonical~1mean/minimum_scene_ba')",
+      "quoted": "80.00"
+    },
+    {
+      "section": "table",
+      "label": "canonical/mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/canonical~1mean/maximum_any_scene_drop')",
+      "quoted": "10.00"
+    },
+    {
+      "section": "table",
+      "label": "canonical/source_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/canonical~1source_null/minimum_domain_ba')",
+      "quoted": "50.00"
+    },
+    {
+      "section": "table",
+      "label": "canonical/source_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/canonical~1source_null/minimum_scene_ba')",
+      "quoted": "47.50"
+    },
+    {
+      "section": "table",
+      "label": "canonical/source_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/canonical~1source_null/maximum_any_scene_drop')",
+      "quoted": "8.89"
+    },
+    {
+      "section": "processing",
+      "label": "canonical/source/encoding",
+      "expr": "100*f('s','/candidates/canonical~1source/encoding/drop')",
+      "quoted": "6.11"
+    },
+    {
+      "section": "processing",
+      "label": "canonical/source/condition",
+      "expr": "100*f('s','/candidates/canonical~1source/condition/drop')",
+      "quoted": "10.00"
+    }
+  ]
+}

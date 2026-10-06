@@ -77,3 +77,7 @@
 - [patch_dispersion](patch_dispersion/README.md)：第32轮固定DINO局部标准差；完整特征逐值核对和四头评价完成，未采用。
 - [phase_bridge](phase_bridge/README.md)：DCT符号→整体FFT相位的受限数值核查，不是判别器。
 - [local_score_transport](local_score_transport/README.md)：第33轮来源配对局部分数补偿，完整评价与控制完成，最坏下降27.5pp，未采用。
+
+- [source_bagged_forest](source_bagged_forest/README.md)：第34轮来源重采样与逐记录森林对照，完整评价未采用，保留伪标签异常。
+- [canonical_jpeg](canonical_jpeg/README.md)：第35轮固定共同重编码，数字退化有所减小、总体仍下降10pp，未采用。
+- [cure_baseline](cure_baseline/README.md)：官方CuRe固定文件路径；完整开发对照、速度与身份／算术／摘录核查完成，非论文队列复现。

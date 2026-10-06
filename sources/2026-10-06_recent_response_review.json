@@ -70,6 +70,59 @@
         "ghNOTICE API temporary route timeout"
       ],
       "inference_performed": false
+    },
+    {
+      "stage": "official assets and preprocessing availability",
+      "vendor_path": "E:/ai_image_origin_research/external/cure",
+      "source_git_blobs_verified": true,
+      "adapter_bytes": 25728649,
+      "adapter_sha256": "17cabb334563c15abc8827db87dc272a4aef10f4279025faee1ef8d32c444ae1",
+      "base": {
+        "repository": "facebook/PE-Core-L14-336",
+        "revision": "bafb0f76541d399057e980a25947f67acec76575",
+        "bytes": 2684747432,
+        "sha256": "0cdab5b338cbaa1e7a5dcd1b2fb4c9f4d5df1abd289564658edbab64a650e7e8",
+        "size_and_digest_verified": true
+      },
+      "runtime": {
+        "albumentations": "2.0.8",
+        "isolated_overlay": "E:/ai_image_origin_research/envs/cure_preprocess",
+        "numpy": "2.2.6",
+        "Pillow": "10.4.0",
+        "opencv": "4.13.0.92",
+        "torch": "2.7.1+cu126"
+      },
+      "synthetic_cpu_preprocessor": {
+        "png96_branch_exact": true,
+        "repeat_exact": true,
+        "flat_max_error": 0.0,
+        "shape": [
+          3,
+          336,
+          336
+        ]
+      },
+      "native_model_inference_performed": false,
+      "next": "registered CuRe batch1 pilot then full exposed selection;no calibration or training"
+    },
+    {
+      "stage": "CuRe official full fixed exposed baseline completed",
+      "images": 1260,
+      "scores": 5040,
+      "selected_sources": 420,
+      "fixed_threshold": 0.5,
+      "probability_tie_fake": true,
+      "batch": 1,
+      "minimum_domain_ba": 0.5666666666666667,
+      "minimum_scene_ba": 0.525,
+      "maximum_same_source_scene_drop": 0.225,
+      "author_separate_cli_one_probability_exact": true,
+      "integer_rates_audit_passed": true,
+      "perturbed_ba_rejected": true,
+      "scope": "Repeatedly exposed development;not paper RR queue or independent validation",
+      "inference_performed": true,
+      "adapter_fitted_here": false,
+      "encoder_fitted_here": false
     }
   ]
 }

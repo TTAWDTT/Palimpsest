@@ -15,7 +15,8 @@ Same exposed selection queue420sources/1260realfiles; four query variants
 raw/Q90-444/Q70-420/Q60-420, latter three AREA longedge<=256 then PIL JPEG.
 Author preprocessor receives original file for raw and actual .jpg for variants;
 do not add PNG-specific reencoding to synthetic JPEG variants. No fit/threshold
-pixels, RR reserved or new external validation pixels. Same60metrics130pairs.
+pixels in accuracy evaluation or model adaptation, no RR reserved or new external
+validation pixels. Same60metrics130pairs.
 Pretrained backbone/adapter overlap unknown; this is a development baseline,
 not independent final validation or reproduction of the paper's RR queue.
 
@@ -34,6 +35,13 @@ at batch1, compare exact saved probabilities, hash files before timer, include
 decode+author preprocessing+GPU+head, exclude initialization/warmup. Record
 CPU threads4 as author protocol, not identical threads1 to custom benchmarks;
 separate <=2MP and above2MP, no phone/localization/runtime transfer claims.
+
+Prospective timing-inventory correction before CuRe model execution: the existing
+120file timing queue contains32fit,14threshold and74selection native files.
+The latter probabilities come from the accuracy run; the other46 files are
+predicted once without timing to bind expected outputs, then used ONLY for
+timing/repeat parity. Their labels are never used or added to accuracy metrics.
+Record all120 reference probabilities and the role counts in the timing receipt.
 
 `run_iteration --pilot` and then `run_iteration`; final `benchmark_files`.
 No author methods code altered, no quality sweep, no result-guided threshold.

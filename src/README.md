@@ -120,6 +120,8 @@ flowchart LR
 
 新增定位器实现 [RegionLocator](palimpsest/localization/interfaces.py)；自研传统方法放 `detection/algorithms/`，自研神经模型放 `detection/models/`，已有论文/官方方法放 `detection/baselines/`，统一实现 [OriginDetector](palimpsest/detection/interfaces.py)。组合流程放 `pipelines/`，共用处理机制放 `simulation/`。
 
+CuRe的[官方文件适配器](palimpsest/detection/baselines/cure.py)是明确的研究例外：作者按PNG后缀增加一次编码，只有RGB会丢失该处理条件，所以保留`predict_file(path)`及原概率／平分规则；它尚未接入区域RGB推理链。其[固定对照](../experiments/origin_detection/cure_baseline/README.md)已完成，不是当前默认或自研成功。
+
 公共库不导入 `experiments/`。具体数据集选择、冻结划分、拟合和实验调度位于仓库外层的 [experiments](../experiments/README.md)；数据与权重通过 [路径配置](../configs/README.md) 获取，研究报告位于 [reports](../reports/README.md)。导入适配模块不会下载权重或启动推理，模型在显式调用时加载。
 
 算法候选另有[闭合相位统计](palimpsest/detection/algorithms/phase_statistics/README.md)；第四轮未通过真实处理准确度门槛。公共[特征缓存审计和文件计时](palimpsest/evaluation/README.md)供实验复用。
