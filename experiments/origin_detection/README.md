@@ -85,3 +85,9 @@
 [cure_readout](cure_readout/README.md)：第36轮冻结CuRe完整表示与128维子空间，六个预登记传统读出及配平负对照；原官方概率必须逐值一致，不称为官方模型结果。
 
 [semantic_group_risk](semantic_group_risk/README.md)：第37轮现有CLIP表示上的48细分组风险与同源约束；旧平均目标判决全一致作为接入门槛，另含错源配对及精确配平负对照。
+
+[semantic_gaussian](semantic_gaussian/README.md)：第38轮固定两种表示八个类别协方差读出，开发完整结果未达标。
+
+[semantic_covariance_risk](semantic_covariance_risk/README.md)：第39轮来源质心二阶方向与同源风险目标；不改变原始编码器。
+
+[reconstruction_audit](reconstruction_audit/README.md)：生成流形重建相消的25例有限精确检查，非来源判别器。
