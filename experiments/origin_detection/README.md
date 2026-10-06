@@ -93,3 +93,5 @@
 [reconstruction_audit](reconstruction_audit/README.md)：生成流形重建相消的25例有限精确检查，非来源判别器。
 
 [cure_condition_risk](cure_condition_risk/README.md)：第40轮一个冻结CuRe编码器的处理条件传统读出；查询不读作者条件。
+
+[cure_encoding_risk](cure_encoding_risk/README.md)：第41轮固定Q70训练支持，增量提取并保留Q60只作评价。
