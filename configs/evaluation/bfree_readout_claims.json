@@ -1,0 +1,66 @@
+{
+  "campaign": "bfree_readout",
+  "register": "Selected transcription only",
+  "quote_source": "reports/04_\u7b97\u6cd5\u7814\u53d1/\u7b2c\u56db\u5341\u56db\u8f6eB-Free\u5b8c\u6574\u8868\u793a_\u7c7b\u522b\u9002\u914d\u672a\u7a33\u5b9a\u4f20\u64ad\u5224\u522b_2026-10-07.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/bfree_readout/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/source/minimum_domain_ba')",
+      "quoted": "71.67"
+    },
+    {
+      "section": "table",
+      "label": "source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/source/minimum_scene_ba')",
+      "quoted": "87.50"
+    },
+    {
+      "section": "table",
+      "label": "source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/source/maximum_any_scene_drop')",
+      "quoted": "16.11"
+    },
+    {
+      "section": "table",
+      "label": "mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/mean/minimum_domain_ba')",
+      "quoted": "71.67"
+    },
+    {
+      "section": "table",
+      "label": "mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/mean/minimum_scene_ba')",
+      "quoted": "87.50"
+    },
+    {
+      "section": "table",
+      "label": "mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/mean/maximum_any_scene_drop')",
+      "quoted": "13.89"
+    },
+    {
+      "section": "table",
+      "label": "source_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/source_null/minimum_domain_ba')",
+      "quoted": "47.92"
+    },
+    {
+      "section": "table",
+      "label": "source_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/source_null/minimum_scene_ba')",
+      "quoted": "40.00"
+    },
+    {
+      "section": "table",
+      "label": "source_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/source_null/maximum_any_scene_drop')",
+      "quoted": "12.50"
+    }
+  ]
+}
