@@ -38,6 +38,8 @@
 
 `source_view_risk.py`／`consistent_source_risk.py`：同源较差视图凸分类风险及分数方差约束；纯传统头，但若输入冻结神经表示，完整方法仍含神经网络。
 
+`rate_penalty.py`／`rate_score_readout.py`：显式fit面板内类平衡sigmoid错误率与处理后增量罚，使用原五方向规则载体；非凸单起点小梯度只核数值状态，软可行不保证硬BA。wrong-source为配对顺序不影响聚合率的结构身份控制。协议和执行版本见对应[实验](../../../../experiments/origin_detection/rate_score_readout/README.md)。
+
 `slow_subspace.py`：fit-only白化同源慢方向／类别方向保护和代数折叠；方差约束不保证AI判别，当前固定试验失败。
 
 `compiled_kernel.py`：预存只读Fourier数组、保持便携核数值相同，减少推理分配；执行工程，不改变学习规则。

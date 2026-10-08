@@ -69,6 +69,38 @@ def test_solver_zero_exact_and_nonzero_stationary():
     assert np.array_equal(rule.score(x)>0, y.astype(bool))
 
 
+def test_soft_zero_penalty_can_fail_hard_ba_and_directional_boundaries():
+    records, y, sources, signed_margins = [], [], [], []
+    for source in range(20):
+        label = int(source >= 10)
+        for condition in ('original', 'a', 'b'):
+            for variant in ('raw', 'q90', 'q60'):
+                records.append(dict(domain='d', scene='s', src=str(source), role='fit',
+                    condition=condition, variant=variant))
+                y.append(label); sources.append(source)
+                signed_margins.append(-.001 if source % 10 < 3 else 3.)
+    y, sources = np.array(y), np.array(sources)
+    signed = 2*y-1; z = (signed*np.array(signed_margins))[:, None]
+    panel = training_rate_panel(records, y, np.ones(len(y)), sources, variants=('raw', 'q90', 'q60'))
+    penalty, _, rates = rate_penalty([1., 0.], z, signed, panel)
+    hard_error = ((z[:, 0] > 0) != (y == 1)).astype(float)
+    assert penalty == 0 and np.min(1-rates) > .8
+    np.testing.assert_allclose(1-panel.averaging@hard_error, .7)
+    # Zero score predicts REAL on every row, not a fractional hard decision.
+    zero_scores = np.zeros(len(y)); correct = (zero_scores > 0) == (y == 1)
+    assert correct[y == 0].all() and not correct[y == 1].any()
+    np.testing.assert_allclose(rate_penalty([0., 0.], z, signed, panel)[2], .5)
+    improve = z.copy(); degrade = z.copy()
+    for i, row in enumerate(records):
+        if row['condition'] == 'a' and int(row['src']) in (0, 10):
+            improve[i, 0] = signed[i]*3.
+        if row['condition'] == 'a' and int(row['src']) in (9, 19):
+            degrade[i, 0] = -signed[i]*3.
+    assert rate_penalty([1., 0.], improve, signed, panel)[0] == 0
+    loss, _, errors = rate_penalty([1., 0.], degrade, signed, panel)
+    assert loss > 0 and np.max(errors[list(panel.after)]-errors[list(panel.before)]) > .09
+
+
 def test_wrapper_cold_dtype_wrong_identity_and_portable(tmp_path):
     records, y, w, sources = fixture()
     names = ('raw0', 'raw1', 'clip0', 'clip1', 'r0', 'r1', 'r2', 'shape')

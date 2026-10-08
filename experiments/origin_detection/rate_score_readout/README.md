@@ -1,5 +1,9 @@
 # Rate-aware readout: protocol registered before fitting
 
+RR/Chimera are repeatedly exposed development data. No independent validation
+has passed. The first pilot measured cost only; the full campaign has not run
+at this protocol revision, and no performance success is claimed.
+
 The69 post-exposure threshold diagnostic found no joint80%/2pp state among5041
 fixed-score states. This motivates changing the readout, not adopting an oracle
 cutoff. Reuse3920 inputs/five-score20-term bank and1260/420/420 roles. No image
@@ -46,3 +50,12 @@ rates. Do not expand strengths after viewing selection.
 
 Command: `.venv/Scripts/python.exe -m experiments.origin_detection.rate_score_readout.run_iteration --record-controls`,
 then `--pilot`, then without flags. Outputs private work/robust_statistics/rate_score_readout.
+
+Pre-full review added the necessary software counterexample: zero sigmoid
+penalty/soft BA about85% can coexist with hard BA70%. Tests also explicitly
+assert each zero-score REAL/FAKE decision, harmful processing direction and
+improvement without extra rate penalty. Production optimizer code is unchanged.
+Initial four-test controls and20.464s cold/2.604s warm pilot are preserved in
+private work/robust_statistics/rate_score_readout_precheck_v1, tied to Git013b0a4.
+New controls/pilot must use this strengthened test/protocol version; old
+receipts are not relabeled as having passed the extra tests.

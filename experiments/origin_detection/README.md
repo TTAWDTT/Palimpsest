@@ -104,6 +104,8 @@
 
 [source_score_margin](source_score_margin/README.md)：第60轮复用三个拟合内判别方向与既有最大hinge LP，带独立内部标定来源的惩罚选择；当前只是开发候选，未完成稳定性验收。
 
+[rate_score_readout](rate_score_readout/README.md)：第70轮现有五方向表示上的分类率代理，显式训练面板、平滑BA／下降罚与配对标定；非凸局部求解，实际硬指标仍待评价。
+
 [quadratic_score_margin](quadratic_score_margin/README.md)：第61轮三分数九项二次展开及原有软间隔；共享driver复用控制、小试、内部标定和固定外层次序，原执行文件保留。
 
 [strong_token_views](strong_token_views/README.md)：第62轮仅提取缺失的fit／threshold Q60数值，先用旧60张完整见证核接入，再按实际时标预算。
