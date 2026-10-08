@@ -99,3 +99,7 @@
 [固定分数共同阈值诊断](score_feasibility/README.md)：五个已暴露标量分数的精确有限状态检查，不采用oracle阈值或重新认证方法。
 
 [全维配对度量支持](paired_metric_support/README.md)：第47轮固定Mahalanobis近邻距离与四对照，编码器冻结。
+
+## 紧凑间隔开发
+
+[source_score_margin](source_score_margin/README.md)：第60轮复用三个拟合内判别方向与既有最大hinge LP，带独立内部标定来源的惩罚选择；当前只是开发候选，未完成稳定性验收。
