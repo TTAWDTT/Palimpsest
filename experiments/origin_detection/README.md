@@ -106,7 +106,7 @@
 
 [rate_score_readout](rate_score_readout/README.md)：第70轮现有五方向表示上的分类率代理，真实训练罚项全0，85%／6.11pp失败；协议保留执行前状态。
 
-[split_rate_score](split_rate_score/README.md)：第71轮将方向学习／最终读出按来源分拆，显式计数每阶段预算及缓存身份；不继承两玩家定理，分类结果待验证。
+[split_rate_score](split_rate_score/README.md)：第71轮方向学习／最终读出按来源分拆，81.11%／5pp，未达标；协议保留事前状态。
 
 [complementary_split](complementary_split/README.md)：第72轮两个相反来源分拆的固定分数平均；单份编码特征，两套数字读出，整体标定与完整评价。
 

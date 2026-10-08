@@ -62,3 +62,17 @@ README 首段将第 71 轮 81.11% 最低域 BA 与 5pp 下降作为开发动机�
 原表的 MEDIUM 对应审查时 typed auditor SHA256 `a7455dd160da32d6f5a314f0ddec54de5abcfa8ab68a8ce4b95b67525e723254`，保留为修订前快照。根任务随后修改新 complementary schema 的必需身份检查；复审所读 auditor SHA256 为 `94d17b1cb342d0cf62e5abbbdd17068ace73869b15c274135bd1cb216f62df83`，原字段缺口在以下已检查局部源分支中关闭。
 
 Lady 从修订文件独立提取并执行实际 AST：complementary=True 时缺 `readout_method` 被拒绝，False 时仍按旧 schema 记录缺失；新 flag 拒绝 `--allow-missing-basis-count`，要求 mapped_dimensions=2、basis_count=10，合法 2/10 组合通过 schema 判定。成员 solver 分支另增加准确 rate readout 方法字符串核对，已经读源，但此次没有执行完整 main。该复审只确认具体分支的拒绝条件和旧兼容行为，未出具完整 CV 审计通过收据或本轮科学结果；原表的 MEDIUM 不再是修订源码上的开放缺口。
+
+## 缓存依赖边界修订与新 pilot 复审追加
+
+初版 19 项软件 controls 通过之后，首次 pilot 在数据输入的旧 Q60 cache strictpin 校验处被拒绝，错误为 `Parent code changed: src\palimpsest\evaluation\calibrated_readout_campaign.py`。panel driver 在 `data.inputs()`、`data.training()` 返回之后才建立 fitter，因此这个缓存拒绝发生在真实 fit 之前；旧 controls 和 failure 仍保存在 `work/robust_statistics/complementary_split_precheck_v1`，两个文件 SHA256 与 `sources/2026-10-09_complementary_cache_boundary_revision.json` 一致。没有把初版 controls 通过写成真实 pilot 已开始或已完成。
+
+当前 `calibrated_readout_campaign.py` 的 SHA256 为 `a8985f6fe77cbc530a669608a044715a0c27527f6a77be947cfe98a7c1719a5d`，已恢复原模块完整字节，CampaignMethod 保留原 parameters/pilot_parameters/tests/pins/fitter/calibrate/load 七字段。预算现在由 `training_fit.py` 的 `bank_budgets` 和 BudgetedRecordAwareCampaignMethod 提供，panel driver 读取旧默认 12/1 或新方法显式 24/2；预算类型拒绝 bool、非整数、非正值及 full 小于 pilot。RecordAwareCampaignMethod 和 BudgetedRecordAwareCampaignMethod 都继承 `record_aware=True`，新 runner 确实使用后者；人工 stub 已确认 fit 记录按 tuple 传入，没有退回遗失 metadata 的 legacy 数值调用。
+
+Lady 对 `strong_token_views`、`cure_token_covariance`、`cure_token_quantiles_full` 三份真实缓存收据的全部声明 code pins 作只读文件哈希比较，三者差异数均为 0。修订后协议明确旧 cache writer 模块不变，输入校验仍保留严格 pins；没有增加忽略路径、重写 cache、放宽 pin 或重跑 encoder 的兼容例外。初版 `sources/2026-10-08_complementary_composition_revision.json` 的 shared CampaignMethod 字段改动及 after hash 描述其历史源码快照；当前模块边界应依本追加和 2026-10-09 cache boundary revision 说明，不把初版 after 值当作当前恢复模块的 hash，也不更改历史记录。
+
+新 `work/robust_statistics/complementary_split/software_controls.json` 保存 `19 passed in 2.07s`；初版档案为 `19 passed in 3.24s`。本复审读取两份 stdout 并核对哈希，没有重复运行测试。新 controls 与 pilot 的 code_pins 都与当前 runner 返回 pins 完全一致，pilot 的 feature receipt SHA256 和保存规则 SHA256 也与实际文件一致；这支持运行版本边界一致，不认证真实图片标签或科学泛化。
+
+新 pilot 已保存 passed=True，cold strength100 为 15.3052361 秒，warm strength10 为 2.5860429 秒。其 40 个 ensemble CV 入口代理为 230.633648 秒，条件仍是 10 cold+30 warm，其他 strength 的实际成本可变，输入/fullfit/outer 均排除；120 秒标准分别作用于两次已保存计时。两次诊断的整体 head 计数均为 6804 行/756 来源，mapped_dimensions=2、basis_count=10；各成员 basis/head 为 3402 行/378 来源，来源键互斥且相反互补，complement 标记为 False/True。组件最大梯度分别为 `4.1236551289900933e-07` 和 `9.966791930269767e-07`，整体 inner calibration 各含 45 组/75 比较，均采用 `ba_feasible_minimum_drop` fallback；这不是 80%/2pp 联合可行或外层收益证明。
+
+复审快照中完整 `iteration.json` 尚不存在，完整数值账、外层成绩、方法收益与实际完整耗时仍未知。预算和缓存边界修订没有改变两成员分开拟合、固定 raw logit .5/.5、成员阈值零及仅整体 cal 的定义；未发现本次边界修订引入新的 HIGH 或 MEDIUM。Lady 本次只读源码/收据并运行预算及调用边界 stub，没有真实 fit、encoder、新像素或 Goal API 调用；原报告的“controls/pilot 待运行”句保留为此前快照，此追加更新为新 controls 与 pilot 已完成、完整结果待运行。
