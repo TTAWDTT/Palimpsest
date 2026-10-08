@@ -42,6 +42,7 @@ def test_wrapper_passes_only_disjoint_stage_arrays(monkeypatch):
         return SimpleNamespace(bank=None, center=(0.,)*5, scale=(1.,)*5,
             transform=lambda v: np.tile(v[:, :1], (1, 20))), {'scope': 'Artificial call-boundary witness'}
     def head(values, labels, weights, groups, panel, *, strength, **kwargs):
+        assert kwargs['optimizer_ftol'] == 0
         stages['head'] = set(values[:, 0]); assert len(values) == 18 and len(set(groups)) == 2
         return StableRule(kwargs['feature_names'], (0.,)*20, (1.,)*20, (0.,)*20, 0., strength, .01), {
             'fit_records': len(values), 'sources': len(set(groups))}

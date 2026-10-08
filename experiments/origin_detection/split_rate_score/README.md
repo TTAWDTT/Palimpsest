@@ -68,3 +68,13 @@ including odd strata and supplied null labels were verified with .NET SHA256
 on explicit compact JSON preimages; the auditor's expected fixture no longer
 comes from the producer splitter. Initial13 controls under Git1c21889 are
 preserved as precheck_v1; they do not certify these added gates or a real fit.
+
+The first full attempt under source tree restorable at Git124eba1 stopped in
+null strength1000 before outer scoring: L-BFGS-B reported relative-function
+convergence but max gradient1.0219490180263247e-5 exceeded unchanged1e-5 gate.
+Preserve its16 controls/pilot/seven completedCV files/failure as private
+split_rate_score_numerical_v1. Numerical retry changes only this head's
+`optimizer_ftol=0` to continue toward the gradient condition, retaining gtol,
+iteration cap, objective, roles, seed and strengths. Default rate solver ftol
+for other experiments remains1e-14. New code pins/controls/pilot are required;
+no partial internal result is an outer performance result or passed campaign.

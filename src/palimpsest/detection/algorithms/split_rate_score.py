@@ -48,7 +48,8 @@ class SplitRateScoreFitter:
         panel = training_rate_panel(head_records, y[head_mask], w[head_mask], head_groups, variants=self.variants)
         head, diagnostic = fit_rate_source_risk(template.transform(x[head_mask]), y[head_mask], w[head_mask],
             head_groups, panel, strength=strength, feature_names=TERM_NAMES, temperature=.1, ridge=.01,
-            scale_floor=.001, maximum_iterations=2000, gradient_tolerance=1e-5, manifest_sha=self.manifest_sha)
+            scale_floor=.001, maximum_iterations=2000, gradient_tolerance=1e-5,
+            optimizer_ftol=0., manifest_sha=self.manifest_sha)
         self.readout_calls += 1
         basis_keys = sorted({(r['domain'], r['src']) for r, selected in zip(records, mask) if selected})
         head_keys = sorted({(r['domain'], r['src']) for r in head_records})

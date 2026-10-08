@@ -63,7 +63,9 @@ def test_solver_zero_exact_and_nonzero_stationary():
     zero, _ = fit_rate_source_risk(x, y.astype(np.uint8), w, sources, panel, strength=0, feature_names=('s',))
     base, _ = fit_source_risk(x, y, w, sources, feature_names=('s',))
     np.testing.assert_array_equal(zero.score(x), base.score(x))
-    rule, diagnostic = fit_rate_source_risk(x, y, w, sources, panel, strength=100, feature_names=('s',))
+    rule, diagnostic = fit_rate_source_risk(x, y, w, sources, panel, strength=100,
+        optimizer_ftol=0., feature_names=('s',))
+    assert diagnostic['optimizer_ftol'] == 0
     assert diagnostic['maximum_absolute_gradient'] <= 1e-5
     assert diagnostic['minimum_fit_hard_ba_at_zero'] == 1
     assert np.array_equal(rule.score(x)>0, y.astype(bool))

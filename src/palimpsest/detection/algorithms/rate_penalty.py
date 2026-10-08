@@ -92,8 +92,9 @@ def rate_penalty(parameters, z, signed, panel, *, smoothing=.25):
     return value, gradient, rates
 
 
-def fit_rate_source_risk(values, labels, weights, sources, panel, *, strength, **kwargs):
-    if not np.isfinite(strength) or strength < 0:
+def fit_rate_source_risk(values, labels, weights, sources, panel, *, strength, optimizer_ftol=1e-14, **kwargs):
+    if (not np.isfinite(strength) or strength < 0 or not np.isfinite(optimizer_ftol)
+            or optimizer_ftol < 0):
         raise ValueError('Invalid rate strength')
     y = np.asarray(labels)
     if y.ndim != 1 or not set(y.tolist()) <= {0, 1}:
@@ -113,7 +114,7 @@ def fit_rate_source_risk(values, labels, weights, sources, panel, *, strength, *
     theta, diagnostic = initial, baseline
     if strength:
         solution = minimize(lambda a: objective(a)[:2], initial, jac=True, method='L-BFGS-B', options={
-            'maxiter': limit, 'gtol': tolerance/10, 'ftol': 1e-14, 'maxls': 40, 'maxcor': 20})
+            'maxiter': limit, 'gtol': tolerance/10, 'ftol': optimizer_ftol, 'maxls': 40, 'maxcor': 20})
         value, gradient, _ = objective(solution.x); residual = float(np.max(np.abs(gradient)))
         if (not solution.success or not np.isfinite(value) or not np.isfinite(residual)
                 or residual > tolerance or value > objective(initial)[0]+1e-10):
@@ -131,6 +132,7 @@ def fit_rate_source_risk(values, labels, weights, sources, panel, *, strength, *
     rule = base if strength == 0 else StableRule(base.feature_names, base.center, base.scale,
         tuple(theta[:-1]), float(theta[-1]), strength, ridge, fit_manifest_sha256=base.fit_manifest_sha256)
     return rule, {**diagnostic, 'consistency_strength': strength, 'readout_method': METHOD,
+        'optimizer_ftol': optimizer_ftol,
         'rate_smoothing': .25, 'rate_penalty': penalty, 'rate_groups': len(panel.keys),
         'rate_comparisons': len(panel.before), 'minimum_fit_soft_ba': float(1-rates.max()),
         'maximum_fit_soft_drop': float((rates[second]-rates[first]).max()),
