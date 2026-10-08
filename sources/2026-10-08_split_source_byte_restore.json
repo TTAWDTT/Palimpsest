@@ -1,0 +1,13 @@
+{
+  "restorable_git": "72f4b407503357b7d955d2437aacf4d31ebdb761",
+  "declared_pins": 107,
+  "exact_git_blobs": 103,
+  "lf_to_crlf_paths": [
+    "src\\palimpsest\\detection\\algorithms\\source_view_risk.py",
+    "src\\palimpsest\\evaluation\\classification.py",
+    "src\\palimpsest\\evaluation\\pairing.py",
+    "src\\palimpsest\\evaluation\\robust_views.py"
+  ],
+  "conversion_scope": "These four Python source files need originalCRLFbytes for strict oldpinreplay;Git logic restoration alone isnot a107pin byteclaim",
+  "scope": "Git blob versus declared source pins,not scientific independence or actual optimizer member audit"
+}
