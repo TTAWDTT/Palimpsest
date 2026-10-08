@@ -239,3 +239,7 @@
 [第57轮完整结果](第五十七轮类别相关方向_折内监督仍未稳定传播判别_2026-10-08.md)：zero最低86.11%、选中头83.33%，最坏均4.44pp；四头及OOF核算完成，未达目标。
 
 [第58轮少量分数方向协议](../../experiments/origin_detection/source_score_subspace/README.md)：三个基和末级头在各训练折重拟合，按完整训练数组指纹复用固定基；不是OOF元训练，整条流程需验证。
+
+[第58轮完整结果](第五十八轮紧凑分数方向_跌幅缩小仍未达到两点_2026-10-08.md)：选中头83.89%、最坏退化3.33pp；36基／40末级拟合及四头审计完成，仍未到2pp。
+
+[第59轮标定内验证协议](../../experiments/origin_detection/calibrated_score_subspace/README.md)：fit角色内三折拟合／一折标定／一折评价，临时子角色互斥；检验完整标定流程，不采用selection的oracle阈值。
