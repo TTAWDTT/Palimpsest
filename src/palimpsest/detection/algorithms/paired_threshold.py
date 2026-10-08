@@ -106,4 +106,7 @@ def paired_threshold(rule, views, *, variants, minimum_ba=.8, maximum_drop=.02):
         'maximum_exact_calibration_drop': str(Fraction(drop, denominator)),
         'minimum_exact_calibration_class_accuracy': str(Fraction(class_units, denominator)),
         'joint_calibration_feasible': best[0][0] == 2,
+        'calibration_ba_feasible': best[0][0] >= 1,
+        'fallback_mode': ('joint_feasible' if best[0][0] == 2 else
+                         'ba_feasible_minimum_drop' if best[0][0] == 1 else 'no_ba_feasible_maximum_ba'),
         'scope': 'Current threshold-role pairs only;not outer acceptance or image-channel invariance'}
