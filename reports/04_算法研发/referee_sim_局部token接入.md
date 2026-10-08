@@ -72,8 +72,8 @@ HIGH表示数据或代码反驳报告，或该受众会首先提出而报告没�
 
 - [被审报告](局部token统计接入_均值守恒与小试成本_2026-10-08.md)
 - [第52轮协议](../../experiments/origin_detection/cure_token_statistics/README.md)
-- [小试收据](../../work/robust_statistics/cure_token_statistics_pilot/features.json)
-- [软件检查收据](../../work/robust_statistics/cure_token_statistics/software_controls.json)
+- 小试收据：本地`work/robust_statistics/cure_token_statistics_pilot/features.json`，未上传。
+- 软件检查收据：本地`work/robust_statistics/cure_token_statistics/software_controls.json`，未上传。
 - [hook与完整提取计时](../../src/palimpsest/detection/representations/frozen_cure_tokens.py)
 - [固定token统计](../../src/palimpsest/detection/representations/token_statistics.py)
 - [基础CuRe提取](../../src/palimpsest/detection/representations/frozen_cure.py)
