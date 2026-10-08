@@ -1,0 +1,39 @@
+{
+  "campaign": "covariance_geometry",
+  "register": "Analytic control transcription only",
+  "quote_source": "reports/04_\u7b97\u6cd5\u7814\u53d1/\u534f\u65b9\u5dee\u51e0\u4f55\u8865\u8bfb_\u8ddd\u79bb\u6027\u8d28\u4e0d\u80fd\u4ee3\u66ff\u56fa\u5b9a\u5224\u522b\u7a33\u5b9a\u6027_2026-10-08.md",
+  "receipts": {
+    "g": {
+      "path": "../../work/robust_statistics/riemannian_covariance_review/geometry_control.json"
+    },
+    "b": {
+      "path": "../../work/robust_statistics/riemannian_covariance_review/geometry_ba_audit.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "control",
+      "label": "distance",
+      "expr": "f('g','/float_distance')",
+      "quoted": "1.0298019794"
+    },
+    {
+      "section": "control",
+      "label": "beforeBA",
+      "expr": "100*f('b','/ba_before')",
+      "quoted": "100.00"
+    },
+    {
+      "section": "control",
+      "label": "afterBA",
+      "expr": "100*f('b','/ba_after')",
+      "quoted": "50.00"
+    },
+    {
+      "section": "control",
+      "label": "drop",
+      "expr": "100*f('b','/ba_drop')",
+      "quoted": "50.00"
+    }
+  ]
+}
