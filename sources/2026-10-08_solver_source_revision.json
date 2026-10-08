@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-08",
+  "type": "append-only source revision record",
+  "path": "src/palimpsest/evaluation/source_consistency_campaign.py",
+  "computation_revision": "212071d593b3ca80c191966d28b80a76d067b016",
+  "before_sha256": "d11380d60d8189286dff9dba0bd2493d943b8c09dc4c30e161323540afa9b7be",
+  "after_sha256": "7cc8317fdb134313915ad9b9d6cc613977363fcf3ef32082aef1c2c3ebdd5a0d",
+  "change": "Remove only unused numpy import; no executed function AST changes",
+  "ast_after_removing_one_import_equal": true,
+  "unused_np_name_absent": true,
+  "receipts_preserved": [
+    "work/robust_statistics/token_consistency_solver/iteration.json",
+    "work/robust_statistics/token_consistency_solver/oof_counts_audit.json",
+    "work/robust_statistics/token_consistency_solver/score_counts_audit.json"
+  ],
+  "scope": "Audits ran before cleanup on signed computation source. Old hashes refer to recorded Git version; do not replace old hashes or call current bytes identical."
+}

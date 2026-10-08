@@ -9,7 +9,6 @@ import json
 from pathlib import Path
 from time import perf_counter
 
-import numpy as np
 from threadpoolctl import threadpool_limits
 
 from .consistency_crossfit import crossfit_strengths
