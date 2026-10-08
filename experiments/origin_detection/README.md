@@ -115,3 +115,11 @@
 [semantic_score_consistency](semantic_score_consistency/README.md)：第64轮保持数据及4方向／14项，复用L2平滑来源风险／方差读出；区分初始化LP、辅助logistic及当前模型拟合。
 
 [source_variance_range](source_variance_range/README.md)：第65轮只按fit内部边界余量扩展10／30／100／300；选中仍10，没有新增图像推理。
+
+[query_sensitivity](query_sensitivity/README.md)：第66轮复用固定中点／末端缓存，计算同查询再次缩放JPEG的两个漂移；原生条件固定四头失败，未补嵌套编码。
+
+[query_sensitivity_shape](query_sensitivity_shape/README.md)：只在fit角色的来源留折研究固定非线性读出；不标定或产生新外层成绩，不自动采用。
+
+[cure_token_quantiles](cure_token_quantiles/README.md)：只做320维有限投影分位数的原理／接入小试，旧3600维和作者输出必须逐值不变；尚无该表示的分类成绩。
+
+[cure_token_quantiles_full](cure_token_quantiles_full/README.md)：完整20160开发数值的两个共享stream，Q60另核旧前缀及query SHA；只提取数值，尚无新分类验收。

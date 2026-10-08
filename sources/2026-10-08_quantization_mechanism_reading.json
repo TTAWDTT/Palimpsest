@@ -1,0 +1,19 @@
+{
+  "primary": "https://arxiv.org/html/2605.24306v1",
+  "version": "arxiv2605.24306v1",
+  "pdf": {
+    "bytes": 43532437,
+    "pages": 17,
+    "sha256": "5a21e33267e5162711fa5b4f1f42d7b05354b2bbdb430e51a05844ce502ae332"
+  },
+  "reading_scope": {
+    "html": "Abstract,III empirical/manifold/architecture sections,IV method/theory/architecture,VI-B implementation,efficiency/robustness headings and beginning;not all tables/references",
+    "pdf_visual": "Pages6-7 equations andAlgorithm1;not full17-page visual reading",
+    "official_code": "Not obtained;title/probe searches andauthorhomepage did not identify an unambiguous implementation;not proof no release exists"
+  },
+  "shared_spec": "docs/research/quantization_probe_contract.md",
+  "source_evidence_revision": "Later PDF p6-7 confirms printed formula concerns independently of HTML;frozen spec E originally HTML-only,not rewritten",
+  "campaign_status": "PROVISIONAL",
+  "scope": "Conditional mathematics andimplementation-unit gap;not classification performance,not fraud or invalidation ofauthor model experiments",
+  "report": "reports/04_算法研发/量化探测_机理准入与实现缺口_2026-10-08.md"
+}
