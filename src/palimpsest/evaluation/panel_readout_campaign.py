@@ -112,4 +112,5 @@ def run_panel_campaign(output, args, data, method, panel):
         'goal_achieved': False, 'scope': 'Repeated development;Q60 now fit/cal support;not unseen-Q60 or independent validation'})
     audit = fitter.audit()
     if audit['banks'] != 12: raise ValueError('Panel bank count differs')
-    write_json(output/'bank_cache_audit.json', {**audit, 'cv_lp_fits': 40, 'final_lp_fits': 4})
+    write_json(output/'bank_cache_audit.json', {**audit,
+        'cv_readout_fits': 2*panel.folds*len(method.parameters), 'final_readout_fits': 4})

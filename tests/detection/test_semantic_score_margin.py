@@ -36,9 +36,11 @@ def test_raw_direction_recovers_missing_signal_and_portable_path(tmp_path):
     changed_raw = x.copy(); changed_raw[:, :2] *= 2
     another, _ = fitter.fit(changed_raw, y, w, sources, .001)
     assert fitter.audit()['banks'] == 2 and fitter.audit()['old_bank_builds'] == 1
+    assert fitter.audit()['auxiliary_logistic_head_fits'] == 2
     assert np.array_equal(another.score(changed_raw) > 0, y.astype(bool))
     flipped, _ = fitter.fit(x, 1-y, w, sources, .001)
     assert fitter.audit()['banks'] == 3 and fitter.audit()['old_bank_builds'] == 2 and flipped.bank is not rule.bank
+    assert fitter.audit()['auxiliary_logistic_head_fits'] == 3
     assert np.array_equal(flipped.score(x) > 0, (1-y).astype(bool))
     with pytest.raises(ValueError, match='Conflicting'):
         fitter.fit(x, y, w, sources, .001, np.zeros(len(sources), int))

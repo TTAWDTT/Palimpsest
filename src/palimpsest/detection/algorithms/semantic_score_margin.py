@@ -89,12 +89,13 @@ class SemanticMarginFitter:
             raise ValueError('Invalid raw semantic dimensions')
         self.provider = ScoreSubspaceFitter(self.names[raw_dimensions:], channels=channels,
                                            filter_count=filter_count, manifest_sha=manifest_sha)
-        self.banks = {}; self.maps = {}
+        self.banks = {}; self.maps = {}; self.auxiliary_heads = 0
 
     def fit(self, x, y, weights, sources, penalty, wrong=None):
         x = np.asarray(x, float); key = self.provider.key(x, y, weights, sources); n = self.raw_dimensions
         if key not in self.banks:
             old_rule, old_diagnostic = self.provider.fit(x[:, n:], y, weights, sources, 0)
+            self.auxiliary_heads += 1
             raw, raw_diagnostic = fit_source_risk(x[:, :n], y, weights, sources,
                 feature_names=self.names[:n], temperature=.1, ridge=.01, scale_floor=.001,
                 maximum_iterations=2000, gradient_tolerance=1e-5, manifest_sha=self.manifest_sha)
@@ -118,7 +119,7 @@ class SemanticMarginFitter:
         old_count = self.provider.builds
         if old_count > count or set(self.banks) != set(self.maps): raise ValueError('Semantic bank cache differs')
         return {'passed': True, 'banks': count, 'old_bank_builds': old_count, 'raw_head_fits': count,
-            'base_fits': 3*old_count+count, 'auxiliary_logistic_head_fits': old_count,
+            'base_fits': 3*old_count+count, 'auxiliary_logistic_head_fits': self.auxiliary_heads,
             'maps': len(self.maps), 'training_array_keys': sorted(self.banks), 'scope': 'Execution accounting;not independent evidence'}
 
 

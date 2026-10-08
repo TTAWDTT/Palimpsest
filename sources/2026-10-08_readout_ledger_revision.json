@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-08",
+  "prior_git": "f026530",
+  "phase": "After63 completed and both audits passed;before64",
+  "changes": [
+    {
+      "path": "src/palimpsest/detection/algorithms/semantic_score_margin.py",
+      "before_sha256": "d314b172f6fcacf112adaaf98c3f6b048def1d02fbfa2a22476460b2f83566bc",
+      "after_sha256": "0ecbf6dce95a3865fa74eed704ca2b31c473cb58a62582eb757f1637ae72ffd2"
+    },
+    {
+      "path": "src/palimpsest/evaluation/panel_readout_campaign.py",
+      "before_sha256": "0d91681310f5d79fd3264bde78aaa5f17eb1dc74cf117baf36e70643bc4f3b47",
+      "after_sha256": "3bbe2b89ce94995dc005db3866afd32555b32d041d7e78dbb4563f87d7b0050d"
+    }
+  ],
+  "meaning": "Count every successful auxiliary provider.fit head,including shared-old-bank path;generic CV/final model-fit field names instead of hardcoded LP labels",
+  "panel_numerical_body_before_final_ledger_ast_identical": true,
+  "prior63_F_O": [
+    12,
+    12
+  ],
+  "prior_scores_preserved": true,
+  "tests": "Shared-old-bank auxiliary counts2/3 added;known-bank classifier/codec controls repeated",
+  "limits": "Software counters not science;old63 source audits require Git f026530,not current bytes"
+}
