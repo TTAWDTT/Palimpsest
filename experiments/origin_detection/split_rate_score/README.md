@@ -57,3 +57,14 @@ still owed, no completed novelty review claimed.
 
 Command: `.venv/Scripts/python.exe -m experiments.origin_detection.split_rate_score.run_iteration`
 with `--record-controls`, then `--pilot`, then without flags. Preserve old70 source and receipts.
+
+Pre-pilot review found and fixed metadata-dependent cache reuse: a stage
+template key now contains full numeric input hash plus ordered source/processing
+identity and basis membership. Identical child numeric bank arrays may share a
+bank; stage-template and bank counts are reported separately. A renamed-source
+planted control forces different basis rows with the same full numeric context.
+`training_fit.py` now belongs to the source pins. Known literal split members
+including odd strata and supplied null labels were verified with .NET SHA256
+on explicit compact JSON preimages; the auditor's expected fixture no longer
+comes from the producer splitter. Initial13 controls under Git1c21889 are
+preserved as precheck_v1; they do not certify these added gates or a real fit.

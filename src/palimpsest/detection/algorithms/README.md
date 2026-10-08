@@ -40,6 +40,8 @@
 
 `rate_penalty.py`／`rate_score_readout.py`：显式fit面板内类平衡sigmoid错误率与处理后增量罚，使用原五方向规则载体；非凸单起点小梯度只核数值状态，软可行不保证硬BA。wrong-source为配对顺序不影响聚合率的结构身份控制。协议和执行版本见对应[实验](../../../../experiments/origin_detection/rate_score_readout/README.md)。
 
+`source_partition.py`／`split_rate_score.py`：在fit来源内显式分开方向学习及最终读出，每阶段全部视图完整。阶段模板键含来源身份与分拆成员，数值子bank可以复用完全相同的basis数组，两个计数分开；记录head求解器预算与完整训练输入预算。样本分拆不提供真实传播稳定性保证，见[第71轮协议](../../../../experiments/origin_detection/split_rate_score/README.md)。
+
 `slow_subspace.py`：fit-only白化同源慢方向／类别方向保护和代数折叠；方差约束不保证AI判别，当前固定试验失败。
 
 `compiled_kernel.py`：预存只读Fourier数组、保持便携核数值相同，减少推理分配；执行工程，不改变学习规则。

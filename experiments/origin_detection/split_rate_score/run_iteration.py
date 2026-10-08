@@ -27,7 +27,8 @@ def code_pins():
     pins = parent_pins()
     paths = list(Path(__file__).parent.glob('*.py'))+[Path(__file__).parent/'README.md',
         REPO_ROOT/'src/palimpsest/detection/algorithms/source_partition.py',
-        REPO_ROOT/'src/palimpsest/detection/algorithms/split_rate_score.py']
+        REPO_ROOT/'src/palimpsest/detection/algorithms/split_rate_score.py',
+        REPO_ROOT/'src/palimpsest/evaluation/training_fit.py']
     paths += [REPO_ROOT/name for name in TESTS]
     pins.update({str(p.relative_to(REPO_ROOT)): file_sha256(p) for p in sorted(paths)})
     return pins

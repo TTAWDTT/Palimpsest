@@ -51,6 +51,13 @@ def test_wrapper_passes_only_disjoint_stage_arrays(monkeypatch):
     assert stages['basis'].isdisjoint(stages['head'])
     assert stages['basis'] | stages['head'] == set(sources)
     assert d['fit_records'] == d['basis_fit_records'] == 18 and d['input_fit_records'] == 36
+    changed = [{**r, 'src': '0_'+r['src']} for r in records]
+    old_signature = d['stage_template_sha256']
+    _, changed_d = host.fit(x, y, w, sources, 10, records=changed)
+    # Same numeric context with changed SHA-ranked source identities must rebuild.
+    assert old_signature != changed_d['stage_template_sha256']
+    assert d['training_arrays_sha256'] == changed_d['training_arrays_sha256']
+    assert stages['basis'] == {1., 3.} and stages['head'] == {0., 2.}
 
 
 def test_actual_split_dtype_wrong_and_serialized_prediction(tmp_path):
@@ -70,3 +77,13 @@ def test_actual_split_dtype_wrong_and_serialized_prediction(tmp_path):
     assert not set(d['basis_source_keys']) & set(d['readout_source_keys'])
     path = tmp_path/'rule.json'; rule.save(path)
     np.testing.assert_array_equal(QuantileScoreRule.load(path).score(x), rule.score(x))
+    renamed = [{**r, 'src': '0_'+r['src']} for r in records]
+    host.fit(x, y, w, sources, 10, records=renamed)
+    # Here class-identical numeric basis arrays may share a child bank, while
+    # the metadata-dependent stage templates must still be distinct.
+    assert host.audit()['stage_templates'] == 2 and host.audit()['banks'] == 1
+
+
+def test_training_record_boundary_is_pinned():
+    from experiments.origin_detection.split_rate_score.run_iteration import code_pins
+    assert 'src/palimpsest/evaluation/training_fit.py' in {k.replace('\\', '/') for k in code_pins()}

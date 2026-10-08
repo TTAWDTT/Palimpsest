@@ -4,6 +4,9 @@ Both stages use fit-role data. Threshold and outer sources remain separate.
 This is sample splitting, not the two-player constraint-generalization theorem.
 """
 
+import hashlib
+import json
+
 import numpy as np
 
 from .directed_margin import processing_pairs
@@ -31,7 +34,11 @@ class SplitRateScoreFitter:
         mask = source_half_split(records, y); head_mask = ~mask
         _, basis_groups = np.unique(s[mask], return_inverse=True)
         _, head_groups = np.unique(s[head_mask], return_inverse=True)
-        key = self.provider.provider.provider.key(x, y, w, s)
+        array_key = self.provider.provider.provider.key(x, y, w, s)
+        partition = [(r['domain'], r['scene'], r['src'], r['condition'], r['variant'], bool(m))
+            for r, m in zip(records, mask)]
+        key = hashlib.sha256(json.dumps([array_key, partition], ensure_ascii=False,
+            separators=(',', ':')).encode('utf-8')).hexdigest()
         if key not in self.templates:
             # Only basis sources determine directions and score standardization.
             template, diagnostic = self.provider.fit(x[mask], y[mask], w[mask], basis_groups, 0)
@@ -48,7 +55,8 @@ class SplitRateScoreFitter:
         if set(basis_keys) & set(head_keys) or len(basis_keys) != len(head_keys):
             raise ValueError('Stage source separation failed')
         return QuantileScoreRule(template.bank, template.center, template.scale, head), {**diagnostic,
-            'training_arrays_sha256': key, 'basis_count': 5, 'mapped_dimensions': 20,
+            'training_arrays_sha256': array_key, 'stage_template_sha256': key,
+            'basis_count': 5, 'mapped_dimensions': 20,
             'basis_diagnostics': self.template_diagnostics[key], 'basis_source_keys': basis_keys,
             'readout_source_keys': head_keys, 'basis_fit_records': int(mask.sum()),
             'basis_source_count': len(basis_keys), 'input_fit_records': len(x),
@@ -59,9 +67,10 @@ class SplitRateScoreFitter:
 
     def audit(self):
         provider = self.provider.audit()
-        if len(self.templates) != provider['banks']:
+        if len(self.templates) < provider['banks']:
             raise ValueError('Split bank ledger differs')
-        return {'passed': True, 'banks': len(self.templates), 'maps': len(self.templates), 'provider': provider,
+        return {'passed': True, 'banks': provider['banks'], 'maps': provider['maps'],
+            'stage_templates': len(self.templates), 'provider': provider,
             'initialization_source_readout_calls': provider['source_consistency_fit_calls'],
             'split_readout_fit_calls': self.readout_calls,
-            'scope': 'Basis and readout entry counts;nonzero heads also solve baseline then penalized objective'}
+            'scope': 'Stage templates include member identity;numeric child banks may deduplicate identical basis arrays;nonzero heads also solve baseline then penalty'}

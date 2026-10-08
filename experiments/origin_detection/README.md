@@ -104,7 +104,9 @@
 
 [source_score_margin](source_score_margin/README.md)：第60轮复用三个拟合内判别方向与既有最大hinge LP，带独立内部标定来源的惩罚选择；当前只是开发候选，未完成稳定性验收。
 
-[rate_score_readout](rate_score_readout/README.md)：第70轮现有五方向表示上的分类率代理，显式训练面板、平滑BA／下降罚与配对标定；非凸局部求解，实际硬指标仍待评价。
+[rate_score_readout](rate_score_readout/README.md)：第70轮现有五方向表示上的分类率代理，真实训练罚项全0，85%／6.11pp失败；协议保留执行前状态。
+
+[split_rate_score](split_rate_score/README.md)：第71轮将方向学习／最终读出按来源分拆，显式计数每阶段预算及缓存身份；不继承两玩家定理，分类结果待验证。
 
 [quadratic_score_margin](quadratic_score_margin/README.md)：第61轮三分数九项二次展开及原有软间隔；共享driver复用控制、小试、内部标定和固定外层次序，原执行文件保留。
 
