@@ -74,12 +74,18 @@ class QuantileScoreRule:
         return self.readout.score(self.transform(values))
 
     def save(self, path):
-        path.write_text(json.dumps({'schema': 1, 'kind': 'quantile_score_consistency', 'rule': asdict(self)},
+        path.write_text(json.dumps(self.to_payload(),
             indent=2)+'\n', encoding='utf-8')
+
+    def to_payload(self):
+        return {'schema': 1, 'kind': 'quantile_score_consistency', 'rule': asdict(self)}
 
     @classmethod
     def load(cls, path):
-        value = json.loads(path.read_text())
+        return cls.from_payload(json.loads(path.read_text()))
+
+    @classmethod
+    def from_payload(cls, value):
         if value['schema'] != 1 or value['kind'] != 'quantile_score_consistency':
             raise ValueError('Unknown quantile-score schema')
         fields = value['rule']; b = fields['bank']; old = b['legacy']

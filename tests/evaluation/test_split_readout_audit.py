@@ -20,6 +20,8 @@ def test_known_stage_members_and_bad_record():
     d = {'basis_source_keys': basis, 'readout_source_keys': head, 'partition_seed': 20261008,
         'input_source_count': 4, 'basis_source_count': 2, 'basis_fit_records': 18, 'input_fit_records': 36}
     verify_stage_partition(rows, folds, d, 0)
+    opposite = {**d, 'partition_complement': True, 'basis_source_keys': head, 'readout_source_keys': basis}
+    verify_stage_partition(rows, folds, opposite, 0)
     for field, value in (('basis_source_keys', head), ('readout_source_keys', basis),
                          ('input_source_count', 5), ('basis_fit_records', 36), ('partition_seed', 1)):
         bad = deepcopy(d); bad[field] = value

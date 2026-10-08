@@ -16,9 +16,12 @@ from .rate_penalty import training_rate_panel, fit_rate_source_risk
 
 
 class SplitRateScoreFitter:
-    def __init__(self, names, *, variants, manifest_sha='', **kwargs):
+    def __init__(self, names, *, variants, manifest_sha='', complement=False, **kwargs):
+        if not isinstance(complement, bool):
+            raise ValueError('Split complement must be explicit boolean')
         self.provider = QuantileScoreFitter(names, manifest_sha=manifest_sha, **kwargs)
         self.variants = tuple(variants); self.manifest_sha = manifest_sha
+        self.complement = complement
         self.templates = {}; self.template_diagnostics = {}; self.readout_calls = 0
 
     def fit(self, x, labels, weights, sources, strength, wrong=None, *, records=None):
@@ -31,7 +34,10 @@ class SplitRateScoreFitter:
         processing_pairs(records, y, w, s, variants=self.variants)
         if wrong is not None and (np.asarray(wrong).shape != y.shape or np.asarray(wrong).dtype.kind not in 'iu'):
             raise ValueError('Invalid split wrong control')
-        mask = source_half_split(records, y); head_mask = ~mask
+        mask = source_half_split(records, y)
+        if self.complement:
+            mask = ~mask
+        head_mask = ~mask
         _, basis_groups = np.unique(s[mask], return_inverse=True)
         _, head_groups = np.unique(s[head_mask], return_inverse=True)
         array_key = self.provider.provider.provider.key(x, y, w, s)
@@ -62,6 +68,7 @@ class SplitRateScoreFitter:
             'readout_source_keys': head_keys, 'basis_fit_records': int(mask.sum()),
             'basis_source_count': len(basis_keys), 'input_fit_records': len(x),
             'input_source_count': len(basis_keys)+len(head_keys), 'partition_seed': 20261008,
+            'partition_complement': self.complement,
             'wrong_source_affects_objective': False,
             'fit_records_scope': 'fit_records/sources are readout solver subset;input_* is whole supplied training context',
             'fit_scope': 'Disjoint source halves;directions/map from basis half,final risk/rate penalty from other half'}

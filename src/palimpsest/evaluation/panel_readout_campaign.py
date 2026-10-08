@@ -16,12 +16,13 @@ from .source_panel_crossfit import panel_masks, calibrated_panel_crossfit
 from .source_crossfit import choose_strength
 from .balanced_null import balanced_source_null
 from .features import feature_views
-from .training_fit import fit_training_rows
+from .training_fit import fit_training_rows, bank_budgets
 from palimpsest.io.hashing import file_sha256
 from palimpsest.paths import WORK_DIR
 
 
 def run_panel_campaign(output, args, data, method, panel):
+    expected_banks, pilot_banks = bank_budgets(method)
     if args.record_controls:
         return run_calibrated_campaign(output, args, data, method)
     output.mkdir(parents=True, exist_ok=True)
@@ -47,7 +48,7 @@ def run_panel_campaign(output, args, data, method, panel):
                 values = rule.score(x[held])-rule.threshold
                 if values.shape != (int(held.sum()),) or not np.isfinite(values).all(): raise ValueError('Pilot held margins')
                 times.append(perf_counter()-start); diagnostics.append(d)
-        if len(times) != 2 or fitter.audit()['banks'] != 1: raise ValueError('Panel pilot cache/times')
+        if len(times) != 2 or fitter.audit()['banks'] != pilot_banks: raise ValueError('Panel pilot cache/times')
         path = output/'pilot_fold_rule.json'; rule.save(path)
         write_json(output/'pilot.json', {'passed': max(times) <= 120, 'cold_s': times[0], 'warm_s': times[1],
             'projected40cv_s': 10*times[0]+30*times[1], 'diagnostics': diagnostics, 'source_panel': asdict(panel),
@@ -118,6 +119,6 @@ def run_panel_campaign(output, args, data, method, panel):
         'null_raw_processed_auc_ci95': data.null_intervals(scores['selected_null']), 'rule_files': artifacts,
         'goal_achieved': False, 'scope': 'Repeated development;Q60 now fit/cal support;not unseen-Q60 or independent validation'})
     audit = fitter.audit()
-    if audit['banks'] != 12: raise ValueError('Panel bank count differs')
+    if audit['banks'] != expected_banks: raise ValueError('Declared panel bank budget differs')
     write_json(output/'bank_cache_audit.json', {**audit,
         'cv_readout_fits': 2*panel.folds*len(method.parameters), 'final_readout_fits': 4})

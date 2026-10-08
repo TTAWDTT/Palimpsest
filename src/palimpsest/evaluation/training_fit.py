@@ -14,6 +14,24 @@ class RecordAwareCampaignMethod(CampaignMethod):
     record_aware: bool = True
 
 
+def bank_budgets(method):
+    expected = getattr(method, 'expected_banks', 12)
+    pilot = getattr(method, 'pilot_banks', 1)
+    if (any(not isinstance(n, int) or isinstance(n, bool) or n < 1 for n in (expected, pilot))
+            or expected < pilot):
+        raise ValueError('Invalid declared numeric bank budget')
+    return expected, pilot
+
+
+@dataclass(frozen=True)
+class BudgetedRecordAwareCampaignMethod(RecordAwareCampaignMethod):
+    expected_banks: int = 12
+    pilot_banks: int = 1
+
+    def __post_init__(self):
+        bank_budgets(self)
+
+
 def fit_training_rows(fit, values, labels, weights, sources, parameter, *, records,
                       record_aware=False, wrong=None):
     if len(records) != len(values) or any(r['role'] != 'fit' for r in records):

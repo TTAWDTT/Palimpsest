@@ -108,6 +108,8 @@
 
 [split_rate_score](split_rate_score/README.md)：第71轮将方向学习／最终读出按来源分拆，显式计数每阶段预算及缓存身份；不继承两玩家定理，分类结果待验证。
 
+[complementary_split](complementary_split/README.md)：第72轮两个相反来源分拆的固定分数平均；单份编码特征，两套数字读出，整体标定与完整评价。
+
 [quadratic_score_margin](quadratic_score_margin/README.md)：第61轮三分数九项二次展开及原有软间隔；共享driver复用控制、小试、内部标定和固定外层次序，原执行文件保留。
 
 [strong_token_views](strong_token_views/README.md)：第62轮仅提取缺失的fit／threshold Q60数值，先用旧60张完整见证核接入，再按实际时标预算。
