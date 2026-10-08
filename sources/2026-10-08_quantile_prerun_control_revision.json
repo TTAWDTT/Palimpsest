@@ -1,0 +1,27 @@
+{
+  "old_control_sha256": "db9b4be12dfb5829e927908669fb203af3c6e552a82256371a2915472e22ec31",
+  "old_control_retained_private": "work/robust_statistics/quantile_score_consistency/software_controls_pre_referee.json",
+  "changes": [
+    "ablation data/CV lineage gates",
+    "budget automatic120s versus planner2h clarification"
+  ],
+  "stage": "Component controls only;no real quantile classifier fit orselection evaluation before revision",
+  "numeric_feature_extraction_source_unchanged": true,
+  "clarity_revision": {
+    "old_control_sha256": "ba0626eaa68a0745df0e374d85aa68813038a9291dad6d02769934b45b81e999",
+    "retained_private": "work/robust_statistics/quantile_score_consistency/software_controls_lineage_revision.json",
+    "changes": [
+      "optimizer versus wrapper call units",
+      "wrong-source intervention level",
+      "prior work andnonphysical scope prominence"
+    ],
+    "algorithm_source_body_unchanged": true,
+    "real_classifier_fits_so_far": 0
+  },
+  "final_prose_revision": {
+    "retained_private": "work/robust_statistics/quantile_score_consistency/software_controls_final_prose_revision.json",
+    "old_control_sha256": "1d3dab2280436d0379daea3bda033065facce304ce705c8aa6677494e43956da",
+    "change": "Data loaded before lineage gate,all gates before fit;no algorithm/source-body change",
+    "real_classifier_fits_so_far": 0
+  }
+}

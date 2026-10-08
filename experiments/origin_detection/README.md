@@ -123,3 +123,5 @@
 [cure_token_quantiles](cure_token_quantiles/README.md)：只做320维有限投影分位数的原理／接入小试，旧3600维和作者输出必须逐值不变；尚无该表示的分类成绩。
 
 [cure_token_quantiles_full](cure_token_quantiles_full/README.md)：完整20160开发数值的两个共享stream，Q60另核旧前缀及query SHA；只提取数值，尚无新分类验收。
+
+[quantile_score_consistency](quantile_score_consistency/README.md)：旧3600单独进入协方差bank，新320形成第五方向；完整数值准入之后才做来源CV，七项组件控制已通过，尚无真实分类结果。
