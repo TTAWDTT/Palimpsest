@@ -4,6 +4,8 @@ Prediction uses only the existing numeric rule layout. Training records provide
 pair edges; they are never guessed from embeddings or retained in the detector.
 """
 
+import numpy as np
+
 from .quantile_score_consistency import QuantileScoreFitter, QuantileScoreRule, TERM_NAMES
 from .directed_margin import processing_pairs, fit_directed_source_risk
 
@@ -17,6 +19,10 @@ class DirectedScoreFitter:
     def fit(self, x, labels, weights, sources, strength, wrong=None, *, records=None):
         if records is None:
             raise ValueError('Directed fitting requires explicit training records')
+        labels = np.asarray(labels)
+        if labels.ndim != 1 or not set(labels.tolist()) <= {0, 1}:
+            raise ValueError('Invalid directed wrapper labels')
+        labels = labels.astype(np.int64)
         pairs = processing_pairs(records, labels, weights, sources if wrong is None else wrong,
             variants=self.variants, allow_virtual_sources=wrong is not None)
         key = self.provider.provider.provider.key(x, labels, weights, sources)

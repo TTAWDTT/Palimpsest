@@ -25,6 +25,9 @@ def test_contextual_bank_zero_parity_and_portable_prediction(tmp_path):
     zero, _ = fitter.fit(x, y, w, s, 0, records=records)
     ordinary, _ = QuantileScoreFitter(names, **options).fit(x, y, w, s, 0)
     np.testing.assert_array_equal(zero.score(x), ordinary.score(x))
+    unsigned, _ = DirectedScoreFitter(names, variants=('raw', 'q90', 'q60'), **options).fit(
+        x, y.astype(np.uint8), w, s, 0, records=records)
+    np.testing.assert_array_equal(unsigned.score(x), ordinary.score(x))
     rule, diagnostic = fitter.fit(x, y, w, s, 1, records=records)
     assert diagnostic['directed_edges'] == 60 and diagnostic['cross_source_edges'] == 0
     assert diagnostic['maximum_absolute_gradient'] <= 1e-5 and np.array_equal(rule.score(x)>0, y.astype(bool))

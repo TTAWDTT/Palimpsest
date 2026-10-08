@@ -71,3 +71,13 @@ README没有独立abstract。作为abstract-only读者冷读标题、首段和�
 生产文稿和源码未由本审查代理修改。报告的数字／必要条件核对与语言复读已完成；M1、M2需要实现者追加修订或结果比较记录后再核。
 
 实现者已确认后续安排：保留当前真实运行的执行源码和pins；运行结束后修复public-wrapper uint8入口并补人工测试。历史67的零参考比较使用保存数组、身份、完整规则和margin，发现差异先分析。以上为修订计划，尚不代表两项发现已修复或验收通过。
+
+## 2026-10-08 修订复核
+
+M1、M2在以下限定范围内关闭，前文保留首次审查时的发现与证据。真实主运行完成后才修订入口；其执行源码保存在Git `fd061849e05c0bf9cf65821826583dd1f0bf5c04`，当前修订由[标签类型修订记录](../../sources/2026-10-08_directed_label_dtype_revision.json)追踪。原人工失败复现、真实运行收据及旧controls继续保留，当前修订不改写历史执行。
+
+M1修复已独立用人工fixture复核。包装器在生成pair、key和bank前核labels为一维0/1，并统一转为int64；当前源码SHA `ce7b327134f75e30fdd45f855f88fd0043506ea75b242a49fc5704808c25ce2e` 与修订记录after一致。独立36行、不同处理／编码数值及不等来源权重的人工fixture，在强度0和1下分别从两个冷包装器拟合uint8和int64，完整rule、评分和array key均严格相等。二维标签、非二元值和非有限值共3种非法输入，均在拟合前拒绝。M1因冷入口修复及数值相等检查而关闭；当前真实training／null原本使用int64，本复核未重新拟合真实数据。
+
+M2关闭依据为已有比较收据 `work/robust_statistics/directed_score_margin/historical_zero_reference.json`。收据记载5040行身份相等，bank、center、scale、readout及margins严格相等，最大margin差0、改变判决数0。阈值包含在完整readout字段内；收据未另设threshold布尔项。历史scores SHA为 `708ecf54cf411261cbec854e899b991364f26e7e3ed899120ba3453b02871747`，当前scores SHA为 `4652f925bf1ae5f2285da5a416b13ee09b0f40d93bbaebfcf0544761d738deb0`；两个文件SHA不相等，收据中的逐行零margin比较相等，文件内容整体一致不在本项结论中。本代理核读收据的字段一致性，没有再比较真实保存数组或调用真实规则计算评分。收据范围为已曝光数据上的匹配零目标，独立真实性要求不由这项比较满足。
+
+修订复核源码保存在 `work/robust_statistics/directed_score_margin/referee/revision_review.py`，输出为同目录 `revision_review.json`；复核源码SHA `43eee1aaf835aa2c5e149fa3f3a03893b66f5e039725e81b1f1625fb3ac72dbe`，所读历史零比较收据SHA `e58f621171230c13683abbfce5dc7cd90a31e8c4cc16c1cb0b2ba9a56adee17c`。本次只追加审查记录并运行人工fixture，未新增像素、模型推理、真实拟合或主运行成绩计算。
