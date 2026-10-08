@@ -19,6 +19,39 @@ from palimpsest.io.hashing import file_sha256
 from palimpsest.paths import REPO_ROOT
 
 
+def verify_stage_partition(rows, folds, diagnostic, held):
+    """Reconstruct prescribed members from saved identities/labels, no fitter."""
+    training = {}
+    for row in rows:
+        key = row['domain'], row['src']
+        if folds['/'.join(key)] not in (held, (held+1)%5):
+            training[key] = row['domain'], row['scene'], int(row['label'] == 'FAKE')
+    strata = {}
+    for key, stratum in sorted(training.items()):
+        strata.setdefault(stratum, []).append(key)
+    expected_basis = set(); round_up = False
+    for _, members in sorted(strata.items()):
+        if len(members) < 2:
+            raise ValueError('Recorded split stratum too small')
+        def rank(key):
+            payload = json.dumps([20261008, *key], ensure_ascii=False, separators=(',', ':')).encode('utf-8')
+            return hashlib.sha256(payload).hexdigest(), key
+        count = len(members)//2
+        if len(members)%2:
+            count += int(round_up); round_up = not round_up
+        expected_basis.update(sorted(members, key=rank)[:count])
+    basis = [tuple(key) for key in diagnostic['basis_source_keys']]
+    head = [tuple(key) for key in diagnostic['readout_source_keys']]
+    if (diagnostic['partition_seed'] != 20261008 or len(set(basis)) != len(basis)
+            or len(set(head)) != len(head) or set(basis) != expected_basis
+            or set(head) != set(training)-expected_basis or len(basis) != len(head)
+            or diagnostic['input_source_count'] != len(training)
+            or diagnostic['basis_source_count'] != len(basis)
+            or diagnostic['basis_fit_records'] != 9*len(basis)
+            or diagnostic['input_fit_records'] != 9*len(training)):
+        raise ValueError('Recorded source-stage partition differs')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--directory', type=Path, required=True)
@@ -29,6 +62,7 @@ def main():
     parser.add_argument('--readout-method', default='L2 entropy-smoothed source logistic plus score variance')
     parser.add_argument('--recorded-auditor-ref', help='Exact Git commit of this auditor if the producer pinned its earlier bytes')
     parser.add_argument('--parameters', nargs=4, default=('0', '0.1', '1', '10'))
+    parser.add_argument('--source-split', action='store_true', help='Explicit equal basis/readout source-stage schema')
     args = parser.parse_args()
     if args.recorded_auditor_ref is not None and not re.fullmatch('[0-9a-f]{40}', args.recorded_auditor_ref):
         raise ValueError('Historical auditor ref must be a full Git SHA')
@@ -77,12 +111,15 @@ def main():
             for held, d in enumerate(saved['fit_diagnostics']):
                 gradient = d['maximum_absolute_gradient']
                 if (d['held_fold'] != held or d['calibration_fold'] != (held+1)%5
-                        or d['fit_records'] != 6804 or d['sources'] != 756
+                        or d['fit_records'] != (3402 if args.source_split else 6804)
+                        or d['sources'] != (378 if args.source_split else 756)
                         or d['calibration_records'] != 2268 or d['calibration_source_count'] != 252
                         or d['held_source_count'] != 252 or not math.isfinite(gradient) or gradient > 1e-5
                         or d[args.strength_field] != float(parameter)
                         or d['mapped_dimensions'] != args.mapped_dimensions):
                     raise ValueError('Recorded role/convergence/schema differs')
+                if args.source_split:
+                    verify_stage_partition(saved['scores'], data['fold_sources'], d, held)
                 basis = d.get('basis_count')
                 if basis is None and args.allow_missing_basis_count:
                     basis_counts_absent += 1
@@ -125,6 +162,7 @@ def main():
         'allow_missing_basis_count': args.allow_missing_basis_count,
         'strength_field': args.strength_field, 'readout_method': args.readout_method,
         'recorded_auditor_ref': args.recorded_auditor_ref,
+        'source_split_schema': args.source_split,
         'changed_score_rejected': True, 'wrong_calibration_fold_rejected': True,
         'crossfit_sha256': file_sha256(path), 'script_sha256': file_sha256(Path(__file__)),
         'scope': 'Saved arithmetic/roles/schema/gradient records;absent method tags not reconstructed;not objective certification/optimizer replay/scientific independence'}

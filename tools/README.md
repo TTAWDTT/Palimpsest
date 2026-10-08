@@ -28,3 +28,7 @@
 扫描前限定第68轮和第69轮`selected`，复用不改的整数 tied-event sweep；第67轮selected与69只差共同平移，不重复扫描。父收据SHA验证保存分数字节，60组／130配对和零阈值计数先审；旧producer pins只作为历史记录复制，不把当前源码冒充旧执行。穷举所有不同预测状态，报告80%条件下最小最大下降、2pp条件下最大最低BA及当前阈值所有最坏并列的逐来源正确→错误／错误→正确；同分判REAL。人工控制为原Fraction brute sweep／80%与2pp边界／坏覆盖／NaN及新的REAL等号翻转测试，先于真实扫描运行。
 
 诊断仅排除这两个固定分数在已曝光面板上的共同阈值族；不采用扫描阈值，不重新拟合、bootstrap或读图。从仓库根目录按模块启动：`.venv/Scripts/python.exe -m tools.diagnose_saved_thresholds --directory work/robust_statistics/paired_ba_calibration --output work/robust_statistics/paired_ba_calibration/posthoc_threshold_diagnostic.json`；有向轮只更换目录。直接按文件启动会缺仓库模块路径，首个错误调用未产生收据；已修正调用方式，不添加路径兼容层。已有输出拒绝覆盖，收据保存实际计时与本次诊断源pins。文件复用相邻实验的已核算术，未新建第二份扫描实现。
+
+## 显式两阶段来源schema
+
+第71轮样本分拆读出用typed auditor的`--source-split`。默认旧6804行／756来源求解器预算不变；显式开关才核head3402／378、basis3402／378以及完整输入6804／756。额外从保存OOF身份、supplied标签、fold角色和固定SHA排序独立重建两个成员集，检查互斥、并集及各阶段计数；人工交换成员、错seed／计数必须拒绝。这核记录，不独立认证实际优化器成员。第70轮旧auditor已在变更前通过；旧执行pins仍要求历史Git，不能回写旧收据。
