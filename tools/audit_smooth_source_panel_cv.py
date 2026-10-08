@@ -17,7 +17,11 @@ from palimpsest.paths import REPO_ROOT
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__); parser.add_argument('--directory', type=Path, required=True)
+    parser.add_argument('--parameters', nargs=4, default=('0', '0.1', '1', '10'))
     args = parser.parse_args(); output = args.directory/'calibrated_oof_audit.json'
+    parameters = tuple(args.parameters)
+    if len(set(parameters)) != 4 or any(Fraction(k) < 0 for k in parameters):
+        raise ValueError('Need four distinct registered nonnegative parameters')
     if output.exists(): raise FileExistsError('Preserve smooth panel audit')
     tools = runpy.run_path(str(REPO_ROOT/'tools/audit_source_panel_cv.py'))
     fold_tools = runpy.run_path(str(REPO_ROOT/'tools/audit_source_crossfit.py'))
@@ -41,7 +45,7 @@ def main():
         raise ValueError('Audit only covers registered strong panel')
     results = {}
     for mode, candidates in data['results'].items():
-        if set(candidates) != {'0', '0.1', '1', '10'}: raise ValueError('Smooth strength grid differs')
+        if set(candidates) != set(parameters): raise ValueError('Smooth strength grid differs')
         counted = {}
         for strength, record in candidates.items():
             if len(record['scores']) != 11340 or len(record['fit_diagnostics']) != 5: raise ValueError('Smooth OOF count')
@@ -64,16 +68,17 @@ def main():
             key=lambda k: (-Fraction(counted[k]['minimum_all_scope_ba']), Fraction(counted[k]['maximum_all_scope_drop']), Fraction(k)))
         if chosen != data['chosen'][mode][0]: raise ValueError('Smooth strength selection differs')
         results[mode] = {'passed': True, 'strengths': 4, 'groups_each': 45, 'pairs_each': 75, 'selected': chosen}
-    bad = deepcopy(data['results']['truth']['0'])
+    bad = deepcopy(data['results']['truth'][parameters[0]])
     changed = next(i for i, row in enumerate(bad['scores']) if row['score'] != 0); bad['scores'][changed]['score'] *= -1
     try: tools['verify'](bad['scores'], bad, variants)
     except ValueError: pass
     else: raise ValueError('Changed real smooth score accepted')
-    bad = deepcopy(data['results']['truth']['0']['scores']); bad[0]['calibration_fold'] = bad[0]['fold']
+    bad = deepcopy(data['results']['truth'][parameters[0]]['scores']); bad[0]['calibration_fold'] = bad[0]['fold']
     try: role_tools['verify_calibration'](bad, data['fold_sources'])
     except ValueError: pass
     else: raise ValueError('Wrong real cal fold accepted')
-    value = {'passed': True, 'results': results, 'changed_score_rejected': True, 'wrong_calibration_fold_rejected': True,
+    value = {'passed': True, 'results': results, 'parameters': parameters,
+        'changed_score_rejected': True, 'wrong_calibration_fold_rejected': True,
         'crossfit_sha256': file_sha256(path), 'script_sha256': file_sha256(Path(__file__)),
         'scope': 'Saved-score arithmetic/roles/gradient diagnostics;not optimizer replay or scientific independence'}
     with output.open('x', encoding='utf-8') as stream: json.dump(value, stream, indent=2); stream.write('\n')

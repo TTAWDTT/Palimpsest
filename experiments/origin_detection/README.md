@@ -113,3 +113,5 @@
 [semantic_score_margin](semantic_score_margin/README.md)：第63轮恢复缓存raw1024语义信息、4分数14项，折内重新拟合；没有新增编码器推理。
 
 [semantic_score_consistency](semantic_score_consistency/README.md)：第64轮保持数据及4方向／14项，复用L2平滑来源风险／方差读出；区分初始化LP、辅助logistic及当前模型拟合。
+
+[source_variance_range](source_variance_range/README.md)：第65轮只按fit内部边界余量扩展10／30／100／300；选中仍10，没有新增图像推理。

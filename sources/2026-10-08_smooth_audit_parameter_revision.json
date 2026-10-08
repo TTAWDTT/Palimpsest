@@ -1,0 +1,8 @@
+{
+  "prior_git": "9475475",
+  "before_sha256": "df518fa4dbafaaa2fea14f431e0750e5eecedbe931f198c1ef57c9c08360a03c",
+  "after_sha256": "bbc0c38595d5629fd388508a5ab4c8734d331c455cd9ea307dd1b320243134d6",
+  "scope": "After64audits/completion;before65;explicitfourparameter option with legacydefault;integer recounter/producer unchanged",
+  "old64_receipts_preserved": true,
+  "old64_source_audit_requires_prior_git": true
+}
