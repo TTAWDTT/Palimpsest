@@ -9,6 +9,9 @@ from copy import deepcopy
 from fractions import Fraction
 import json
 import math
+import hashlib
+import re
+import subprocess
 from pathlib import Path
 import runpy
 
@@ -22,8 +25,13 @@ def main():
     parser.add_argument('--mapped-dimensions', type=int, required=True)
     parser.add_argument('--basis-count', type=int, required=True)
     parser.add_argument('--allow-missing-basis-count', action='store_true')
+    parser.add_argument('--strength-field', choices=('consistency_strength', 'ordering_strength'), default='consistency_strength')
+    parser.add_argument('--readout-method', default='L2 entropy-smoothed source logistic plus score variance')
+    parser.add_argument('--recorded-auditor-ref', help='Exact Git commit of this auditor if the producer pinned its earlier bytes')
     parser.add_argument('--parameters', nargs=4, default=('0', '0.1', '1', '10'))
     args = parser.parse_args()
+    if args.recorded_auditor_ref is not None and not re.fullmatch('[0-9a-f]{40}', args.recorded_auditor_ref):
+        raise ValueError('Historical auditor ref must be a full Git SHA')
     if (args.mapped_dimensions < 1 or args.basis_count < 1 or len(set(args.parameters)) != 4
             or any(Fraction(x) < 0 for x in args.parameters)):
         raise ValueError('Invalid explicit audit schema')
@@ -40,7 +48,12 @@ def main():
         raise ValueError('Saved CV changed')
     for name, expected in receipt['code_pins'].items():
         if file_sha256(REPO_ROOT/name) != expected:
-            raise ValueError('Executed producer source changed')
+            own_name = str(Path(__file__).resolve().relative_to(REPO_ROOT)).replace('\\', '/')
+            if args.recorded_auditor_ref is None or name.replace('\\', '/') != own_name:
+                raise ValueError('Executed producer source changed')
+            blob = subprocess.check_output(['git', 'show', args.recorded_auditor_ref+':'+own_name], cwd=REPO_ROOT)
+            if hashlib.sha256(blob).hexdigest() != expected:
+                raise ValueError('Historical auditor bytes do not match recorded producer pin')
     data = json.loads(path.read_text()); panel = data['source_panel']
     variants = ('raw', 'jpeg90_444_after_resize256', 'jpeg60_420_after_resize256')
     if (tuple(panel['variants']) != variants or panel['sources'] != 1260
@@ -67,7 +80,7 @@ def main():
                         or d['fit_records'] != 6804 or d['sources'] != 756
                         or d['calibration_records'] != 2268 or d['calibration_source_count'] != 252
                         or d['held_source_count'] != 252 or not math.isfinite(gradient) or gradient > 1e-5
-                        or d['consistency_strength'] != float(parameter)
+                        or d[args.strength_field] != float(parameter)
                         or d['mapped_dimensions'] != args.mapped_dimensions):
                     raise ValueError('Recorded role/convergence/schema differs')
                 basis = d.get('basis_count')
@@ -78,7 +91,7 @@ def main():
                 method = d.get('readout_method')
                 if method is None:
                     method_tags_absent += 1
-                elif method != 'L2 entropy-smoothed source logistic plus score variance':
+                elif method != args.readout_method:
                     raise ValueError('Unexpected recorded method tag')
             counts[parameter] = rates
         feasible = [k for k in counts if Fraction(counts[k]['minimum_all_scope_ba']) >= Fraction(4, 5)]
@@ -110,6 +123,8 @@ def main():
         'method_tags_absent': method_tags_absent,
         'basis_counts_absent': basis_counts_absent,
         'allow_missing_basis_count': args.allow_missing_basis_count,
+        'strength_field': args.strength_field, 'readout_method': args.readout_method,
+        'recorded_auditor_ref': args.recorded_auditor_ref,
         'changed_score_rejected': True, 'wrong_calibration_fold_rejected': True,
         'crossfit_sha256': file_sha256(path), 'script_sha256': file_sha256(Path(__file__)),
         'scope': 'Saved arithmetic/roles/schema/gradient records;absent method tags not reconstructed;not objective certification/optimizer replay/scientific independence'}

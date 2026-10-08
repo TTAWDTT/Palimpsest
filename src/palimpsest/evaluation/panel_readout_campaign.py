@@ -16,6 +16,7 @@ from .source_panel_crossfit import panel_masks, calibrated_panel_crossfit
 from .source_crossfit import choose_strength
 from .balanced_null import balanced_source_null
 from .features import feature_views
+from .training_fit import fit_training_rows
 from palimpsest.io.hashing import file_sha256
 from palimpsest.paths import WORK_DIR
 
@@ -31,13 +32,17 @@ def run_panel_campaign(output, args, data, method, panel):
     records, x, truth, weights, sources = data.training(rows)
     train, cal, held, _, folds = panel_masks(records, sources, panel)
     fitter = method.fitter(manifest)
+    record_aware = getattr(method, 'record_aware', False)
     if args.pilot:
         if (output/'pilot.json').exists(): raise FileExistsError('Preserve panel pilot')
         _, groups = np.unique(sources[train], return_inverse=True)
         views = data.calibration_views(records, x, truth, cal); times = []; diagnostics = []; rule = None
         with threadpool_limits(limits=1):
             for parameter in method.pilot_parameters:
-                start = perf_counter(); rule, d = fitter.fit(x[train], truth[train], weights[train], groups, parameter)
+                start = perf_counter()
+                context = tuple(r for r, flag in zip(records, train) if flag)
+                rule, d = fit_training_rows(fitter.fit, x[train], truth[train], weights[train], groups, parameter,
+                    records=context, record_aware=record_aware)
                 rule, d['inner_calibration'] = method.calibrate(rule, views)
                 values = rule.score(x[held])-rule.threshold
                 if values.shape != (int(held.sum()),) or not np.isfinite(values).all(): raise ValueError('Pilot held margins')
@@ -68,7 +73,8 @@ def run_panel_campaign(output, args, data, method, panel):
                 print(json.dumps({'cv': mode, 'parameter': parameter, 'minimum_ba': result['minimum_all_scope_ba'],
                                   'maximum_drop': result['maximum_all_scope_drop']}), flush=True)
             cv[mode], _, actual = calibrated_panel_crossfit(records, x, labels, weights, sources,
-                method.parameters, data.names, panel, fitter.fit, method.calibrate, progress)
+                method.parameters, data.names, panel, fitter.fit, method.calibrate, progress,
+                record_aware=record_aware)
             if actual != folds: raise ValueError('Panel source folds changed')
     cv_elapsed = perf_counter()-start; chosen = {mode: choose_strength(candidates) for mode, candidates in cv.items()}
     write_json(output/'crossfit.json', {'results': cv, 'chosen': chosen, 'fold_seed': 20261007,
@@ -86,7 +92,8 @@ def run_panel_campaign(output, args, data, method, panel):
             ('zero', truth, 0, None), ('selected', truth, float(chosen['truth'][0]), None),
             ('selected_wrong_source', truth, float(chosen['truth'][0]), data.wrong_sources(rows, sources)),
             ('selected_null', sham, float(chosen['null'][0]), None)):
-            rule, d = fitter.fit(x, labels, weights, sources, parameter, wrong)
+            rule, d = fit_training_rows(fitter.fit, x, labels, weights, sources, parameter,
+                records=records, record_aware=record_aware, wrong=wrong)
             rule, d['calibration'] = method.calibrate(rule, views)
             margins, result = data.score(rows, data.names, rule)
             if key == 'zero':

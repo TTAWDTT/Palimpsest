@@ -12,4 +12,4 @@
 
 λ大导致分数趋零、方差低或CV跌幅下降均不等于实际分类保持；必须完整配对评价及独立真实验证。验收仍BA≥80%、同源下降≤2pp和独立真实数据；保留多重选择、RR方式标签、近重复／预训练缺口。既有scorevariance原理，不声明新方法或全物理不变性。
 
-入口`python -m experiments.origin_detection.source_variance_range.run_iteration --record-controls`，再`--pilot`，成功后无参数；本地`work/robust_statistics/source_variance_range`拒绝覆盖。完成后审计命令`python tools/audit_smooth_source_panel_cv.py --directory work/robust_statistics/source_variance_range --parameters 10 30 100 300`。
+入口`python -m experiments.origin_detection.source_variance_range.run_iteration --record-controls`，再`--pilot`，成功后无参数；本地`work/robust_statistics/source_variance_range`拒绝覆盖。当前审计入口为`python tools/audit_typed_source_panel_cv.py --directory work/robust_statistics/source_variance_range --mapped-dimensions 14 --basis-count 4 --allow-missing-basis-count --parameters 10 30 100 300`；原执行及旧源码审计需恢复其receipt对应Git版本，不能替换旧pins。

@@ -14,6 +14,7 @@ import numpy as np
 from .source_crossfit import source_folds, crossfit_rates, choose_strength
 from .numeric_features import numeric_rows
 from .features import feature_views
+from .training_fit import fit_training_rows
 
 
 @dataclass(frozen=True)
@@ -87,7 +88,7 @@ def panel_masks(records, sources, panel, held=0):
 
 
 def calibrated_panel_crossfit(records, x, labels, weights, sources, parameters, names,
-                              panel, fit, calibrate, progress=None):
+                              panel, fit, calibrate, progress=None, *, record_aware=False):
     x, y, w, s = map(np.asarray, (x, labels, weights, sources))
     if (x.ndim != 2 or len(x) != len(records) or x.shape[1] != len(names)
             or any(a.shape != (len(records),) for a in (y, w, s))):
@@ -100,7 +101,9 @@ def calibrated_panel_crossfit(records, x, labels, weights, sources, parameters, 
             train, cal, test, ids, actual = panel_masks(records, s, panel, held)
             if actual != folds: raise ValueError('Panel folds changed')
             _, groups = np.unique(s[train], return_inverse=True)
-            rule, d = fit(x[train], y[train], w[train], groups, parameter)
+            training_records = tuple(r for r, flag in zip(records, train) if flag)
+            rule, d = fit_training_rows(fit, x[train], y[train], w[train], groups, parameter,
+                records=training_records, record_aware=record_aware)
             views = panel_calibration_views(records, x, y, cal, names, panel)
             fixed, calibration = calibrate(rule, views)
             scores = np.asarray(fixed.score(x[test]))-fixed.threshold

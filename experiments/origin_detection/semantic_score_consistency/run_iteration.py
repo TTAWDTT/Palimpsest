@@ -23,7 +23,7 @@ TESTS = ('tests/detection/test_semantic_score_consistency.py', 'tests/detection/
 def code_pins():
     pins = parent_pins(); paths = list(Path(__file__).parent.glob('*.py')) + [Path(__file__).parent/'README.md']
     paths += [REPO_ROOT/p for p in (*TESTS, 'src/palimpsest/detection/algorithms/semantic_score_consistency.py',
-                                   'tools/audit_smooth_source_panel_cv.py')]
+                                   'tools/audit_typed_source_panel_cv.py')]
     pins.update({str(p.relative_to(REPO_ROOT)): file_sha256(p) for p in sorted(paths)})
     return pins
 
