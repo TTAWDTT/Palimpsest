@@ -105,3 +105,9 @@
 [source_score_margin](source_score_margin/README.md)：第60轮复用三个拟合内判别方向与既有最大hinge LP，带独立内部标定来源的惩罚选择；当前只是开发候选，未完成稳定性验收。
 
 [quadratic_score_margin](quadratic_score_margin/README.md)：第61轮三分数九项二次展开及原有软间隔；共享driver复用控制、小试、内部标定和固定外层次序，原执行文件保留。
+
+[strong_token_views](strong_token_views/README.md)：第62轮仅提取缺失的fit／threshold Q60数值，先用旧60张完整见证核接入，再按实际时标预算。
+
+[strong_score_margin](strong_score_margin/README.md)：第62轮维持二次软间隔定义而扩展处理覆盖，9视图source panel，明确Q60已见以及内部／最终计数区别。
+
+[semantic_score_margin](semantic_score_margin/README.md)：第63轮恢复缓存raw1024语义信息、4分数14项，折内重新拟合；没有新增编码器推理。
