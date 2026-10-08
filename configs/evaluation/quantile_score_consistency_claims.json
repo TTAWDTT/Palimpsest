@@ -1,0 +1,123 @@
+{
+  "campaign": "67token distribution shape",
+  "register": "Transcription only,not independent acceptance",
+  "quote_source": "reports/04_算法研发/第六十七轮分位数形状_新判决仍未减小最坏退化_2026-10-08.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/quantile_score_consistency/iteration.json"
+    },
+    "m": {
+      "path": "../../work/robust_statistics/quantile_score_consistency/masked_shape_ablation.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "zero/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/zero/minimum_domain_ba')",
+      "quoted": "85.56"
+    },
+    {
+      "section": "table",
+      "label": "zero/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/zero/minimum_scene_ba')",
+      "quoted": "95.00"
+    },
+    {
+      "section": "table",
+      "label": "zero/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/zero/maximum_any_scene_drop')",
+      "quoted": "3.89"
+    },
+    {
+      "section": "table",
+      "label": "selected/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/selected/minimum_domain_ba')",
+      "quoted": "85.00"
+    },
+    {
+      "section": "table",
+      "label": "selected/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/selected/minimum_scene_ba')",
+      "quoted": "95.00"
+    },
+    {
+      "section": "table",
+      "label": "selected/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/selected/maximum_any_scene_drop')",
+      "quoted": "3.75"
+    },
+    {
+      "section": "table",
+      "label": "selected_wrong_source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/selected_wrong_source/minimum_domain_ba')",
+      "quoted": "85.00"
+    },
+    {
+      "section": "table",
+      "label": "selected_wrong_source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/selected_wrong_source/minimum_scene_ba')",
+      "quoted": "93.75"
+    },
+    {
+      "section": "table",
+      "label": "selected_wrong_source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/selected_wrong_source/maximum_any_scene_drop')",
+      "quoted": "2.78"
+    },
+    {
+      "section": "table",
+      "label": "selected_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/selected_null/minimum_domain_ba')",
+      "quoted": "43.89"
+    },
+    {
+      "section": "table",
+      "label": "selected_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/selected_null/minimum_scene_ba')",
+      "quoted": "40.00"
+    },
+    {
+      "section": "table",
+      "label": "selected_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/selected_null/maximum_any_scene_drop')",
+      "quoted": "10.00"
+    },
+    {
+      "section": "table",
+      "label": "masked_shape/minimum_domain_ba",
+      "expr": "100*f('m','/candidates/masked_shape/minimum_domain_ba')",
+      "quoted": "85.00"
+    },
+    {
+      "section": "table",
+      "label": "masked_shape/minimum_scene_ba",
+      "expr": "100*f('m','/candidates/masked_shape/minimum_scene_ba')",
+      "quoted": "95.00"
+    },
+    {
+      "section": "table",
+      "label": "masked_shape/maximum_any_scene_drop",
+      "expr": "100*f('m','/candidates/masked_shape/maximum_any_scene_drop')",
+      "quoted": "3.75"
+    },
+    {
+      "section": "cost",
+      "label": "cv_s",
+      "expr": "f('i','/cv_elapsed_s')",
+      "quoted": "304.790"
+    },
+    {
+      "section": "cost",
+      "label": "final_s",
+      "expr": "f('i','/elapsed_s')",
+      "quoted": "125.965"
+    },
+    {
+      "section": "cost",
+      "label": "masked_s",
+      "expr": "f('m','/elapsed_s')",
+      "quoted": "42.249"
+    }
+  ]
+}
