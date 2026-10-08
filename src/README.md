@@ -24,7 +24,7 @@ src/
     │   └── baselines/         四边形提议与 SAM 2 自动分割
     ├── detection/             判别原始自然摄影/AI 内容
     │   ├── interfaces.py      OriginDetector 来源预测协议
-    │   ├── algorithms/        自研非深度学习统计原型（稳健性未通过）
+    │   ├── algorithms/        手工统计与传统读出算法（稳健性未通过）
     │   ├── representations/   已有预训练表示的显式冻结接口（鲁棒性待审）
     │   ├── models/            自研神经模型（待开发）
     │   ├── baselines/         B-Free、D3、Benford 参考实现适配
@@ -125,5 +125,9 @@ CuRe的[官方文件适配器](palimpsest/detection/baselines/cure.py)是明确�
 公共库不导入 `experiments/`。具体数据集选择、冻结划分、拟合和实验调度位于仓库外层的 [experiments](../experiments/README.md)；数据与权重通过 [路径配置](../configs/README.md) 获取，研究报告位于 [reports](../reports/README.md)。导入适配模块不会下载权重或启动推理，模型在显式调用时加载。
 
 算法候选另有[闭合相位统计](palimpsest/detection/algorithms/phase_statistics/README.md)；第四轮未通过真实处理准确度门槛。公共[特征缓存审计和文件计时](palimpsest/evaluation/README.md)供实验复用。
+
+较大的冻结表示可通过[evaluation/numeric_features.py](palimpsest/evaluation/numeric_features.py)用元数据表与NumPy数组读取，按需提供坐标，避免逐坐标Python对象。来源折划分与OOF统计在[evaluation/source_crossfit.py](palimpsest/evaluation/source_crossfit.py)。二者处理数据，不加载编码器。
+
+[token_statistics.py](palimpsest/detection/representations/token_statistics.py)提供中位数锚定的截断均值与离散度；[frozen_cure_tokens.py](palimpsest/detection/representations/frozen_cure_tokens.py)只读捕获作者PECore归一化patch输出，并要求原均值一致。其特征空间性质不代表图像传播不变性，接入核查和分类效果由实验分别提供。
 
 第六轮新增[残差／顺序统计候选](palimpsest/detection/algorithms/residual_statistics/README.md)，使用[可读JSON特征森林](palimpsest/detection/algorithms/forest.py)实现NumPy推理。实验拟合与像素推理分开，两个候选的真实准入仍需评测；不是默认可用的成功检测器。
