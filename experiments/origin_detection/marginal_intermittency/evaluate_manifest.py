@@ -34,6 +34,10 @@ def read_table(path: Path, *, scores: bool) -> list[dict]:
     """Reject ambiguous identities and incomplete records before inference."""
     with path.open(encoding="utf-8-sig", newline="") as handle:
         reader = csv.DictReader(handle)
+        if reader.fieldnames is None or len(reader.fieldnames) != len(
+            set(reader.fieldnames)
+        ):
+            raise ValueError("Missing or duplicate CSV columns")
         required = set(IDENTITY) | (
             {"M", "image_sha256", "valid"} if scores else {"path"}
         )

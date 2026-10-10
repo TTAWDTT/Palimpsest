@@ -90,3 +90,12 @@ def test_nonfinite_scores_and_invalid_label_rejected(tmp_path):
         write_scores(path, [row])
         with pytest.raises(ValueError, match=error):
             read_table(path, scores=True)
+
+
+def test_duplicate_csv_headers_rejected_before_dictreader_can_overwrite(tmp_path):
+    path = tmp_path / "ambiguous.csv"
+    path.write_text(
+        "source_id,category,label,condition,image_sha256,M,M,valid\n", encoding="utf-8"
+    )
+    with pytest.raises(ValueError, match="duplicate CSV columns"):
+        read_table(path, scores=True)
