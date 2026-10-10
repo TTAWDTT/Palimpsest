@@ -29,7 +29,7 @@
   "published_sha256": {
     "src/palimpsest/detection/algorithms/marginal_intermittency.py": "9e0a8fbe9422c807c2a4c48a48763c33a8a6fc2717caf9a6fbad20077ad7f4f7",
     "src/palimpsest/detection/algorithms/m_calibration.json": "f7b1c9bb67129ab8631493fbdb5beb7437fc321a5a6fa015d038600daad3a14b",
-    "experiments/origin_detection/marginal_intermittency/evaluate_manifest.py": "abec3b4f57d005c18b4875597403c4301661c842ffeaeb151d704f9977d0ee38",
+    "experiments/origin_detection/marginal_intermittency/evaluate_manifest.py": "6109e2d3d385f5783d7f0b2ee9cf7109a7d70a6e6dbe5b5b42d3051dba55c4cb",
     "reports/m_intermittency/development_scores.csv": "35cc7fb4a02a591b07639a3d2d3d107bbdf11f3fb591ab14be3ba55b4913d4fd",
     "reports/m_intermittency/development_manifest.csv": "b084c0caf465190c4f50133bef5e96207ee88f1f985423e4eb4da0feb7656e85"
   },
