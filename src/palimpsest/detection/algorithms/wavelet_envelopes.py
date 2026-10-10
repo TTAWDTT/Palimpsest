@@ -13,7 +13,7 @@ import cv2
 import numpy as np
 
 from palimpsest.contracts import Prediction
-from .paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 from .residual_statistics.features import FEATURE_NAMES as RESIDUAL_NAMES, extract_features
 
 CENTERS = (.25, .125, .0625)

@@ -8,7 +8,7 @@ from time import perf_counter
 import numpy as np
 from threadpoolctl import threadpool_limits
 
-from palimpsest.detection.algorithms.consistent_source_risk import fit_consistent_source_risk
+from palimpsest.detection.algorithms.readouts.consistent_source_risk import fit_consistent_source_risk
 from palimpsest.detection.representations.frozen_cure_tokens import MIXED_NAMES
 from palimpsest.evaluation.source_consistency_campaign import run_source_consistency
 from palimpsest.evaluation.source_crossfit import source_folds

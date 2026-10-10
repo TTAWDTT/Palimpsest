@@ -6,7 +6,7 @@ Lady 在独立审查上下文中核对了配对阈值标定协议与实现。固
 
 ## 审查对象与证据
 
-我读取了 `experiments/origin_detection/paired_ba_calibration/README.md`、其 `run_iteration.py`、`src/palimpsest/detection/algorithms/paired_threshold.py`、相应测试，以及来源面板、内部留折、最终评分、五方向读出的实际调用代码。第67／68轮报告用于核对比较对象和既有曝光范围；本报告不审查新一轮性能。
+我读取了 `experiments/origin_detection/frozen_features/cure/paired_ba_calibration/README.md`、其 `run_iteration.py`、`src/palimpsest/detection/algorithms/readouts/paired_threshold.py`、相应测试，以及来源面板、内部留折、最终评分、五方向读出的实际调用代码。第67／68轮报告用于核对比较对象和既有曝光范围；本报告不审查新一轮性能。
 
 独立软件脚本与收据保存在 `work/robust_statistics/paired_ba_calibration/referee/independent_fixture_audit.py` 和 `independent_fixture_results.json`。脚本直接重算每个候选阈值的两类正确率，使用 Fraction，不调用生产的增量计数、LCM因子或分组／配对构建。所核生产文件 SHA256 为 `6ff3ed0412aa2e41a9bed530feb592eac1e893fc16628ccde02968ba76cf420d`；这些检查提供软件证据，未复算优化器或科学效果。
 

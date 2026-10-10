@@ -1,1 +1,1 @@
-"""Extension location for our own non-deep origin detectors (not implemented)."""
+"""Non-neural pixel statistics and shared numerical readouts."""

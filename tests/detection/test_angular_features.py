@@ -5,7 +5,7 @@ import math
 import numpy as np
 import pytest
 
-from palimpsest.detection.algorithms.source_view_risk import fit_source_risk
+from palimpsest.detection.algorithms.readouts.source_view_risk import fit_source_risk
 from palimpsest.detection.representations.angular_features import AngularFeatures, paired_drift
 
 

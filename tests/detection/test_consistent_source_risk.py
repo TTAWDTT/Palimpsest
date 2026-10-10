@@ -3,10 +3,8 @@
 import numpy as np
 import pytest
 
-from palimpsest.detection.algorithms.consistent_source_risk import (
-    source_variance_gram,consistent_objective,fit_consistent_source_risk,
-)
-from palimpsest.detection.algorithms.source_view_risk import fit_source_risk
+from palimpsest.detection.algorithms.readouts.consistent_source_risk import source_variance_gram, consistent_objective, fit_consistent_source_risk
+from palimpsest.detection.algorithms.readouts.source_view_risk import fit_source_risk
 
 
 def test_known_variance_and_independent_gradient():

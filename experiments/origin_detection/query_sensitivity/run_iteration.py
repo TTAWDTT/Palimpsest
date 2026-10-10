@@ -8,8 +8,8 @@ from time import perf_counter
 import numpy as np
 from threadpoolctl import threadpool_limits
 
-from palimpsest.detection.algorithms.paired_stability import StableRule
-from palimpsest.detection.algorithms.source_view_risk import fit_source_risk
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
+from palimpsest.detection.algorithms.readouts.source_view_risk import fit_source_risk
 from palimpsest.evaluation.balanced_null import balanced_source_null
 from palimpsest.evaluation.features import feature_views
 from palimpsest.evaluation.robust_views import evaluate_views

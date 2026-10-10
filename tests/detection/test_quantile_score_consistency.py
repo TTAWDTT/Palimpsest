@@ -3,8 +3,7 @@
 import numpy as np
 import pytest
 
-from palimpsest.detection.algorithms.quantile_score_consistency import (
-    five_score_terms, QuantileScoreFitter, QuantileScoreRule)
+from palimpsest.detection.models.frozen_features.cure.quantile_score_consistency import five_score_terms, QuantileScoreFitter, QuantileScoreRule
 
 
 def test_five_score_expansion_and_zero_shape_terms():

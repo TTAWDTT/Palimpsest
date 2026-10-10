@@ -2,7 +2,7 @@
 
 研究图像经过数字传播与物理再拍后，如何判断其原始视觉内容来自自然摄影还是 AI 生成。
 
-**当前持续研发传播后仍稳定的AI／非AI判别方法；已完成第三十五至四十轮，第四十一轮开始检验固定更强编码的训练支持，尚未达到目标。** 最新证据见[算法研发记录](reports/04_算法研发/README.md)：第十七轮仍是高汇总准确度参考，第27轮缩小了部分同源跌幅；完整CuRe读出改善了场景最低准确率，但仍有5.56pp下降与速度成本。
+**已完成第72轮，尚未达到BA≥80%、传播后跌幅≤2个百分点并经独立真实数据验证的联合目标。** 当前最佳联合候选为[冻结CuRe特征＋自研统计头](src/palimpsest/detection/models/frozen_features/cure/README.md)，第69轮最低域汇总BA85%、最大同源下降2.5个百分点。它包含神经网络；非神经路线拟接续第15轮，历史结果见[研发记录](reports/04_算法研发/README.md)。
 
 已实现归一化残差邻域、便携森林、配对分数稳定目标及类别最差正确率标定。全部RR／Chimera来源属于反复接触的开发数据，RR reserved封存；simulation与最终神经训练暂缓。已有全量baseline复用签名缓存。
 
@@ -33,7 +33,8 @@ src/palimpsest/
   localization/     区域定位/分割，baselines 为已有候选方法
   detection/        原始自然摄影/AI 内容判别
     algorithms/     自研非深度学习原型（稳健性未通过）
-    models/         自研神经模型（待开发）
+    representations/ 冻结神经特征提取
+    models/         frozen_features 已有候选；trainable 待开发
     baselines/      B-Free、D3、Benford 适配
   pipelines/        解码→定位→裁切→来源推理与计时
   training/         显式训练与标定接口（实现待开发）

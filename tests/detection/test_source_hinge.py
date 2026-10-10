@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 from scipy.sparse import csr_matrix
 
-from palimpsest.detection.algorithms.source_hinge import fit_source_hinge, check_lp_certificate
+from palimpsest.detection.algorithms.readouts.source_hinge import fit_source_hinge, check_lp_certificate
 
 
 def test_known_symmetric_source_margin():

@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from palimpsest.detection.algorithms.source_score_subspace import ScoreSubspaceFitter,ScoreSubspaceRule
+from palimpsest.detection.models.frozen_features.cure.source_score_subspace import ScoreSubspaceFitter, ScoreSubspaceRule
 
 
 def test_score_bank_reuses_only_identical_training_and_preserves_scores(tmp_path):

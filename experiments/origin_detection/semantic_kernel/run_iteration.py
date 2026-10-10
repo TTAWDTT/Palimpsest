@@ -11,7 +11,7 @@ from threadpoolctl import threadpool_limits
 
 from palimpsest.detection.algorithms.kernel_readout import fit_fourier_map,KernelRule
 from palimpsest.detection.algorithms.compiled_kernel import CompiledKernelRule
-from palimpsest.detection.algorithms.source_view_risk import fit_source_risk
+from palimpsest.detection.algorithms.readouts.source_view_risk import fit_source_risk
 from palimpsest.detection.representations.frozen_clip import FEATURE_NAMES
 from palimpsest.evaluation.features import feature_views
 from palimpsest.evaluation.pixel_features import audit_variants
@@ -34,7 +34,7 @@ def code_pins():
     files=[CONFIG,REPO_ROOT/'src/palimpsest/detection/algorithms/kernel_readout.py',
        REPO_ROOT/'src/palimpsest/detection/algorithms/compiled_kernel.py',
        REPO_ROOT/'tests/detection/test_compiled_kernel.py',
-       REPO_ROOT/'src/palimpsest/detection/algorithms/source_view_risk.py',
+       REPO_ROOT/'src/palimpsest/detection/algorithms/readouts/source_view_risk.py',
        REPO_ROOT/'src/palimpsest/evaluation/source_training.py',
        REPO_ROOT/'src/palimpsest/evaluation/robust_views.py',
        REPO_ROOT/'experiments/origin_detection/source_view_risk/run_iteration.py',

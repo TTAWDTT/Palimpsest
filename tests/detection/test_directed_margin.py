@@ -5,7 +5,7 @@ import pytest
 
 from palimpsest.detection.algorithms.directed_margin import (
     DirectedPairs, directed_penalty, processing_pairs, fit_directed_source_risk, directed_objective)
-from palimpsest.detection.algorithms.source_view_risk import fit_source_risk
+from palimpsest.detection.algorithms.readouts.source_view_risk import fit_source_risk
 
 
 def test_improvement_is_unpenalized_and_tiny_loss_can_flip_every_case():

@@ -5,8 +5,8 @@ from fractions import Fraction
 import numpy as np
 import pytest
 
-from palimpsest.detection.algorithms.paired_stability import StableRule
-from palimpsest.detection.algorithms.paired_threshold import paired_threshold
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
+from palimpsest.detection.algorithms.readouts.paired_threshold import paired_threshold
 
 
 def rule():

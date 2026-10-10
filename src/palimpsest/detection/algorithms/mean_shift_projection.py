@@ -6,7 +6,7 @@ from pathlib import Path
 
 import numpy as np
 
-from .paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 
 
 @dataclass(frozen=True)

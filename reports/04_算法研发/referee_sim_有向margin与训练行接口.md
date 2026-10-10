@@ -63,7 +63,7 @@ README没有独立abstract。作为abstract-only读者冷读标题、首段和�
 
 ## 审查依据
 
-- [方法说明](../../docs/research/processing_order_margin.md)、[事前README](../../experiments/origin_detection/directed_score_margin/README.md)、[训练接口说明](../../docs/maintenance/training_records_interface.md)、[版本ledger](../../sources/2026-10-08_training_records_interface_revision.json)。
+- [方法说明](../../docs/research/processing_order_margin.md)、[事前README](../../experiments/origin_detection/frozen_features/cure/directed_score_margin/README.md)、[训练接口说明](../../docs/maintenance/training_records_interface.md)、[版本ledger](../../sources/2026-10-08_training_records_interface_revision.json)。
 - 独立人工检查源码 `work/robust_statistics/directed_score_margin/referee/audit.py` 及检查输出 `work/robust_statistics/directed_score_margin/referee/audit.json`；源码SHA `35de2290f6032441df84e6d42f32f6c5517649b7ec9f2df4b8afcd0847c7a87b`。
 - 既有软件控制 `work/robust_statistics/directed_score_margin/software_controls.json`、既有cost pilot `work/robust_statistics/directed_score_margin/pilot.json`。
 - [Joachims 2002 原始论文](https://www.cs.cornell.edu/people/tj/publications/joachims_02c.pdf)，仅定向读取摘要和§4.1式12–15及§4.2开头；其排序pairwise差分支持方法来源定位，图像处理收益仍由本任务实验决定。

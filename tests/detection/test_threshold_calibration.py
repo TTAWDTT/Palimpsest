@@ -3,7 +3,7 @@
 import numpy as np
 import pytest
 
-from palimpsest.detection.algorithms.paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 from experiments.origin_detection.threshold_calibration.fit_threshold import class_threshold
 
 

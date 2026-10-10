@@ -13,7 +13,7 @@ import numpy as np
 from PIL import Image
 from threadpoolctl import threadpool_limits
 
-from palimpsest.detection.algorithms.paired_stability import fit_stable_rule
+from palimpsest.detection.algorithms.readouts.stable_rule import fit_stable_rule
 from palimpsest.detection.algorithms.residual_statistics.features import FEATURE_NAMES as OLD_NAMES, resize256
 from palimpsest.detection.algorithms.wavelet_envelopes import FIRST_NAMES, SECOND_NAMES, FEATURE_NAMES, extract_envelopes
 from palimpsest.evaluation.features import feature_views, validate_feature_cache, IDENTITY_FIELDS
@@ -37,7 +37,7 @@ def code_pins():
     directory = REPO_ROOT/'experiments/origin_detection/wavelet_envelopes'
     files = [CONFIG, REPO_ROOT/'src/palimpsest/detection/algorithms/wavelet_envelopes.py',
              REPO_ROOT/'tests/detection/test_wavelet_envelopes.py', directory/'README.md', *directory.glob('*.py'),
-             REPO_ROOT/'src/palimpsest/detection/algorithms/paired_stability.py',
+             REPO_ROOT/'src/palimpsest/detection/algorithms/paired_stability.py', REPO_ROOT/'src/palimpsest/detection/algorithms/readouts/stable_rule.py',
              REPO_ROOT/'experiments/origin_detection/conditional_residual/run_iteration.py',
              REPO_ROOT/'experiments/origin_detection/threshold_calibration/fit_threshold.py']
     return {str(p.relative_to(REPO_ROOT)): file_sha256(p) for p in sorted(files)}

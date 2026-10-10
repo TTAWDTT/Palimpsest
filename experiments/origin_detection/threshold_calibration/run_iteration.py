@@ -7,7 +7,8 @@ import tomllib
 import cv2
 import numpy as np
 
-from palimpsest.detection.algorithms.paired_stability import StableRule, StableDetector
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
+from palimpsest.detection.algorithms.paired_stability import StableDetector
 from palimpsest.detection.algorithms.residual_statistics.features import FEATURE_NAMES
 from palimpsest.evaluation.features import feature_views
 from palimpsest.evaluation.file_benchmark import benchmark_files

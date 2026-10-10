@@ -18,7 +18,11 @@
 | [62：Q60覆盖](第六十二轮增加Q60覆盖_绝对BA略升而传播退化加大_2026-10-08.md) | 85.56% | 5pp | 稳定性变差 |
 | [63：语义补充](第六十三轮语义方向_新增均值未被当前软间隔采用_2026-10-08.md) | 85.56% | 5pp | 四头分数与62相同 |
 
-第56—69轮已完成；第69轮固定分数的5041阈值状态诊断仍无联合可行解。下一项[分类率代理](../../experiments/origin_detection/rate_score_readout/README.md)检验更直接的错误率训练目标，复用既有数据与编码器，先核人工控制与成本。所有RR／Chimera均为反复曝光开发数据；RR reserved及独立像素封存，simulation与最终神经训练暂缓。机制背景见[跨学科调研](鲁棒判别跨学科机制补充调研_2026-10-06.md)。
+第56—69轮已完成；第69轮固定分数的5041阈值状态诊断仍无联合可行解。下一项[分类率代理](../../experiments/origin_detection/frozen_features/cure/rate_score_readout/README.md)检验更直接的错误率训练目标，复用既有数据与编码器，先核人工控制与成本。所有RR／Chimera均为反复曝光开发数据；RR reserved及独立像素封存，simulation与最终神经训练暂缓。机制背景见[跨学科调研](鲁棒判别跨学科机制补充调研_2026-10-06.md)。
+
+## 路线归属
+
+第1—15轮为非神经统计开发，第16轮开始引入冻结CLIP；后续报告中“传统读出”仅描述判别头，不表示完整方法无需神经网络。第5轮冻结的是手工特征缓存。当前最佳第69轮归入[CuRe神经特征方法](../../src/palimpsest/detection/models/frozen_features/cure/README.md)，不能作为非神经算法成绩。纯算法拟接续第15轮，第6轮作为简单对照，新迭代编号继续递增；历史数字和原始收据保持不变。
 
 ## 迭代记录
 
@@ -298,10 +302,10 @@
 
 [第70轮完整结果](第七十轮分类率代理_训练罚项不激活而留出仍退化_2026-10-08.md)及[结果审查](referee_sim_分类率代理结果.md)：20真训练罚项全0、四档OOF逐值相同，85%／6.11pp；全部并列项、null退化解及版本/成本边界已核。
 
-[第71轮来源分拆协议](../../experiments/origin_detection/split_rate_score/README.md)及[事前审查](referee_sim_来源分拆事前协议.md)：事前准入快照；首轮数值失败及重试完整结果见下项。
+[第71轮来源分拆协议](../../experiments/origin_detection/frozen_features/cure/split_rate_score/README.md)及[事前审查](referee_sim_来源分拆事前协议.md)：事前准入快照；首轮数值失败及重试完整结果见下项。
 
 [第71轮完整结果](第七十一轮来源分拆_罚项激活但判别力下降_2026-10-08.md)及[结果审查](referee_sim_来源分拆结果.md)：81.11%／5pp，严格梯度门槛重试通过，全部并列下降／成员／107字节pins恢复范围已核。
 
-[第72轮互补分拆协议](../../experiments/origin_detection/complementary_split/README.md)及[事前审查](referee_sim_互补分拆事前协议.md)：事前快照；两成员固定均值，共用一份编码特征，分数平均可能降低BA。完整结果见下项。
+[第72轮互补分拆协议](../../experiments/origin_detection/frozen_features/cure/complementary_split/README.md)及[事前审查](referee_sim_互补分拆事前协议.md)：事前快照；两成员固定均值，共用一份编码特征，分数平均可能降低BA。完整结果见下项。
 
 [第72轮完整结果](第七十二轮互补平均_判别力恢复但退化仍明显_2026-10-09.md)及[结果审查](referee_sim_互补分拆结果.md)：84.44%／5.56pp，24数字bank／两组件、所有保存计数和成员范围已核；上述事前链接保留快照。

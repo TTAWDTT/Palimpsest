@@ -4,7 +4,7 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 from palimpsest.contracts import Origin
-from palimpsest.detection.algorithms.paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 from palimpsest.detection.representations.readout import FeatureReadoutDetector
 
 

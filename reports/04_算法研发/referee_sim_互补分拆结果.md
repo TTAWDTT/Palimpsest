@@ -2,7 +2,7 @@
 
 Lady 在未参与报告编写的 agent context 中审查第七十二轮结果。保存分数支持最低域 BA 84.44%、最大同源下降 5.56pp，联合验收仍未达到；本次未发现开放的 HIGH 或 MEDIUM。审查确认保存分数的算术和报告范围，真实优化器未重放，独立真实验证仍缺失。
 
-对象为 `reports/04_算法研发/第七十二轮互补平均_判别力恢复但退化仍明显_2026-10-09.md`、`experiments/origin_detection/complementary_split/README.md`、互补及 split 源码、typed 审计收据与缓存边界记录。数值输入均来自 ignored 私有目录：`work/robust_statistics/complementary_split/iteration.json`、`crossfit.json`、`selection_scores.json`、`bank_cache_audit.json`、`calibrated_oof_audit.json`、`software_controls.json`、`pilot.json`；旧拒绝记录位于 `work/robust_statistics/complementary_split_precheck_v1/`。这些路径按仓库相对路径书写，以便本地复核；本审查没有把 ignored 文件称为 Git 已保存数据。
+对象为 `reports/04_算法研发/第七十二轮互补平均_判别力恢复但退化仍明显_2026-10-09.md`、`experiments/origin_detection/frozen_features/cure/complementary_split/README.md`、互补及 split 源码、typed 审计收据与缓存边界记录。数值输入均来自 ignored 私有目录：`work/robust_statistics/complementary_split/iteration.json`、`crossfit.json`、`selection_scores.json`、`bank_cache_audit.json`、`calibrated_oof_audit.json`、`software_controls.json`、`pilot.json`；旧拒绝记录位于 `work/robust_statistics/complementary_split_precheck_v1/`。这些路径按仓库相对路径书写，以便本地复核；本审查没有把 ignored 文件称为 Git 已保存数据。
 
 本审查应用 BootLoops referee-sim，并按 prose-lint 分别核对新文字的数字、归属、范围与逐句含义。检查只读取现有 JSON、源码和文件哈希，使用标准库整数及有理数重算已保存 margin 的分类结果；没有调用真实 fit、evaluator、encoder、新像素或 Goal API。未修改 producer、数值收据及原报告。
 

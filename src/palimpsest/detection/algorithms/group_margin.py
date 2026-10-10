@@ -8,7 +8,7 @@ import numpy as np
 from scipy.optimize import minimize
 from scipy.special import expit, logsumexp
 
-from .paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 
 
 def margin_objective(parameters, z, labels_signed, weights, groups, pair_gram, *, ridge, strength, temperature):

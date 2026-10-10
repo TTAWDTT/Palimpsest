@@ -14,7 +14,7 @@ from time import perf_counter
 import numpy as np
 
 from palimpsest.contracts import Prediction
-from .paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 from .residual_statistics.features import FEATURE_NAMES, extract_features
 
 

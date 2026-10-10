@@ -29,7 +29,7 @@ FEATURE_NAMES = CLIP_NAMES+DINO_NAMES
 def code_pins():
     paths = [REPO_ROOT/'src/palimpsest/detection/representations'/name for name in
              ('feature_pair.py','frozen_clip.py','frozen_dinov2_small.py')]
-    paths += [REPO_ROOT/'src/palimpsest/detection/algorithms/source_view_risk.py',
+    paths += [REPO_ROOT/'src/palimpsest/detection/algorithms/readouts/source_view_risk.py',
         REPO_ROOT/'src/palimpsest/evaluation/source_readout_campaign.py',
         REPO_ROOT/'src/palimpsest/evaluation/pixel_features.py',
         REPO_ROOT/'src/palimpsest/evaluation/source_training.py',

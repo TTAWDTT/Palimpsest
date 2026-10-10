@@ -3,9 +3,8 @@
 import argparse
 from pathlib import Path
 
-from palimpsest.detection.algorithms.quadratic_score_margin import (
-    QuadraticMarginFitter, QuadraticScoreRule, calibrate_quadratic_score)
-from palimpsest.detection.algorithms.source_hinge import MarginFitRefused
+from palimpsest.detection.models.frozen_features.cure.quadratic_score_margin import QuadraticMarginFitter, QuadraticScoreRule, calibrate_quadratic_score
+from palimpsest.detection.algorithms.readouts.source_hinge import MarginFitRefused
 from palimpsest.evaluation.calibrated_readout_campaign import CampaignData, CampaignMethod, write_json
 from palimpsest.evaluation.panel_readout_campaign import run_panel_campaign
 from palimpsest.io.hashing import file_sha256

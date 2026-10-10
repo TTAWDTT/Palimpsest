@@ -4,7 +4,7 @@ from collections import defaultdict
 import json
 from fractions import Fraction
 
-from palimpsest.detection.algorithms.paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 from palimpsest.detection.representations.frozen_clip import FEATURE_NAMES
 from palimpsest.evaluation.classification import evaluate
 from palimpsest.evaluation.pairing import paired_change

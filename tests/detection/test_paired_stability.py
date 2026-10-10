@@ -6,7 +6,8 @@ import json
 import numpy as np
 import pytest
 
-from palimpsest.detection.algorithms.paired_stability import StableRule, StableDetector, fit_stable_rule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule, fit_stable_rule
+from palimpsest.detection.algorithms.paired_stability import StableDetector
 from experiments.origin_detection.paired_stability.fit_rules import paired_deltas
 
 

@@ -2,7 +2,7 @@
 
 第 72 轮提出两个相反来源分拆成员的固定分数均值，尚无本轮真实 controls、pilot 或完整结果。Lady 在独立于编写者的 agent context 中审查协议、实现、共享接口和审计程序；发现一项 MEDIUM：新协议要求显式方法身份，但 typed auditor 接受缺失 `readout_method`。未发现需要否定固定分拆定义的 HIGH；这项判定只覆盖所读代码和人工软件检查，未认证科学收益。
 
-审查对象为 `experiments/origin_detection/complementary_split/{README.md,run_iteration.py}`、`src/palimpsest/detection/algorithms/complementary_split.py`、共享 QuantileScoreRule payload API、SplitRateScoreFitter complement 参数、CampaignMethod 预算字段、两个共享 driver，以及 `tools/audit_typed_source_panel_cv.py` 和对应测试。应用 BootLoops referee-sim；新文字按 prose-lint 的证据、数字、首段范围和逐句清晰度要求检查。未修改 producer、源码 pins、旧数值收据；未运行真实 fit、图像推理、GPU、像素提取或 Goal API。
+审查对象为 `experiments/origin_detection/complementary_split/{README.md,run_iteration.py}`、`src/palimpsest/detection/models/frozen_features/cure/complementary_split.py`、共享 QuantileScoreRule payload API、SplitRateScoreFitter complement 参数、CampaignMethod 预算字段、两个共享 driver，以及 `tools/audit_typed_source_panel_cv.py` 和对应测试。应用 BootLoops referee-sim；新文字按 prose-lint 的证据、数字、首段范围和逐句清晰度要求检查。未修改 producer、源码 pins、旧数值收据；未运行真实 fit、图像推理、GPU、像素提取或 Goal API。
 
 ## 审查受众及理由
 
@@ -51,7 +51,7 @@ typed auditor 的缺方法身份分支用实际文件解析出的 AST 独立执�
 
 完整计划为 truth/null 各 5 折、4 strength，合计 40 ensemble fit 入口、80 组件 head；最终四候选合计 4 ensemble 入口、8 组件 head。24 numeric bank/map 是两成员各 12，pilot 为 2；非零 head 另外解 baseline，完整模板初始化还会执行已有辅助拟合，故这些入口数没有被转写成总优化器调用数。120s 是 pilot 两次分别限时，40-CV 代理按 10 cold+30 warm；尚无本轮实测时长，不能产生完整运行 ETA 或图像速度结论。
 
-第 71 轮原执行代码可用 `72f4b407503357b7d955d2437aacf4d31ebdb761` 恢复逻辑，107 原 pins 中 103 与 Git blob 相同。另四个文件 `src/palimpsest/detection/algorithms/source_view_risk.py`、`src/palimpsest/evaluation/classification.py`、`src/palimpsest/evaluation/pairing.py`、`src/palimpsest/evaluation/robust_views.py` 需要恢复原 CRLF 字节，范围见 `sources/2026-10-08_split_source_byte_restore.json`。共享源码修订使当前字节不同，不能据此重新否定旧第 71 轮结果；旧 pins、旧 receipts 和历史恢复范围各保留原含义。
+第 71 轮原执行代码可用 `72f4b407503357b7d955d2437aacf4d31ebdb761` 恢复逻辑，107 原 pins 中 103 与 Git blob 相同。另四个文件 `src/palimpsest/detection/algorithms/readouts/source_view_risk.py`、`src/palimpsest/evaluation/classification.py`、`src/palimpsest/evaluation/pairing.py`、`src/palimpsest/evaluation/robust_views.py` 需要恢复原 CRLF 字节，范围见 `sources/2026-10-08_split_source_byte_restore.json`。共享源码修订使当前字节不同，不能据此重新否定旧第 71 轮结果；旧 pins、旧 receipts 和历史恢复范围各保留原含义。
 
 README 首段将第 71 轮 81.11% 最低域 BA 与 5pp 下降作为开发动机，并写尚无本轮结果；它没有暗示互补均值已达 80%/2pp。整体训练来源不独立、分数平均可损害 BA、成员目标分开和未知实际开销均出现在方法定义附近，外部读者无需拼合远处限定才能知道当前边界。后续结果摘要须保留这些限制，并明确 typed audit 只是保存分数算术、角色和成员记录的核对。
 

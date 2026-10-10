@@ -15,6 +15,7 @@
 | 工具 | 用途与边界 |
 |---|---|
 | `check_layout.py` | 文件角色与Markdown本地链接，非科学结论检查 |
+| `check_cure_migration.py` | 直接迁移的数值实现AST检查，可选已签名缓存分数重放；不执行图像推理或独立验证 |
 | `audit_query_shape_rankings.py` | 已保存fit-only排序／tie及fold计数，含各折AUC；非单一部署模型成绩 |
 | `diagnose_saved_thresholds.py` | 已曝光固定分数的共同阈值可行性与最坏配对翻转；不采用oracle阈值 |
 | `audit_calibrated_margin_cv.py` | 旧间隔／来源校准面板的保存记录，非优化器独立重放 |

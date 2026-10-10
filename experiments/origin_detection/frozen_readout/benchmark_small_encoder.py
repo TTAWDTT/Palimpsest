@@ -7,7 +7,7 @@ import platform
 from pathlib import Path
 import numpy as np
 
-from palimpsest.detection.algorithms.paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 from palimpsest.detection.representations.frozen_dinov2_small import FEATURE_NAMES,FrozenDinoV2Small
 from palimpsest.detection.representations.readout import FeatureReadoutDetector
 from palimpsest.evaluation.file_benchmark import benchmark_files

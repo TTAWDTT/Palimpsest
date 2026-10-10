@@ -3,9 +3,8 @@
 import argparse
 from pathlib import Path
 
-from palimpsest.detection.algorithms.semantic_score_margin import (
-    SemanticMarginFitter, SemanticScoreRule, calibrate_semantic_score)
-from palimpsest.detection.algorithms.source_hinge import MarginFitRefused
+from palimpsest.detection.models.frozen_features.cure.semantic_score_margin import SemanticMarginFitter, SemanticScoreRule, calibrate_semantic_score
+from palimpsest.detection.algorithms.readouts.source_hinge import MarginFitRefused
 from palimpsest.evaluation.calibrated_readout_campaign import CampaignData, CampaignMethod, write_json
 from palimpsest.evaluation.panel_readout_campaign import run_panel_campaign
 from palimpsest.io.hashing import file_sha256
@@ -21,7 +20,7 @@ TESTS = ('tests/detection/test_semantic_score_margin.py', 'tests/evaluation/test
 
 def code_pins():
     pins = parent_pins(); paths = list(Path(__file__).parent.glob('*.py')) + [Path(__file__).parent/'README.md']
-    paths += [REPO_ROOT/p for p in (*TESTS, 'src/palimpsest/detection/algorithms/semantic_score_margin.py')]
+    paths += [REPO_ROOT/p for p in (*TESTS, 'src/palimpsest/detection/models/frozen_features/cure/semantic_score_margin.py')]
     pins.update({str(p.relative_to(REPO_ROOT)): file_sha256(p) for p in sorted(paths)})
     return pins
 

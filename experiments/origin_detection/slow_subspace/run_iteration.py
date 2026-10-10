@@ -10,7 +10,7 @@ import numpy as np
 from threadpoolctl import threadpool_limits
 
 from palimpsest.detection.algorithms.slow_subspace import fit_slow_subspace,collapse_readout
-from palimpsest.detection.algorithms.source_view_risk import fit_source_risk
+from palimpsest.detection.algorithms.readouts.source_view_risk import fit_source_risk
 from palimpsest.detection.representations.frozen_clip import FEATURE_NAMES
 from palimpsest.evaluation.features import feature_views
 from palimpsest.evaluation.source_training import weighted_source_arrays
@@ -29,8 +29,8 @@ OUTPUT=WORK_DIR/'robust_statistics/slow_subspace'
 
 def code_pins():
     files=[CONFIG,REPO_ROOT/'src/palimpsest/detection/algorithms/slow_subspace.py',
-          REPO_ROOT/'src/palimpsest/detection/algorithms/paired_stability.py',
-          REPO_ROOT/'src/palimpsest/detection/algorithms/source_view_risk.py',
+          REPO_ROOT/'src/palimpsest/detection/algorithms/paired_stability.py', REPO_ROOT/'src/palimpsest/detection/algorithms/readouts/stable_rule.py',
+          REPO_ROOT/'src/palimpsest/detection/algorithms/readouts/source_view_risk.py',
           REPO_ROOT/'src/palimpsest/evaluation/source_training.py',
           REPO_ROOT/'src/palimpsest/evaluation/robust_views.py',
           REPO_ROOT/'experiments/origin_detection/semantic_kernel/run_iteration.py',

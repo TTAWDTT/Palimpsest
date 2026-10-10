@@ -31,7 +31,7 @@ def code_pins():
         'src/palimpsest/evaluation/features.py', 'src/palimpsest/evaluation/pixel_features.py',
         'src/palimpsest/evaluation/source_training.py', 'src/palimpsest/evaluation/balanced_null.py',
         'src/palimpsest/evaluation/source_readout_campaign.py',
-        'src/palimpsest/detection/algorithms/source_view_risk.py',
+        'src/palimpsest/detection/algorithms/readouts/source_view_risk.py',
         'src/palimpsest/detection/representations/feature_pair.py',
         'experiments/origin_detection/semantic_kernel/run_iteration.py',
         'experiments/origin_detection/semantic_gaussian/run_iteration.py',

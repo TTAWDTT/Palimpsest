@@ -46,6 +46,10 @@
 
 - [color_relations](color_relations/README.md)：第十五轮固定RGB偏序/联合残差，检验旧独立通道表示遗漏的信息；人工控制与完整开发评测已完成，强编码退化仍失败。
 
+## 路线归属
+
+[frozen_features/cure](frozen_features/cure/README.md)集中第67—72轮神经特征方法，完整候选含CuRe神经编码器。前15轮的手工统计路线仍是非神经开发起点；其后通用损失／标定模块可以复用，但神经方法成绩不代表手工算法成绩。
+
 ## 继续迭代
 
 [冻结CLIP表示](frozen_clip/README.md)固定现有预训练编码器，检查其类别信号与处理退化；[冻结读出](frozen_readout/README.md)提供公共逐候选评测。
@@ -104,11 +108,11 @@
 
 [source_score_margin](source_score_margin/README.md)：第60轮复用三个拟合内判别方向与既有最大hinge LP，带独立内部标定来源的惩罚选择；当前只是开发候选，未完成稳定性验收。
 
-[rate_score_readout](rate_score_readout/README.md)：第70轮现有五方向表示上的分类率代理，真实训练罚项全0，85%／6.11pp失败；协议保留执行前状态。
+[rate_score_readout](frozen_features/cure/rate_score_readout/README.md)：第70轮现有五方向表示上的分类率代理，真实训练罚项全0，85%／6.11pp失败；协议保留执行前状态。
 
-[split_rate_score](split_rate_score/README.md)：第71轮方向学习／最终读出按来源分拆，81.11%／5pp，未达标；协议保留事前状态。
+[split_rate_score](frozen_features/cure/split_rate_score/README.md)：第71轮方向学习／最终读出按来源分拆，81.11%／5pp，未达标；协议保留事前状态。
 
-[complementary_split](complementary_split/README.md)：第72轮两个相反来源分拆的固定分数平均；单份编码特征，两套数字读出，整体标定与完整评价。
+[complementary_split](frozen_features/cure/complementary_split/README.md)：第72轮两个相反来源分拆的固定分数平均；单份编码特征，两套数字读出，整体标定与完整评价。
 
 [quadratic_score_margin](quadratic_score_margin/README.md)：第61轮三分数九项二次展开及原有软间隔；共享driver复用控制、小试、内部标定和固定外层次序，原执行文件保留。
 
@@ -130,6 +134,6 @@
 
 [cure_token_quantiles_full](cure_token_quantiles_full/README.md)：完整20160开发数值的两个共享stream，Q60另核旧前缀及query SHA；只提取数值，尚无新分类验收。
 
-[quantile_score_consistency](quantile_score_consistency/README.md)：旧3600单独进入协方差bank，新320形成第五方向；完整数值准入之后才做来源CV，七项组件控制已通过，尚无真实分类结果。
+[quantile_score_consistency](frozen_features/cure/quantile_score_consistency/README.md)：旧3600单独进入协方差bank，新320形成第五方向；完整数值准入之后才做来源CV，七项组件控制已通过，尚无真实分类结果。
 
-[directed_score_margin](directed_score_margin/README.md)：相同五方向／20项，训练-only metadata构造有向处理边；不把处理后margin改善也当误差，先人工反例／梯度／真实cost小试再分类。
+[directed_score_margin](frozen_features/cure/directed_score_margin/README.md)：相同五方向／20项，训练-only metadata构造有向处理边；不把处理后margin改善也当误差，先人工反例／梯度／真实cost小试再分类。

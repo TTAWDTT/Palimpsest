@@ -3,7 +3,7 @@
 import math
 import numpy as np
 import pytest
-from palimpsest.detection.algorithms.source_view_risk import source_objective, fit_source_risk
+from palimpsest.detection.algorithms.readouts.source_view_risk import source_objective, fit_source_risk
 
 
 def test_source_risk_known_zero_and_hard_view():

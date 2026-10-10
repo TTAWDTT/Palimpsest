@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 
 from palimpsest.detection.algorithms.kernel_readout import fit_fourier_map, KernelRule
-from palimpsest.detection.algorithms.paired_stability import fit_stable_rule
+from palimpsest.detection.algorithms.readouts.stable_rule import fit_stable_rule
 
 
 def test_kernel_norm_translation_and_fixed_pair_approximation():

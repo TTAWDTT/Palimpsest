@@ -5,7 +5,7 @@ import pytest
 from scipy.special import expit,logit
 
 from palimpsest.detection.algorithms.condition_mixture import ConditionMixtureRule,probability_pool_logits
-from palimpsest.detection.algorithms.paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 
 
 def component(weight,bias,names=('x',)):

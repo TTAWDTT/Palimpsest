@@ -3,9 +3,8 @@
 import numpy as np
 import pytest
 
-from palimpsest.detection.algorithms.quadratic_score_margin import (
-    quadratic_terms, QUADRATIC_NAMES, QuadraticMarginFitter, QuadraticScoreRule)
-from palimpsest.detection.algorithms.source_hinge import fit_source_hinge
+from palimpsest.detection.models.frozen_features.cure.quadratic_score_margin import quadratic_terms, QUADRATIC_NAMES, QuadraticMarginFitter, QuadraticScoreRule
+from palimpsest.detection.algorithms.readouts.source_hinge import fit_source_hinge
 
 
 def test_quadratic_identity_and_nonlinear_margin():

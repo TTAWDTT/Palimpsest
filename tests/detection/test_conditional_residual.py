@@ -8,7 +8,7 @@ import pytest
 from palimpsest.detection.algorithms.conditional_residual import (
     ConditionalRule, basis_names, conditional_basis, gate_values,
 )
-from palimpsest.detection.algorithms.paired_stability import StableRule, fit_stable_rule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule, fit_stable_rule
 from experiments.origin_detection.conditional_residual.fit_rules import source_fold
 
 

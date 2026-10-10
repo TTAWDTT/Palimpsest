@@ -4,7 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
-from palimpsest.detection.algorithms.paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 from palimpsest.detection.algorithms.residual_statistics.features import FEATURE_NAMES
 from palimpsest.evaluation.features import feature_views
 from palimpsest.evaluation.thresholds import threshold_interval

@@ -11,7 +11,7 @@ import numpy as np
 from threadpoolctl import threadpool_limits
 
 from palimpsest.detection.algorithms.source_bagged_forest import fit_source_forest
-from palimpsest.detection.algorithms.source_view_risk import fit_source_risk
+from palimpsest.detection.algorithms.readouts.source_view_risk import fit_source_risk
 from palimpsest.evaluation.balanced_null import balanced_source_null
 from palimpsest.evaluation.classification import auc
 from palimpsest.evaluation.source_crossfit import source_folds
@@ -28,7 +28,7 @@ METHODS = ('linear', 'source_forest', 'row_forest')
 def code_pins():
     files = list(Path(__file__).parent.glob('*.py'))+[Path(__file__).parent/'README.md',
         REPO_ROOT/'src/palimpsest/detection/algorithms/source_bagged_forest.py',
-        REPO_ROOT/'src/palimpsest/detection/algorithms/source_view_risk.py',
+        REPO_ROOT/'src/palimpsest/detection/algorithms/readouts/source_view_risk.py',
         REPO_ROOT/'src/palimpsest/evaluation/source_training.py',
         REPO_ROOT/'src/palimpsest/evaluation/source_crossfit.py',
         REPO_ROOT/'src/palimpsest/evaluation/balanced_null.py',

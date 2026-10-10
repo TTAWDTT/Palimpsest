@@ -24,7 +24,7 @@ FEATURE_NAMES = BASE_NAMES+DINO_NAMES
 def code_pins():
     paths = [REPO_ROOT/'src/palimpsest/evaluation'/n for n in
         ('cached_campaign.py','source_readout_campaign.py','source_training.py','pixel_features.py','robust_views.py')]
-    paths += [REPO_ROOT/'src/palimpsest/detection/algorithms/source_view_risk.py',
+    paths += [REPO_ROOT/'src/palimpsest/detection/algorithms/readouts/source_view_risk.py',
         REPO_ROOT/'src/palimpsest/detection/representations/feature_pair.py',
         REPO_ROOT/'experiments/origin_detection/compact_frozen_encoder/run_iteration.py',
         REPO_ROOT/'tests/detection/test_feature_pair.py']

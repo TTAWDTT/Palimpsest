@@ -3,8 +3,8 @@
 import numpy as np
 import pytest
 
-from palimpsest.detection.algorithms.directed_score_margin import DirectedScoreFitter
-from palimpsest.detection.algorithms.quantile_score_consistency import QuantileScoreFitter, QuantileScoreRule
+from palimpsest.detection.models.frozen_features.cure.directed_score_margin import DirectedScoreFitter
+from palimpsest.detection.models.frozen_features.cure.quantile_score_consistency import QuantileScoreFitter, QuantileScoreRule
 
 
 def test_contextual_bank_zero_parity_and_portable_prediction(tmp_path):

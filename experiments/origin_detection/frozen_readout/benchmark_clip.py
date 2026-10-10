@@ -5,7 +5,7 @@ import random
 import platform
 import numpy as np
 
-from palimpsest.detection.algorithms.paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 from palimpsest.detection.representations.frozen_clip import FEATURE_NAMES, FrozenClip
 from palimpsest.detection.representations.readout import FeatureReadoutDetector
 from palimpsest.evaluation.file_benchmark import benchmark_files

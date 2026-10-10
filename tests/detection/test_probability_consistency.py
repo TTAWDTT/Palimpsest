@@ -6,8 +6,8 @@ import pytest
 from palimpsest.detection.algorithms.probability_consistency import (
     bernoulli_js,probability_objective,fit_probability_consistency,
 )
-from palimpsest.detection.algorithms.source_view_risk import fit_source_risk
-from palimpsest.detection.algorithms.paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.source_view_risk import fit_source_risk
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 
 
 def test_known_js_and_extreme_logits():

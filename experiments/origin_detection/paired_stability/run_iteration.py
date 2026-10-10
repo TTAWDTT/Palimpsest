@@ -29,7 +29,7 @@ OUTPUT = WORK_DIR / 'robust_statistics/paired_stability'
 def code_pins():
     directory = REPO_ROOT / 'experiments/origin_detection/paired_stability'
     return {str(p.relative_to(REPO_ROOT)): file_sha256(p) for p in sorted([
-        CONFIG, REPO_ROOT/'src/palimpsest/detection/algorithms/paired_stability.py',
+        CONFIG, REPO_ROOT/'src/palimpsest/detection/algorithms/paired_stability.py', REPO_ROOT/'src/palimpsest/detection/algorithms/readouts/stable_rule.py',
         directory/'README.md', *directory.glob('*.py')])}
 
 

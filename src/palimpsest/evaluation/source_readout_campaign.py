@@ -8,7 +8,7 @@ import json
 
 from threadpoolctl import threadpool_limits
 
-from palimpsest.detection.algorithms.source_view_risk import fit_source_risk
+from palimpsest.detection.algorithms.readouts.source_view_risk import fit_source_risk
 from .features import feature_views
 from .source_training import weighted_source_arrays
 

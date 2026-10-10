@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from palimpsest.detection.algorithms.paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 from palimpsest.detection.algorithms.local_score_transport import LocalScoreTransport, matched_source_anchors
 
 

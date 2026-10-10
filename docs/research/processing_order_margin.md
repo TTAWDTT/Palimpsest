@@ -8,4 +8,4 @@
 
 此项借用已知pairwise ranking／hinge思路。[Joachims2002原始§4.1](https://www.cs.cornell.edu/people/tj/publications/joachims_02c.pdf)在检索偏好上定义pairwise difference，本文只定向读摘要／§4.1及4.2开始，未复现原SVM、代码、全篇实验。检索效果不支持图像传播稳定性；本任务需要自己的明确边、负控和实证。
 
-已检查现有variance/source-risk工具：可复用source风险及优化器，但对称variance会同时惩罚改善与退化，且value-only fitter无处理标签，不能表达所需方向。新增训练行context分发并扩展共享source-panel CV，保留数值fitter接口；没有通过嵌入猜条件或在预测时传原图。具体数据／版本／计数见[事前实验](../../experiments/origin_detection/directed_score_margin/README.md)。
+已检查现有variance/source-risk工具：可复用source风险及优化器，但对称variance会同时惩罚改善与退化，且value-only fitter无处理标签，不能表达所需方向。新增训练行context分发并扩展共享source-panel CV，保留数值fitter接口；没有通过嵌入猜条件或在预测时传原图。具体数据／版本／计数见[事前实验](../../experiments/origin_detection/frozen_features/cure/directed_score_margin/README.md)。

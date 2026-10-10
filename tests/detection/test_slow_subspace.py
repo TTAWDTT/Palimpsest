@@ -5,7 +5,7 @@ import itertools
 import numpy as np
 import pytest
 
-from palimpsest.detection.algorithms.paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 from palimpsest.detection.algorithms.slow_subspace import fit_slow_subspace,collapse_readout
 
 

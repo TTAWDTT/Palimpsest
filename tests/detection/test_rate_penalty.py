@@ -5,10 +5,10 @@ from copy import deepcopy
 import numpy as np
 import pytest
 
-from palimpsest.detection.algorithms.rate_penalty import training_rate_panel, rate_penalty, fit_rate_source_risk
-from palimpsest.detection.algorithms.rate_score_readout import RateScoreFitter
-from palimpsest.detection.algorithms.quantile_score_consistency import QuantileScoreFitter, QuantileScoreRule
-from palimpsest.detection.algorithms.source_view_risk import fit_source_risk
+from palimpsest.detection.algorithms.readouts.rate_penalty import training_rate_panel, rate_penalty, fit_rate_source_risk
+from palimpsest.detection.models.frozen_features.cure.rate_score_readout import RateScoreFitter
+from palimpsest.detection.models.frozen_features.cure.quantile_score_consistency import QuantileScoreFitter, QuantileScoreRule
+from palimpsest.detection.algorithms.readouts.source_view_risk import fit_source_risk
 
 
 def fixture():

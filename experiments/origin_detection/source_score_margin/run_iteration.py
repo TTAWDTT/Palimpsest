@@ -10,9 +10,9 @@ from time import perf_counter
 import numpy as np
 from threadpoolctl import threadpool_limits
 
-from palimpsest.detection.algorithms.source_hinge import MarginFitRefused
-from palimpsest.detection.algorithms.source_score_margin import ScoreMarginFitter
-from palimpsest.detection.algorithms.source_score_subspace import ScoreSubspaceRule, calibrate_score_subspace
+from palimpsest.detection.algorithms.readouts.source_hinge import MarginFitRefused
+from palimpsest.detection.models.frozen_features.cure.source_score_margin import ScoreMarginFitter
+from palimpsest.detection.models.frozen_features.cure.source_score_subspace import ScoreSubspaceRule, calibrate_score_subspace
 from palimpsest.evaluation.calibrated_source_crossfit import calibrated_crossfit
 from palimpsest.evaluation.source_consistency_campaign import run_source_consistency
 from palimpsest.evaluation.source_crossfit import source_folds
@@ -32,8 +32,8 @@ TESTS = ('tests/detection/test_source_score_margin.py', 'tests/detection/test_so
 def code_pins():
     pins = input_pins()
     paths = list(Path(__file__).parent.glob('*.py')) + [Path(__file__).parent/'README.md']
-    paths += [REPO_ROOT/p for p in (*TESTS, 'src/palimpsest/detection/algorithms/source_score_margin.py',
-                                 'src/palimpsest/detection/algorithms/source_hinge.py')]
+    paths += [REPO_ROOT/p for p in (*TESTS, 'src/palimpsest/detection/models/frozen_features/cure/source_score_margin.py',
+                                 'src/palimpsest/detection/algorithms/readouts/source_hinge.py')]
     pins.update({str(p.relative_to(REPO_ROOT)): file_sha256(p) for p in sorted(paths)})
     return pins
 

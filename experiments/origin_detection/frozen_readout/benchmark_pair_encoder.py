@@ -8,7 +8,7 @@ from pathlib import Path
 import cv2
 from threadpoolctl import threadpool_limits
 
-from palimpsest.detection.algorithms.paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 from palimpsest.detection.representations.frozen_clip import FrozenClip, FEATURE_NAMES as CLIP_NAMES
 from palimpsest.detection.representations.frozen_clip_base import FrozenClipBase, FEATURE_NAMES as BASE_NAMES
 from palimpsest.detection.representations.frozen_dinov2_small import FrozenDinoV2Small, FEATURE_NAMES as DINO_NAMES

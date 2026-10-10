@@ -41,7 +41,7 @@ def code_pins():
     paths += [REPO_ROOT / 'src/palimpsest/evaluation' / n for n in
               ('feature_prefix.py', 'balanced_null.py', 'signed_feature_inputs.py',
                'pixel_features.py', 'source_readout_campaign.py', 'source_training.py', 'robust_views.py')]
-    paths += [REPO_ROOT / 'src/palimpsest/detection/algorithms/source_view_risk.py',
+    paths += [REPO_ROOT / 'src/palimpsest/detection/algorithms/readouts/source_view_risk.py',
               REPO_ROOT / 'tests/detection/test_frozen_patch_dispersion.py',
               REPO_ROOT / 'experiments/origin_detection/compact_frozen_encoder/run_iteration.py',
               REPO_ROOT / 'experiments/origin_detection/threshold_calibration/fit_threshold.py']

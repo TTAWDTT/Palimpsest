@@ -6,7 +6,7 @@
 
 ## HIGH／MEDIUM 发现
 
-1. **MEDIUM：源码恢复与原字节 pin 的行尾约定未写明。** 本文“源码可在 Git72f4b40 恢复”在语义层面成立，但数值收据含 107 个源码 pin，Git `72f4b407503357b7d955d2437aacf4d31ebdb761` 的原始 blob 只有 103 个逐字节匹配。另四个路径是 `src/palimpsest/detection/algorithms/source_view_risk.py`、`src/palimpsest/evaluation/classification.py`、`src/palimpsest/evaluation/pairing.py`、`src/palimpsest/evaluation/robust_views.py`；它们 Git blob 的 LF 转 CRLF 后均命中原 pin，当前工作文件也命中原 pin。当前属性指定 `eol=lf`，普通 checkout 不能自动解释为恢复了全部原字节。建议把该句写为：“源码语义可由 Git72f4b40 恢复；107 个原 pin 中四个旧文件须按原 CRLF 行尾还原才逐字节匹配，原 pin 保留。”不改 pins；不把行尾差异解释为算法变更。
+1. **MEDIUM：源码恢复与原字节 pin 的行尾约定未写明。** 本文“源码可在 Git72f4b40 恢复”在语义层面成立，但数值收据含 107 个源码 pin，Git `72f4b407503357b7d955d2437aacf4d31ebdb761` 的原始 blob 只有 103 个逐字节匹配。另四个路径是 `src/palimpsest/detection/algorithms/readouts/source_view_risk.py`、`src/palimpsest/evaluation/classification.py`、`src/palimpsest/evaluation/pairing.py`、`src/palimpsest/evaluation/robust_views.py`；它们 Git blob 的 LF 转 CRLF 后均命中原 pin，当前工作文件也命中原 pin。当前属性指定 `eol=lf`，普通 checkout 不能自动解释为恢复了全部原字节。建议把该句写为：“源码语义可由 Git72f4b40 恢复；107 个原 pin 中四个旧文件须按原 CRLF 行尾还原才逐字节匹配，原 pin 保留。”不改 pins；不把行尾差异解释为算法变更。
 
 2. **MEDIUM：stationarity 的边界只在借用的协议／源码中明确，结果摘要与“梯度审计通过”附近未直接交代。** 数值优化读者会先问何种收敛；当前结果正文记录了严格梯度门槛和失败，但未直接说单起点非凸求解不认证全局最优。协议确有这句，源码 scope 也写明；需要沿摘要读者路径出现。建议在摘要或“完整重跑”审计句后加：“梯度通过仅指单起点非凸求解的保存 stationarity 记录满足 1e-5 门槛，不认证全局最优或硬约束可行。”这是范围补充，不削弱已核对的有限开发成绩。
 

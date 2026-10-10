@@ -3,8 +3,7 @@
 import numpy as np
 import pytest
 
-from palimpsest.detection.algorithms.semantic_score_margin import (
-    four_score_terms, SemanticMarginFitter, SemanticScoreRule)
+from palimpsest.detection.models.frozen_features.cure.semantic_score_margin import four_score_terms, SemanticMarginFitter, SemanticScoreRule
 
 
 def test_four_dimensional_identity_and_invalid_terms():

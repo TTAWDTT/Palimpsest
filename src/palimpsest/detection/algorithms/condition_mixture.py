@@ -10,7 +10,7 @@ import json
 import numpy as np
 from scipy.special import expit
 
-from .paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 
 
 def probability_pool_logits(raw, processed, gate):

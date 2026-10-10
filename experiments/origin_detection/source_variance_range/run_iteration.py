@@ -3,9 +3,9 @@
 import argparse
 from pathlib import Path
 
-from palimpsest.detection.algorithms.semantic_score_consistency import SemanticConsistencyFitter
-from palimpsest.detection.algorithms.semantic_score_margin import SemanticScoreRule, calibrate_semantic_score
-from palimpsest.detection.algorithms.source_hinge import MarginFitRefused
+from palimpsest.detection.models.frozen_features.cure.semantic_score_consistency import SemanticConsistencyFitter
+from palimpsest.detection.models.frozen_features.cure.semantic_score_margin import SemanticScoreRule, calibrate_semantic_score
+from palimpsest.detection.algorithms.readouts.source_hinge import MarginFitRefused
 from palimpsest.evaluation.calibrated_readout_campaign import CampaignData, CampaignMethod, write_json
 from palimpsest.evaluation.panel_readout_campaign import run_panel_campaign
 from palimpsest.io.hashing import file_sha256

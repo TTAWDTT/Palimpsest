@@ -7,7 +7,7 @@ from pathlib import Path
 import numpy as np
 
 from palimpsest.io.hashing import file_sha256
-from .paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 
 
 @dataclass(frozen=True)

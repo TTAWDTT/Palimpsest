@@ -11,7 +11,7 @@ import cv2
 import numpy as np
 from threadpoolctl import threadpool_limits
 
-from palimpsest.detection.algorithms.source_view_risk import fit_source_risk
+from palimpsest.detection.algorithms.readouts.source_view_risk import fit_source_risk
 from palimpsest.detection.algorithms.residual_statistics.features import resize256
 from palimpsest.detection.representations.frozen_dinov2_small import FEATURE_NAMES,CLS_NAMES,FrozenDinoV2Small
 from palimpsest.evaluation.features import feature_views
@@ -34,8 +34,8 @@ MODES={'cls':CLS_NAMES,'cls_patch':FEATURE_NAMES}
 
 def code_pins():
     files=[CONFIG,REPO_ROOT/'src/palimpsest/detection/representations/frozen_dinov2_small.py',
-           REPO_ROOT/'src/palimpsest/detection/algorithms/source_view_risk.py',
-           REPO_ROOT/'src/palimpsest/detection/algorithms/paired_stability.py',
+           REPO_ROOT/'src/palimpsest/detection/algorithms/readouts/source_view_risk.py',
+           REPO_ROOT/'src/palimpsest/detection/algorithms/paired_stability.py', REPO_ROOT/'src/palimpsest/detection/algorithms/readouts/stable_rule.py',
            REPO_ROOT/'src/palimpsest/evaluation/source_training.py',
            REPO_ROOT/'src/palimpsest/evaluation/robust_views.py',
            REPO_ROOT/'src/palimpsest/evaluation/pixel_features.py',

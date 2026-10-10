@@ -30,7 +30,7 @@ def code_pins():
     pins=input_pins();paths=list(Path(__file__).parent.glob('*.py'))+[Path(__file__).parent/'README.md']
     paths+=[REPO_ROOT/p for p in (
         'src/palimpsest/detection/algorithms/csp_readout.py',
-        'src/palimpsest/detection/algorithms/consistent_source_risk.py',
+        'src/palimpsest/detection/algorithms/readouts/consistent_source_risk.py',
         'src/palimpsest/evaluation/source_consistency_campaign.py',
         'src/palimpsest/evaluation/consistency_crossfit.py','src/palimpsest/evaluation/source_crossfit.py',
         'tests/detection/test_csp_readout.py','tests/detection/test_consistent_source_risk.py',

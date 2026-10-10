@@ -10,8 +10,8 @@ import json
 import numpy as np
 from scipy.linalg import eigh
 
-from .paired_stability import StableRule
-from .consistent_source_risk import fit_consistent_source_risk
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
+from palimpsest.detection.algorithms.readouts.consistent_source_risk import fit_consistent_source_risk
 
 
 def root_matrix(vector,channels):

@@ -36,7 +36,7 @@ def code_pins():
              for name in ('response_clip.py','intermediate_clip.py','frozen_clip.py')]
     paths += [REPO_ROOT/'src/palimpsest/evaluation'/name for name in
               ('source_readout_campaign.py','pixel_features.py','robust_views.py','source_training.py')]
-    paths += [REPO_ROOT/'src/palimpsest/detection/algorithms/source_view_risk.py',
+    paths += [REPO_ROOT/'src/palimpsest/detection/algorithms/readouts/source_view_risk.py',
         REPO_ROOT/'experiments/origin_detection/compact_frozen_encoder/run_iteration.py',
         REPO_ROOT/'tests/detection/test_response_clip.py']
     paths += [REPO_ROOT/'experiments/origin_detection/response_probe'/name

@@ -8,8 +8,7 @@ from time import perf_counter
 import numpy as np
 from threadpoolctl import threadpool_limits
 
-from palimpsest.detection.algorithms.source_score_subspace import (
-    ScoreSubspaceFitter,ScoreSubspaceRule,calibrate_score_subspace)
+from palimpsest.detection.models.frozen_features.cure.source_score_subspace import ScoreSubspaceFitter, ScoreSubspaceRule, calibrate_score_subspace
 from palimpsest.evaluation.source_consistency_campaign import run_source_consistency
 from palimpsest.evaluation.source_crossfit import source_folds
 from palimpsest.evaluation.balanced_null import balanced_source_null
@@ -24,7 +23,7 @@ OUTPUT=WORK_DIR/'robust_statistics/source_score_subspace'
 
 def code_pins():
     pins=input_pins();paths=list(Path(__file__).parent.glob('*.py'))+[Path(__file__).parent/'README.md',
-        REPO_ROOT/'src/palimpsest/detection/algorithms/source_score_subspace.py',
+        REPO_ROOT/'src/palimpsest/detection/models/frozen_features/cure/source_score_subspace.py',
         REPO_ROOT/'tests/detection/test_source_score_subspace.py']
     pins.update({str(p.relative_to(REPO_ROOT)):file_sha256(p) for p in sorted(paths)})
     return pins

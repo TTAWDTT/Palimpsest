@@ -6,7 +6,7 @@ from pathlib import Path
 import cv2
 from threadpoolctl import threadpool_limits
 
-from palimpsest.detection.algorithms.paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 from palimpsest.detection.representations.frozen_clip_base import FEATURE_NAMES, FrozenClipBase
 from palimpsest.detection.representations.readout import FeatureReadoutDetector
 from palimpsest.evaluation.file_benchmark import benchmark_files

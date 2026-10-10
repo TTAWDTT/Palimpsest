@@ -6,10 +6,10 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 
-import palimpsest.detection.algorithms.split_rate_score as module
+import palimpsest.detection.models.frozen_features.cure.split_rate_score as module
 from palimpsest.detection.algorithms.source_partition import source_half_split
-from palimpsest.detection.algorithms.quantile_score_consistency import QuantileScoreRule
-from palimpsest.detection.algorithms.paired_stability import StableRule
+from palimpsest.detection.models.frozen_features.cure.quantile_score_consistency import QuantileScoreRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 from tests.detection.test_rate_penalty import fixture
 
 
@@ -86,5 +86,5 @@ def test_actual_split_dtype_wrong_and_serialized_prediction(tmp_path):
 
 
 def test_training_record_boundary_is_pinned():
-    from experiments.origin_detection.split_rate_score.run_iteration import code_pins
+    from experiments.origin_detection.frozen_features.cure.split_rate_score.run_iteration import code_pins
     assert 'src/palimpsest/evaluation/training_fit.py' in {k.replace('\\', '/') for k in code_pins()}

@@ -24,9 +24,10 @@ src/
     │   └── baselines/         四边形提议与 SAM 2 自动分割
     ├── detection/             判别原始自然摄影/AI 内容
     │   ├── interfaces.py      OriginDetector 来源预测协议
-    │   ├── algorithms/        手工统计与传统读出算法（稳健性未通过）
+    │   ├── algorithms/        非神经像素统计；readouts 为共用数值求解
     │   ├── representations/   已有预训练表示的显式冻结接口（鲁棒性待审）
-    │   ├── models/            自研神经模型（待开发）
+    │   ├── models/            frozen_features/cure 为已有神经特征方法
+    │   │   └── trainable/      自研神经训练路线（待开发）
     │   ├── baselines/         B-Free、D3、Benford 参考实现适配
     │   └── files.py           单检测器的文件解码与推理计时
     ├── pipelines/             组合区域定位与来源判别
@@ -118,7 +119,7 @@ flowchart LR
 - 来源：`natural` / `ai` 描述原始内容；定位置信度与 AI 来源分数分开。
 - 分数：越大越偏 AI，严格超过声明阈值才判 AI；未校准分数不作为 AI 概率。
 
-新增定位器实现 [RegionLocator](palimpsest/localization/interfaces.py)；自研传统方法放 `detection/algorithms/`，自研神经模型放 `detection/models/`，已有论文/官方方法放 `detection/baselines/`，统一实现 [OriginDetector](palimpsest/detection/interfaces.py)。组合流程放 `pipelines/`，共用处理机制放 `simulation/`。
+新增定位器实现 [RegionLocator](palimpsest/localization/interfaces.py)；自研传统方法放 `detection/algorithms/`，共用数值规则放其 `readouts/`；冻结神经特征上的完整方法放 `detection/models/frozen_features/`，后续神经训练方法放 `detection/models/trainable/`，已有论文/官方方法放 `detection/baselines/`，统一实现 [OriginDetector](palimpsest/detection/interfaces.py)。组合流程放 `pipelines/`，共用处理机制放 `simulation/`。
 
 CuRe的[官方文件适配器](palimpsest/detection/baselines/cure.py)是明确的研究例外：作者按PNG后缀增加一次编码，只有RGB会丢失该处理条件，所以保留`predict_file(path)`及原概率／平分规则；它尚未接入区域RGB推理链。其[固定对照](../experiments/origin_detection/cure_baseline/README.md)已完成，不是当前默认或自研成功。
 

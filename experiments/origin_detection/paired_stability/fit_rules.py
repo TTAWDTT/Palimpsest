@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from palimpsest.detection.algorithms.paired_stability import fit_stable_rule
+from palimpsest.detection.algorithms.readouts.stable_rule import fit_stable_rule
 from palimpsest.detection.algorithms.residual_statistics.features import FEATURE_NAMES
 from palimpsest.evaluation.features import validate_feature_cache
 from experiments.origin_detection.ordinal_statistics.fit_rules import choose_threshold

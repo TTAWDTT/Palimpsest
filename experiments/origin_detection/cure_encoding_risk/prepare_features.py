@@ -33,7 +33,7 @@ def code_pins():
         'src/palimpsest/detection/algorithms/residual_statistics/features.py',
         'src/palimpsest/evaluation/features.py', 'src/palimpsest/evaluation/source_training.py',
         'src/palimpsest/evaluation/balanced_null.py', 'src/palimpsest/evaluation/robust_views.py',
-        'src/palimpsest/detection/algorithms/source_view_risk.py',
+        'src/palimpsest/detection/algorithms/readouts/source_view_risk.py',
         'src/palimpsest/detection/algorithms/paired_stability.py',
         'experiments/origin_detection/cure_readout/prepare_features.py',
         'experiments/origin_detection/compact_frozen_encoder/run_iteration.py',

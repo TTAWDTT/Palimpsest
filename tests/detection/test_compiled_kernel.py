@@ -4,7 +4,7 @@ import math
 import numpy as np
 import pytest
 from palimpsest.detection.algorithms.kernel_readout import FourierMap,KernelRule
-from palimpsest.detection.algorithms.paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 from palimpsest.detection.algorithms.compiled_kernel import CompiledKernelRule
 
 

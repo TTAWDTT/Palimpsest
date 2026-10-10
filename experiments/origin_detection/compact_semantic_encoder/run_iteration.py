@@ -11,7 +11,7 @@ import cv2
 import numpy as np
 from threadpoolctl import threadpool_limits
 
-from palimpsest.detection.algorithms.source_view_risk import fit_source_risk
+from palimpsest.detection.algorithms.readouts.source_view_risk import fit_source_risk
 from palimpsest.detection.representations.frozen_clip_base import FrozenClipBase,FEATURE_NAMES
 from palimpsest.detection.algorithms.residual_statistics.features import resize256
 from palimpsest.evaluation.features import feature_views
@@ -33,7 +33,7 @@ OUTPUT=WORK_DIR/'robust_statistics/compact_semantic_encoder'
 def code_pins():
     files=[CONFIG,REPO_ROOT/'src/palimpsest/detection/representations/frozen_clip_base.py',
            REPO_ROOT/'src/palimpsest/detection/representations/frozen_clip.py',
-           REPO_ROOT/'src/palimpsest/detection/algorithms/source_view_risk.py',
+           REPO_ROOT/'src/palimpsest/detection/algorithms/readouts/source_view_risk.py',
            REPO_ROOT/'src/palimpsest/evaluation/source_training.py',
            REPO_ROOT/'src/palimpsest/evaluation/pixel_features.py',
            REPO_ROOT/'src/palimpsest/evaluation/robust_views.py',

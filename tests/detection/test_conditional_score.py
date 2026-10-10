@@ -7,7 +7,7 @@ import pytest
 from palimpsest.detection.algorithms.conditional_score import (
     ConditionalScoreRule, fit_conditional_score, gaussian_objective, radial_coordinate,
 )
-from palimpsest.detection.algorithms.paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 
 
 def base():

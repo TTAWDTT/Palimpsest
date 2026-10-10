@@ -20,8 +20,8 @@ def write_json(path, value):
 def code_pins():
     paths = list(Path(__file__).parent.glob('*.py')) + [Path(__file__).parent/'README.md',
         REPO_ROOT/'src/palimpsest/detection/representations/query_sensitivity.py',
-        REPO_ROOT/'src/palimpsest/detection/algorithms/source_view_risk.py',
-        REPO_ROOT/'src/palimpsest/detection/algorithms/paired_stability.py',
+        REPO_ROOT/'src/palimpsest/detection/algorithms/readouts/source_view_risk.py',
+        REPO_ROOT/'src/palimpsest/detection/algorithms/paired_stability.py', REPO_ROOT/'src/palimpsest/detection/algorithms/readouts/stable_rule.py',
         REPO_ROOT/'src/palimpsest/evaluation/source_training.py',
         REPO_ROOT/'src/palimpsest/evaluation/source_crossfit.py',
         REPO_ROOT/'src/palimpsest/evaluation/robust_views.py',

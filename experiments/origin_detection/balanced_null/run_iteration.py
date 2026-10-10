@@ -7,7 +7,7 @@ from time import perf_counter
 import numpy as np
 from threadpoolctl import threadpool_limits
 
-from palimpsest.detection.algorithms.source_view_risk import fit_source_risk
+from palimpsest.detection.algorithms.readouts.source_view_risk import fit_source_risk
 from palimpsest.detection.representations.frozen_clip import FEATURE_NAMES as CLIP_NAMES
 from palimpsest.detection.representations.frozen_dinov2_small import FEATURE_NAMES as DINO_NAMES
 from palimpsest.evaluation.balanced_null import balanced_source_null

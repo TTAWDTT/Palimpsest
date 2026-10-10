@@ -10,7 +10,7 @@ import numpy as np
 from threadpoolctl import threadpool_limits
 
 from palimpsest.detection.algorithms.mean_shift_projection import fit_mean_shift
-from palimpsest.detection.algorithms.source_view_risk import fit_source_risk
+from palimpsest.detection.algorithms.readouts.source_view_risk import fit_source_risk
 from palimpsest.detection.representations.frozen_cure import FULL_NAMES
 from palimpsest.evaluation.balanced_null import balanced_source_null
 from palimpsest.evaluation.features import feature_views
@@ -33,7 +33,7 @@ def code_pins():
     paths = list(Path(__file__).parent.glob('*.py')) + [Path(__file__).parent/'README.md']
     paths += [REPO_ROOT/p for p in (
         'src/palimpsest/detection/algorithms/mean_shift_projection.py',
-        'src/palimpsest/detection/algorithms/source_view_risk.py',
+        'src/palimpsest/detection/algorithms/readouts/source_view_risk.py',
         'src/palimpsest/detection/algorithms/paired_stability.py',
         'src/palimpsest/evaluation/source_training.py', 'src/palimpsest/evaluation/balanced_null.py',
         'src/palimpsest/evaluation/robust_views.py', 'src/palimpsest/evaluation/features.py',

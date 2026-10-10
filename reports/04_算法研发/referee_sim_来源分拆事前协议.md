@@ -10,7 +10,7 @@ Lady 的独立 fresh-context 审查，2026-10-08。按 `bootloops-research:refer
 
 ## M1：缓存缺少分拆身份
 
-`src/palimpsest/detection/algorithms/split_rate_score.py:31–39` 先用 records 的 domain/src/scene 生成 mask，再以整组 x/y/w/s 的摘要取模板。摘要不含 records 身份或实际 basis mask。数值数组相同而来源身份变化，模板缓存命中，但分拆可能改变；随后成员诊断由新 records 重新生成，不能证明命中模板实际使用了这些成员。
+`src/palimpsest/detection/models/frozen_features/cure/split_rate_score.py:31–39` 先用 records 的 domain/src/scene 生成 mask，再以整组 x/y/w/s 的摘要取模板。摘要不含 records 身份或实际 basis mask。数值数组相同而来源身份变化，模板缓存命中，但分拆可能改变；随后成员诊断由新 records 重新生成，不能证明命中模板实际使用了这些成员。
 
 纯人工反例使用现有4来源、每来源9视图 fixture，x 的首列为数值来源组。basis 与 head 拟合函数均被替换成只记录传入数组的 stub，没有运行优化器。第一次 src 为 `0,1,2,3`；第二次改为 `0_0,0_1,0_2,0_3`，x/y/w/s 完全相同。实际输出：
 
@@ -29,7 +29,7 @@ diagnostic_records_new_basis [('d', '0_1'), ('d', '0_3')]
 
 ## M2：record-aware 边界未 pin
 
-`experiments/origin_detection/split_rate_score/run_iteration.py:26–33` 继承 pins 并加入新模块和测试，但缺少 `src/palimpsest/evaluation/training_fit.py`。这不是仅供文档参考的依赖：内层 CV、pilot 和 final 均通过其中 `fit_training_rows` 将 records 交给 split fitter，`RecordAwareCampaignMethod` 也定义于该模块。
+`experiments/origin_detection/frozen_features/cure/split_rate_score/run_iteration.py:26–33` 继承 pins 并加入新模块和测试，但缺少 `src/palimpsest/evaluation/training_fit.py`。这不是仅供文档参考的依赖：内层 CV、pilot 和 final 均通过其中 `fit_training_rows` 将 records 交给 split fitter，`RecordAwareCampaignMethod` 也定义于该模块。
 
 仅 import 第71轮的 `code_pins()` 并规范化路径分隔符，得到：
 

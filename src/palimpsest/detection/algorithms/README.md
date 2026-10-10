@@ -22,7 +22,7 @@
 
 信任前要求手写树真值、阈值等号和float32边界控制通过，与sklearn输出的误差≤1e-12，并验证JSON保存加载与故意破坏参数的拒绝。它们验证树推理与导出；数据来源、标签质量及真实泛化需要各实验另审。当前工具的控制在`tests/detection/test_residual_statistics.py`，不会修改已冻结的第三至第五轮实现。
 
-[paired_stability.py](paired_stability.py)：同源处理分数变化的加权ridge目标，显式特征规则与像素适配；训练配对性质不代表未见处理稳健性。
+[paired_stability.py](paired_stability.py)只承担像素残差适配；通用规则、配对ridge、同源风险和阈值标定在[readouts](readouts/README.md)，两条路线复用。
 
 [conditional_residual.py](conditional_residual.py)：像素统计门控＋条件读出，参数显式保存；第十轮未过准确度筛选，不作为默认检测器。
 
@@ -36,16 +36,10 @@
 
 `color_relations.py`：RTPO启发的显式适配，351维RGB偏序/平局与同位置联合残差；固定网格的有限关系不变性不扩展到颜色混合/缩放。暂无合格部署规则。
 
-`source_view_risk.py`／`consistent_source_risk.py`：同源较差视图凸分类风险及分数方差约束；纯传统头，但若输入冻结神经表示，完整方法仍含神经网络。
+## 与神经方法的边界
 
-`rate_penalty.py`／`rate_score_readout.py`：显式fit面板内类平衡sigmoid错误率与处理后增量罚，使用原五方向规则载体；非凸单起点小梯度只核数值状态，软可行不保证硬BA。wrong-source为配对顺序不影响聚合率的结构身份控制。协议和执行版本见对应[实验](../../../../experiments/origin_detection/rate_score_readout/README.md)。
+共用求解器是非神经数值模块，但输入来自神经编码器时，完整方法仍含神经网络。CuRe三／四／五方向规则及第67—72轮组合迁入相邻[models/frozen_features/cure](../models/frozen_features/cure/README.md)，旧路径直接消除，不保留转发模块。
 
-`source_partition.py`／`split_rate_score.py`：在fit来源内显式分开方向学习及最终读出，每阶段全部视图完整。阶段模板键含来源身份与分拆成员，数值子bank可以复用完全相同的basis数组，两个计数分开；记录head求解器预算与完整训练输入预算。样本分拆不提供真实传播稳定性保证，见[第71轮协议](../../../../experiments/origin_detection/split_rate_score/README.md)。
+非神经路线继续使用局部、顺序、相位、残差、小波和RGB联合统计。推荐接续[第15轮](../../../../reports/04_算法研发/第十五轮RGB联合关系_原始关联提高但强编码仍失败_2026-10-06.md)，第6轮作为较简单对照；这些方法均尚未通过最终稳健性验收。
 
-`slow_subspace.py`：fit-only白化同源慢方向／类别方向保护和代数折叠；方差约束不保证AI判别，当前固定试验失败。
-
-`compiled_kernel.py`：预存只读Fourier数组、保持便携核数值相同，减少推理分配；执行工程，不改变学习规则。
-
-`source_score_margin.py`：组合既有拟合内三基与有限视图最大hinge LP，不复制求解器。零参数表示固定平均hinge对照，正参数表示最大hinge的L1系数；缓存键按完整训练数组隔离。先通过解析间隔、冲突标签、零信息、保存加载及类别反转控制，再做整条流程的来源CV。有限训练约束不覆盖未知传播，整套方法仍使用冻结神经表示。
-
-`quadratic_score_margin.py`：三个拟合内分数的九项一／二次展开，矩只用拟合行，复用现有LP。解析内积和XOR／完整基头控制提供软件答案；非线性图、L1及有限映射凸包不代表物理稳定性，当前真实标签头没有采用新增项。
+通用的 `slow_subspace.py`、`source_partition.py` 和核／协方差数值操作仍可接受明确的非神经特征。模块本身的求解方式不能代表整套输入链是否使用神经网络。

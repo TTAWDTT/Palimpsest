@@ -7,10 +7,9 @@ from types import SimpleNamespace
 import numpy as np
 import pytest
 
-from palimpsest.detection.algorithms.complementary_split import (
-    ComplementarySplitFitter, ComplementarySplitRule, MEAN_NAMES, calibrate_complementary)
-from palimpsest.detection.algorithms.paired_stability import StableRule
-from palimpsest.detection.algorithms.quantile_score_consistency import QuantileScoreRule
+from palimpsest.detection.models.frozen_features.cure.complementary_split import ComplementarySplitFitter, ComplementarySplitRule, MEAN_NAMES, calibrate_complementary
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
+from palimpsest.detection.models.frozen_features.cure.quantile_score_consistency import QuantileScoreRule
 from palimpsest.evaluation.calibrated_readout_campaign import CampaignMethod
 from palimpsest.evaluation.training_fit import BudgetedRecordAwareCampaignMethod, bank_budgets
 from tests.detection.test_rate_penalty import fixture

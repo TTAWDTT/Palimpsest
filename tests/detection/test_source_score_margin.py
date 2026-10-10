@@ -3,8 +3,8 @@
 import numpy as np
 import pytest
 
-from palimpsest.detection.algorithms.source_score_margin import ScoreMarginFitter
-from palimpsest.detection.algorithms.source_score_subspace import ScoreSubspaceRule
+from palimpsest.detection.models.frozen_features.cure.source_score_margin import ScoreMarginFitter
+from palimpsest.detection.models.frozen_features.cure.source_score_subspace import ScoreSubspaceRule
 
 
 def test_known_score_bank_margin_and_label_isolation(tmp_path):
@@ -32,7 +32,7 @@ def test_known_score_bank_margin_and_label_isolation(tmp_path):
 
 def test_zero_information_has_constant_hinge_one():
     # Equal classes and identical zero features cannot have below-one hinge.
-    from palimpsest.detection.algorithms.source_hinge import fit_source_hinge
+    from palimpsest.detection.algorithms.readouts.source_hinge import fit_source_hinge
     rule, diagnostic = fit_source_hinge(np.zeros((4, 3)), np.array([0, 0, 1, 1]),
         np.ones(4), np.arange(4), feature_names=('a', 'b', 'c'))
     assert diagnostic['certificate']['primal_objective'] == pytest.approx(1., abs=1e-8)

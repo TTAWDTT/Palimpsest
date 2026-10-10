@@ -11,7 +11,7 @@ from pathlib import Path
 import numpy as np
 from scipy.optimize import minimize
 
-from .paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 
 
 def radial_coordinate(values):

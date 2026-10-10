@@ -36,7 +36,7 @@ def code_pins():
         'src/palimpsest/detection/baselines/cure.py','src/palimpsest/evaluation/numeric_features.py',
         'src/palimpsest/evaluation/features.py','src/palimpsest/evaluation/source_readout_campaign.py',
         'src/palimpsest/evaluation/source_training.py','src/palimpsest/evaluation/balanced_null.py',
-        'src/palimpsest/evaluation/robust_views.py','src/palimpsest/detection/algorithms/source_view_risk.py',
+        'src/palimpsest/evaluation/robust_views.py','src/palimpsest/detection/algorithms/readouts/source_view_risk.py',
         'experiments/origin_detection/cure_baseline/run_iteration.py',
         'experiments/origin_detection/cure_readout/prepare_features.py',
         'experiments/origin_detection/source_view_risk/run_iteration.py',

@@ -10,7 +10,7 @@ from threadpoolctl import threadpool_limits
 
 from palimpsest.detection.algorithms.condition_mixture import ConditionMixtureRule
 from palimpsest.detection.algorithms.local_score_transport import LocalScoreTransport, matched_source_anchors
-from palimpsest.detection.algorithms.source_view_risk import fit_source_risk
+from palimpsest.detection.algorithms.readouts.source_view_risk import fit_source_risk
 from palimpsest.detection.representations.frozen_clip import FEATURE_NAMES as CLIP_NAMES
 from palimpsest.detection.representations.frozen_dinov2_small import FEATURE_NAMES as DINO_NAMES
 from palimpsest.evaluation.balanced_null import balanced_source_null

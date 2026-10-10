@@ -7,7 +7,7 @@ import numpy as np
 from palimpsest.detection.algorithms.conditional_residual import (
     ConditionalRule, basis_names, conditional_basis, gate_values,
 )
-from palimpsest.detection.algorithms.paired_stability import fit_stable_rule
+from palimpsest.detection.algorithms.readouts.stable_rule import fit_stable_rule
 from palimpsest.detection.algorithms.residual_statistics.features import FEATURE_NAMES
 from palimpsest.evaluation.features import feature_views
 from experiments.origin_detection.paired_stability.fit_rules import paired_deltas

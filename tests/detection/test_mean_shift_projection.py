@@ -6,7 +6,7 @@ import numpy as np
 import pytest
 
 from palimpsest.detection.algorithms.mean_shift_projection import MeanShiftProjection, fit_mean_shift
-from palimpsest.detection.algorithms.source_view_risk import fit_source_risk
+from palimpsest.detection.algorithms.readouts.source_view_risk import fit_source_risk
 
 
 def plant(shift_axis=1):

@@ -10,8 +10,8 @@ from itertools import combinations
 import numpy as np
 from scipy.optimize import minimize
 
-from .source_view_risk import fit_source_risk, source_objective
-from .paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.source_view_risk import fit_source_risk, source_objective
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 
 
 @dataclass(frozen=True)

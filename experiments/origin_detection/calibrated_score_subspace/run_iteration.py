@@ -8,8 +8,7 @@ from time import perf_counter
 import numpy as np
 from threadpoolctl import threadpool_limits
 
-from palimpsest.detection.algorithms.source_score_subspace import (
-    ScoreSubspaceFitter,ScoreSubspaceRule,calibrate_score_subspace)
+from palimpsest.detection.models.frozen_features.cure.source_score_subspace import ScoreSubspaceFitter, ScoreSubspaceRule, calibrate_score_subspace
 from palimpsest.evaluation.calibrated_source_crossfit import calibrated_crossfit
 from palimpsest.evaluation.source_consistency_campaign import run_source_consistency
 from palimpsest.evaluation.source_crossfit import source_folds

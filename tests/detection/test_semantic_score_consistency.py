@@ -4,8 +4,8 @@ from dataclasses import replace
 
 import numpy as np
 
-from palimpsest.detection.algorithms.semantic_score_consistency import SemanticConsistencyFitter
-from palimpsest.detection.algorithms.semantic_score_margin import SemanticScoreRule, calibrate_semantic_score
+from palimpsest.detection.models.frozen_features.cure.semantic_score_consistency import SemanticConsistencyFitter
+from palimpsest.detection.models.frozen_features.cure.semantic_score_margin import SemanticScoreRule, calibrate_semantic_score
 
 
 def test_smooth_semantic_head_and_calibration_route(tmp_path):

@@ -35,7 +35,7 @@ def code_pins():
         REPO_ROOT / 'src/palimpsest/evaluation/source_training.py',
         REPO_ROOT / 'src/palimpsest/evaluation/balanced_null.py',
         REPO_ROOT / 'src/palimpsest/evaluation/robust_views.py',
-        REPO_ROOT / 'src/palimpsest/detection/algorithms/source_view_risk.py',
+        REPO_ROOT / 'src/palimpsest/detection/algorithms/readouts/source_view_risk.py',
         REPO_ROOT / 'src/palimpsest/detection/algorithms/paired_stability.py',
         REPO_ROOT / 'experiments/origin_detection/cure_baseline/run_iteration.py',
         REPO_ROOT / 'experiments/origin_detection/compact_frozen_encoder/run_iteration.py',

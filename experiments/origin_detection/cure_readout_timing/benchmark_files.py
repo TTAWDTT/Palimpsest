@@ -11,7 +11,7 @@ import cv2
 import numpy as np
 from threadpoolctl import threadpool_limits
 
-from palimpsest.detection.algorithms.paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 from palimpsest.detection.representations.frozen_cure import FULL_NAMES, FrozenCure
 from palimpsest.evaluation.timing import percentile
 from palimpsest.io.hashing import file_sha256

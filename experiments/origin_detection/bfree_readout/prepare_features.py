@@ -55,7 +55,7 @@ def code_pins():
         'src/palimpsest/evaluation/source_readout_campaign.py',
         'src/palimpsest/evaluation/features.py', 'src/palimpsest/evaluation/source_training.py',
         'src/palimpsest/evaluation/balanced_null.py', 'src/palimpsest/evaluation/robust_views.py',
-        'src/palimpsest/detection/algorithms/source_view_risk.py',
+        'src/palimpsest/detection/algorithms/readouts/source_view_risk.py',
         'experiments/origin_detection/compact_frozen_encoder/run_iteration.py',
         'experiments/origin_detection/threshold_calibration/fit_threshold.py',
         'tests/detection/test_frozen_bfree.py')]

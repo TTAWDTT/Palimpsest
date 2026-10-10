@@ -8,8 +8,8 @@ from time import perf_counter
 import numpy as np
 from threadpoolctl import threadpool_limits
 
-from palimpsest.detection.algorithms.source_hinge import fit_source_hinge, MarginFitRefused
-from palimpsest.detection.algorithms.paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.source_hinge import fit_source_hinge, MarginFitRefused
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 from palimpsest.detection.representations.frozen_clip import FEATURE_NAMES
 from palimpsest.evaluation.source_training import weighted_source_arrays
 from palimpsest.evaluation.features import feature_views

@@ -10,7 +10,7 @@ import numpy as np
 from threadpoolctl import threadpool_limits
 
 from palimpsest.detection.algorithms.conditional_score import fit_conditional_score, radial_coordinate, ConditionalScoreRule
-from palimpsest.detection.algorithms.paired_stability import StableRule
+from palimpsest.detection.algorithms.readouts.stable_rule import StableRule
 from palimpsest.detection.representations.frozen_cure import FULL_NAMES
 from palimpsest.evaluation.balanced_null import balanced_source_null
 from palimpsest.evaluation.source_training import weighted_source_arrays

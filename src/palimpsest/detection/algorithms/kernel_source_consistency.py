@@ -9,7 +9,7 @@ from dataclasses import replace
 import numpy as np
 
 from .kernel_readout import fit_fourier_map, KernelRule
-from .consistent_source_risk import fit_consistent_source_risk
+from palimpsest.detection.algorithms.readouts.consistent_source_risk import fit_consistent_source_risk
 
 
 def fit_kernel_source_consistency(values, labels, weights, sources, *, feature_names,

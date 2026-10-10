@@ -9,7 +9,7 @@ from dataclasses import replace
 import numpy as np
 from scipy.optimize import minimize
 
-from .source_view_risk import fit_source_risk, source_objective
+from palimpsest.detection.algorithms.readouts.source_view_risk import fit_source_risk, source_objective
 
 
 def _log_mean(values, weights, groups):

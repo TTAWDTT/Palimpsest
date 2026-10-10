@@ -10,7 +10,7 @@ import cv2
 import numpy as np
 from threadpoolctl import threadpool_limits
 
-from palimpsest.detection.algorithms.source_view_risk import fit_source_risk
+from palimpsest.detection.algorithms.readouts.source_view_risk import fit_source_risk
 from palimpsest.detection.algorithms.residual_statistics.features import resize256
 from palimpsest.detection.representations.intermediate_clip import IntermediateFrozenClip, FEATURE_NAMES, MID_NAMES
 from palimpsest.detection.representations.frozen_clip import FEATURE_NAMES as GLOBAL_NAMES
@@ -35,7 +35,7 @@ CONFIG = {'seed': 20261006, 'bootstrap_repetitions': 2000,
 def code_pins():
     paths = [REPO_ROOT / 'src/palimpsest/detection/representations/intermediate_clip.py',
         REPO_ROOT / 'src/palimpsest/detection/representations/frozen_clip.py',
-        REPO_ROOT / 'src/palimpsest/detection/algorithms/source_view_risk.py',
+        REPO_ROOT / 'src/palimpsest/detection/algorithms/readouts/source_view_risk.py',
         REPO_ROOT / 'src/palimpsest/evaluation/source_training.py',
         REPO_ROOT / 'src/palimpsest/evaluation/pixel_features.py',
         REPO_ROOT / 'src/palimpsest/evaluation/robust_views.py',

@@ -3,9 +3,8 @@
 import argparse
 from pathlib import Path
 
-from palimpsest.detection.algorithms.quadratic_score_margin import (
-    QuadraticMarginFitter, QuadraticScoreRule, calibrate_quadratic_score)
-from palimpsest.detection.algorithms.source_hinge import MarginFitRefused
+from palimpsest.detection.models.frozen_features.cure.quadratic_score_margin import QuadraticMarginFitter, QuadraticScoreRule, calibrate_quadratic_score
+from palimpsest.detection.algorithms.readouts.source_hinge import MarginFitRefused
 from palimpsest.evaluation.calibrated_readout_campaign import (
     CampaignData, CampaignMethod, run_calibrated_campaign, write_json)
 from palimpsest.io.hashing import file_sha256
@@ -22,8 +21,8 @@ TESTS = ('tests/detection/test_quadratic_score_margin.py', 'tests/detection/test
 def code_pins():
     pins = input_pins()
     paths = list(Path(__file__).parent.glob('*.py')) + [Path(__file__).parent/'README.md']
-    paths += [REPO_ROOT/p for p in (*TESTS, 'src/palimpsest/detection/algorithms/quadratic_score_margin.py',
-        'src/palimpsest/detection/algorithms/source_hinge.py', 'src/palimpsest/evaluation/calibrated_readout_campaign.py')]
+    paths += [REPO_ROOT/p for p in (*TESTS, 'src/palimpsest/detection/models/frozen_features/cure/quadratic_score_margin.py',
+        'src/palimpsest/detection/algorithms/readouts/source_hinge.py', 'src/palimpsest/evaluation/calibrated_readout_campaign.py')]
     pins.update({str(p.relative_to(REPO_ROOT)): file_sha256(p) for p in sorted(paths)})
     return pins
 

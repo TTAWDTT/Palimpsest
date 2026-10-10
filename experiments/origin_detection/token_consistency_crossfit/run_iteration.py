@@ -8,7 +8,7 @@ from time import perf_counter
 import numpy as np
 from threadpoolctl import threadpool_limits
 
-from palimpsest.detection.algorithms.consistent_source_risk import fit_consistent_source_risk
+from palimpsest.detection.algorithms.readouts.consistent_source_risk import fit_consistent_source_risk
 from palimpsest.detection.representations.frozen_cure_tokens import MIXED_NAMES, FEATURE_NAMES
 from palimpsest.evaluation.consistency_crossfit import crossfit_strengths
 from palimpsest.evaluation.source_crossfit import source_folds
@@ -39,8 +39,8 @@ def code_pins():
         'src/palimpsest/evaluation/consistency_crossfit.py', 'src/palimpsest/evaluation/source_crossfit.py',
         'src/palimpsest/evaluation/source_training.py', 'src/palimpsest/evaluation/balanced_null.py',
         'src/palimpsest/evaluation/features.py', 'src/palimpsest/evaluation/numeric_features.py',
-        'src/palimpsest/evaluation/robust_views.py', 'src/palimpsest/detection/algorithms/consistent_source_risk.py',
-        'src/palimpsest/detection/algorithms/source_view_risk.py',
+        'src/palimpsest/evaluation/robust_views.py', 'src/palimpsest/detection/algorithms/readouts/consistent_source_risk.py',
+        'src/palimpsest/detection/algorithms/readouts/source_view_risk.py',
         'src/palimpsest/detection/representations/frozen_cure_tokens.py',
         'experiments/origin_detection/cure_token_statistics/prepare_features.py',
         'experiments/origin_detection/source_view_risk/run_iteration.py',
