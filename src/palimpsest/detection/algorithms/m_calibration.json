@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "version": "M-2026-10-09",
+  "calibration_source_count": 738,
+  "calibration_views": "Chimera originals only",
+  "legacy_full_calibration_sha256": "21d7b2bffc962d847618e983a4e50c1d5c0f6504d546725ebd9f6ba39369e603",
+  "features": {
+    "intermittency_ess_deviation": {
+      "center": 0.011286373441984687,
+      "scale": 0.0012565981389395357,
+      "direction": -1.0
+    },
+    "intermittency_logmoment_gaussian_offset": {
+      "center": -0.03770162652337486,
+      "scale": 0.007320421409122827,
+      "direction": 1.0
+    }
+  }
+}

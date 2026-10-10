@@ -1,0 +1,316 @@
+{
+  "metrics": {
+    "M": {
+      "all_views": {
+        "images": 1155,
+        "sources": 231,
+        "real_images": 520,
+        "ai_images": 635,
+        "correct": 764,
+        "accuracy": 0.6614718614718614,
+        "balanced_accuracy": 0.6741898849182314,
+        "real_specificity": 0.801923076923077,
+        "ai_recall": 0.5464566929133858,
+        "pooled_auc": 0.7428679588128407,
+        "category_macro_auc": 0.7482224988029822,
+        "category_auc": {
+          "cat": 0.7776084656084656,
+          "church": 0.6681372549019607,
+          "horse": 0.7989217758985201
+        },
+        "invalid_images": 0,
+        "qc_valid_fraction": 1.0
+      },
+      "attack_mac": {
+        "images": 231,
+        "sources": 231,
+        "real_images": 104,
+        "ai_images": 127,
+        "correct": 149,
+        "accuracy": 0.645021645021645,
+        "balanced_accuracy": 0.6588809812235009,
+        "real_specificity": 0.7980769230769231,
+        "ai_recall": 0.5196850393700787,
+        "pooled_auc": 0.7368261659600243,
+        "category_macro_auc": 0.7401400138005245,
+        "category_auc": {
+          "cat": 0.7894179894179895,
+          "church": 0.6286764705882353,
+          "horse": 0.8023255813953488
+        },
+        "invalid_images": 0,
+        "qc_valid_fraction": 1.0
+      },
+      "attack_monitor": {
+        "images": 231,
+        "sources": 231,
+        "real_images": 104,
+        "ai_images": 127,
+        "correct": 149,
+        "accuracy": 0.645021645021645,
+        "balanced_accuracy": 0.6632344033918837,
+        "real_specificity": 0.8461538461538461,
+        "ai_recall": 0.48031496062992124,
+        "pooled_auc": 0.7398546335554209,
+        "category_macro_auc": 0.7458167489061243,
+        "category_auc": {
+          "cat": 0.7798941798941799,
+          "church": 0.6642156862745098,
+          "horse": 0.7933403805496829
+        },
+        "invalid_images": 0,
+        "qc_valid_fraction": 1.0
+      },
+      "recap_mac": {
+        "images": 231,
+        "sources": 231,
+        "real_images": 104,
+        "ai_images": 127,
+        "correct": 138,
+        "accuracy": 0.5974025974025974,
+        "balanced_accuracy": 0.6112204724409449,
+        "real_specificity": 0.75,
+        "ai_recall": 0.47244094488188976,
+        "pooled_auc": 0.6996517262265294,
+        "category_macro_auc": 0.7037917980205942,
+        "category_auc": {
+          "cat": 0.707936507936508,
+          "church": 0.6550245098039216,
+          "horse": 0.7484143763213531
+        },
+        "invalid_images": 0,
+        "qc_valid_fraction": 1.0
+      },
+      "recap_monitor": {
+        "images": 231,
+        "sources": 231,
+        "real_images": 104,
+        "ai_images": 127,
+        "correct": 159,
+        "accuracy": 0.6883116883116883,
+        "balanced_accuracy": 0.7017337976983646,
+        "real_specificity": 0.8365384615384616,
+        "ai_recall": 0.5669291338582677,
+        "pooled_auc": 0.74538158691702,
+        "category_macro_auc": 0.7467579281732268,
+        "category_auc": {
+          "cat": 0.783068783068783,
+          "church": 0.6501225490196079,
+          "horse": 0.8070824524312896
+        },
+        "invalid_images": 0,
+        "qc_valid_fraction": 1.0
+      },
+      "stylegan2_orig": {
+        "images": 231,
+        "sources": 231,
+        "real_images": 104,
+        "ai_images": 127,
+        "correct": 169,
+        "accuracy": 0.7316017316017316,
+        "balanced_accuracy": 0.7358797698364627,
+        "real_specificity": 0.7788461538461539,
+        "ai_recall": 0.6929133858267716,
+        "pooled_auc": 0.799969715324046,
+        "category_macro_auc": 0.811931505630206,
+        "category_auc": {
+          "cat": 0.8412698412698413,
+          "church": 0.7493872549019608,
+          "horse": 0.845137420718816
+        },
+        "invalid_images": 0,
+        "qc_valid_fraction": 1.0
+      }
+    },
+    "BFree": {
+      "all_views": {
+        "images": 1155,
+        "sources": 231,
+        "real_images": 520,
+        "ai_images": 635,
+        "correct": 723,
+        "accuracy": 0.625974025974026,
+        "balanced_accuracy": 0.6441701998788613,
+        "real_specificity": 0.8269230769230769,
+        "ai_recall": 0.46141732283464565,
+        "pooled_auc": 0.7216747425802544,
+        "category_macro_auc": 0.7128307882858728,
+        "category_auc": {
+          "cat": 0.5708359788359788,
+          "church": 0.8361764705882353,
+          "horse": 0.7314799154334038
+        },
+        "invalid_images": 0,
+        "qc_valid_fraction": 1.0
+      },
+      "attack_mac": {
+        "images": 231,
+        "sources": 231,
+        "real_images": 104,
+        "ai_images": 127,
+        "correct": 113,
+        "accuracy": 0.48917748917748916,
+        "balanced_accuracy": 0.5354330708661418,
+        "real_specificity": 1.0,
+        "ai_recall": 0.07086614173228346,
+        "pooled_auc": 0.6057692307692307,
+        "category_macro_auc": 0.5867812916804025,
+        "category_auc": {
+          "cat": 0.3968253968253968,
+          "church": 0.6991421568627451,
+          "horse": 0.6643763213530656
+        },
+        "invalid_images": 0,
+        "qc_valid_fraction": 1.0
+      },
+      "attack_monitor": {
+        "images": 231,
+        "sources": 231,
+        "real_images": 104,
+        "ai_images": 127,
+        "correct": 148,
+        "accuracy": 0.6406926406926406,
+        "balanced_accuracy": 0.6619094488188977,
+        "real_specificity": 0.875,
+        "ai_recall": 0.44881889763779526,
+        "pooled_auc": 0.7487886129618413,
+        "category_macro_auc": 0.727603994968906,
+        "category_auc": {
+          "cat": 0.5492063492063493,
+          "church": 0.8376225490196079,
+          "horse": 0.7959830866807611
+        },
+        "invalid_images": 0,
+        "qc_valid_fraction": 1.0
+      },
+      "recap_mac": {
+        "images": 231,
+        "sources": 231,
+        "real_images": 104,
+        "ai_images": 127,
+        "correct": 136,
+        "accuracy": 0.5887445887445888,
+        "balanced_accuracy": 0.5841913991520291,
+        "real_specificity": 0.5384615384615384,
+        "ai_recall": 0.6299212598425197,
+        "pooled_auc": 0.6691399152029073,
+        "category_macro_auc": 0.6501373499834512,
+        "category_auc": {
+          "cat": 0.30793650793650795,
+          "church": 0.9252450980392157,
+          "horse": 0.71723044397463
+        },
+        "invalid_images": 0,
+        "qc_valid_fraction": 1.0
+      },
+      "recap_monitor": {
+        "images": 231,
+        "sources": 231,
+        "real_images": 104,
+        "ai_images": 127,
+        "correct": 152,
+        "accuracy": 0.658008658008658,
+        "balanced_accuracy": 0.6698213204118716,
+        "real_specificity": 0.7884615384615384,
+        "ai_recall": 0.5511811023622047,
+        "pooled_auc": 0.7574197456087219,
+        "category_macro_auc": 0.7485939427058897,
+        "category_auc": {
+          "cat": 0.4973544973544973,
+          "church": 0.9424019607843137,
+          "horse": 0.8060253699788583
+        },
+        "invalid_images": 0,
+        "qc_valid_fraction": 1.0
+      },
+      "stylegan2_orig": {
+        "images": 231,
+        "sources": 231,
+        "real_images": 104,
+        "ai_images": 127,
+        "correct": 174,
+        "accuracy": 0.7532467532467533,
+        "balanced_accuracy": 0.7694957601453665,
+        "real_specificity": 0.9326923076923077,
+        "ai_recall": 0.6062992125984252,
+        "pooled_auc": 0.8893852210781344,
+        "category_macro_auc": 0.9109318394572612,
+        "category_auc": {
+          "cat": 0.8973544973544973,
+          "church": 0.9871323529411765,
+          "horse": 0.8483086680761099
+        },
+        "invalid_images": 0,
+        "qc_valid_fraction": 1.0
+      }
+    }
+  },
+  "all_views_ci95": {
+    "M": {
+      "accuracy": [
+        0.6181818181818182,
+        0.7047619047619048
+      ],
+      "balanced_accuracy": [
+        0.6315093125378558,
+        0.7173080708661418
+      ],
+      "category_macro_auc": [
+        0.6928391239633431,
+        0.8009729567486693
+      ]
+    },
+    "BFree": {
+      "accuracy": [
+        0.5982683982683983,
+        0.6528138528138528
+      ],
+      "balanced_accuracy": [
+        0.6166028164748637,
+        0.6698027710478498
+      ],
+      "category_macro_auc": [
+        0.6771270856281202,
+        0.7456653363441924
+      ]
+    }
+  },
+  "paired_M_minus_BFree": {
+    "accuracy": {
+      "estimate": 0.03549783549783547,
+      "ci95": [
+        -0.019913419913419994,
+        0.09179653679653664
+      ]
+    },
+    "balanced_accuracy": {
+      "estimate": 0.030019685039370136,
+      "ci95": [
+        -0.024559925802543934,
+        0.0852174818291943
+      ]
+    },
+    "category_macro_auc": {
+      "estimate": 0.03539171051710943,
+      "ci95": [
+        -0.034221062318514336,
+        0.1050180759906735
+      ]
+    }
+  },
+  "bootstrap": {
+    "iterations": 2000,
+    "seed": 20261011,
+    "unit": "source; all views together; category x label strata"
+  },
+  "decision_rule": {
+    "M": "score >= 0",
+    "BFree": "score > 0"
+  },
+  "denominator": "all rows, including QC-degenerate forced predictions",
+  "scope": "fixed-formula evaluation; not evidence of independent data or physical-channel coverage",
+  "input": {
+    "mode": "scores",
+    "sha256": "35cc7fb4a02a591b07639a3d2d3d107bbdf11f3fb591ab14be3ba55b4913d4fd"
+  }
+}

@@ -11,7 +11,9 @@ from palimpsest.pipelines.image import ImageOriginPipeline
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("image", type=Path)
-    parser.add_argument("--detector", choices=("bfree", "d3", "benford"), required=True)
+    parser.add_argument(
+        "--detector", choices=("bfree", "d3", "benford", "m"), required=True
+    )
     parser.add_argument(
         "--localizer", choices=("quadrilateral", "sam2", "whole-image"), required=True
     )
@@ -25,6 +27,11 @@ def main() -> None:
         help="B-Free weights directory, D3 CLIP checkpoint or fitted Benford NPZ",
     )
     parser.add_argument("--d3-head", type=Path)
+    parser.add_argument(
+        "--calibration",
+        type=Path,
+        help="Explicit M calibration JSON; defaults to packaged frozen M parameters",
+    )
     parser.add_argument("--sam2-checkpoint", type=Path)
     parser.add_argument("--max-regions", type=int, default=8)
     parser.add_argument(
@@ -39,6 +46,8 @@ def main() -> None:
         parser.error(f"Output already exists: {args.output}")
     if args.max_regions < 1:
         parser.error("max-regions must be positive")
+    if args.calibration is not None and args.detector != "m":
+        parser.error("--calibration applies only to --detector m")
     paths = ResearchPaths.load()
     start = perf_counter()
     if args.detector == "bfree":
@@ -59,6 +68,12 @@ def main() -> None:
             args.d3_head or vendor / "ckpt/classifier.pth",
             device=args.device,
         )
+    elif args.detector == "m":
+        from palimpsest.detection.algorithms.marginal_intermittency import (
+            MIntermittencyDetector,
+        )
+
+        detector = MIntermittencyDetector(args.calibration)
     else:
         from palimpsest.detection.baselines.benford import BenfordRFDetector
 
