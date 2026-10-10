@@ -1,0 +1,10 @@
+{
+  "executed70_git": "4ed16c42689537765f9e269e7452df302feb601a",
+  "unlisted_dependency": "src/palimpsest/evaluation/training_fit.py",
+  "sha_at_executed_git": "60c375f29ee35f3ca7ffe3dd6422a0a985839899d9a73dd7bf64cc35e0d48475",
+  "current_sha": "60c375f29ee35f3ca7ffe3dd6422a0a985839899d9a73dd7bf64cc35e0d48475",
+  "unchanged": true,
+  "was_in70_declared_pins": false,
+  "new71_explicit_pin": true,
+  "scope": "Post-run dependency coverage correction;current bytes matchexecutedGit but notindependent live memory or solver member certification;old receipts unchanged"
+}

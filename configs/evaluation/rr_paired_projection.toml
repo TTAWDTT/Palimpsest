@@ -1,0 +1,11 @@
+# Registered before reading second-iteration fitted results.
+protocol = "rr_paired_projection_20261005"
+seed = 20261005
+long_edge = 512
+removed_ranks = [0, 1, 3] # 0 is the unprojected reference, not a new robust candidate.
+z_clip = 5.0
+bootstrap_repetitions = 2000
+conditions = ["original", "transfer", "redigital"]
+selection_auc_lower_gate = 0.5
+minimum_worst_auc_gain = 0.02
+minimum_processed_class_accuracy = 0.55

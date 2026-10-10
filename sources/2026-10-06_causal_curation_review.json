@@ -1,0 +1,114 @@
+{
+  "date": "2026-10-06",
+  "scope": "Focused mechanism and task-compatibility reading; not dry systematic review or novelty certification",
+  "questions": [
+    "Does class-conditional alignment imply source stability?",
+    "What does PE curation actually test?",
+    "Does physical-origin labeling match this project?"
+  ],
+  "queries": [
+    {
+      "engine": "web search",
+      "query": "AI generated image detection screen recapture compression robustness 2026 frozen features semantic detector"
+    },
+    {
+      "engine": "web search",
+      "query": "domain generalization conditional invariant representation label information preservation impossibility theorem class conditional invariance"
+    },
+    {
+      "engine": "web search",
+      "query": "\"AI-generated\" \"recaptured\" detection invariant 2026 algorithm"
+    },
+    {
+      "engine": "web search",
+      "query": "\"AI-generated\" \"screen\" \"robust\" \"detection\" 2026 framework"
+    },
+    {
+      "engine": "web search",
+      "query": "site:openaccess.thecvf.com CVPR 2026 \"Zero-shot Detection\" \"RAW-RGB\""
+    },
+    {
+      "engine": "web search",
+      "query": "site:openaccess.thecvf.com \"More Traces Better\" 2026"
+    }
+  ],
+  "works": [
+    {
+      "name": "causal_matching",
+      "url": "https://proceedings.mlr.press/v139/mahajan21b/mahajan21b.pdf",
+      "bytes": 2032058,
+      "sha256": "c9d9f8a4fc7fabd12534630f3268a3dff52eae611eefbebd501f78718ca07c21"
+    },
+    {
+      "name": "ssafe",
+      "url": "https://arxiv.org/pdf/2606.08634v1",
+      "bytes": 4945689,
+      "sha256": "00e41f1c3646df31a2b433decccd12377131694c989462bee3a757095b5ba545"
+    },
+    {
+      "name": "raw_rgb_alignment",
+      "url": "https://openaccess.thecvf.com/content/CVPR2026/papers/Wu_Zero-shot_Detection_of_AI-Generated_Image_via_RAW-RGB_Alignment_CVPR_2026_paper.pdf",
+      "bytes": 8272238,
+      "sha256": "4e3d58e197d536dc501fe1890c079df3aff245bab827a783aaae22a45d7e6678"
+    }
+  ],
+  "reading": [
+    {
+      "name": "causal_matching",
+      "read_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "owed": "references10-12 and separate supplemental proofs; theorem not independently re-proved",
+      "short_quote": "otherwise even a constant Φ minimizes the above loss",
+      "location": "page5 section4.3"
+    },
+    {
+      "name": "ssafe",
+      "read_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "owed": "reference chain/author recency/cited-by; visualization19-22 not pixel read",
+      "short_quote": "The curated dataset does not rely on sample-level filtering",
+      "location": "page12 appendixA.2"
+    },
+    {
+      "name": "raw_rgb_alignment",
+      "read_pages": [
+        1,
+        2
+      ],
+      "owed": "method3-8, references9-11 and supplemental; no implementation or result replication",
+      "short_quote": "a synthetic image transitions into a real one after physical remapping",
+      "location": "page1 introduction"
+    }
+  ],
+  "gaps": [
+    "Google Scholar,OpenAlex,Semantic Scholar forward chains not run in this pass",
+    "per-author recency sweep incomplete",
+    "No official SSAFE release availability search; paper says release upon publication",
+    "Physical-origin paper not accepted as same-task baseline",
+    "No new independent validation pixels or model training"
+  ]
+}

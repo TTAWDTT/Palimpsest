@@ -1,0 +1,66 @@
+{
+  "campaign": "cure_encoding_risk",
+  "register": "Selected transcription only",
+  "quote_source": "reports/04_算法研发/第四十一轮编码支持扩充_已知Q70覆盖未减少退化_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/cure_encoding_risk/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/source/minimum_domain_ba')",
+      "quoted": "80.56"
+    },
+    {
+      "section": "table",
+      "label": "source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/source/minimum_scene_ba')",
+      "quoted": "96.25"
+    },
+    {
+      "section": "table",
+      "label": "source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/source/maximum_any_scene_drop')",
+      "quoted": "6.67"
+    },
+    {
+      "section": "table",
+      "label": "mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/mean/minimum_domain_ba')",
+      "quoted": "82.22"
+    },
+    {
+      "section": "table",
+      "label": "mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/mean/minimum_scene_ba')",
+      "quoted": "92.50"
+    },
+    {
+      "section": "table",
+      "label": "mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/mean/maximum_any_scene_drop')",
+      "quoted": "7.78"
+    },
+    {
+      "section": "table",
+      "label": "source_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/source_null/minimum_domain_ba')",
+      "quoted": "43.33"
+    },
+    {
+      "section": "table",
+      "label": "source_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/source_null/minimum_scene_ba')",
+      "quoted": "32.50"
+    },
+    {
+      "section": "table",
+      "label": "source_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/source_null/maximum_any_scene_drop')",
+      "quoted": "11.25"
+    }
+  ]
+}

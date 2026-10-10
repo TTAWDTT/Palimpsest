@@ -1,0 +1,102 @@
+{
+  "campaign": "cure_token_statistics",
+  "register": "Selected transcription only",
+  "quote_source": "reports/04_\u7b97\u6cd5\u7814\u53d1/\u7b2c\u4e94\u5341\u4e8c\u8f6e\u5c40\u90e8token\u7edf\u8ba1_\u5224\u522b\u4fe1\u606f\u589e\u52a0\u4ecd\u6709\u4f20\u64ad\u9000\u5316_2026-10-08.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/cure_token_statistics/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "clipped/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/clipped~1source/minimum_domain_ba')",
+      "quoted": "82.22"
+    },
+    {
+      "section": "table",
+      "label": "clipped/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/clipped~1source/minimum_scene_ba')",
+      "quoted": "93.75"
+    },
+    {
+      "section": "table",
+      "label": "clipped/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/clipped~1source/maximum_any_scene_drop')",
+      "quoted": "6.25"
+    },
+    {
+      "section": "table",
+      "label": "spread/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/spread~1source/minimum_domain_ba')",
+      "quoted": "83.33"
+    },
+    {
+      "section": "table",
+      "label": "spread/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/spread~1source/minimum_scene_ba')",
+      "quoted": "87.50"
+    },
+    {
+      "section": "table",
+      "label": "spread/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/spread~1source/maximum_any_scene_drop')",
+      "quoted": "12.50"
+    },
+    {
+      "section": "table",
+      "label": "mixed/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/mixed~1source/minimum_domain_ba')",
+      "quoted": "85.56"
+    },
+    {
+      "section": "table",
+      "label": "mixed/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/mixed~1source/minimum_scene_ba')",
+      "quoted": "95.00"
+    },
+    {
+      "section": "table",
+      "label": "mixed/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/mixed~1source/maximum_any_scene_drop')",
+      "quoted": "5.56"
+    },
+    {
+      "section": "table",
+      "label": "mixed/mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/mixed~1mean/minimum_domain_ba')",
+      "quoted": "86.11"
+    },
+    {
+      "section": "table",
+      "label": "mixed/mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/mixed~1mean/minimum_scene_ba')",
+      "quoted": "93.75"
+    },
+    {
+      "section": "table",
+      "label": "mixed/mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/mixed~1mean/maximum_any_scene_drop')",
+      "quoted": "5.00"
+    },
+    {
+      "section": "table",
+      "label": "mixed/source_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/mixed~1source_null/minimum_domain_ba')",
+      "quoted": "40.56"
+    },
+    {
+      "section": "table",
+      "label": "mixed/source_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/mixed~1source_null/minimum_scene_ba')",
+      "quoted": "42.50"
+    },
+    {
+      "section": "table",
+      "label": "mixed/source_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/mixed~1source_null/maximum_any_scene_drop')",
+      "quoted": "11.25"
+    }
+  ]
+}

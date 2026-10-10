@@ -1,0 +1,240 @@
+{
+  "campaign": "Twentieth slow subspace2026-10-06",
+  "register": "Transcription only,not independent validation",
+  "quote_source": "reports/04_算法研发/第二十轮同源慢子空间_保留类别均值仍未消除退化_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/slow_subspace/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "results",
+      "label": "pca/mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/pca~1mean/minimum_domain_ba')",
+      "quoted": "76.25"
+    },
+    {
+      "section": "results",
+      "label": "pca/mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/pca~1mean/minimum_scene_ba')",
+      "quoted": "72.50"
+    },
+    {
+      "section": "results",
+      "label": "pca/mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/pca~1mean/maximum_any_scene_drop')",
+      "quoted": "18.75"
+    },
+    {
+      "section": "results",
+      "label": "pca/mean/class_mean_energy",
+      "expr": "100*f('i','/candidates/pca~1mean/map_diagnostics/retained_class_mean_energy_fraction')",
+      "quoted": "72.60"
+    },
+    {
+      "section": "results",
+      "label": "pca/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/pca~1source/minimum_domain_ba')",
+      "quoted": "77.50"
+    },
+    {
+      "section": "results",
+      "label": "pca/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/pca~1source/minimum_scene_ba')",
+      "quoted": "73.75"
+    },
+    {
+      "section": "results",
+      "label": "pca/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/pca~1source/maximum_any_scene_drop')",
+      "quoted": "13.75"
+    },
+    {
+      "section": "results",
+      "label": "pca/source/class_mean_energy",
+      "expr": "100*f('i','/candidates/pca~1source/map_diagnostics/retained_class_mean_energy_fraction')",
+      "quoted": "72.60"
+    },
+    {
+      "section": "results",
+      "label": "slow/mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/slow~1mean/minimum_domain_ba')",
+      "quoted": "78.89"
+    },
+    {
+      "section": "results",
+      "label": "slow/mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/slow~1mean/minimum_scene_ba')",
+      "quoted": "73.75"
+    },
+    {
+      "section": "results",
+      "label": "slow/mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/slow~1mean/maximum_any_scene_drop')",
+      "quoted": "11.25"
+    },
+    {
+      "section": "results",
+      "label": "slow/mean/class_mean_energy",
+      "expr": "100*f('i','/candidates/slow~1mean/map_diagnostics/retained_class_mean_energy_fraction')",
+      "quoted": "67.90"
+    },
+    {
+      "section": "results",
+      "label": "slow/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/slow~1source/minimum_domain_ba')",
+      "quoted": "79.44"
+    },
+    {
+      "section": "results",
+      "label": "slow/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/slow~1source/minimum_scene_ba')",
+      "quoted": "72.50"
+    },
+    {
+      "section": "results",
+      "label": "slow/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/slow~1source/maximum_any_scene_drop')",
+      "quoted": "12.50"
+    },
+    {
+      "section": "results",
+      "label": "slow/source/class_mean_energy",
+      "expr": "100*f('i','/candidates/slow~1source/map_diagnostics/retained_class_mean_energy_fraction')",
+      "quoted": "67.90"
+    },
+    {
+      "section": "results",
+      "label": "protected_slow/mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/protected_slow~1mean/minimum_domain_ba')",
+      "quoted": "81.11"
+    },
+    {
+      "section": "results",
+      "label": "protected_slow/mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/protected_slow~1mean/minimum_scene_ba')",
+      "quoted": "82.50"
+    },
+    {
+      "section": "results",
+      "label": "protected_slow/mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/protected_slow~1mean/maximum_any_scene_drop')",
+      "quoted": "12.50"
+    },
+    {
+      "section": "results",
+      "label": "protected_slow/mean/class_mean_energy",
+      "expr": "100*f('i','/candidates/protected_slow~1mean/map_diagnostics/retained_class_mean_energy_fraction')",
+      "quoted": "100.00"
+    },
+    {
+      "section": "results",
+      "label": "protected_slow/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/protected_slow~1source/minimum_domain_ba')",
+      "quoted": "81.11"
+    },
+    {
+      "section": "results",
+      "label": "protected_slow/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/protected_slow~1source/minimum_scene_ba')",
+      "quoted": "81.25"
+    },
+    {
+      "section": "results",
+      "label": "protected_slow/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/protected_slow~1source/maximum_any_scene_drop')",
+      "quoted": "15.00"
+    },
+    {
+      "section": "results",
+      "label": "protected_slow/source/class_mean_energy",
+      "expr": "100*f('i','/candidates/protected_slow~1source/map_diagnostics/retained_class_mean_energy_fraction')",
+      "quoted": "100.00"
+    },
+    {
+      "section": "results",
+      "label": "protected_slow/source_source_shuffled_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/protected_slow~1source_source_shuffled_null/minimum_domain_ba')",
+      "quoted": "43.33"
+    },
+    {
+      "section": "results",
+      "label": "protected_slow/source_source_shuffled_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/protected_slow~1source_source_shuffled_null/minimum_scene_ba')",
+      "quoted": "36.25"
+    },
+    {
+      "section": "results",
+      "label": "protected_slow/source_source_shuffled_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/protected_slow~1source_source_shuffled_null/maximum_any_scene_drop')",
+      "quoted": "11.25"
+    },
+    {
+      "section": "results",
+      "label": "protected_slow/source_source_shuffled_null/class_mean_energy",
+      "expr": "100*f('i','/candidates/protected_slow~1source_source_shuffled_null/map_diagnostics/retained_class_mean_energy_fraction')",
+      "quoted": "100.00"
+    },
+    {
+      "section": "results",
+      "label": "paired_sources",
+      "expr": "f('i','/candidates/protected_slow~1mean/pairs/chimera~1church~1original~1jpeg90_444_after_resize256>jpeg60_420_after_resize256/paired_sources')",
+      "quoted": "80"
+    },
+    {
+      "section": "results",
+      "label": "paired_real_sources",
+      "expr": "f('i','/candidates/protected_slow~1mean/pairs/chimera~1church~1original~1jpeg90_444_after_resize256>jpeg60_420_after_resize256/paired_real_sources')",
+      "quoted": "40"
+    },
+    {
+      "section": "results",
+      "label": "paired_fake_sources",
+      "expr": "f('i','/candidates/protected_slow~1mean/pairs/chimera~1church~1original~1jpeg90_444_after_resize256>jpeg60_420_after_resize256/paired_fake_sources')",
+      "quoted": "40"
+    },
+    {
+      "section": "results",
+      "label": "balanced_accuracy_change",
+      "expr": "100*f('i','/candidates/protected_slow~1mean/pairs/chimera~1church~1original~1jpeg90_444_after_resize256>jpeg60_420_after_resize256/balanced_accuracy_change')",
+      "quoted": "-12.50"
+    },
+    {
+      "section": "results",
+      "label": "source_macro_decision_flip_rate",
+      "expr": "100*f('i','/candidates/protected_slow~1mean/pairs/chimera~1church~1original~1jpeg90_444_after_resize256>jpeg60_420_after_resize256/source_macro_decision_flip_rate')",
+      "quoted": "15.00"
+    },
+    {
+      "section": "results",
+      "label": "REAL change",
+      "expr": "100*f('i','/candidates/protected_slow~1mean/pairs/chimera~1church~1original~1jpeg90_444_after_resize256>jpeg60_420_after_resize256/class_accuracy_change/REAL')",
+      "quoted": "-5.00"
+    },
+    {
+      "section": "results",
+      "label": "FAKE change",
+      "expr": "100*f('i','/candidates/protected_slow~1mean/pairs/chimera~1church~1original~1jpeg90_444_after_resize256>jpeg60_420_after_resize256/class_accuracy_change/FAKE')",
+      "quoted": "-20.00"
+    },
+    {
+      "section": "results",
+      "label": "CI0",
+      "expr": "100*f('i','/candidates/protected_slow~1mean/pairs/chimera~1church~1original~1jpeg90_444_after_resize256>jpeg60_420_after_resize256/balanced_accuracy_change_ci95/0')",
+      "quoted": "-20.00"
+    },
+    {
+      "section": "results",
+      "label": "CI1",
+      "expr": "100*f('i','/candidates/protected_slow~1mean/pairs/chimera~1church~1original~1jpeg90_444_after_resize256>jpeg60_420_after_resize256/balanced_accuracy_change_ci95/1')",
+      "quoted": "-5.00"
+    },
+    {
+      "section": "results",
+      "label": "elapsed_s",
+      "expr": "f('i','/elapsed_s')",
+      "quoted": "108.41"
+    }
+  ]
+}

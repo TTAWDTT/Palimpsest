@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-06",
+  "register": "Primary follow-up reading;prospective sixteenth trial already fixed before this reading",
+  "papers": [
+    {
+      "title": "Simplicity Prevails: The Emergence of Generalizable AIGI Detection in Visual Foundation Models",
+      "version": "arXiv2602.01738v2,15Apr2026",
+      "url": "https://arxiv.org/pdf/2602.01738v2",
+      "sha256": "c3a58d8c65d787e741080582cd93efa2bdbf2e017a8b6769334cf5f7ac672dd5",
+      "pages": 9,
+      "reading": "Main1-2;setup3.1;results3.2-3.4;mechanisms4.1-4.2;limitations5.1-5.4;Table7 class rates;published numbers not independently reproduced. Table1-5 values not comprehensively audited,refs9/appendix claim not audited",
+      "code_sha": "2023a5e507de1a7454e258a4587bb06b83e0b8fc",
+      "code_scope": "models.py and test_vfm_baselines.py main loading/scoring sections;no execution/weights downloaded",
+      "cautions": [
+        "Pretraining mechanism is indirect evidence,not definitive controlled causal result",
+        "v2 physical table is Table7,older indexed Table8 not reused",
+        "Author code strict=False and fallback configs require full missing/unexpected-state audit before reproduction",
+        "DINOv3 code ViT7B,not a demonstrated fast detector",
+        "Different training/evaluation cohort from our exposed development"
+      ]
+    },
+    {
+      "title": "TIACam: Text-Anchored Invariant Feature Learning with Auto-Augmentation for Camera-Robust Zero-Watermarking",
+      "url": "https://openaccess.thecvf.com/content/CVPR2026/papers/Tanvir_TIACam_Text-Anchored_Invariant_Feature_Learning_with_Auto-Augmentation_for_Camera-Robust_Zero-Watermarking_CVPR_2026_paper.pdf",
+      "sha256": "6d068c3e83894eb335052e55836378cea08aa7765bc2559b186b8099e99d9f1b",
+      "pages": 10,
+      "reading": "Mainmethods3.3 per-image codebook and experiments4.1-4.3 text;CLIP/equations3.1-3.2 location audit only;abstract plus figure captions;Table2 text not visually audited;4.4 andrefsnotfullyread",
+      "code_commit": "8b99b1bdd608f5c1ba929ee28551fd863b0a9eb8",
+      "code_scope": "Repositorytree plus README initialsetup,clip_loader,generator,moiremodel,transformer;training losses fileempty. Othertrainingpaths not audited;no execution/weightsdownloaded",
+      "cautions": [
+        "Per-image/message signature registration uses original image;different from blind unknown-origin detection",
+        "Bit accuracy is not our balanced accuracy",
+        "Similarity/semantic transfer not sufficient for origin class separation",
+        "Code scope bounded;no paper parity claim"
+      ]
+    }
+  ],
+  "physical_data_followup": {
+    "url": "https://zenodo.org/records/21790608",
+    "title": "Caught on Camera",
+    "published_date_field": "2026-10-14",
+    "observed_on": "2026-10-06",
+    "access_right": "restricted",
+    "api_files": 0,
+    "scope": "Publicmetadataonly,author reports103 configurations;filesnotdownloaded or paired content verified;future publication field recorded verbatim without changing localdate",
+    "external_application_submitted": false
+  },
+  "local_lineage": {
+    "fetch_receipt.json": "9f49a74b05806c071c2643506e3e683924947dccbf23fb9cad93ea1c0a09ca93",
+    "metadata_receipt.json": "cea8c1ae1c64e259a4055d61517e98336e6f2bc44be3ec9b6412a9d65a17b4b5",
+    "table7_arithmetic.json": "b9969431511f90adb08443f117efab36d89550012ae67b4e390ee3d4dd71c788",
+    "simplicity_code_receipt.json": "b65481caf5b9d1a2a3679061e9145b525f688e5bc6e0c2ce55b1f21b552f3634",
+    "code_receipt.json": "27ad61bade18fbdadca310cab900a5c733cacb24a91788a147f91f4b036e6e3f"
+  }
+}

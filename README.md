@@ -2,7 +2,9 @@
 
 研究图像经过数字传播与物理再拍后，如何判断其原始视觉内容来自自然摄影还是 AI 生成。
 
-**当前进入传播后 AI／非 AI 非深度学习算法的设计阶段**，见[算法研发流程](docs/robust_ai_detection_plan.md)。先核对数据使用历史，再筛选稳健统计信号、实现明确规则并评测准确率与速度。Simulation 研发与神经模型训练暂缓；已有全量 baseline 不重复推理。已有数据审计、baseline、定位/分割适配和前向原型；自研高速稳健算法尚未实现。
+**已完成第72轮，尚未达到BA≥80%、传播后跌幅≤2个百分点并经独立真实数据验证的联合目标。** 当前最佳联合候选为[冻结CuRe特征＋自研统计头](src/palimpsest/detection/models/frozen_features/cure/README.md)，第69轮最低域汇总BA85%、最大同源下降2.5个百分点。它包含神经网络；非神经路线拟接续第15轮，历史结果见[研发记录](reports/04_算法研发/README.md)。
+
+已实现归一化残差邻域、便携森林、配对分数稳定目标及类别最差正确率标定。全部RR／Chimera来源属于反复接触的开发数据，RR reserved封存；simulation与最终神经训练暂缓。已有全量baseline复用签名缓存。
 
 本机代码：`E:\ai_image_origin_research\repo`。GitHub：[TTAWDTT/Palimpsest](https://github.com/TTAWDTT/Palimpsest)（公开）。
 
@@ -12,6 +14,7 @@
 |---|---|
 | 当前证据、失败结果与待验证问题 | [研究结论](reports/README.md) |
 | 当前算法开发步骤、数据划分与验收条件 | [算法研发流程](docs/robust_ai_detection_plan.md) |
+| 首轮算法结果、失败与下一轮约束 | [算法研发记录](reports/04_算法研发/README.md) |
 | 已有缓存汇总、数字传播对照协议 | [统一评测与传播对照](docs/propagation_evaluation.md) |
 | 公共模块如何划分、实验依赖什么 | [代码结构](docs/architecture.md) |
 | 从源码目录理解业务链路与扩展位置 | [源码导览](src/README.md) |
@@ -29,8 +32,9 @@ src/palimpsest/
   contracts.py      RGB、坐标、掩膜、原始来源预测协议
   localization/     区域定位/分割，baselines 为已有候选方法
   detection/        原始自然摄影/AI 内容判别
-    algorithms/     自研非深度学习方法（待开发）
-    models/         自研神经模型（待开发）
+    algorithms/     自研非深度学习原型（稳健性未通过）
+    representations/ 冻结神经特征提取
+    models/         frozen_features 已有候选；trainable 待开发
     baselines/      B-Free、D3、Benford 适配
   pipelines/        解码→定位→裁切→来源推理与计时
   training/         显式训练与标定接口（实现待开发）

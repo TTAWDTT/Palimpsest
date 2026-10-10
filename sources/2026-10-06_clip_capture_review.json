@@ -1,0 +1,12 @@
+{
+  "source_url": "https://docs.pytorch.org/docs/2.7/notes/cuda.html",
+  "retrieval": "web tool full page and located subsections;urllib separate403,not saved local HTML",
+  "reading_scope": "CUDA graph mechanism/API/warmup/constraints/whole-network example and graph memory management;not full CUDA chapter",
+  "own_adaptation": "Capture existing fixed224 CLIP vision with persistent buffers;retain preprocessing/weights/FP16/JIToptFalse;require bit-exact synthetic and live-cache parity",
+  "limitations": [
+    "Runtime optimization is known systems engineering,not novel detection principle",
+    "Capture reduces launch overhead;no promised GPU speedup before measurement",
+    "Replay fixed shapes/addresses;serialize buffer access",
+    "Shared network equivalence is not independent scientific robustness validation"
+  ]
+}

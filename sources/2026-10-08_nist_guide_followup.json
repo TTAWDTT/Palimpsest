@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-08",
+  "url": "https://doi.org/10.6028/NIST.IR.8377",
+  "title": "User Guide for NIST Media Forensic Challenge (MFC) Datasets",
+  "year": 2021,
+  "pages": 41,
+  "read_scope": "web3.1-3.5 access;4.4-4.6 probe/journal/history metadata;5 selective scoring excerpts;notall41pages",
+  "key_boundary": "IsGAN indicates at leastoneGANmanipulation;not automatically whole-image synthetic origin",
+  "download_status": "directpublisherPDF403,webPDFtextaccessible,no localPDFhash",
+  "datasets_received": false,
+  "external_registration_or_request": false,
+  "scope": "Historical metadata/access guide,not current dataset or independence certification"
+}

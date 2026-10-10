@@ -1,0 +1,84 @@
+{
+  "campaign": "thirtythird local score correction",
+  "register": "Selected quote arithmetic only",
+  "quote_source": "reports/04_算法研发/第三十三轮局部分数补偿_配对邻域未恢复判别_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/local_score_transport/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "original_head/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/original_head/minimum_domain_ba')",
+      "quoted": "72.22"
+    },
+    {
+      "section": "table",
+      "label": "original_head/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/original_head/minimum_scene_ba')",
+      "quoted": "71.25"
+    },
+    {
+      "section": "table",
+      "label": "original_head/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/original_head/maximum_any_scene_drop')",
+      "quoted": "22.50"
+    },
+    {
+      "section": "table",
+      "label": "matched_correction/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/matched_correction/minimum_domain_ba')",
+      "quoted": "73.75"
+    },
+    {
+      "section": "table",
+      "label": "matched_correction/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/matched_correction/minimum_scene_ba')",
+      "quoted": "68.75"
+    },
+    {
+      "section": "table",
+      "label": "matched_correction/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/matched_correction/maximum_any_scene_drop')",
+      "quoted": "27.50"
+    },
+    {
+      "section": "table",
+      "label": "shuffled_anchor_correction/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/shuffled_anchor_correction/minimum_domain_ba')",
+      "quoted": "50.42"
+    },
+    {
+      "section": "table",
+      "label": "shuffled_anchor_correction/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/shuffled_anchor_correction/minimum_scene_ba')",
+      "quoted": "42.50"
+    },
+    {
+      "section": "table",
+      "label": "shuffled_anchor_correction/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/shuffled_anchor_correction/maximum_any_scene_drop')",
+      "quoted": "27.50"
+    },
+    {
+      "section": "table",
+      "label": "balanced_null_correction/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/balanced_null_correction/minimum_domain_ba')",
+      "quoted": "46.67"
+    },
+    {
+      "section": "table",
+      "label": "balanced_null_correction/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/balanced_null_correction/minimum_scene_ba')",
+      "quoted": "40.00"
+    },
+    {
+      "section": "table",
+      "label": "balanced_null_correction/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/balanced_null_correction/maximum_any_scene_drop')",
+      "quoted": "15.00"
+    }
+  ]
+}

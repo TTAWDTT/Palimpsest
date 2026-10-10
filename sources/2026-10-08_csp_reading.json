@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-08",
+  "paper": {
+    "url": "https://doc.ml.tu-berlin.de/bbci/publications/BlaTomLemKawMue08.pdf",
+    "bytes": 1515320,
+    "sha256": "855d829607b04b843fa10a6e2f0285127ee5505855a28fdbaf5acd3f6960bd47",
+    "status": "downloaded;not read yet"
+  },
+  "version": "12pageauthorsdraft,2008;nottypesetpublisherPDF",
+  "reading": "Pages1-5 text;page7merits/caveats;parts8-9variants;notwholeempirics/appendix/figures",
+  "official_code_reading": {
+    "url": "https://pyriemann.readthedocs.io/en/latest/_modules/pyriemann/spatialfilters.html",
+    "scope": "CSPbinaryfit747-802andAPIdefinition;notpackageinstalled/executed"
+  },
+  "own_protocol": "experiments/origin_detection/token_csp_consistency/README.md",
+  "limits": [
+    "Meanpowerseparationdoesnotcertifydecisionboundary",
+    "CSPsupervisionrequiresfold-localfilterfit",
+    "NeuralpatchtokensarenotEEGsensorsorindependentGaussians",
+    "Sourcebalancedweight/shrinkage/normalizedlogpowersareadaptation"
+  ]
+}

@@ -8,9 +8,11 @@
 
 业务包括区域定位、来源判别、处理过程模拟、数据与评测，以及后续自研算法/模型训练。下面分别说明可调用的能力与预留接口。
 
-当前非深度学习算法处于设计阶段，具体开发流程见[算法研发计划](../docs/robust_ai_detection_plan.md)；候选实现和成绩尚未产生。
+当前非深度学习算法已有[局部统计原型](palimpsest/detection/algorithms/local_statistics/README.md)，具体流程见[开发计划](../docs/robust_ai_detection_plan.md)。[首轮真实拍屏诊断](../reports/04_算法研发/首轮局部统计算法_开发筛选与真实拍屏诊断_2026-10-05.md)失败，不能视作已经可部署的稳健方法。
 
 ## 目录结构
+
+第三轮增加[灰度顺序统计](palimpsest/detection/algorithms/ordinal_statistics/README.md)，仍未通过处理后准确度门槛。`data/source_groups.py`提供可复用的精确文件来源连通组；它不是近重复检测器。
 
 ```text
 src/
@@ -22,8 +24,10 @@ src/
     │   └── baselines/         四边形提议与 SAM 2 自动分割
     ├── detection/             判别原始自然摄影/AI 内容
     │   ├── interfaces.py      OriginDetector 来源预测协议
-    │   ├── algorithms/        自研非深度学习方法（待开发）
-    │   ├── models/            自研神经模型（待开发）
+    │   ├── algorithms/        非神经像素统计；readouts 为共用数值求解
+    │   ├── representations/   已有预训练表示的显式冻结接口（鲁棒性待审）
+    │   ├── models/            frozen_features/cure 为已有神经特征方法
+    │   │   └── trainable/      自研神经训练路线（待开发）
     │   ├── baselines/         B-Free、D3、Benford 参考实现适配
     │   └── files.py           单检测器的文件解码与推理计时
     ├── pipelines/             组合区域定位与来源判别
@@ -50,7 +54,7 @@ src/
 | 模块 | 负责什么 | 当前边界 |
 |---|---|---|
 | [localization](palimpsest/localization/README.md) | 输出候选区域的框、可选掩膜和定位置信度 | 已有几何提议和通用分割；承载图像区域的筛选、跟踪待开发 |
-| [detection](palimpsest/detection/README.md) | 对输入像素输出原始来源分数与判定 | B-Free/D3 已接真实权重；Benford 支持特征及已拟合森林加载；自研方法待开发 |
+| [detection](palimpsest/detection/README.md) | 对输入像素输出原始来源分数与判定 | B-Free/D3 已接真实权重；Benford 支持特征及已拟合森林加载；局部统计规则为未通过稳健性验证的原型 |
 | [pipelines](palimpsest/pipelines/README.md) | 串接解码、定位、裁切、预测和计时 | 图片链可调用；视频/手机实时链待开发 |
 | [simulation](palimpsest/simulation/README.md) | 按事件与显式参数生成经过处理的图像 | 数字处理可调用，物理事件已有受限原型，截屏/独立拍投影实现待开发 |
 | [training](palimpsest/training/README.md) | 定义训练/验证样本与拟合产物出口 | 只有扩展协议，没有默认训练器 |
@@ -115,6 +119,16 @@ flowchart LR
 - 来源：`natural` / `ai` 描述原始内容；定位置信度与 AI 来源分数分开。
 - 分数：越大越偏 AI，严格超过声明阈值才判 AI；未校准分数不作为 AI 概率。
 
-新增定位器实现 [RegionLocator](palimpsest/localization/interfaces.py)；自研传统方法放 `detection/algorithms/`，自研神经模型放 `detection/models/`，已有论文/官方方法放 `detection/baselines/`，统一实现 [OriginDetector](palimpsest/detection/interfaces.py)。组合流程放 `pipelines/`，共用处理机制放 `simulation/`。
+新增定位器实现 [RegionLocator](palimpsest/localization/interfaces.py)；自研传统方法放 `detection/algorithms/`，共用数值规则放其 `readouts/`；冻结神经特征上的完整方法放 `detection/models/frozen_features/`，后续神经训练方法放 `detection/models/trainable/`，已有论文/官方方法放 `detection/baselines/`，统一实现 [OriginDetector](palimpsest/detection/interfaces.py)。组合流程放 `pipelines/`，共用处理机制放 `simulation/`。
+
+CuRe的[官方文件适配器](palimpsest/detection/baselines/cure.py)是明确的研究例外：作者按PNG后缀增加一次编码，只有RGB会丢失该处理条件，所以保留`predict_file(path)`及原概率／平分规则；它尚未接入区域RGB推理链。其[固定对照](../experiments/origin_detection/cure_baseline/README.md)已完成，不是当前默认或自研成功。
 
 公共库不导入 `experiments/`。具体数据集选择、冻结划分、拟合和实验调度位于仓库外层的 [experiments](../experiments/README.md)；数据与权重通过 [路径配置](../configs/README.md) 获取，研究报告位于 [reports](../reports/README.md)。导入适配模块不会下载权重或启动推理，模型在显式调用时加载。
+
+算法候选另有[闭合相位统计](palimpsest/detection/algorithms/phase_statistics/README.md)；第四轮未通过真实处理准确度门槛。公共[特征缓存审计和文件计时](palimpsest/evaluation/README.md)供实验复用。
+
+较大的冻结表示可通过[evaluation/numeric_features.py](palimpsest/evaluation/numeric_features.py)用元数据表与NumPy数组读取，按需提供坐标，避免逐坐标Python对象。来源折划分与OOF统计在[evaluation/source_crossfit.py](palimpsest/evaluation/source_crossfit.py)。二者处理数据，不加载编码器。
+
+[token_statistics.py](palimpsest/detection/representations/token_statistics.py)提供中位数锚定的截断均值与离散度；[frozen_cure_tokens.py](palimpsest/detection/representations/frozen_cure_tokens.py)只读捕获作者PECore归一化patch输出，并要求原均值一致。其特征空间性质不代表图像传播不变性，接入核查和分类效果由实验分别提供。
+
+第六轮新增[残差／顺序统计候选](palimpsest/detection/algorithms/residual_statistics/README.md)，使用[可读JSON特征森林](palimpsest/detection/algorithms/forest.py)实现NumPy推理。实验拟合与像素推理分开，两个候选的真实准入仍需评测；不是默认可用的成功检测器。

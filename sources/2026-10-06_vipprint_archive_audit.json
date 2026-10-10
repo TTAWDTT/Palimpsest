@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-06",
+  "source": "https://zenodo.org/records/4454971",
+  "archive_parts": 14,
+  "part_001_size": 10737418240,
+  "part_014_size": 7121986450,
+  "full_declared_stream_bytes": 146708423570,
+  "fetched_ranges": {
+    "signature": 32,
+    "encoded_header": 42,
+    "packed_header": 475638,
+    "root_document_prefix": 65536
+  },
+  "decoded_header_size": 8017602,
+  "metadata_header_crc_ok": true,
+  "root_document_crcs_passed": 5,
+  "index_counts": {
+    "files_and_directories": 41838,
+    "nonempty_files": 41815,
+    "gan_jpg_png": 39997,
+    "gan_by_directory": {
+      "ProGAN/GAN": 3500,
+      "ProGAN/RAW": 3497,
+      "StarGAN/GAN": 500,
+      "StarGAN/RAW": 500,
+      "StyleGAN/GAN": 16000,
+      "StyleGAN/RAW": 16000
+    },
+    "solid_folders": 69,
+    "max_files_per_solid_folder": 664
+  },
+  "scope": "Header/name/size audit and root text files,not image content/paired identity/full archive MD5",
+  "lineage": {
+    "vipprint_decoded_header_receipt.json": "4e549bcc70a29fd1cc4ce39075418e46c759002fd99753a084cbb3403d8377fa",
+    "vipprint_archive_index.json": "e0364fbf4f598fa6d2576e1be70833d94e2734083c3d1c129f43c7d4b9fc6b52",
+    "vipprint_documents_receipt.json": "9f1737721ed9e7e38317bfd966f5de768454c016bfac5bc3ce7da44db8a6f962",
+    "audit_vipprint_header.py": "6ffc51f77abe9c1475189f008f234141f9539242bbbde51aaa33af7e27231a52",
+    "audit_vipprint_index.py": "ff4e118d7b2ab508f79f7c5a728c5e4fbb39459318d3deeb6c26b0b2d8072a86"
+  },
+  "limitations": [
+    "GAN real ProGAN folder3497 versus claimed3500",
+    "Only scan document/crop filenames,no digital source pairing proven",
+    "RAW here is real-image folder,not certified sensor RAW",
+    "Most solid blocks about2.14GB;fetching tail file needs preceding prefix",
+    "No pixels fetched/decoded or full MD5 checked;training overlap/near duplicates unknown",
+    "Dataset README noncommercial terms"
+  ],
+  "header_attempt_correction": "First LZMA decoder requested one extra byte;fixed to explicit7z unpack length,then CRC matched. Failed attempt recorded."
+}

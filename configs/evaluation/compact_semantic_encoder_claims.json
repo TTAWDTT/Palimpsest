@@ -1,0 +1,210 @@
+{
+  "campaign": "Twenty-second compact semantic encoder2026-10-06",
+  "register": "Transcription only,not independent validation",
+  "quote_source": "reports/04_\u7b97\u6cd5\u7814\u53d1/\u7b2c\u4e8c\u5341\u4e8c\u8f6e\u8f83\u5c0f\u8bed\u4e49\u7f16\u7801\u5668_\u6210\u672c\u964d\u4f4e\u4f46\u5206\u5c42\u9000\u5316\u4ecd\u660e\u663e_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/compact_semantic_encoder/iteration.json"
+    },
+    "f": {
+      "path": "../../work/robust_statistics/compact_semantic_encoder/features.json"
+    },
+    "b": {
+      "path": "../../work/robust_statistics/compact_semantic_encoder/benchmark.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/mean/minimum_domain_ba')",
+      "quoted": "81.11"
+    },
+    {
+      "section": "table",
+      "label": "mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/mean/minimum_scene_ba')",
+      "quoted": "75.00"
+    },
+    {
+      "section": "table",
+      "label": "mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/mean/maximum_any_scene_drop')",
+      "quoted": "13.75"
+    },
+    {
+      "section": "table",
+      "label": "source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/source/minimum_domain_ba')",
+      "quoted": "81.11"
+    },
+    {
+      "section": "table",
+      "label": "source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/source/minimum_scene_ba')",
+      "quoted": "80.00"
+    },
+    {
+      "section": "table",
+      "label": "source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/source/maximum_any_scene_drop')",
+      "quoted": "11.25"
+    },
+    {
+      "section": "table",
+      "label": "source_source_shuffled_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/source_source_shuffled_null/minimum_domain_ba')",
+      "quoted": "41.67"
+    },
+    {
+      "section": "table",
+      "label": "source_source_shuffled_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/source_source_shuffled_null/minimum_scene_ba')",
+      "quoted": "31.25"
+    },
+    {
+      "section": "table",
+      "label": "source_source_shuffled_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/source_source_shuffled_null/maximum_any_scene_drop')",
+      "quoted": "12.50"
+    },
+    {
+      "section": "speed",
+      "label": "all/predict_ms",
+      "expr": "f('b','/summaries/all/predict_ms/p95')",
+      "quoted": "16.39"
+    },
+    {
+      "section": "speed",
+      "label": "all/end_to_end_ms",
+      "expr": "f('b','/summaries/all/end_to_end_ms/p95')",
+      "quoted": "30.87"
+    },
+    {
+      "section": "speed",
+      "label": "all/images",
+      "expr": "f('b','/summaries/all/images')",
+      "quoted": "120"
+    },
+    {
+      "section": "speed",
+      "label": "all/measurements",
+      "expr": "f('b','/summaries/all/measurements')",
+      "quoted": "360"
+    },
+    {
+      "section": "speed",
+      "label": "at_most_2MP/predict_ms",
+      "expr": "f('b','/summaries/at_most_2MP/predict_ms/p95')",
+      "quoted": "15.36"
+    },
+    {
+      "section": "speed",
+      "label": "at_most_2MP/end_to_end_ms",
+      "expr": "f('b','/summaries/at_most_2MP/end_to_end_ms/p95')",
+      "quoted": "30.67"
+    },
+    {
+      "section": "speed",
+      "label": "at_most_2MP/images",
+      "expr": "f('b','/summaries/at_most_2MP/images')",
+      "quoted": "117"
+    },
+    {
+      "section": "speed",
+      "label": "at_most_2MP/measurements",
+      "expr": "f('b','/summaries/at_most_2MP/measurements')",
+      "quoted": "351"
+    },
+    {
+      "section": "speed",
+      "label": "above_2MP/predict_ms",
+      "expr": "f('b','/summaries/above_2MP/predict_ms/p95')",
+      "quoted": "21.12"
+    },
+    {
+      "section": "speed",
+      "label": "above_2MP/end_to_end_ms",
+      "expr": "f('b','/summaries/above_2MP/end_to_end_ms/p95')",
+      "quoted": "32.99"
+    },
+    {
+      "section": "speed",
+      "label": "above_2MP/images",
+      "expr": "f('b','/summaries/above_2MP/images')",
+      "quoted": "3"
+    },
+    {
+      "section": "speed",
+      "label": "above_2MP/measurements",
+      "expr": "f('b','/summaries/above_2MP/measurements')",
+      "quoted": "9"
+    },
+    {
+      "section": "cost",
+      "label": "extraction_seconds",
+      "expr": "f('f','/elapsed_s')",
+      "quoted": "678.88"
+    },
+    {
+      "section": "cost",
+      "label": "fitting_seconds",
+      "expr": "f('i','/elapsed_s')",
+      "quoted": "27.01"
+    },
+    {
+      "section": "worst",
+      "label": "paired_sources",
+      "expr": "1*f('i','/candidates/source/pairs/chimera~1cat~1original~1raw>jpeg60_420_after_resize256/paired_sources')",
+      "quoted": "80"
+    },
+    {
+      "section": "worst",
+      "label": "paired_real_sources",
+      "expr": "1*f('i','/candidates/source/pairs/chimera~1cat~1original~1raw>jpeg60_420_after_resize256/paired_real_sources')",
+      "quoted": "40"
+    },
+    {
+      "section": "worst",
+      "label": "paired_fake_sources",
+      "expr": "1*f('i','/candidates/source/pairs/chimera~1cat~1original~1raw>jpeg60_420_after_resize256/paired_fake_sources')",
+      "quoted": "40"
+    },
+    {
+      "section": "worst",
+      "label": "balanced_accuracy_change",
+      "expr": "100*f('i','/candidates/source/pairs/chimera~1cat~1original~1raw>jpeg60_420_after_resize256/balanced_accuracy_change')",
+      "quoted": "-11.25"
+    },
+    {
+      "section": "worst",
+      "label": "source_macro_decision_flip_rate",
+      "expr": "100*f('i','/candidates/source/pairs/chimera~1cat~1original~1raw>jpeg60_420_after_resize256/source_macro_decision_flip_rate')",
+      "quoted": "13.75"
+    },
+    {
+      "section": "worst",
+      "label": "real",
+      "expr": "100*f('i','/candidates/source/pairs/chimera~1cat~1original~1raw>jpeg60_420_after_resize256/class_accuracy_change/REAL')",
+      "quoted": "-17.50"
+    },
+    {
+      "section": "worst",
+      "label": "fake",
+      "expr": "100*f('i','/candidates/source/pairs/chimera~1cat~1original~1raw>jpeg60_420_after_resize256/class_accuracy_change/FAKE')",
+      "quoted": "-5.00"
+    },
+    {
+      "section": "worst",
+      "label": "ci_low",
+      "expr": "100*f('i','/candidates/source/pairs/chimera~1cat~1original~1raw>jpeg60_420_after_resize256/balanced_accuracy_change_ci95/0')",
+      "quoted": "-18.75"
+    },
+    {
+      "section": "worst",
+      "label": "ci_high",
+      "expr": "100*f('i','/candidates/source/pairs/chimera~1cat~1original~1raw>jpeg60_420_after_resize256/balanced_accuracy_change_ci95/1')",
+      "quoted": "-3.75"
+    }
+  ]
+}

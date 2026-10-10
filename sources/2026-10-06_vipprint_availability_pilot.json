@@ -1,0 +1,76 @@
+{
+  "date": "2026-10-06",
+  "source": "https://zenodo.org/records/4454971",
+  "availability_pilot_files": 4,
+  "compressed_range_bytes": 16777216,
+  "scope": "Availability pilot only,not source pairing or representative performance;full block/archive CRC/MD5 not checked",
+  "formal_test_excluded": true,
+  "detector_inferences": 0,
+  "lineage": {
+    "vipprint_availability_plan.json": "b4876820f8a5c34cd8f1bd497950194b6716f9336c7ae326e63d7fe8c42f7191",
+    "audit_vipprint_availability.py": "9d925db079e28cd05269f6197d9e0352f14c42b04c56c260dc1a5c95e2a78f10",
+    "vipprint_availability.json": "1b700e85be2e26bcf5f55a164b93a58608604d3c05ca6dfd0220eaa9cd020f9f"
+  },
+  "files": [
+    {
+      "branch": "ProGAN/GAN",
+      "name": "VIPPrint-Dataset/VIPP-Dataset-GAN/ProGAN/GAN/doc03570720200819125626_019_crop_2.jpg",
+      "file_bytes": 3260699,
+      "sha256": "bcbb9f1abe40cda6b7132a7d66dcc734aa2dcdd70fc36437e032debfec6dbd11",
+      "individual_crc32_ok": true,
+      "pillow_verify_and_decode_ok": true,
+      "dimensions": [
+        2066,
+        2068
+      ],
+      "mode": "RGB",
+      "format": "JPEG",
+      "compressed_prefix_bytes": 4194304
+    },
+    {
+      "branch": "ProGAN/RAW",
+      "name": "VIPPrint-Dataset/VIPP-Dataset-GAN/ProGAN/RAW/doc03569820200818143802_031_crop_4.jpg",
+      "file_bytes": 3462387,
+      "sha256": "7b947dc07060f4f27f86f0378020ca2806eba52753ea05349b4f037d4b349f08",
+      "individual_crc32_ok": true,
+      "pillow_verify_and_decode_ok": true,
+      "dimensions": [
+        2068,
+        2064
+      ],
+      "mode": "RGB",
+      "format": "JPEG",
+      "compressed_prefix_bytes": 4194304
+    },
+    {
+      "branch": "StyleGAN/GAN",
+      "name": "VIPPrint-Dataset/VIPP-Dataset-GAN/StyleGAN/GAN/doc03560120200808141724_053_crop_4.jpg",
+      "file_bytes": 3603864,
+      "sha256": "c910eb540cff05fa6b443ec01488f8f6fd7dd4dd06ff848905560270a5085d3a",
+      "individual_crc32_ok": true,
+      "pillow_verify_and_decode_ok": true,
+      "dimensions": [
+        2064,
+        2057
+      ],
+      "mode": "RGB",
+      "format": "JPEG",
+      "compressed_prefix_bytes": 4194304
+    },
+    {
+      "branch": "StyleGAN/RAW",
+      "name": "VIPPrint-Dataset/VIPP-Dataset-GAN/StyleGAN/RAW/doc03564420200809123532_098_crop_4.jpg",
+      "file_bytes": 3575410,
+      "sha256": "c9fbe52b7136e49b0693905a923f32c908e07f490895a582906b9cdd0ab24bf2",
+      "individual_crc32_ok": true,
+      "pillow_verify_and_decode_ok": true,
+      "dimensions": [
+        2068,
+        2062
+      ],
+      "mode": "RGB",
+      "format": "JPEG",
+      "compressed_prefix_bytes": 4194304
+    }
+  ]
+}

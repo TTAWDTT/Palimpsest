@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-09",
+  "failed_precheck_archive": "work/robust_statistics/complementary_split_precheck_v1",
+  "old_controls_sha256": "2e43b552073dcbd6df5729c815798bebfe9894720945a8f326bea4134311e6b7",
+  "failure_sha256": "61ffdf1e54549c620f00693765594c74fd97062abd82570af94b048539387bfb",
+  "real_fit_before_failure": false,
+  "reason": "Legacy Q60 feature receipt pins whole calibrated_readout_campaign module used only for write_json;initial budget API edit violated that dependency pin",
+  "solution": "Restore original module bytes;declare numeric bank budgets in BudgetedRecordAwareCampaignMethod in training_fit with panel bank_budgets helper;old defaults12/1 preserved",
+  "restored_cache_dependency_sha256": "a8985f6fe77cbc530a669608a044715a0c27527f6a77be947cfe98a7c1719a5d",
+  "strong_token_cure_covariance_quantile_full_code_pin_mismatches": 0,
+  "current_controls": "19 passed,newversion",
+  "scope": "Dependency boundary software correction;no pin exception/cache rewrite/encoder rerun/scientific result"
+}

@@ -1,0 +1,66 @@
+{
+  "campaign": "twentyeighth compact complement",
+  "register": "Transcriptiononly,notindependent validation",
+  "quote_source": "reports/04_\u7b97\u6cd5\u7814\u53d1/\u7b2c\u4e8c\u5341\u516b\u8f6e\u5c0f\u578b\u4e92\u8865\u8868\u793a_\u6210\u672c\u5019\u9009\u672a\u7ef4\u6301\u7a33\u5b9a\u6027\u6536\u76ca_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/compact_complement/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "joint/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/joint~1source/minimum_domain_ba')",
+      "quoted": "80.56"
+    },
+    {
+      "section": "table",
+      "label": "joint/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/joint~1source/minimum_scene_ba')",
+      "quoted": "85.00"
+    },
+    {
+      "section": "table",
+      "label": "joint/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/joint~1source/maximum_any_scene_drop')",
+      "quoted": "7.50"
+    },
+    {
+      "section": "table",
+      "label": "joint/mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/joint~1mean/minimum_domain_ba')",
+      "quoted": "78.33"
+    },
+    {
+      "section": "table",
+      "label": "joint/mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/joint~1mean/minimum_scene_ba')",
+      "quoted": "86.25"
+    },
+    {
+      "section": "table",
+      "label": "joint/mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/joint~1mean/maximum_any_scene_drop')",
+      "quoted": "7.50"
+    },
+    {
+      "section": "table",
+      "label": "joint/source_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/joint~1source_null/minimum_domain_ba')",
+      "quoted": "44.17"
+    },
+    {
+      "section": "table",
+      "label": "joint/source_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/joint~1source_null/minimum_scene_ba')",
+      "quoted": "37.50"
+    },
+    {
+      "section": "table",
+      "label": "joint/source_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/joint~1source_null/maximum_any_scene_drop')",
+      "quoted": "13.75"
+    }
+  ]
+}

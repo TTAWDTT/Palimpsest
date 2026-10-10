@@ -1,0 +1,185 @@
+{
+  "official_code_commit": "7764ea0f912e53c92e82eb78a2a1631e92725fc8",
+  "retrieved_date": "2026-10-06",
+  "requests": [
+    {
+      "url": "https://raw.githubusercontent.com/facebookresearch/dinov2/7764ea0f912e53c92e82eb78a2a1631e92725fc8/README.md",
+      "sha256": "d1bc2e9686522bbd66ed6123dc81eb36b3a98e8ea9a2ca97778f54a1c641c9e1",
+      "bytes": 32799
+    },
+    {
+      "url": "https://raw.githubusercontent.com/facebookresearch/dinov2/7764ea0f912e53c92e82eb78a2a1631e92725fc8/MODEL_CARD.md",
+      "sha256": "70ca59606bee0a5fbb1baec80e7e29a93cd7cfbe26ca1910c52a852c4aab09d0",
+      "bytes": 9152
+    },
+    {
+      "url": "https://raw.githubusercontent.com/facebookresearch/dinov2/7764ea0f912e53c92e82eb78a2a1631e92725fc8/dinov2/hub/backbones.py",
+      "sha256": "871fca671b12a9ff02e810654baf509e97ccf461bf8196ce5ddeefff2fd87d3e",
+      "bytes": 5586
+    },
+    {
+      "url": "https://raw.githubusercontent.com/facebookresearch/dinov2/7764ea0f912e53c92e82eb78a2a1631e92725fc8/dinov2/data/transforms.py",
+      "sha256": "725823be317c6a549810740c6566a2a448ba1eba85eea87769c10b986dda2e5b",
+      "bytes": 3056
+    }
+  ],
+  "reading_scope": {
+    "MODEL_CARD.md": "Full architecture,training and bias card read;table not independently recomputed",
+    "dinov2/hub/backbones.py": "Constructor,strict weight loading and small-model selection read",
+    "dinov2/data/transforms.py": "Full classification-eval Resize256/CenterCrop224/normalization read",
+    "README.md": "Backbone table/location read only;not full README",
+    "paper": "Not fetched or read in this follow-up;do not claim its transfer results"
+  },
+  "hypothesis": "A smaller frozen pretrained encoder may lower compute cost while retaining enough class evidence;not established by generic ImageNet accuracy",
+  "boundaries": [
+    "Existing pretrained neural encoder;no newly trained backbone",
+    "DINOv2 pretrained data overlap with research images unknown",
+    "Author distillation is model provenance,not distillation performed by this project",
+    "No physical robustness guarantee from parameter count or self-supervision"
+  ],
+  "experimental_status": "Full20160vectors/fiveheads/native360timings complete;chosen minimumBA75%,worstscene drop8.75pp;goal unmet",
+  "runtime_acquisition": {
+    "code_commit": "7764ea0f912e53c92e82eb78a2a1631e92725fc8",
+    "vendor_root": "E:\\ai_image_origin_research\\repo\\work\\vendor\\dinov2\\7764ea0f912e53c92e82eb78a2a1631e92725fc8",
+    "files": [
+      {
+        "name": "LICENSE",
+        "bytes": 11359,
+        "sha256": "600cc67cc4cb2f5ea317dcfc687ad1c74dc4bec8782bbe9db0afd83513b935b7"
+      },
+      {
+        "name": "dinov2/__init__.py",
+        "bytes": 218,
+        "sha256": "0d2b87b7e71c7f7279ccc4b4f8b541d26071425284a0ea01a5a435fac4511cfe"
+      },
+      {
+        "name": "dinov2/models/__init__.py",
+        "bytes": 1574,
+        "sha256": "b93329ce676f3eb0c9a7790d1b3b2b114a0855ea8dc76e32e262d1a7dc6c55ae"
+      },
+      {
+        "name": "dinov2/models/vision_transformer.py",
+        "bytes": 16438,
+        "sha256": "7799a260f2d7d0fe197331d08502fb8c542f9b7424723650f6a39b64fa2639ea"
+      },
+      {
+        "name": "dinov2/hub/__init__.py",
+        "bytes": 195,
+        "sha256": "2932e94a2d67be87b717c49468214c1127be7864aedf37f5891d26be7bc1437f"
+      },
+      {
+        "name": "dinov2/hub/backbones.py",
+        "bytes": 5586,
+        "sha256": "871fca671b12a9ff02e810654baf509e97ccf461bf8196ce5ddeefff2fd87d3e"
+      },
+      {
+        "name": "dinov2/hub/utils.py",
+        "bytes": 1598,
+        "sha256": "579613e3d7b82c2a387eddc215ad9f076b8740f9618229628395fe5755dbd131"
+      },
+      {
+        "name": "dinov2/layers/__init__.py",
+        "bytes": 498,
+        "sha256": "1b55deed39d5ab0b589bef421bbfe06f24a10cd590a0f8403234c9ee4e34109d"
+      },
+      {
+        "name": "dinov2/layers/attention.py",
+        "bytes": 3298,
+        "sha256": "79c7be7a452b3aad96698ec38d5d5150b9f4d8ac084fa93324510dc9f624775d"
+      },
+      {
+        "name": "dinov2/layers/block.py",
+        "bytes": 11609,
+        "sha256": "60c0ac7dfa4474be313fabfa5a23d82faf6f0cecd4e720a88be35de9788cb636"
+      },
+      {
+        "name": "dinov2/layers/dino_head.py",
+        "bytes": 2007,
+        "sha256": "9fdb1fa61c0609dc0876f711f9d0d828c33bf9fd972aab3d9c968d44e16b98d1"
+      },
+      {
+        "name": "dinov2/layers/drop_path.py",
+        "bytes": 1157,
+        "sha256": "b9f8236e86054b9d9a71275efcad2a9ecaa1f86b529d4b8d6109ddb5e806f67a"
+      },
+      {
+        "name": "dinov2/layers/layer_scale.py",
+        "bytes": 1097,
+        "sha256": "dadd5aafe178f1bf72a205a02a6645c7e635cacbad585d4a7369c200c6e89135"
+      },
+      {
+        "name": "dinov2/layers/mlp.py",
+        "bytes": 1269,
+        "sha256": "255825c73b60a916dd00eb1e38aacbcdbf316e40d6a005efb46e245b7edb43aa"
+      },
+      {
+        "name": "dinov2/layers/patch_embed.py",
+        "bytes": 2829,
+        "sha256": "40da6add3d811198ea3e17cb99cdd4e5cda59e369efbbe3d18d89308618cf142"
+      },
+      {
+        "name": "dinov2/layers/swiglu_ffn.py",
+        "bytes": 3200,
+        "sha256": "e46d2948fb97e497cf991ff82ce30cb59b59fdf2e12a19568417113716b4f119"
+      },
+      {
+        "name": "dinov2/data/__init__.py",
+        "bytes": 561,
+        "sha256": "a3d422bc188029270a69b231306eed8482093c0317b0ba406867a115f2e67f01"
+      },
+      {
+        "name": "dinov2/data/transforms.py",
+        "bytes": 3056,
+        "sha256": "725823be317c6a549810740c6566a2a448ba1eba85eea87769c10b986dda2e5b"
+      }
+    ],
+    "weights_url": "https://dl.fbaipublicfiles.com/dinov2/dinov2_vits14/dinov2_vits14_pretrain.pth",
+    "weights_path": "E:\\ai_image_origin_research\\models\\dinov2_small\\dinov2_vits14_pretrain.pth",
+    "weights_bytes": 88283115,
+    "weights_sha256": "b938bf1bc15cd2ec0feacfe3a1bb553fe8ea9ca46a7e1d8d00217f29aef60cd9",
+    "images_evaluated": 0
+  },
+  "runtime_controls": {
+    "passed": true,
+    "synthetic_only": true,
+    "native_images_used": 0,
+    "preprocessing_exact": true,
+    "maximum_preprocessing_differences": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "encoder": {
+      "weights_sha256": "b938bf1bc15cd2ec0feacfe3a1bb553fe8ea9ca46a7e1d8d00217f29aef60cd9",
+      "code_commit": "7764ea0f912e53c92e82eb78a2a1631e92725fc8",
+      "device": "cuda:0",
+      "source_receipt_sha256": "33a6f74e03a01657854386f157ba35079782a9293f02e54cad94a6515a27e60a",
+      "torch": "2.7.1+cu126",
+      "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+      "precision": "float32 TF32 disabled",
+      "all_parameters_frozen": true,
+      "backbone_parameters_trained": 0,
+      "strict_state_coverage": true,
+      "synthetic_repeat_exact": true,
+      "xformers_disabled": true,
+      "descriptor": "independently L2-unit CLS and mean(normalized patch tokens),affine storage",
+      "input": "PIL BICUBIC short-side256 and center224;ImageNet normalization;stored orientation"
+    },
+    "forward_only_p50_ms": 4.942499999742722,
+    "forward_only_p95_ms": 7.600215001002653,
+    "scope": "Synthetic fixed tensor warm CUDA forward only;not image-to-decision or end-to-end speed",
+    "source_receipt_sha256": "33a6f74e03a01657854386f157ba35079782a9293f02e54cad94a6515a27e60a",
+    "script_sha256": "dc70fbd2bd16539d88f7b4c311358db0b62a49550a688f948b3d8ff9902fc2c3"
+  },
+  "history": [
+    {
+      "earlier_experimental_status": "Synthetic/runtime/software controls passed;60-image196-vector costpilot2.645s;full extraction active;no accuracy result"
+    }
+  ],
+  "completed_receipts": {
+    "features.json": "work\\robust_statistics\\compact_frozen_encoder\\features.json",
+    "iteration.json": "work\\robust_statistics\\compact_frozen_encoder\\iteration.json",
+    "benchmark.json": "work\\robust_statistics\\compact_frozen_encoder\\benchmark.json",
+    "score_counts_audit.json": "work\\robust_statistics\\compact_frozen_encoder\\score_counts_audit.json"
+  }
+}

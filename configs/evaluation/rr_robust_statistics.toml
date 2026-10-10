@@ -1,0 +1,16 @@
+# Registered before candidate image statistics are inspected.
+protocol = "rr_robust_statistics_20261005"
+seed = 20261005
+development_status = "development"
+sources_per_class = 450
+fit_per_class = 270
+selection_per_class = 90
+threshold_per_class = 90
+long_edges = [512, 1024]
+patch_side = 256
+families = ["local", "scale", "color"]
+minimum_fit_auc = 0.55
+z_clip = 5.0
+bootstrap_repetitions = 2000
+selection_auc_lower_gate = 0.5
+conditions = ["original", "transfer", "redigital"]

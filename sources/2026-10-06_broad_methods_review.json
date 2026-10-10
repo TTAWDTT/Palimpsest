@@ -1,0 +1,38 @@
+{
+  "sources": [
+    {
+      "title": "Detecting Compressed AI-Generated Images via Phase Spectrum Robustness",
+      "pdf": {
+        "url": "https://openaccess.thecvf.com/content/CVPR2026/papers/Li_Detecting_Compressed_AI-Generated_Images_via_Phase_Spectrum_Robustness_CVPR_2026_paper.pdf",
+        "bytes": 1817247,
+        "sha256": "28108254b3d75838559a3a0283933a7b093e16b9919514e068e7ea8ad4242d0b"
+      },
+      "reading": "MainPDFpages1-8read;references9-10notdeepread;sourcecodeandweightsunverified",
+      "limits": [
+        "80%unpaired/20%Q40pairedstandardtraining",
+        "JPEGcompressionexperimentnotphysicalrecapture",
+        "SurvivingDCTsignnotglobalcomplexFFTphasecertificate"
+      ]
+    },
+    {
+      "title": "Training-free Detection of AI-generated images via Cropping Robustness",
+      "pdf": {
+        "url": "https://papers.neurips.cc/paper_files/paper/2025/file/1d8f05e4da49a4e1e1b052a3046bceac-Paper-Conference.pdf",
+        "bytes": 7076683,
+        "sha256": "335865325cc3a208192a3889bc0ddc9a60a17522615177d5912712c60a1748cc"
+      },
+      "reading": "FormalNeurIPSmain1-10reread;appendixremainingunread;priorarXiv/code reading recorded in2026-10-06_frozen_encoder_review.json",
+      "limits": [
+        "Thisisrereadingnotnewmethoddiscovery",
+        "AUROCcorruptionnotuniformthresholdBA/physicalproof",
+        "32/72patchencodingcallcountsnotmeasuredlatency"
+      ]
+    }
+  ],
+  "numerical_bridge": {
+    "path": "work/robust_statistics/broad_methods_review/phase_bridge.json",
+    "sha256": "49d5776b7dedd4dfafa88512778aa6cda943756287b907c9e005e8d7ef39f771",
+    "scope": "Two numeric paths sharing witness;floating block operator,not JPEGpixel/device validation"
+  },
+  "status": "Scopedprimaryreadingandnumericalmechanismcheck;notmethodreplication"
+}

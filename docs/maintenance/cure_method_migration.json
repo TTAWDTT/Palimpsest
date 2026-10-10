@@ -1,0 +1,47 @@
+{
+  "source_commit": "d279b7e965e2ac8ad2f63b4110cd46cace55addb",
+  "moves": {
+    "src/palimpsest/detection/algorithms/source_score_subspace.py": "src/palimpsest/detection/models/frozen_features/cure/source_score_subspace.py",
+    "src/palimpsest/detection/algorithms/source_score_margin.py": "src/palimpsest/detection/models/frozen_features/cure/source_score_margin.py",
+    "src/palimpsest/detection/algorithms/quadratic_score_margin.py": "src/palimpsest/detection/models/frozen_features/cure/quadratic_score_margin.py",
+    "src/palimpsest/detection/algorithms/semantic_score_margin.py": "src/palimpsest/detection/models/frozen_features/cure/semantic_score_margin.py",
+    "src/palimpsest/detection/algorithms/semantic_score_consistency.py": "src/palimpsest/detection/models/frozen_features/cure/semantic_score_consistency.py",
+    "src/palimpsest/detection/algorithms/quantile_score_consistency.py": "src/palimpsest/detection/models/frozen_features/cure/quantile_score_consistency.py",
+    "src/palimpsest/detection/algorithms/directed_score_margin.py": "src/palimpsest/detection/models/frozen_features/cure/directed_score_margin.py",
+    "src/palimpsest/detection/algorithms/rate_score_readout.py": "src/palimpsest/detection/models/frozen_features/cure/rate_score_readout.py",
+    "src/palimpsest/detection/algorithms/split_rate_score.py": "src/palimpsest/detection/models/frozen_features/cure/split_rate_score.py",
+    "src/palimpsest/detection/algorithms/complementary_split.py": "src/palimpsest/detection/models/frozen_features/cure/complementary_split.py",
+    "src/palimpsest/detection/algorithms/source_view_risk.py": "src/palimpsest/detection/algorithms/readouts/source_view_risk.py",
+    "src/palimpsest/detection/algorithms/consistent_source_risk.py": "src/palimpsest/detection/algorithms/readouts/consistent_source_risk.py",
+    "src/palimpsest/detection/algorithms/source_hinge.py": "src/palimpsest/detection/algorithms/readouts/source_hinge.py",
+    "src/palimpsest/detection/algorithms/paired_threshold.py": "src/palimpsest/detection/algorithms/readouts/paired_threshold.py",
+    "src/palimpsest/detection/algorithms/rate_penalty.py": "src/palimpsest/detection/algorithms/readouts/rate_penalty.py",
+    "experiments/origin_detection/complementary_split/README.md": "experiments/origin_detection/frozen_features/cure/complementary_split/README.md",
+    "experiments/origin_detection/complementary_split/__init__.py": "experiments/origin_detection/frozen_features/cure/complementary_split/__init__.py",
+    "experiments/origin_detection/complementary_split/run_iteration.py": "experiments/origin_detection/frozen_features/cure/complementary_split/run_iteration.py",
+    "experiments/origin_detection/directed_score_margin/README.md": "experiments/origin_detection/frozen_features/cure/directed_score_margin/README.md",
+    "experiments/origin_detection/directed_score_margin/__init__.py": "experiments/origin_detection/frozen_features/cure/directed_score_margin/__init__.py",
+    "experiments/origin_detection/directed_score_margin/run_iteration.py": "experiments/origin_detection/frozen_features/cure/directed_score_margin/run_iteration.py",
+    "experiments/origin_detection/paired_ba_calibration/README.md": "experiments/origin_detection/frozen_features/cure/paired_ba_calibration/README.md",
+    "experiments/origin_detection/paired_ba_calibration/__init__.py": "experiments/origin_detection/frozen_features/cure/paired_ba_calibration/__init__.py",
+    "experiments/origin_detection/paired_ba_calibration/run_iteration.py": "experiments/origin_detection/frozen_features/cure/paired_ba_calibration/run_iteration.py",
+    "experiments/origin_detection/quantile_score_consistency/README.md": "experiments/origin_detection/frozen_features/cure/quantile_score_consistency/README.md",
+    "experiments/origin_detection/quantile_score_consistency/__init__.py": "experiments/origin_detection/frozen_features/cure/quantile_score_consistency/__init__.py",
+    "experiments/origin_detection/quantile_score_consistency/protocol.py": "experiments/origin_detection/frozen_features/cure/quantile_score_consistency/protocol.py",
+    "experiments/origin_detection/quantile_score_consistency/run_ablation.py": "experiments/origin_detection/frozen_features/cure/quantile_score_consistency/run_ablation.py",
+    "experiments/origin_detection/quantile_score_consistency/run_iteration.py": "experiments/origin_detection/frozen_features/cure/quantile_score_consistency/run_iteration.py",
+    "experiments/origin_detection/rate_score_readout/README.md": "experiments/origin_detection/frozen_features/cure/rate_score_readout/README.md",
+    "experiments/origin_detection/rate_score_readout/__init__.py": "experiments/origin_detection/frozen_features/cure/rate_score_readout/__init__.py",
+    "experiments/origin_detection/rate_score_readout/run_iteration.py": "experiments/origin_detection/frozen_features/cure/rate_score_readout/run_iteration.py",
+    "experiments/origin_detection/split_rate_score/README.md": "experiments/origin_detection/frozen_features/cure/split_rate_score/README.md",
+    "experiments/origin_detection/split_rate_score/__init__.py": "experiments/origin_detection/frozen_features/cure/split_rate_score/__init__.py",
+    "experiments/origin_detection/split_rate_score/run_iteration.py": "experiments/origin_detection/frozen_features/cure/split_rate_score/run_iteration.py"
+  },
+  "extraction": {
+    "src/palimpsest/detection/algorithms/paired_stability.py": [
+      "src/palimpsest/detection/algorithms/readouts/stable_rule.py",
+      "src/palimpsest/detection/algorithms/paired_stability.py"
+    ]
+  },
+  "historical_artifacts": "Unmodified; historical code pins require the source commit, not the migrated checkout."
+}

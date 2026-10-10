@@ -1,0 +1,14 @@
+schema = 1
+seed = 20261006
+candidate_modes = ["equal_view_raw", "equal_domain_raw", "equal_view_augmented", "equal_domain_augmented"]
+null_mode = "equal_domain_augmented"
+training_variant = "jpeg90_444_after_resize256"
+intervention_variant = "jpeg70_420_after_resize256"
+bootstrap_repetitions = 2000
+selection_auc_lower_gate = 0.5
+minimum_processed_class_accuracy = 0.55
+minimum_original_class_accuracy = 0.55
+minimum_reencoded_ba = 0.55
+maximum_reencoded_ba_drop = 0.05
+core_p95_budget_ms = 10.0
+end_to_end_p95_budget_ms = 50.0

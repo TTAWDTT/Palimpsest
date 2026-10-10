@@ -1,0 +1,82 @@
+{
+  "campaign": "72 complementary split",
+  "register": "Transcription only",
+  "quote_source": "reports/04_\u7b97\u6cd5\u7814\u53d1/\u7b2c\u4e03\u5341\u4e8c\u8f6e\u4e92\u8865\u5e73\u5747_\u5224\u522b\u529b\u6062\u590d\u4f46\u9000\u5316\u4ecd\u660e\u663e_2026-10-09.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/complementary_split/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "label": "zero/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/zero/minimum_domain_ba')",
+      "quoted": "82.78"
+    },
+    {
+      "label": "zero/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/zero/minimum_scene_ba')",
+      "quoted": "96.25"
+    },
+    {
+      "label": "zero/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/zero/maximum_any_scene_drop')",
+      "quoted": "7.22"
+    },
+    {
+      "label": "selected/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/selected/minimum_domain_ba')",
+      "quoted": "84.44"
+    },
+    {
+      "label": "selected/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/selected/minimum_scene_ba')",
+      "quoted": "95.00"
+    },
+    {
+      "label": "selected/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/selected/maximum_any_scene_drop')",
+      "quoted": "5.56"
+    },
+    {
+      "label": "selected_wrong_source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/selected_wrong_source/minimum_domain_ba')",
+      "quoted": "84.44"
+    },
+    {
+      "label": "selected_wrong_source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/selected_wrong_source/minimum_scene_ba')",
+      "quoted": "95.00"
+    },
+    {
+      "label": "selected_wrong_source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/selected_wrong_source/maximum_any_scene_drop')",
+      "quoted": "5.56"
+    },
+    {
+      "label": "selected_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/selected_null/minimum_domain_ba')",
+      "quoted": "50.00"
+    },
+    {
+      "label": "selected_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/selected_null/minimum_scene_ba')",
+      "quoted": "50.00"
+    },
+    {
+      "label": "selected_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/selected_null/maximum_any_scene_drop')",
+      "quoted": "0.56"
+    },
+    {
+      "label": "cv_elapsed_s",
+      "expr": "f('i','/cv_elapsed_s')",
+      "quoted": "304.983"
+    },
+    {
+      "label": "elapsed_s",
+      "expr": "f('i','/elapsed_s')",
+      "quoted": "146.821"
+    }
+  ]
+}

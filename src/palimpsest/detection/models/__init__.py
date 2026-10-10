@@ -1,1 +1,1 @@
-"""Extension location for our own neural origin detectors (not implemented)."""
+"""Frozen neural feature methods and future trainable neural detectors."""

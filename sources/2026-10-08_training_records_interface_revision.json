@@ -1,0 +1,21 @@
+{
+  "git": "3a22a932a50d3a140199a83f2011afe7a50d5d4c",
+  "before": {
+    "src/palimpsest/evaluation/source_panel_crossfit.py": "5326dab28a55d83e4e132eb08afea8e9a2384946bf14c723539e409b6fa59fe1",
+    "src/palimpsest/evaluation/panel_readout_campaign.py": "3bbe2b89ce94995dc005db3866afd32555b32d041d7e78dbb4563f87d7b0050d",
+    "experiments/origin_detection/semantic_score_consistency/run_iteration.py": "897639b01a5551121e978b72f46826fb80c54a307ba9f0a7197d9db104ef7684",
+    "experiments/origin_detection/source_variance_range/README.md": "5c6032d86008ede2cabf2b2e008d51daced3d029cf7e4c49046115e7d1ef0ce8",
+    "tools/audit_smooth_source_panel_cv.py": "bbc0c38595d5629fd388508a5ab4c8734d331c455cd9ea307dd1b320243134d6"
+  },
+  "after": {
+    "src/palimpsest/evaluation/source_panel_crossfit.py": "63dea922ec28fb8c3d6f9d161a81fa019da7348798b64a0c4b29259ec372953f",
+    "src/palimpsest/evaluation/panel_readout_campaign.py": "fc5d74f43a7435fbadb0ca86eae3af3e1123fd46ecd0600b897f0072f5832030",
+    "experiments/origin_detection/semantic_score_consistency/run_iteration.py": "df952962d9ee35dca4398de20b13fca23f0705cc3813c34d08b6b961d907be34",
+    "experiments/origin_detection/source_variance_range/README.md": "bf385be336412ad5511004996ed236b0df3c9a084de571292dd37909772ceea8",
+    "tools/audit_smooth_source_panel_cv.py": null
+  },
+  "change": "Explicit record-aware fit context only forsource panel;legacy numeric signatures unchanged;typed audit replaces14-only tool",
+  "scientific_receipts_not_rewritten": true,
+  "historical_source_audit": "Restore saved Git version before checking executed64-67 source pins;feature extraction sources unchanged",
+  "typed_old65_validation": "work/robust_statistics/source_variance_range/typed_panel_schema_validation.json"
+}
