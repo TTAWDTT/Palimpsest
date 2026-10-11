@@ -1,0 +1,117 @@
+{
+  "date": "2026-10-11",
+  "reader": "Lady",
+  "scope": "Exploratory mechanism eligibility, not a complete novelty audit; no classifier or external validation",
+  "claim_registration": "Initial keyword searches were exploratory. H1-H4 were articulated during synthesis; no claim of prospective novelty review or preregistered literature conclusions.",
+  "search_engine": "web search, primary arXiv/CVF records; official author sites and GitHub CLI API",
+  "queries_run": [
+    "site.openaccess.thecvf.com \"Rethinking the Up-Sampling Operations\" 2024",
+    "site.arxiv.org \"Fingerprint\" \"Autoencoder\" \"Image\" \"Detection\"",
+    "site.openaccess.thecvf.com \"Discrete Distribution\" \"Quantization Error\" \"Autoregressive\"",
+    "site.arxiv.org \"A Closer Look at Fourier Spectrum Discrepancies\"",
+    "2026 AI generated image detection upsampling decoder mechanism frequency artifacts counterexample site:arxiv.org",
+    "\"D3QE\" site:openaccess.thecvf.com/content/ICCV2025/html",
+    "\"decoder\" \"fingerprint\" \"generated\" site:openaccess.thecvf.com/content/CVPR2025",
+    "\"D3QE: Learning Discrete\" arxiv",
+    "\"decoder\" \"fingerprints\" \"AI-generated\" 2026 site:arxiv.org/abs",
+    "\"Chuangchuang Tan\" \"upsampling\" 2025 2026",
+    "\"AEROBLADE\" site:openaccess.thecvf.com/content/CVPR2024/html",
+    "\"Rethinking the Up-Sampling\" \"2026\" site:arxiv.org/abs",
+    "\"A Closer Look at Fourier Spectrum Discrepancies\" \"2026\" site:arxiv.org/abs"
+  ],
+  "sources": [
+    {
+      "id": "npr",
+      "title": "Rethinking the Up-Sampling Operations in CNN-based Generative Network for Generalizable Deepfake Detection",
+      "authors": ["Chuangchuang Tan", "Huan Liu", "Yao Zhao", "Shikui Wei", "Guanghua Gu", "Ping Liu", "Yunchao Wei"],
+      "version_read": "arXiv:2312.10461v2, 2023-12-20; do not silently attribute v2 wording to the published version",
+      "url": "https://arxiv.org/pdf/2312.10461v2",
+      "proximity_ceiling": "P4",
+      "read_status": "PARTIAL full-text; selected sections, not full paper/supplement",
+      "read_scope": "PDF pp1-5 mechanisms/setup; selected pp7-8 discussion; p4 Eq3-4 visually inspected; remaining tables/references not systematically audited",
+      "bytes": 2617994,
+      "sha256": "8bfa73e3dfacc2bfafb4878bf1c8c0aebd4644324db7273375212d7f544839d3",
+      "pages": 10,
+      "verified_quote": "The NPR is employed to train detector as artifact representation.",
+      "locator": "PDF p4 Figure3 caption; classifier details p5 section4.1",
+      "backward_chain_read": "NPR references Frank and Durall in section2.2; these are older mechanism antecedents, not a new discovery here",
+      "source_code_url": "https://github.com/chuangchuangtan/NPR-DeepfakeDetection/blob/781ced3f7ca2cdc69ec9dd4ef27e8d0b3c07752a/networks/resnet.py#L153",
+      "source_commit": "781ced3f7ca2cdc69ec9dd4ef27e8d0b3c07752a",
+      "code_read": "resnet.py lines153-181: nearest half/down/up residual then CNN; read only, no weights downloaded or execution",
+      "local_code_capture_sha256": "b0101f67eeece66bbf65add6fbbfdc12811b77910091fa3b12ffea5fb58c14df",
+      "capture_note": "PowerShell UTF-8 text capture, not a claim of byte identity with GitHub raw HTTP payload",
+      "text_extraction_issue": "28 surrogate characters escaped; initial failed text-write receipt preserved; relevant Eq3-4 checked against rendered PDF",
+      "author_recency_route": "https://chuangchuangtan.github.io/ opened; keyword queries name2025/2026; not a complete all-author recency sweep"
+    },
+    {
+      "id": "fourier_counterexample",
+      "title": "A Closer Look at Fourier Spectrum Discrepancies for CNN-generated Images Detection",
+      "authors": ["Keshigeyan Chandrasegaran", "Ngoc-Trung Tran", "Ngai-Man Cheung"],
+      "version_read": "arXiv:2103.17195v1, 2021-03-31",
+      "url": "https://arxiv.org/pdf/2103.17195v1",
+      "author_page": "https://keshik6.github.io/Fourier-Discrepancies-CNN-Detection/",
+      "proximity_ceiling": "P4",
+      "read_status": "PARTIAL full-text",
+      "read_scope": "PDF pp1-5 sections1-8 and Table1; remaining extended experiments, supplements and reference chains owed",
+      "bytes": 17911858,
+      "sha256": "aaff8ebbffdb18f0db406ec48dc04ae6e4f9e219055d2d4f6522227506b87307",
+      "pages": 19,
+      "verified_quote": "high frequency Fourier spectrum decay discrepancies are not inherent characteristics for existing CNN-based generative models",
+      "locator": "PDF p1 abstract; construction p4 Table1, results p5 sections7-8",
+      "boundary": "Empirical last-layer interventions and the tested detector; not a proof that all frequency information is useless"
+    },
+    {
+      "id": "d3qe",
+      "title": "D3QE: Learning Discrete Distribution Discrepancy-aware Quantization Error for Autoregressive-Generated Image Detection",
+      "authors": ["Yanran Zhang", "Bingyao Yu", "Yu Zheng", "Wenzhao Zheng", "Yueqi Duan", "Lei Chen", "Jie Zhou", "Jiwen Lu"],
+      "version_read": "arXiv:2510.05891v1; PDF bears ICCV2025 accepted-version header",
+      "url": "https://arxiv.org/pdf/2510.05891v1",
+      "proximity_ceiling": "P3",
+      "read_status": "PARTIAL full-text",
+      "read_scope": "Selected pp1-5 method, pp6-8 implementation/robustness/ablation discussion; p4 quantization formula visually inspected; all tables/reference chains owed",
+      "bytes": 1485913,
+      "sha256": "d55681f49da21129af455a4afb16d7ef2d0de0aaa967fc723d3c6e436d8edb27",
+      "pages": 10,
+      "verified_quote": "We first employ a frozen discrete autoencoder to tokenize images into discrete representations.",
+      "locator": "PDF p4 section3.3; neural modules Figure2 p3 and implementation section4.2 p6",
+      "backward_chain_read": "Related work p2 cites NPR and AEROBLADE; reading those is not independent replication",
+      "author_route": "https://yuby14.github.io/ and https://yanran-zhang.github.io/publications.html retrieved in search; complete author-site audit not done"
+    },
+    {
+      "id": "aeroblade",
+      "url": "https://openaccess.thecvf.com/content/CVPR2024/html/Ricker_AEROBLADE_Training-Free_Detection_of_Latent_Diffusion_Images_Using_Autoencoder_Reconstruction_CVPR_2024_paper.html",
+      "read_status": "Abstract and retrieved publisher excerpt only; direct PDF open failed",
+      "proximity_ceiling": "P3, FULL-TEXT-UNREAD debt",
+      "boundary": "Training-free AE reconstruction method; no transferred claims of pure pixel detection, recapture robustness or local speed"
+    },
+    {
+      "id": "sef_2026",
+      "url": "https://arxiv.org/html/2605.14486v1",
+      "read_status": "PARTIAL HTML: abstract, sections3.3/4.1 and searched upsampling discussion",
+      "proximity_ceiling": "P3",
+      "boundary": "VAE/SRGAN artifact diversity and LoRA framework; theory, tables and complete reference chains not audited"
+    }
+  ],
+  "hypothesis_verdicts": {
+    "H1": "Specific phase-energy statistic is not uniquely attributable to AI in the finite ordinary-upsample construction",
+    "H2": "Specific phase-energy contrast lacks invariance under the tested cyclic two-tap filter",
+    "H3": "NPR and D3QE mechanisms do not make their full detectors non-neural; AEROBLADE training-free must not be described as model-free",
+    "H4": "Local conditional dependencies remain a research candidate, not validated discrimination or novelty"
+  },
+  "controls": {
+    "entry": "experiments/origin_detection/non_neural/generator_mechanisms/audit_polyphase.py",
+    "positive_fixtures": 5,
+    "negative_controls_caught": 5,
+    "routes": "Fraction direct indexing and NumPy cyclic finite differences; shared artificial fixture and definition",
+    "scientific_scope": "Finite periodic constructs only; no real image classifier, general CNN theorem or physical validation"
+  },
+  "coverage_gaps": [
+    "No prospective novelty claim set before initial exploratory queries",
+    "Full P3+ reading and supplements remain owed",
+    "Not all backward/forward citation chains or per-author recency pages searched",
+    "No Google Scholar/Semantic Scholar/OpenAlex systematic citation-index sweep",
+    "No systematic all-generator or all-language coverage",
+    "Did not reach a dry search round; no completeness or novelty verdict",
+    "No author detector execution, causal retraining of actual generators, independent real data or speed benchmark"
+  ]
+}
