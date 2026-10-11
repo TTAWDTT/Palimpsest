@@ -1,0 +1,186 @@
+{
+  "campaign": "Non-neural fit-only descriptor diagnostics, iteration73",
+  "register": "Report counts and selected RMS/cosine entries; printed values only",
+  "quote_source": "reports/04_\u7b97\u6cd5\u7814\u53d1/\u7b2c\u4e03\u5341\u4e09\u8f6e\u975e\u795e\u7ecf\u7279\u5f81\u8bca\u65ad_\u6062\u590d\u7eaf\u7b97\u6cd5\u8def\u7ebf_2026-10-11.md",
+  "receipts": {
+    "r": {
+      "path": "../../work/non_neural/feature_drift/diagnostics.json"
+    },
+    "p": {
+      "path": "../../work/non_neural/feature_drift/pilot.json"
+    }
+  },
+  "defaults": {
+    "mode": "printed"
+  },
+  "claims": [
+    {
+      "section": "COUNTS",
+      "label": "fit_sources",
+      "quoted": "1260",
+      "expr": "f('r','/fit_sources')"
+    },
+    {
+      "section": "COUNTS",
+      "label": "records",
+      "quoted": "7560",
+      "expr": "f('r','/records')"
+    },
+    {
+      "section": "COUNTS",
+      "label": "dimensions",
+      "quoted": "850",
+      "expr": "f('r','/dimensions')"
+    },
+    {
+      "section": "COUNTS",
+      "label": "threshold_or_selection_analyzed",
+      "quoted": "0",
+      "expr": "f('r','/threshold_or_selection_analyzed')"
+    },
+    {
+      "section": "COUNTS",
+      "label": "comparisons",
+      "quoted": "60",
+      "expr": "len(f('r','/comparisons'))"
+    },
+    {
+      "section": "TABLE",
+      "label": "6/before_class_gap_rms",
+      "quoted": "0.3791",
+      "expr": "f('r','/comparisons/6/before_class_gap_rms')"
+    },
+    {
+      "section": "TABLE",
+      "label": "6/after_class_gap_rms",
+      "quoted": "0.3545",
+      "expr": "f('r','/comparisons/6/after_class_gap_rms')"
+    },
+    {
+      "section": "TABLE",
+      "label": "6/class_gap_cosine",
+      "quoted": "0.7654",
+      "expr": "f('r','/comparisons/6/class_gap_cosine')"
+    },
+    {
+      "section": "TABLE",
+      "label": "8/before_class_gap_rms",
+      "quoted": "0.2157",
+      "expr": "f('r','/comparisons/8/before_class_gap_rms')"
+    },
+    {
+      "section": "TABLE",
+      "label": "8/after_class_gap_rms",
+      "quoted": "0.2077",
+      "expr": "f('r','/comparisons/8/after_class_gap_rms')"
+    },
+    {
+      "section": "TABLE",
+      "label": "8/class_gap_cosine",
+      "quoted": "0.9972",
+      "expr": "f('r','/comparisons/8/class_gap_cosine')"
+    },
+    {
+      "section": "TABLE",
+      "label": "0/before_class_gap_rms",
+      "quoted": "0.3791",
+      "expr": "f('r','/comparisons/0/before_class_gap_rms')"
+    },
+    {
+      "section": "TABLE",
+      "label": "0/after_class_gap_rms",
+      "quoted": "0.1407",
+      "expr": "f('r','/comparisons/0/after_class_gap_rms')"
+    },
+    {
+      "section": "TABLE",
+      "label": "0/class_gap_cosine",
+      "quoted": "0.7080",
+      "expr": "f('r','/comparisons/0/class_gap_cosine')"
+    },
+    {
+      "section": "TABLE",
+      "label": "2/before_class_gap_rms",
+      "quoted": "0.2157",
+      "expr": "f('r','/comparisons/2/before_class_gap_rms')"
+    },
+    {
+      "section": "TABLE",
+      "label": "2/after_class_gap_rms",
+      "quoted": "0.2223",
+      "expr": "f('r','/comparisons/2/after_class_gap_rms')"
+    },
+    {
+      "section": "TABLE",
+      "label": "2/class_gap_cosine",
+      "quoted": "0.9413",
+      "expr": "f('r','/comparisons/2/class_gap_cosine')"
+    },
+    {
+      "section": "TABLE",
+      "label": "36/before_class_gap_rms",
+      "quoted": "0.6493",
+      "expr": "f('r','/comparisons/36/before_class_gap_rms')"
+    },
+    {
+      "section": "TABLE",
+      "label": "36/after_class_gap_rms",
+      "quoted": "0.1313",
+      "expr": "f('r','/comparisons/36/after_class_gap_rms')"
+    },
+    {
+      "section": "TABLE",
+      "label": "36/class_gap_cosine",
+      "quoted": "-0.1543",
+      "expr": "f('r','/comparisons/36/class_gap_cosine')"
+    },
+    {
+      "section": "TABLE",
+      "label": "38/before_class_gap_rms",
+      "quoted": "0.4609",
+      "expr": "f('r','/comparisons/38/before_class_gap_rms')"
+    },
+    {
+      "section": "TABLE",
+      "label": "38/after_class_gap_rms",
+      "quoted": "0.3557",
+      "expr": "f('r','/comparisons/38/after_class_gap_rms')"
+    },
+    {
+      "section": "TABLE",
+      "label": "38/class_gap_cosine",
+      "quoted": "0.9916",
+      "expr": "f('r','/comparisons/38/class_gap_cosine')"
+    },
+    {
+      "section": "COST",
+      "label": "r/statistics_s",
+      "quoted": "0.159",
+      "expr": "f('r','/statistics_s')"
+    },
+    {
+      "section": "COST",
+      "label": "r/input_load_s",
+      "quoted": "5.812",
+      "expr": "f('r','/input_load_s')"
+    },
+    {
+      "section": "COST",
+      "label": "p/times_s/0",
+      "quoted": "0.01680",
+      "expr": "f('p','/times_s/0')"
+    },
+    {
+      "section": "COST",
+      "label": "p/times_s/1",
+      "quoted": "0.01663",
+      "expr": "f('p','/times_s/1')"
+    },
+    {
+      "section": "COST",
+      "label": "p/projected_full_statistics_s",
+      "quoted": "0.131",
+      "expr": "f('p','/projected_full_statistics_s')"
+    }
+  ]
+}

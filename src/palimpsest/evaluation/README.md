@@ -16,3 +16,6 @@
 `pixel_features.py`复用签名图像解码、显式编码variant、特征覆盖与拼接。第十五轮采用；历史已冻结收据及实现不回写。
 
 `scored_pixels.py`复用签名原生解码与显式编码视图，向检测器只传RGB，记录明确margin；不自动选数据、训练或缩小原生输入。`tests/evaluation/test_scored_pixels.py`用已知像素/阈值控制检查。
+# 手工特征的配对变化诊断
+
+`feature_drift.py`比较同源描述符变化、真假类质心差及其方向；输入为明确配对的数值，来源匹配要求fit角色、完整覆盖与一致标签。输出不是AUC、BA或稳健性证明。适合定位手工表征在处理后的变化；分类性能仍由原有分类／同源评价模块核对。解析平移／反转／零表和元数据负控见 `tests/evaluation/test_feature_drift.py`。

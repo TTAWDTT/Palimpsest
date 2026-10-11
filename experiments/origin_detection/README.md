@@ -48,6 +48,8 @@
 
 ## 路线归属
 
+[non_neural](non_neural/README.md)为接续第15轮的非神经研发入口；第73轮已登记fit-only手工特征配对诊断。新候选不导入神经特征；统计读出可以拟合。
+
 [frozen_features/cure](frozen_features/cure/README.md)集中第67—72轮神经特征方法，完整候选含CuRe神经编码器。前15轮的手工统计路线仍是非神经开发起点；其后通用损失／标定模块可以复用，但神经方法成绩不代表手工算法成绩。
 
 ## 继续迭代
