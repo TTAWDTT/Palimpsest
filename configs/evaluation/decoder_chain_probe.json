@@ -1,0 +1,30 @@
+{
+  "schema_version":1,
+  "purpose":"Check actual hidden-input linear response through a complete pretrained encoding/decoding chain; no source classifier or selected threshold",
+  "source_commit":"a506df5756472e2ebaf9078affdde2c4f1502cd4",
+  "source_sha256":"043ff43c4d4304f7259419d1bd4529445da71661b5362653ecd174bd4342c413",
+  "weights_repo":"stabilityai/sd-vae-ft-mse-original",
+  "weights_revision":"629b3ad3030ce36e15e70c5db7d91df0d60c627f",
+  "weights_sha256":"735e4c3a447a3255760d7f86845f09f937809baa529c17370d83e4c3758f3c75",
+  "historical_metadata_csv":"work/robust_statistics/color_relations/features.csv",
+  "historical_metadata_sha256":"37dbdf67ef3a91c428fe585fec0656a484af00f48d41efb3446515f814bce50e",
+  "selection":"Lowest original raw-file SHA within each domain×label, restricted to historicalfit. No feature values used.",
+  "side":128,
+  "preprocessing":"Stored orientation RGB; shared bicubic square resize_unit_float, then float64[-1,1]. This is controlled probe preprocessing, not native generator resolution or physical capture.",
+  "encoder_posterior":"mean after quant_conv; no sampling and no diffusion latent scaling",
+  "decoder":"post_quant_conv then full source Decoder, original weights, CPUfloat64, vanilla attention",
+  "architecture":{"ch":128,"out_ch":3,"ch_mult":[1,2,4,4],"num_res_blocks":2,"attn_resolutions":[],"dropout":0.0,"resamp_with_conv":true,"in_channels":3,"resolution":256,"z_channels":4,"attn_type":"vanilla"},
+  "probe_output_channels":4,
+  "interior_margin":2,
+  "linear_response_rtol":1e-9,
+  "linear_response_atol":1e-9,
+  "metrics":"Pointwise prediction using measured hidden tensors; descriptive2×2 spatial means/variances for sublayers and final RGB/luma/Laplacian, not ensemble or significance estimates. Labels only preserved as provenance, never used by model or metric.",
+  "pass_conditions":["All selected source files match registered SHA and native dimensions", "Every component loads all matching released parameters strictly", "All3 upsampling sublayers match an independently indexed NumPy prediction on actual hidden inputs", "Every layer's planted output corruption is rejected", "Undefined constant-field summaries retained, not classified", "No original/processed detector inference, fitting orBA evaluation"],
+  "scientific_limits":["Only4 already exposed developmentfit originals", "Encoding/decoding original inputs is not their original generation process", "128px probes do not reproduce native model sample distribution", "Spatial phase summaries may reflect scene, resizing and boundaries", "No matching photography-processing specificity test or real propagation validation"],
+  "probes":[
+    {"filename":"rr/original/real/real_001294.jpg","data_relative":"derived/rr_test/original/real/real_001294.jpg","sha256":"002eece42c2b33df9d5d0dfa8c0e03b6d66d308096907aa04263c2cbd0109660","role":"fit","condition":"original","domain":"rr","label":"REAL","width":1051,"height":1314},
+    {"filename":"rr/original/ai/normal_006811.jpg","data_relative":"derived/rr_test/original/ai/normal_006811.jpg","sha256":"00d08aad425ebd303b5e418a1d71a1e174bc26d52587da2a155e8353cb8c8d87","role":"fit","condition":"original","domain":"rr","label":"FAKE","width":450,"height":270},
+    {"filename":"chimera/stylegan2_orig/horse/0_real/19522.png","data_relative":"derived/chimera_paired/stylegan2_orig/horse/0_real/19522.png","sha256":"008001cc6b4383f8e7bba075f9d6a29c8a6bd86bb4fa474025de96bc05d371d8","role":"fit","condition":"original","domain":"chimera","label":"REAL","width":256,"height":256},
+    {"filename":"chimera/stylegan2_orig/church/1_fake/001838.png","data_relative":"derived/chimera_paired/stylegan2_orig/church/1_fake/001838.png","sha256":"00c19d3802cc40e00eff43cdacddb21992fc4836c010ca62a95e1db9a1fc73a3","role":"fit","condition":"original","domain":"chimera","label":"FAKE","width":256,"height":256}
+  ]
+}
