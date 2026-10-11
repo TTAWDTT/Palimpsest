@@ -4,6 +4,8 @@
 
 **已完成第72轮，尚未达到BA≥80%、传播后跌幅≤2个百分点并经独立真实数据验证的联合目标。** 当前最佳联合候选为[冻结CuRe特征＋自研统计头](src/palimpsest/detection/models/frozen_features/cure/README.md)，第69轮最低域汇总BA85%、最大同源下降2.5个百分点。它包含神经网络；非神经路线拟接续第15轮，历史结果见[研发记录](reports/04_算法研发/README.md)。
 
+当前接续[非神经机制研究](reports/04_算法研发/机制研究/README.md)：第73轮诊断之后，已完成有限算子控制、官方AE单环节干预及高阶统计反例。它们属于机制实验，尚未形成新AI判据或分类成绩；接续顺序见[开发计划第33节](docs/robust_ai_detection_plan.md)。
+
 已实现归一化残差邻域、便携森林、配对分数稳定目标及类别最差正确率标定。全部RR／Chimera来源属于反复接触的开发数据，RR reserved封存；simulation与最终神经训练暂缓。已有全量baseline复用签名缓存。
 
 本机代码：`E:\ai_image_origin_research\repo`。GitHub：[TTAWDTT/Palimpsest](https://github.com/TTAWDTT/Palimpsest)（公开）。
