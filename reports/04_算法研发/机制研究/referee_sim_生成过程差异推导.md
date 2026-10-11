@@ -43,7 +43,7 @@ Lady，2026-10-11。全新上下文审阅，范围为[被审报告](从生成环
 
 ## 精确算术与收据核对
 
-计算脚本：[exact_referee_check.py](../../../work/non_neural/generation_mechanisms/referee_process_derivation/exact_referee_check.py)，[机器结果](../../../work/non_neural/generation_mechanisms/referee_process_derivation/exact_referee_result.json)。只用stdlib精确整数／有理数与DFT四次单位根，未复用作者矩传播或概率卷积函数。比较器先拒绝植入1/2对3/4。单窗口16符号状态的无耦合分布为0概率1/2，±1、±i各1/8；M窗口零概率由多项式(4+x+x⁻¹+y+y⁻¹)^M的常数项／8^M给出。这条组合计数路线与作者概率卷积不同。
+计算脚本：exact_referee_check.py（`work/non_neural/generation_mechanisms/referee_process_derivation/exact_referee_check.py`，本机记录），机器结果（`work/non_neural/generation_mechanisms/referee_process_derivation/exact_referee_result.json`，本机记录）。只用stdlib精确整数／有理数与DFT四次单位根，未复用作者矩传播或概率卷积函数。比较器先拒绝植入1/2对3/4。单窗口16符号状态的无耦合分布为0概率1/2，±1、±i各1/8；M窗口零概率由多项式(4+x+x⁻¹+y+y⁻¹)^M的常数项／8^M给出。这条组合计数路线与作者概率卷积不同。
 
 | 独立核对项目 | 结果 | 与报告／控制收据的精确残差 |
 |---|---|---|
@@ -53,7 +53,7 @@ Lady，2026-10-11。全新上下文审阅，范围为[被审报告](从生成环
 | 3周期潜变量、h=[1,2/3,0,−1/3,0,2/3]、上采样2倍 | 方差1,1；中心四阶矩1,59/27；完整协方差一格平移残差0 | 0 |
 | 审阅者尺寸探针：同核改成4周期潜变量 | 方差仍1,1；四阶矩仍1,59/27；完整协方差一格平移残差1 | 额外边界计算，报告没有声称此尺寸也平移一致 |
 
-未检出报告数值错误；尺寸探针不能当作原3潜变量报告的错误。58条显示值／计数／时间／身份的收据映射在[receipt_mapping_result.json](../../../work/non_neural/generation_mechanisms/referee_process_derivation/receipt_mapping_result.json)，全部匹配。第9节12个六位小数方差与trained_layer_controls.json通道0一致；48是48个目标输出各自的完整输入系数向量，并非仅48个标量系数。第6–9节的0.311843、0.018559、0.0049135、0.083341、0.963405秒与相应收据按报告精度一致，均不成为完整部署速度。下载104.08秒与vae_download.json一致；2MiB档案粗投影约44分钟且有请求延迟的限定合理。
+未检出报告数值错误；尺寸探针不能当作原3潜变量报告的错误。58条显示值／计数／时间／身份的收据映射在receipt_mapping_result.json（`work/non_neural/generation_mechanisms/referee_process_derivation/receipt_mapping_result.json`，本机记录），全部匹配。第9节12个六位小数方差与trained_layer_controls.json通道0一致；48是48个目标输出各自的完整输入系数向量，并非仅48个标量系数。第6–9节的0.311843、0.018559、0.0049135、0.083341、0.963405秒与相应收据按报告精度一致，均不成为完整部署速度。下载104.08秒与vae_download.json一致；2MiB档案粗投影约44分钟且有请求延迟的限定合理。
 
 7个已保存HTML／源码／配置的字节数与SHA和ledger一致；只核保存对象身份，不能据此把capture标成全文已读。未重新执行作者软件测试或受训权重实验；旧软件测试431／16／28的文字依作者记录，不属于本次独立复算。emitall结果只表示其所登记的数字与收据一致，其覆盖不完整，不能作为理论、科学新颖性或外部数据证据。
 
@@ -73,7 +73,7 @@ H1–H3账本明确是本轮检索前的问题、受此前文献影响；DDPM后
 
 修正后再次冷读，M1的旧状态已显式归入initial snapshot，最新状态与收据有追加摘要；M2的协议先后证据限定已放在开头研究顺序段，读者在形成“独立预注册”印象之前可以看到。§6新增有限尺寸边界也与审阅者算术一致。两项表达修正关闭，未完成的科学阶段与外部时间证据仍保留。后续完整解码链、最终像素和传播实验需要新协议与新审阅，不能以此表提前认证。
 
-详细操作与共享层：[审阅工作记录](../../../work/non_neural/generation_mechanisms/referee_process_derivation/工作记录.md)。
+详细操作与共享层：审阅工作记录（`work/non_neural/generation_mechanisms/referee_process_derivation/工作记录.md`，本机记录）。
 
 ## 第10–11节追加独立审阅记录
 
@@ -118,7 +118,7 @@ Lady，2026-10-11。本次是未参与原文与实验编写的全新agent上下�
 
 ### 独立复算路线与复现边界
 
-脚本为[independent_check.py](../../../work/non_neural/generation_mechanisms/referee_high_order/independent_check.py)，结果为[independent_result.json](../../../work/non_neural/generation_mechanisms/referee_high_order/independent_result.json)。累积量用15个集合划分的Möbius反演，保留一般非零均值项；与作者中心化后扣三个配对的表示不同。k4先把每个总体矩乘积替换为不同观察索引上的无偏U-statistic，再合并35个精确Fraction单项式；最后用独立实现的符号+Gaussian解析矩积分k4及平方。未导入作者模块或audit_cyclic_cumulants.py；未调用Scipy计算。已先检查常数累积量0和±1累积量−2，并拒绝植入的141/3错误方差。
+脚本为independent_check.py（`work/non_neural/generation_mechanisms/referee_high_order/independent_check.py`，本机记录），结果为independent_result.json（`work/non_neural/generation_mechanisms/referee_high_order/independent_result.json`，本机记录）。累积量用15个集合划分的Möbius反演，保留一般非零均值项；与作者中心化后扣三个配对的表示不同。k4先把每个总体矩乘积替换为不同观察索引上的无偏U-statistic，再合并35个精确Fraction单项式；最后用独立实现的符号+Gaussian解析矩积分k4及平方。未导入作者模块或audit_cyclic_cumulants.py；未调用Scipy计算。已先检查常数累积量0和±1累积量−2，并拒绝植入的141/3错误方差。
 
 首次有界运行耗时0.493291秒，含收据与Git读取；没有扩展运行或性能推断。脚本与作者共享toy分布假设；频率计算共同使用NumPy FFT，因此不称两个独立数值引擎。复算是这些明示数学实例的不同程序表示，不是独立真实数据验证。
 
@@ -134,7 +134,7 @@ Lady，2026-10-11。本次是未参与原文与实验编写的全新agent上下�
 | decoder/cumulant协议 | 6个对应Git blob SHA核对一致；不证明外部时间或不可篡改预注册 |
 | decoder显示数字 | 16个CV和4个内部RGB MSE按6位小数全部吻合；另从保存的四相位方差重算各CV吻合 |
 
-另有[independent_noise_check.py](../../../work/non_neural/generation_mechanisms/referee_high_order/independent_noise_check.py)及[independent_noise_result.json](../../../work/non_neural/generation_mechanisms/referee_high_order/independent_noise_result.json)。它使用不同的相关、非圆对称有限噪声系数，通过同一个独立Möbius evaluator验证独立可加性：R=1.0000000000000027，累积量误差3.64×10⁻¹⁵。三点primitive的二阶矩3、四阶矩27，正确四阶累积量0；漏一个配对得9。条件Gaussian解析混合量−2，归一化为√2。这次0.188447秒有界补充只核四阶身份，没有把三点primitive用于八阶估计误差。
+另有independent_noise_check.py（`work/non_neural/generation_mechanisms/referee_high_order/independent_noise_check.py`，本机记录）及independent_noise_result.json（`work/non_neural/generation_mechanisms/referee_high_order/independent_noise_result.json`，本机记录）。它使用不同的相关、非圆对称有限噪声系数，通过同一个独立Möbius evaluator验证独立可加性：R=1.0000000000000027，累积量误差3.64×10⁻¹⁵。三点primitive的二阶矩3、四阶矩27，正确四阶累积量0；漏一个配对得9。条件Gaussian解析混合量−2，归一化为√2。这次0.188447秒有界补充只核四阶身份，没有把三点primitive用于八阶估计误差。
 
 本审阅打开[Scipy kstat官方说明](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kstat.html)Notes中的标量k4公式，确认报告的标准标量公式出处。1994PDF网页取回被大小限制拒绝，FoiPDF网页取回超时；没有由此认证作者新增pp5–12阅读内容或声称本审阅读完原论文。原文阅读范围由主agent记录负责，本审阅的独立计算不借失败的取回冒称全文权威。没有重新执行作者471项软件检查或五节点求积，因此相应运行状态只作为原收据／作者记录，不并入独立运行计数。
 
