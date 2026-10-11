@@ -5,7 +5,9 @@
   "receipts":{
     "r":{"path":"../../work/non_neural/generation_mechanisms/operator_moments/controls.json"},
     "s":{"path":"../../work/non_neural/generation_mechanisms/operator_moments/ldm_controls.json"},
-    "t":{"path":"../../work/non_neural/generation_mechanisms/operator_moments/spectral_pilot.json"}
+    "t":{"path":"../../work/non_neural/generation_mechanisms/operator_moments/spectral_pilot.json"},
+    "e":{"path":"../../work/non_neural/generation_mechanisms/operator_moments/estimation_controls.json"},
+    "w":{"path":"../../work/non_neural/generation_mechanisms/operator_moments/trained_layer_controls.json"}
   },
   "claims":[
     {"label":"positive_controls","quoted":"7","expr":"f('r','/positive_fixtures')","mode":"printed"},
@@ -36,6 +38,20 @@
     {"label":"spectral_white_imag","quoted":"-1","expr":"f('t','/white_C26/imag')","mode":"printed"},
     {"label":"spectral_nonstationary_real","quoted":"1","expr":"f('t','/nonstationary_noise_C26/real')","mode":"printed"},
     {"label":"spectral_white_coherence","quoted":"0.5","expr":"f('t','/white_coherence')","mode":"printed"},
-    {"label":"spectral_lowpass_energy","quoted":"0.676777","expr":"f('t','/lowpass_mean_square')","mode":"printed"}
+    {"label":"spectral_lowpass_energy","quoted":"0.676777","expr":"f('t','/lowpass_mean_square')","mode":"printed"},
+    {"label":"estimation_controls","quoted":"10","expr":"f('e','/positive_fixtures')","mode":"printed"},
+    {"label":"estimation_wrong_mse","quoted":"10","expr":"f('e','/wrong_mse_caught')","mode":"printed"},
+    {"label":"coupled_M16_mse","quoted":"3/32","expr":"f('e','/fixtures/4/mse')","mode":"exact"},
+    {"label":"null_M16_mse","quoted":"1/32","expr":"f('e','/fixtures/9/mse')","mode":"exact"},
+    {"label":"null_M2_nonzero","quoted":"11/16","expr":"f('e','/fixtures/6/nonzero_probability')","mode":"exact"},
+    {"label":"null_M16_nonzero","quoted":"96.01%","expr":"frac(f('e','/fixtures/9/nonzero_probability')) * 100","mode":"printed"},
+    {"label":"trained_weight_bytes","quoted":"334641190","expr":"f('w','/weights_bytes')","mode":"printed"},
+    {"label":"trained_checks","quoted":"48","expr":"sum(vals('w','/fixtures/*/jacobian_checks'))","mode":"printed"},
+    {"label":"trained_max_error","quoted":"0","expr":"max(vals('w','/fixtures/*/max_abs_coefficient_error'))","mode":"printed"},
+    {"label":"trained_l1_phase00","quoted":"5.330692","expr":"f('w','/fixtures/0/phase_variances_under_iid_input/0/0/0')","mode":"printed"},
+    {"label":"trained_l1_phase01","quoted":"5.066977","expr":"f('w','/fixtures/0/phase_variances_under_iid_input/0/0/1')","mode":"printed"},
+    {"label":"trained_l1_phase10","quoted":"4.386139","expr":"f('w','/fixtures/0/phase_variances_under_iid_input/0/1/0')","mode":"printed"},
+    {"label":"trained_l1_phase11","quoted":"4.380948","expr":"f('w','/fixtures/0/phase_variances_under_iid_input/0/1/1')","mode":"printed"},
+    {"label":"trained_internal_seconds","quoted":"0.963405","expr":"f('w','/elapsed_seconds')","mode":"printed"}
   ]
 }

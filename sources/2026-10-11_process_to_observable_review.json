@@ -1,6 +1,7 @@
 {
   "date": "2026-10-11",
   "reader": "Lady",
+  "initial_snapshot_note": "Top-level scope, elementary_derivations.status and coverage_gaps describe the initial2026-10-11 reading/derivation snapshot before this packet's numerical controls. They are retained as history, not a current-status summary; followup_current_status and dated followup objects govern later progress. Original full-text debts are not cleared by numerical work.",
   "scope": "Mechanism derivation and future causal-control design; not a complete literature review, novelty audit, numerical verification or detector evaluation",
   "registered_before_this_packet_search": {
     "H1": "Under an explicitly linear upsampling-plus-filter model, output covariance depends on output phase unless the relevant polyphase covariances match; neither nonzero phase contrast nor AI specificity is guaranteed",
@@ -137,5 +138,48 @@
     "next_question":"Finite Fourier covariance propagation under known linear filters, integer shifts and independent stationary noise; single-image estimation remains a separate problem"
   },
   "followup_software_gate":{"tests":431,"seconds":122.95,"command":".venv/Scripts/python.exe -X utf8 -m pytest -q","scope":"Whole current repository software suite, not scientific or external-data validation"},
+  "followup_spectral_controls": {
+    "as_of":"2026-10-11 after report section7",
+    "receipt":"work/non_neural/generation_mechanisms/operator_moments/spectral_pilot.json",
+    "code_commit":"438c520",
+    "verification":"Whole centered frequency covariance compared against direct spatial filtering;5 wrong statements caught; no empirical image estimator",
+    "protocol_provenance":"Author's same-session tool sequence records README entry before execution. No immutable preregistration receipt proves external chronology; do not describe the run as independently verified preregistered."
+  },
+  "followup_estimation_controls": {
+    "as_of":"2026-10-11 after report section8",
+    "receipt":"work/non_neural/generation_mechanisms/operator_moments/estimation_controls.json",
+    "code_commit":"2aea2b5",
+    "verification":"Exact rational convolution of16 symbol states;10 known means/MSE rows,10 wrong-MSE catches and false iid-scaling rejection",
+    "boundary":"Two toys have different lengths/frequency pairs; not a fair image classifier benchmark or proof of real-window independence",
+    "protocol_provenance":"Same-session tool-order record, not an externally immutable preregistration receipt"
+  },
+  "followup_trained_layers": {
+    "as_of":"2026-10-11 after report section9",
+    "source_commit":"a506df5756472e2ebaf9078affdde2c4f1502cd4",
+    "weights_repo":"stabilityai/sd-vae-ft-mse-original",
+    "weights_revision":"629b3ad3030ce36e15e70c5db7d91df0d60c627f",
+    "weights_file":"vae-ft-mse-840000-ema-pruned.safetensors",
+    "weights_bytes":334641190,
+    "publisher_sha256":"735e4c3a447a3255760d7f86845f09f937809baa529c17370d83e4c3758f3c75",
+    "complete_download_receipt":"work/non_neural/generation_mechanisms/ldm_source/vae_download.json",
+    "complete_hash_verified":true,
+    "weights_license":"MIT on officialHF model record",
+    "model_card_url":"https://huggingface.co/stabilityai/sd-vae-ft-mse-original",
+    "model_card_read_scope":"Decoder Finetuning and Utilization sections; author states decoder-only finetuning andMSE+0.1LPIPS; not reconstructed full training history",
+    "original_archive_restructured":"CompVis originalkl-f8 ZIP index verified but1GB archive not downloaded; final object is a different officialfinetuned variant and is named as such",
+    "receipt":"work/non_neural/generation_mechanisms/operator_moments/trained_layer_controls.json",
+    "checks":48,
+    "verification":"Predicted weight/index footprints vs source autograd Jacobians on3 layers and4 output channels×4 phases;3 planted coefficient errors rejected",
+    "boundary":"Iid unit-variance hidden-input covariance is hypothetical. No measured finalRGB, full diffusion generator, detectionBA or robustness result",
+    "protocol_provenance":"Protocol text was locally committed before trained-layerpilot. Tool records support sequencing, but there is no independent external immutable timestamp claim."
+  },
+  "followup_current_status": {
+    "as_of":"2026-10-11 after numerical sections7-9 and initial independent-referee findings",
+    "executed":"Finite operator, finite-window and official trained-sublayer assays",
+    "independent_recheck":"Fresh-context referee independently executed exact finite-window and3-to6 covariance examples; final table completed with2MEDIUM addressed and no unresolvedHIGH/MEDIUM within sections1-9",
+    "referee_table":"reports/04_算法研发/机制研究/referee_sim_生成过程差异推导.md",
+    "not_achieved":["FullP3+ reading and novelty audit", "FinalRGB source-specific signal", "Trained non-neural detector", "BA>=80 and degradation<=2pp", "Independent real propagation validation"],
+    "protocol_limit":"Same-session registration statements are not externally verified preregistration. Future controls will bind a git-committed protocol and working-copy SHA before execution."
+  },
   "report": "reports/04_算法研发/机制研究/从生成环节推导可观测差异_2026-10-11.md"
 }
