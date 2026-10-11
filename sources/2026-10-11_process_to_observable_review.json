@@ -108,5 +108,34 @@
     "No independent real propagation validation",
     "Not iterated to dry; no completeness, novelty or leading-performance claim"
   ],
+  "followup_operator_audit": {
+    "scope": "Same-day finite population controls and pinned source-class execution with hand-set weights; not actual pretrained generator evidence",
+    "control_spec": "configs/evaluation/polyphase_operator_controls.json",
+    "control_spec_sha256": "ea2361bb9a5bfdcf1a7a0c65414a8f7685d38972e4f5aa7b654b4d4838a4477f",
+    "read_source_commit": "a506df5756472e2ebaf9078affdde2c4f1502cd4",
+    "retrieval_route": "Official CompVis repository opened; GitHub commits/main and recursive tree API; contents API with fixed commit, base64-decoded raw bytes",
+    "source_captures": [
+      {"path":"ldm/modules/diffusionmodules/model.py", "blob":"533e589a2024f1d7c52093d8c472c3b1b6617e26", "bytes":33409, "sha256":"043ff43c4d4304f7259419d1bd4529445da71661b5362653ecd174bd4342c413", "read":"lines42-57 Upsample and462-568 Decoder", "local":"work/non_neural/generation_mechanisms/ldm_source/ldm__modules__diffusionmodules__model.py"},
+      {"path":"ldm/modules/diffusionmodules/openaimodel.py", "blob":"fcf95d1ea8a078dd259915109203789f78f0643a", "bytes":34953, "sha256":"92e0c23ada849f532be12d9be2ebcddd98d3b040aa366981ac5f06c96d53b6af", "read":"Retrieved only, no load-bearing claims", "local":"work/non_neural/generation_mechanisms/ldm_source/ldm__modules__diffusionmodules__openaimodel.py"},
+      {"path":"ldm/models/autoencoder.py", "blob":"6a9c4f45498561953b8085981609b2a3298a5473", "bytes":17619, "sha256":"8ba30483454b431e0642c229f286fe387c60130c26516cd392594186f9b4a4e5", "read":"Selected VQ decode andAutoencoderKL.decode/forward lines330-341", "local":"work/non_neural/generation_mechanisms/ldm_source/ldm__models__autoencoder.py"},
+      {"path":"configs/autoencoder/autoencoder_kl_32x32x4.yaml", "blob":"ab8b36fe6e3e95df2942a437b7d9c919b60d5c86", "bytes":1140, "sha256":"c2abfe5293bb47af6488f4f4faa6636a025e732ac0f5ccae0a660d11580600ba", "read":"Full config; no trained parameters downloaded", "local":"work/non_neural/generation_mechanisms/ldm_source/configs__autoencoder__autoencoder_kl_32x32x4.yaml"}
+    ],
+    "controls_receipt":"work/non_neural/generation_mechanisms/operator_moments/controls.json",
+    "ldm_receipt":"work/non_neural/generation_mechanisms/operator_moments/ldm_controls.json",
+    "pilot_and_plan":"work/non_neural/generation_mechanisms/operator_moments/timing_plan.json",
+    "controls":"7 exact known-answer cases and7 wrong-variance twins; complete rational mean/covariance vs matrix propagation;16 selected software tests",
+    "independence":"Separate direct sign enumeration and matrix implementation share model/fixtures. Source-class assay uses pinned author code and NumPy prediction, manually assigned kernels. No independent data, generator-weight replication or formal VERIFIED-CLOSED claim.",
+    "scientific_boundaries":["Finite periodic source populations only", "Second-order stationarity does not imply full non-Gaussian stationarity", "Gaussian stationary-output extension is algebraic, not a sampling result", "Actual zero-padding source differs from periodic model at image edges", "No original/processed image inference or accuracy claim"]
+  },
+  "followup_spectral_reading_started": {
+    "queries_run":["Gardner spectral correlation cyclostationary signals linear filtering stationary noise author pdf", "2026 AI generated image detection cyclostationary spectral correlation upsampling site:arxiv.org", "\"cyclostationarity\" \"generated images\""],
+    "records": [
+      {"title":"The spectral correlation theory of cyclostationary time-series", "author":"William A. Gardner", "doi":"10.1016/0165-1684(86)90092-7", "url":"https://www.sciencedirect.com/science/article/pii/0165168486900927", "status":"Publisher metadata and abstract only; no technical theorem imported. Erratum10.1016/0165-1684(86)90080-0 also surfaced, unread."},
+      {"title":"Spectral Correlation of Modulated Signals: PartI—Analog Modulation", "author":"William A. Gardner", "url":"https://cyclostationarity.com/wp-content/uploads/2022/12/202210141509.pdf", "initial_status":"Search excerpt only; web opens timed out; no unread formula used at that stage", "followup_reading":{"status":"Downloaded scanned reprint; visual selected-section reading, not full paper", "bytes":5350083, "sha256":"1cc5a8e2e6c5fe51ceaebb74e1dbfa9658dec4a9bb24ba3429027f8cf08ee6d5", "pages":12, "local":"work/non_neural/generation_mechanisms/cyclostationarity/gardner_1987_analog.pdf", "text_layer":"pypdf extracted only page delimiters, no body text; not treated as a readable extraction", "visually_read":"Cover andPDF pp2-4, printed584-586; sectionII Eq1-24", "load_bearing_locator":"printed586/PDFp4 Eq24: time-invariant filtering multiplies cyclic spectrum by shifted transfer functions", "short_quote_visually_transcribed":"A special case of interest is a time-invariant filter", "proximity":"P2, signal-processing component; no image-origin or novelty claim", "remaining_debt":"Later modulation examples, applications and full reference chain unread"}},
+      {"title":"On cycloergodicity", "author":"William A. Gardner", "doi":"10.1016/j.sigpro.2025.110186", "url":"https://cyclostationarity.com/wp-content/uploads/2025/08/On-Cycloergodicity.pdf", "version":"Signal Processing238(2026),110186; online2025-07-10", "proximity":"P2: estimation foundations, not image detection", "read":"PDF abstract and section1.3 pp1-3 only", "boundary":"Definition and warning about ensemble vs one-record averages; did not read/prove all theorems or adopt the author's broad philosophical conclusions"}
+    ],
+    "next_question":"Finite Fourier covariance propagation under known linear filters, integer shifts and independent stationary noise; single-image estimation remains a separate problem"
+  },
+  "followup_software_gate":{"tests":431,"seconds":122.95,"command":".venv/Scripts/python.exe -X utf8 -m pytest -q","scope":"Whole current repository software suite, not scientific or external-data validation"},
   "report": "reports/04_算法研发/机制研究/从生成环节推导可观测差异_2026-10-11.md"
 }

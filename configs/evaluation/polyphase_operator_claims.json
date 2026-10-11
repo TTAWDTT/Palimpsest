@@ -1,0 +1,32 @@
+{
+  "campaign":"Finite polyphase mechanism controls,2026-10-11",
+  "register":"Exact fractions and selected printed figures from finite operator receipts, not classifier evidence",
+  "quote_source":"reports/04_算法研发/机制研究/从生成环节推导可观测差异_2026-10-11.md section6",
+  "receipts":{
+    "r":{"path":"../../work/non_neural/generation_mechanisms/operator_moments/controls.json"},
+    "s":{"path":"../../work/non_neural/generation_mechanisms/operator_moments/ldm_controls.json"}
+  },
+  "claims":[
+    {"label":"positive_controls","quoted":"7","expr":"f('r','/positive_fixtures')","mode":"printed"},
+    {"label":"caught_wrong_variances","quoted":"7","expr":"f('r','/negative_controls_caught')","mode":"printed"},
+    {"label":"filtered_variance0","quoted":"1/2","expr":"f('r','/fixtures/2/exact/variances/0')","mode":"exact"},
+    {"label":"filtered_variance1","quoted":"1","expr":"f('r','/fixtures/2/exact/variances/1')","mode":"exact"},
+    {"label":"filtered_difference0","quoted":"1/2","expr":"f('r','/fixtures/2/exact/difference_energies/0')","mode":"exact"},
+    {"label":"filtered_difference1","quoted":"1/2","expr":"f('r','/fixtures/2/exact/difference_energies/1')","mode":"exact"},
+    {"label":"balanced_fourth0","quoted":"1","expr":"f('r','/fixtures/3/exact/centered_fourth_moments/0')","mode":"exact"},
+    {"label":"balanced_fourth1","quoted":"59/27","expr":"f('r','/fixtures/3/exact/centered_fourth_moments/1')","mode":"exact"},
+    {"label":"biased_mean0","quoted":"4","expr":"f('r','/fixtures/4/exact/means/0')","mode":"exact"},
+    {"label":"biased_mean1","quoted":"2","expr":"f('r','/fixtures/4/exact/means/1')","mode":"exact"},
+    {"label":"biased_difference","quoted":"5","expr":"f('r','/fixtures/4/exact/difference_energies/0')","mode":"exact"},
+    {"label":"correlated_variance","quoted":"5/4","expr":"f('r','/fixtures/5/exact/variances/0')","mode":"exact"},
+    {"label":"correlated_difference","quoted":"3/2","expr":"f('r','/fixtures/5/exact/difference_energies/1')","mode":"exact"},
+    {"label":"operator_internal_seconds","quoted":"0.311843","expr":"f('r','/elapsed_seconds')","mode":"printed"},
+    {"label":"ldm_basis_count","quoted":"16","expr":"f('s','/impulses_per_kernel')","mode":"printed"},
+    {"label":"ldm_interior_error","quoted":"0","expr":"f('s','/fixtures/1/interior_max_abs_error')","mode":"printed"},
+    {"label":"ldm_boundary_difference","quoted":"3/4","expr":"frac(f('s','/fixtures/1/ones_boundary_max_abs_error'))","mode":"exact"},
+    {"label":"ldm_phase00","quoted":"1","expr":"f('s','/fixtures/1/absolute_phase_variances/0/0')","mode":"printed"},
+    {"label":"ldm_phase01","quoted":"0.5","expr":"f('s','/fixtures/1/absolute_phase_variances/0/1')","mode":"printed"},
+    {"label":"ldm_phase11","quoted":"0.25","expr":"f('s','/fixtures/1/absolute_phase_variances/1/1')","mode":"printed"},
+    {"label":"ldm_internal_seconds","quoted":"0.018559","expr":"f('s','/elapsed_seconds')","mode":"printed"}
+  ]
+}
