@@ -1,0 +1,55 @@
+{
+  "reader": "Lady",
+  "date": "2026-10-12",
+  "scope": "Mechanism controls and source-reading ledger; no AI-specific descriptor, novelty or classification claim",
+  "prior_exposure": "Native32 branches and old photo6 views were inspected for historical R. Window contrast protocol was committed before that new quantity was run, but informed by exposed data. Finite variance-mixture question arose afterwards.",
+  "sources": [
+    {
+      "id": "stylegan_official",
+      "url": "https://github.com/NVlabs/stylegan3",
+      "helper_commit": "c233a919a6faee6e36a316ddd4eddababad1adf9",
+      "read_scope": "Official README model usage, LICENSE, complete relevant reference bias_act/filtered_lrelu/upfirdn2d functions and synthesis-layer/output code; not a full source or paper audit",
+      "version_boundary": "Unchanged external helper checkout. Pickle embeds generator source; helper commit does not identify that embedded class source.",
+      "checkpoint_identity": "Official NGC version1 StyleGAN2 and StyleGAN3-T FFHQ-U256, local sizes295725509 and282779448 bytes, full localSHA in signed native protocol. NGC version metadata isSigned=false; no publisher signedSHA claim.",
+      "loading_boundary": "Official author loader executes embedded pickle source only after local file identity checks. Research/evaluation noncommercial license; external source and models not redistributed.",
+      "correction": "Signed historical protocol said nativefloat[-1,1]; actual raw floats are unclipped nominal RGB units. Independent cache range[-1.6923269033432007,2.65606951713562]. PNG separately clips/quantizes. Public report dated correction governs."
+    },
+    {
+      "id": "spooner_gardner_part_ii",
+      "authors": ["Chad M. Spooner", "William A. Gardner"],
+      "title": "The Cumulant Theory of Cyclostationary Time-Series, Part II: Development and Applications",
+      "journal": "IEEE Transactions on Signal Processing42(12),1994,pp3409-3429",
+      "url": "https://cyclostationarity.com/wp-content/uploads/2021/08/The-Cumulant-Theory-of-Cyclostationary-Time-Series-Part-II.pdf",
+      "proximity": "P3 primary author-hosted copy",
+      "read_status": "PARTIAL visual reading: PDFpages1-3 and10-15, printed3409-3411 and3418-3423; equations1-23,49-57 and surrounding measurement discussion. Other pages/appendices unread.",
+      "capture": "work/non_neural/generation_mechanisms/window_phase/cyclic_cumulants_part_ii.pdf",
+      "bytes": 9859546,
+      "sha256": "998c602d960b7126d4eb23bdcb5fe531fcfd457f23b930fd3b6277df3ca8d90a",
+      "retrieval": "Scanned PDF, text extraction empty. FitZ rendered specified pages and pixels were read; do not call empty extracted text a full-text reading.",
+      "used_for": "Distinguishing single-record time averaging from ensemble expectation, lower-cycle pair products, finite-window leakage and cycloergodicity requirements",
+      "boundary": "One-dimensional theory with stated hypotheses; not evidence that heterogeneous imagepatch cumulants or current two-origin contrast estimate a generator population cyclic polyspectrum. No novelty credit claimed."
+    },
+    {
+      "id": "brillinger_conditioning",
+      "author": "David R. Brillinger",
+      "title": "The calculation of cumulants via conditioning",
+      "journal": "Annals of the Institute of Statistical Mathematics21,1969,pp215-218",
+      "url": "https://www.ism.ac.jp/editsec/aism/pdf/021_1_0215.pdf",
+      "author_bibliography": "https://www.stat.berkeley.edu/~brill/bibliog0.html",
+      "proximity": "P3 original journal PDF",
+      "read_status": "Full4-page visual reading including theorem Eq4, proof Eq5, scalar corollary Eq6, mixture example, random-sum/two-stage examples and references",
+      "capture": "work/non_neural/generation_mechanisms/window_phase/brillinger_conditioning.pdf",
+      "bytes": 718580,
+      "sha256": "c68d1187dbab85adc83548d64812e1445146c92636af9bc5dff806f33c51d177",
+      "used_for": "Known conditional cumulant identity; zero-conditional-mean fourth-order specialization independently expanded from centered moments",
+      "boundary": "Requires defined conditioning variables and finite requisite moments. Does not supply an observable local image condition or AI attribution. No invented new theorem."
+    }
+  ],
+  "protocols": {
+    "native": "5d0f8be; correction in2026-10-12 native report, signed old config preserved",
+    "window": "8f08a4c8e98e97bff3937c1170578b2650bf4512",
+    "variance_mixture": "77b8030e9e14068f0704500bf6d59f3cdbbb8715"
+  },
+  "independence": "Direct-DFT plus generic15-partition reviewer independent of author implementation, shares NumPy, cached pixels and quartet definitions. Same-function replay is not independent. emitall checks numeric transcription, not scientific validity.",
+  "remaining_debts": ["FullP3 near-neighbour reading and citation chains", "Image conditional-population observability", "Photography CFA/resampling and scene periodicity nulls", "Real propagation effects", "Independent real source discrimination at user threshold"]
+}

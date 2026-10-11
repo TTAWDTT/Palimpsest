@@ -9,13 +9,8 @@ import numpy as np
 from .cumulants import normalized_cumulant_magnitude, population_cumulant4
 
 
-def cyclic_patch_summary(field, *, patch=16, margin=16) -> dict:
-    """Measure period2 quartets in x/y, and four fixed spatial quadrants.
-
-    Input is finite float luminance. No resize, window taper, variance whitening,
-    clipping or label-dependent operation is performed here. Frequencies refer
-    to the patch DFT; margins must be a multiple of the period under study.
-    """
+def _patch_spectra(field, patch, margin, *, offset=(0, 0), complete=True, dc=False):
+    """Common patch extraction; translated support is never a patch rotation."""
     data = np.asarray(field, dtype=np.float64)
     if (
         data.ndim != 2
@@ -30,24 +25,50 @@ def cyclic_patch_summary(field, *, patch=16, margin=16) -> dict:
         or margin % 2
     ):
         raise ValueError("Require finite2D field, patch multiple8 and even margin")
-    core = data[margin:-margin, margin:-margin] if margin else data
-    if min(core.shape, default=0) < 2 * patch or any(n % patch for n in core.shape):
+    interior = tuple(n - 2 * margin for n in data.shape)
+    if min(interior) < 2 * patch or (complete and any(n % patch for n in interior)):
         raise ValueError("Interior must have at least2x2 complete patches")
-    rows, columns = core.shape[0] // patch, core.shape[1] // patch
+    rows, columns = (n // patch for n in interior)
+    starts = (margin + offset[0], margin + offset[1])
+    stops = (starts[0] + rows * patch, starts[1] + columns * patch)
+    if min(starts) < 0 or any(b > n for b, n in zip(stops, data.shape)):
+        raise ValueError("Translated patch support exceeds image")
+    core = data[starts[0] : stops[0], starts[1] : stops[1]]
     patches = core.reshape(rows, patch, columns, patch).transpose(0, 2, 1, 3)
+    if dc:
+        patches = patches - patches.mean(axis=(-2, -1), keepdims=True)
     spectra = np.fft.fft2(patches, axes=(-2, -1), norm="ortho")
+    return data, spectra, rows, columns
+
+
+def _quartets(patch):
     unit = patch // 8
+    return (
+        ("cross", (unit, 2 * unit, 3 * unit, 6 * unit)),
+        ("pure", (unit, 7 * unit, unit, 7 * unit)),
+    )
+
+
+def _frequency_columns(spectra, axis, indices):
+    return (
+        spectra[:, :, 0, list(indices)]
+        if axis == "x"
+        else spectra[:, :, list(indices), 0]
+    )
+
+
+def cyclic_patch_summary(field, *, patch=16, margin=16) -> dict:
+    """Measure period2 quartets in x/y, and four fixed spatial quadrants.
+
+    Input is finite float luminance. No resize, window taper, variance whitening,
+    clipping or label-dependent operation is performed here. Frequencies refer
+    to the patch DFT; margins must be a multiple of the period under study.
+    """
+    _, spectra, rows, columns = _patch_spectra(field, patch, margin)
     reports = {}
     for axis in ("x", "y"):
-        for name, indices in (
-            ("cross", (unit, 2 * unit, 3 * unit, 6 * unit)),
-            ("pure", (unit, 7 * unit, unit, 7 * unit)),
-        ):
-            features = (
-                spectra[:, :, 0, list(indices)]
-                if axis == "x"
-                else spectra[:, :, list(indices), 0]
-            )
+        for name, indices in _quartets(patch):
+            features = _frequency_columns(spectra, axis, indices)
             summaries = []
             groups = {"all": features.reshape(-1, 4)}
             for r in (0, 1):
@@ -101,10 +122,84 @@ def cyclic_patch_summary(field, *, patch=16, margin=16) -> dict:
     }
 
 
-def cyclic_rgb_summary(rgb, *, patch=16, margin=16) -> dict:
-    """RGB float in caller's units, converted by fixed encoded-RGB luma weights."""
+def _luma(rgb):
     data = np.asarray(rgb, dtype=np.float64)
     if data.ndim != 3 or data.shape[2] != 3 or not np.isfinite(data).all():
         raise ValueError("Require finiteHxWx3 RGB")
-    luma = data @ np.array([0.299, 0.587, 0.114])
-    return cyclic_patch_summary(luma, patch=patch, margin=margin)
+    return data @ np.array([0.299, 0.587, 0.114])
+
+
+def cyclic_rgb_summary(rgb, *, patch=16, margin=16) -> dict:
+    """RGB float in caller's units, converted by fixed encoded-RGB luma weights."""
+    return cyclic_patch_summary(_luma(rgb), patch=patch, margin=margin)
+
+
+def window_phase_summary(field, *, patch=16, margin=16) -> dict:
+    """Contrast actual window starts separated by one pixel along each axis.
+
+    Averaged powers replace the potentially zero auto-cumulant normalizer.
+    No iid, AI specificity, Gaussian-noise, JPEG or scale invariance follows.
+    Unused partial interior edges are floored and reported, never resized.
+    """
+    data, first, rows, columns = _patch_spectra(
+        field, patch, margin, complete=False, dc=True
+    )
+    reports = {}
+    for axis, offset in (("x", (0, 1)), ("y", (1, 0))):
+        _, second, _, _ = _patch_spectra(
+            data, patch, margin, offset=offset, complete=False, dc=True
+        )
+        for name, indices in _quartets(patch):
+            cumulants, powers = [], []
+            for spectra in (first, second):
+                values = _frequency_columns(spectra, axis, indices).reshape(-1, 4)
+                centered = values - values.mean(axis=0)
+                powers.append(np.mean(abs(centered) ** 2, axis=0))
+                values = values.copy()
+                values[:, (1, 3)] = values[:, (1, 3)].conj()
+                cumulants.append(
+                    population_cumulant4(values, np.full(len(values), 1 / len(values)))
+                )
+            averaged = np.mean(powers, axis=0)
+            if not np.isfinite(averaged).all():
+                raise ValueError("Nonfinite Fourier powers")
+            floor = max(
+                (1e-12 * patch * np.max(abs(data))) ** 2, 1e-12 * float(max(averaged))
+            )
+            denominator = (
+                None
+                if (averaged <= floor).any()
+                else float(np.exp(0.5 * np.log(averaged).sum()))
+            )
+            contrast = (cumulants[0] - cumulants[1]) / 2
+            common = (cumulants[0] + cumulants[1]) / 2
+            reports[f"{axis}_{name}"] = {
+                "q0": {"real": cumulants[0].real, "imag": cumulants[0].imag},
+                "q1": {"real": cumulants[1].real, "imag": cumulants[1].imag},
+                "contrast": {"real": contrast.real, "imag": contrast.imag},
+                "common": {"real": common.real, "imag": common.imag},
+                "powers0": powers[0].tolist(),
+                "powers1": powers[1].tolist(),
+                "power_floor": float(floor),
+                "denominator": denominator,
+                "normalized_contrast": (
+                    None if denominator is None else float(abs(contrast) / denominator)
+                ),
+            }
+    return {
+        "patch": patch,
+        "margin": margin,
+        "patch_grid": [rows, columns],
+        "patch_count": rows * columns,
+        "unused_interior": [
+            data.shape[0] - 2 * margin - rows * patch,
+            data.shape[1] - 2 * margin - columns * patch,
+        ],
+        "measurements": reports,
+        "scope": "Finite translated-window contrast; not AI probability or propagation invariant",
+    }
+
+
+def window_phase_rgb_summary(rgb, *, patch=16, margin=16) -> dict:
+    """Same encoded-RGB luma conversion as the historical cyclic descriptor."""
+    return window_phase_summary(_luma(rgb), patch=patch, margin=margin)

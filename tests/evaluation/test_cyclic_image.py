@@ -5,7 +5,10 @@ from itertools import product
 import numpy as np
 import pytest
 
-from palimpsest.evaluation.cyclic_image import cyclic_rgb_summary
+from palimpsest.evaluation.cyclic_image import (
+    cyclic_rgb_summary,
+    window_phase_summary,
+)
 from experiments.origin_detection.non_neural.generator_mechanisms import (
     audit_native_cumulants as instrument,
 )
@@ -77,3 +80,44 @@ def test_pointwise_prediction_signed_and_clipped():
     np.testing.assert_array_equal(
         instrument.predicted_lrelu(u, alpha=1, gain=2, clamp=8), [-8, -2, 0, 2, 8]
     )
+
+
+def test_translated_window_rejects_smooth_content_but_not_periodic_scene():
+    y, x = np.indices((256, 256))
+    quadratic = window_phase_summary(2 * (x / 255) ** 2 - 1)
+    for name in ("cross", "pure"):
+        assert quadratic["measurements"][f"x_{name}"][
+            "normalized_contrast"
+        ] == pytest.approx(0, abs=1e-9)
+        assert quadratic["measurements"][f"y_{name}"]["normalized_contrast"] is None
+    scene = window_phase_summary((0.5 + 0.5 * y / 255) * np.cos(2 * np.pi * x / 8))
+    assert scene["measurements"]["x_pure"]["normalized_contrast"] == pytest.approx(
+        394 / 325, abs=1e-9
+    )
+    assert scene["measurements"]["x_cross"]["normalized_contrast"] is None
+
+
+@pytest.mark.parametrize("transpose", (False, True))
+def test_real_nn_windows_include_finite_boundary_and_not_circular_shift(transpose):
+    from experiments.origin_detection.non_neural.generator_mechanisms.audit_window_phase import (
+        nn_field,
+    )
+
+    field = nn_field()
+    result = window_phase_summary(field.T if transpose else field)
+    assert result["patch_count"] == 512
+    key = "y_pure" if transpose else "x_pure"
+    row = result["measurements"][key]
+    q0, q1 = (complex(row[k]["real"], row[k]["imag"]) for k in ("q0", "q1"))
+    assert q0 == pytest.approx((96 + 64 * np.sqrt(2)) * 1j)
+    assert q1 == pytest.approx(-7 / 8 * q0)
+    assert abs(q1 + q0) > 1  # A patch rotation would instead force -q0.
+
+
+def test_window_phase_zero_degeneracy_and_translated_support_bounds():
+    result = window_phase_summary(np.zeros((256, 256)))
+    assert all(
+        r["normalized_contrast"] is None for r in result["measurements"].values()
+    )
+    with pytest.raises(ValueError, match="Translated patch support"):
+        window_phase_summary(np.zeros((32, 32)), margin=0)
