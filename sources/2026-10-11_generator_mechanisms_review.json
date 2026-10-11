@@ -105,6 +105,17 @@
     "routes": "Fraction direct indexing and NumPy cyclic finite differences; shared artificial fixture and definition",
     "scientific_scope": "Finite periodic constructs only; no real image classifier, general CNN theorem or physical validation"
   },
+  "repository_context_reference": {
+    "branch": "yixiaogithub66/m-intermittency-detector",
+    "commit_read": "a95fb87bfce105abee37a818972216df71e3ac3b",
+    "files_read": [
+      "src/palimpsest/detection/algorithms/marginal_intermittency.py",
+      "experiments/origin_detection/marginal_intermittency/README.md",
+      "reports/m_intermittency/README.md"
+    ],
+    "observed_implementation": "Two explicitly calibrated increment-moment features; no neural encoder in the inspected implementation",
+    "scope": "Read-only background for avoiding duplicate work; no merge, modification, pixel execution, score recomputation or validation of reported performance. Source-role alignment and generation-mechanism evidence remain to be checked."
+  },
   "coverage_gaps": [
     "No prospective novelty claim set before initial exploratory queries",
     "Full P3+ reading and supplements remain owed",
