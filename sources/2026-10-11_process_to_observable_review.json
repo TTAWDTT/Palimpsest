@@ -1,0 +1,112 @@
+{
+  "date": "2026-10-11",
+  "reader": "Lady",
+  "scope": "Mechanism derivation and future causal-control design; not a complete literature review, novelty audit, numerical verification or detector evaluation",
+  "registered_before_this_packet_search": {
+    "H1": "Under an explicitly linear upsampling-plus-filter model, output covariance depends on output phase unless the relevant polyphase covariances match; neither nonzero phase contrast nor AI specificity is guaranteed",
+    "H2": "A deterministic squared-error optimal reconstruction retains conditional means and omits conditional residual covariance; stochastic generation need not omit it, so this is not a generic diffusion defect",
+    "H3": "For a differentiable decoder from fewer continuous latent coordinates to more output coordinates, local first-order covariance has restricted rank; pixel quantization, observation noise and unknown postprocessing limit a direct low-rank detector"
+  },
+  "registration_boundary": "H1-H3 stored before searches in this packet. These are follow-up questions informed by prior literature exposure, not claims of globally preregistered research. The DDPM posterior-mixture covariance subquestion arose during reading.",
+  "search_engine": "web search and direct primary-source opens",
+  "queries_run": [
+    "site.distill.pub deconvolution checkerboard artifacts uneven overlap",
+    "site.proceedings.neurips.cc \"Denoising Diffusion Probabilistic Models\" 2020",
+    "2026 generated image detection decoder upsampling mechanism covariance artifacts counterexample site:arxiv.org",
+    "2026 \"image detection\" \"decoder\" \"mechanism\" site:arxiv.org",
+    "\"2026\" \"AI-generated\" \"decoder\" \"artifacts\" site:arxiv.org/abs",
+    "\"diffusion\" \"conditional mean\" \"variance\" site:proceedings.mlr.press",
+    "\"Improved Denoising Diffusion Probabilistic Models\" learned variances site:proceedings.mlr.press"
+  ],
+  "sources": [
+    {
+      "id": "distill_deconvolution",
+      "title": "Deconvolution and Checkerboard Artifacts",
+      "authors": ["Augustus Odena", "Vincent Dumoulin", "Chris Olah"],
+      "date_verified": "2016-10-17",
+      "doi": "10.23915/distill.00003",
+      "url": "https://distill.pub/2016/deconv-checkerboard/",
+      "proximity": "P3",
+      "read_status": "Full body text and reference list read; interactive diagrams not operated or visually audited",
+      "locator": "Deconvolution & Overlap; Overlap & Learning; Better Upsampling; Image Generation Results; Artifacts in Gradients",
+      "verified_short_quote": "so that the output is evenly balanced.",
+      "quote_locator": "Overlap & Learning, second paragraph",
+      "claim_boundary": "Uneven overlap and weight-dependent artifacts in the described architectures, with cancellation and alternative upsampling explicitly discussed; not all AI generators or robust source detection",
+      "local_capture": "work/non_neural/generation_mechanisms/process_derivation/distill_deconvolution.html",
+      "bytes": 87247,
+      "sha256": "960509f6729d5a92a26d5869060ca9f15084b8a527578ce99167103dd3817238",
+      "capture_note": "HTTP HTML captured by Invoke-WebRequest; linked image media and interactive assets not archived"
+    },
+    {
+      "id": "ddpm",
+      "title": "Denoising Diffusion Probabilistic Models",
+      "authors": ["Jonathan Ho", "Ajay Jain", "Pieter Abbeel"],
+      "canonical_record_verified": "NeurIPS 2020 proceedings abstract record",
+      "record_url": "https://proceedings.neurips.cc/paper/2020/hash/4c5bcfec8584af0d967f1ab10179ca4b-Abstract.html",
+      "version_read": "arXiv:2006.11239v2, 2020-12-16 HTML conversion",
+      "url": "https://arxiv.org/html/2006.11239v2",
+      "proximity_ceiling": "P3",
+      "read_status": "PARTIAL full-text: sections2 through3.2, Eq1-11 and following sampling expression; full paper and appendix reading owed",
+      "verified_short_quote": "untrained time dependent constants.",
+      "quote_locator": "section3.2, first paragraph",
+      "load_bearing_locators": ["Eq1: learned Gaussian reverse transition", "Eq6-7: clean-image-conditioned forward posterior", "section3.2: fixed isotropic variance", "text immediately afterEq11: random sampling term"],
+      "claim_boundary": "Original fixed-variance finite-step implementation only. Covariance after marginalizing clean input is an elementary derivation based onEq6-7, not an empirical result extracted from the paper; no final-image artifact or robustness guarantee",
+      "local_capture": "work/non_neural/generation_mechanisms/process_derivation/ddpm_v2.html",
+      "bytes": 1013312,
+      "sha256": "889bf6b3d1e18930447c30ab2c32c4c9b6134777502794e2f09aa7fd4506aef5",
+      "retrieval_issue": "Proceedings PDF open failed in web due33,025,164-byte size; actual full-text HTML used, without claiming complete reading"
+    },
+    {
+      "id": "ldm",
+      "title": "High-Resolution Image Synthesis with Latent Diffusion Models",
+      "authors": ["Robin Rombach", "Andreas Blattmann", "Dominik Lorenz", "Patrick Esser", "Bjorn Ommer"],
+      "version_read": "arXiv:2112.10752v2, 2022-04-13 HTML conversion",
+      "url": "https://arxiv.org/html/2112.10752v2",
+      "proximity_ceiling": "P3",
+      "read_status": "PARTIAL full-text: sections3.1-3.2; full paper and supplements reading owed",
+      "verified_short_quote": "enforcing local realism",
+      "quote_locator": "section3.1, first paragraph",
+      "quote_check_note": "Initial draft omitted a citation embedded between patch-based and adversarial; exact-string capture check rejected it. Replaced with a contiguous source phrase before delivery.",
+      "claim_boundary": "Latent representation and perceptual/adversarial decoder objective. Jacobian rank discussion is elementary local linear analysis under explicit differentiability and dimensional assumptions, not a detector theorem attributed to LDM",
+      "local_capture": "work/non_neural/generation_mechanisms/process_derivation/ldm_v2.html",
+      "bytes": 816760,
+      "sha256": "bc27be0c28b03fbd9e444e31224035d38d3f6622c59e45e49ef37ed927dcd5ea"
+    },
+    {
+      "id": "improved_ddpm",
+      "title": "Improved Denoising Diffusion Probabilistic Models",
+      "authors": ["Alexander Quinn Nichol", "Prafulla Dhariwal"],
+      "canonical_record_verified": "ICML2021, PMLR139:8162-8171",
+      "record_url": "https://proceedings.mlr.press/v139/nichol21a.html",
+      "url": "https://proceedings.mlr.press/v139/nichol21a/nichol21a.pdf",
+      "version_read": "Publisher PDF,10 pages",
+      "proximity_ceiling": "P3",
+      "read_status": "PARTIAL full-text: PDF pp3-4 section3.1, Eq14-15; other text returned by search not counted as systematically read",
+      "verified_short_quote": "one component per dimension",
+      "quote_locator": "PDF p4, continuation of section3.1, immediately beforeEq14",
+      "claim_boundary": "Learned per-dimension variance invalidates treating fixed isotropic variance as a universal modern diffusion property; no replication of reported sample quality",
+      "capture_note": "Read via web PDF text extraction, no local archive hash claimed"
+    }
+  ],
+  "elementary_derivations": [
+    {"id":"H1", "assumptions":"1D finite-filter linear upsampling; iid latent with finite variance; boundaries ignored", "status":"Hand algebra recorded, no new numerical control", "limits":"Does not establish phase contrast for actual learned weights, AI specificity, nonlinear generator behavior or propagation invariance"},
+    {"id":"H2", "assumptions":"Finite second moments and unrestricted optimal deterministic squared-error estimator", "status":"Conditional expectation decomposition recorded; binary stochastic counterexample supplied", "limits":"Not the full diffusion sampler or a perceptual/adversarial decoder"},
+    {"id":"H2_ddpm_extension", "assumptions":"Original forward process, t>1, exact clean-input-conditioned posterior Eq6-7, finite conditional second moments", "status":"Total conditional covariance calculation recorded", "limits":"Mismatch of one reverse transition does not prove a specific final-image statistic, direction of change, source specificity or propagation survival"},
+    {"id":"H3", "assumptions":"Fixed differentiable deterministic decoder, m<d, infinitesimal perturbations around one latent point", "status":"First-order covariance rank bound and curved-manifold counterexample recorded", "limits":"Neither global image covariance nor spatial patch covariance is thereby low rank; observation noise, rounding and clipping change the problem"}
+  ],
+  "finite_chain_progress": [
+    "Distill reference list inspected; linked ancestors not claimed fully read",
+    "Original DDPM fixed variance followed intoImproved DDPM learned-variance section3.1"
+  ],
+  "recency_search_limits": "Current-year searches returned tangential sonar detection, music decoding and watermarking. Those abstracts are not evidence about passive static-image generation mechanisms and were not used as load-bearing sources.",
+  "coverage_gaps": [
+    "DDPM, LDM andImproved DDPM full P3+ papers and supplements remain owed",
+    "No systematic forward-citation or all-author recency sweep",
+    "No Google Scholar, Semantic Scholar orOpenAlex citation-index coverage",
+    "No completed independent mathematical review or numerical planted-truth controls for this packet",
+    "No real generator intervention, newly extracted image features, new classification or latency measurement",
+    "No independent real propagation validation",
+    "Not iterated to dry; no completeness, novelty or leading-performance claim"
+  ],
+  "report": "reports/04_算法研发/机制研究/从生成环节推导可观测差异_2026-10-11.md"
+}
