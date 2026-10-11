@@ -22,6 +22,9 @@ def test_detection_foundation_imports_are_idle_and_heavy_dependencies_optional(
         "palimpsest.pipelines.image",
         "palimpsest.pipelines.cli",
         "palimpsest.training.interfaces",
+        "palimpsest.evaluation.calibrated_readout_campaign",
+        "palimpsest.evaluation.training_fit",
+        "palimpsest.evaluation.source_panel_crossfit",
     )
     code = "import importlib,sys\n" + "\n".join(
         f"importlib.import_module({m!r})" for m in modules

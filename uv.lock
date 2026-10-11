@@ -588,6 +588,7 @@ dependencies = [
     { name = "opencv-python-headless" },
     { name = "pillow" },
     { name = "scipy" },
+    { name = "threadpoolctl" },
 ]
 
 [package.optional-dependencies]
@@ -619,6 +620,7 @@ requires-dist = [
     { name = "ruff", marker = "extra == 'dev'", specifier = "==0.16.10" },
     { name = "scikit-learn", marker = "extra == 'classical'", specifier = "==1.7.2" },
     { name = "scipy", specifier = "==1.15.3" },
+    { name = "threadpoolctl", specifier = "==3.7.0" },
     { name = "timm", marker = "extra == 'neural'", specifier = "==1.0.12" },
     { name = "torch", marker = "extra == 'neural'", specifier = "==2.7.1" },
     { name = "torchvision", marker = "extra == 'neural'", specifier = "==0.22.1" },

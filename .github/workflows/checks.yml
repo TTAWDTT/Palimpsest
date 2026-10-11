@@ -16,6 +16,17 @@ jobs:
       - uses: astral-sh/setup-uv@v10.2.0
         with:
           python-version: "3.12"
+      - name: Verify base installation without optional extras
+        run: |
+          uv sync --locked
+          uv run --locked python - <<'PY'
+          import importlib.util
+          import palimpsest.evaluation.calibrated_readout_campaign
+          import palimpsest.evaluation.training_fit
+          import palimpsest.evaluation.source_panel_crossfit
+          assert importlib.util.find_spec("sklearn") is None
+          assert importlib.util.find_spec("torch") is None
+          PY
       - run: uv sync --locked --extra dev --extra classical
       - run: uv run --locked ruff check src experiments tests tools
       - run: uv run --locked python tools/check_layout.py
