@@ -1,0 +1,49 @@
+{
+  "date": "2026-10-12",
+  "chronology": "Followup informed by exposed native and photo R values and quadratic content null; signed before any execution of this new window-origin contrast. Not globally blind research.",
+  "question": "Can a one-pixel window-origin contrast separate a quadratic-content cumulant from a period2 process response, and can non-generator scene texture produce the same contrast?",
+  "measurement": {
+    "patch": 16,
+    "margin": 16,
+    "offsets": [0, 1],
+    "support": "Same patch count at translated image windows; never circularly shift a patch. Floor unused partial interior edges explicitly. Remove each patch DC before nonDC DFT for numerical precision.",
+    "luma": [0.299, 0.587, 0.114],
+    "quartets": {"cross": [2, 4, 6, 12], "pure": [2, 14, 2, 14]},
+    "joint": "Q_delta=kappa(U_k1,U_k2*,U_k3,U_k4*) of centered empirical patch distribution, with all three pairings",
+    "contrast": "C=(Q_0-Q_1)/2; common=(Q_0+Q_1)/2",
+    "normalizer": "D=sqrt(product_j[(P_j0+P_j1)/2]), P_jdelta=mean|U_jdelta-mean(U_jdelta)|^2; S=|C|/D",
+    "numeric_floor": "Each averaged power must exceed max((1e-12*patch*max|field|)^2,1e-12*max_averaged_power); otherwise S=None. This is not a confidence gate.",
+    "scope": "Finite-window descriptive processing contrast, not a cyclic spectrum estimator for a stationary ensemble, bounded correlation, AI probability or noise/scale/JPEG invariant"
+  },
+  "controls": {
+    "NN_signs": {
+      "field": "Binary deBruijn order9 cycle length512; 8 rows of coarse cycle shifted by row index, 64 patches per row, NN repeat along x; every nine-sign word appears exactly once at the 512 window pairs. Extra fine pixel permits genuine shifted window.",
+      "latent": "independent equiprobable +/-1, kappa4=-2",
+      "exact_finite_boundary": "Q_1=-7/8*Q_0, not -Q_0: seven complete pairs reverse phase; two edge singletons cancel at cycle8",
+      "cross_Q0": "32*sqrt(2)*i",
+      "pure_Q0": "(96+64*sqrt(2))*i",
+      "cross_D": "16*sqrt(143.5)",
+      "pure_D": "(16+7.5*sqrt(2))^2",
+      "cross_S": "30*sqrt(2)/(16*sqrt(143.5))",
+      "pure_S": "(90+60*sqrt(2))/(16+7.5*sqrt(2))^2",
+      "routes": "Closed formula versus independent 512-sign enumeration and linear DFT coefficient propagation; then full single-image production measurement and transposed-y twin"
+    },
+    "quadratic": "I(y,x)=2*(x/255)^2-1,256x256; centered x coefficients independent of window delta, hence Q0=Q1, C=0 and S=0; y undefined",
+    "scene_carrier": "I(y,x)=(0.5+0.5*y/255)*cos(2*pi*x/8),256x256; x pure Q1=-Q0; S=6*(14^2+1)/(5*(14^2-1))=394/325. Mathematical scene field, no generator or resampling; cross undefined because powers vanish.",
+    "zeros": "All Q,C,D zero; normalized values None, not a natural-class verdict",
+    "corruptions": ["NN exact Q1=-Q0 must fail", "wrong conjugation must disagree with known complex Q", "quadratic S=1 must fail", "scene pure S=0 must fail", "zero undefined replaced by numeric class score must fail"]
+  },
+  "tolerance": {"rtol": 1e-9, "atol": 1e-8},
+  "cached_data": {
+    "root": "work/non_neural/generation_mechanisms/native_cumulant",
+    "receipts": {
+      "stylegan2_complete.json": "221e15139b3729bb8d2911353bcc97ce6b791670e1ec4c407224b4725ccf0af8",
+      "stylegan3_complete.json": "02e397e73a9928ff732af8af5a31113f473e0a07aa74335c3078958a510f3683",
+      "photos.json": "f537661ca36214f50f1741cbd9705378c1fec10607698cd6fde51fd68209c63b"
+    },
+    "coverage": "32 native branches in both unclipped float RGB and PNG, six old photo PNG views; no new generator forward, source image, held/reserved pixels or baseline",
+    "gates": "Only after all analytic controls pass; receipt and pixel file SHA before reading. No parameter scan or threshold/classifier fit.",
+    "timing": "Measure first three cached views with same code, then record bounded remainder projection and per-view costs. No inferred deployment speed."
+  },
+  "decision": "Even if content null is eliminated, non-generator carrier control is a preregistered counterexample to AI specificity; do not promote this descriptor to a detector solely for nonzero response."
+}
