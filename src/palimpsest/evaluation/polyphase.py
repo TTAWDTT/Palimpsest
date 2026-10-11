@@ -81,3 +81,34 @@ def phase_summary(moments: PopulationMoments, stride: int) -> dict:
         "covariance_shift_residual": float(np.max(np.abs(
             covariance - np.roll(covariance, (1, 1), axis=(0, 1))))),
     }
+
+
+def frequency_covariance(covariance) -> np.ndarray:
+    """Return F covariance F* with unitary DFT; input is centered covariance.
+
+    This transforms a known population matrix, not a single image periodogram.
+    """
+    covariance = np.asarray(covariance, dtype=np.float64)
+    if covariance.ndim != 2 or min(covariance.shape, default=0) < 1:
+        raise ValueError("covariance must be a nonempty square matrix")
+    if covariance.shape[0] != covariance.shape[1]:
+        raise ValueError("covariance must be square")
+    size = covariance.shape[0]
+    checked = linear_population_moments(np.eye(size), np.zeros(size), covariance)
+    return np.fft.ifft(np.fft.fft(checked.covariance, axis=0, norm="ortho"),
+                       axis=1, norm="ortho")
+
+
+def spectral_coherence_magnitude(covariance, first: int, second: int) -> float | None:
+    """Magnitude of normalized frequency covariance; zero powers give None."""
+    spectrum = frequency_covariance(covariance)
+    size = spectrum.shape[0]
+    if (isinstance(first,bool) or isinstance(second,bool)
+            or not isinstance(first,(int,np.integer)) or not isinstance(second,(int,np.integer))
+            or not 0 <= first < size or not 0 <= second < size):
+        raise ValueError("frequency indices must be explicit in-range integers")
+    first_power,second_power = float(spectrum[first,first].real),float(spectrum[second,second].real)
+    if first_power <= 0 or second_power <= 0:
+        return None
+    denominator = first_power * second_power
+    return float(abs(spectrum[first,second])/np.sqrt(denominator))

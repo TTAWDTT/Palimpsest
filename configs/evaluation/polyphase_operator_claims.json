@@ -4,7 +4,8 @@
   "quote_source":"reports/04_算法研发/机制研究/从生成环节推导可观测差异_2026-10-11.md section6",
   "receipts":{
     "r":{"path":"../../work/non_neural/generation_mechanisms/operator_moments/controls.json"},
-    "s":{"path":"../../work/non_neural/generation_mechanisms/operator_moments/ldm_controls.json"}
+    "s":{"path":"../../work/non_neural/generation_mechanisms/operator_moments/ldm_controls.json"},
+    "t":{"path":"../../work/non_neural/generation_mechanisms/operator_moments/spectral_pilot.json"}
   },
   "claims":[
     {"label":"positive_controls","quoted":"7","expr":"f('r','/positive_fixtures')","mode":"printed"},
@@ -27,6 +28,14 @@
     {"label":"ldm_phase00","quoted":"1","expr":"f('s','/fixtures/1/absolute_phase_variances/0/0')","mode":"printed"},
     {"label":"ldm_phase01","quoted":"0.5","expr":"f('s','/fixtures/1/absolute_phase_variances/0/1')","mode":"printed"},
     {"label":"ldm_phase11","quoted":"0.25","expr":"f('s','/fixtures/1/absolute_phase_variances/1/1')","mode":"printed"},
-    {"label":"ldm_internal_seconds","quoted":"0.018559","expr":"f('s','/elapsed_seconds')","mode":"printed"}
+    {"label":"ldm_internal_seconds","quoted":"0.018559","expr":"f('s','/elapsed_seconds')","mode":"printed"},
+    {"label":"spectral_negative_controls","quoted":"5","expr":"f('t','/negative_controls_caught')","mode":"printed"},
+    {"label":"spectral_base_imag","quoted":"-1","expr":"f('t','/base_C26/imag')","mode":"printed"},
+    {"label":"spectral_shift_imag","quoted":"1","expr":"f('t','/shift_C26/imag')","mode":"printed"},
+    {"label":"spectral_filter_real","quoted":"-0.5","expr":"f('t','/filter_C26/real')","mode":"printed"},
+    {"label":"spectral_white_imag","quoted":"-1","expr":"f('t','/white_C26/imag')","mode":"printed"},
+    {"label":"spectral_nonstationary_real","quoted":"1","expr":"f('t','/nonstationary_noise_C26/real')","mode":"printed"},
+    {"label":"spectral_white_coherence","quoted":"0.5","expr":"f('t','/white_coherence')","mode":"printed"},
+    {"label":"spectral_lowpass_energy","quoted":"0.676777","expr":"f('t','/lowpass_mean_square')","mode":"printed"}
   ]
 }
