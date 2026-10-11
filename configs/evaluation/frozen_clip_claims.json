@@ -1,0 +1,297 @@
+{
+  "campaign": "Sixteenth frozen CLIP diagnostic2026-10-06",
+  "register": "Transcription only,not independent validation",
+  "quote_source": "reports/04_算法研发/第十六轮冻结CLIP_类别线索恢复与分层退化_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/frozen_clip/iteration.json"
+    },
+    "f": {
+      "path": "../../work/robust_statistics/frozen_clip/features.json"
+    },
+    "b": {
+      "path": "../../work/robust_statistics/frozen_clip/benchmark.json"
+    },
+    "a": {
+      "path": "../../work/robust_statistics/frozen_clip/paired_conditions_audit.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "raw",
+      "label": "rr/original",
+      "quoted": "86.67",
+      "expr": "100*f('i','/candidates/clip~1both/selection_aggregate/rr/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "raw",
+      "label": "rr/transfer",
+      "quoted": "86.67",
+      "expr": "100*f('i','/candidates/clip~1both/selection_aggregate/rr/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "raw",
+      "label": "rr/redigital",
+      "quoted": "86.11",
+      "expr": "100*f('i','/candidates/clip~1both/selection_aggregate/rr/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "raw",
+      "label": "chimera/original",
+      "quoted": "91.25",
+      "expr": "100*f('i','/candidates/clip~1both/selection_aggregate/chimera/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "raw",
+      "label": "chimera/mac_iphone",
+      "quoted": "92.92",
+      "expr": "100*f('i','/candidates/clip~1both/selection_aggregate/chimera/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "raw",
+      "label": "chimera/lg_blackfly",
+      "quoted": "92.50",
+      "expr": "100*f('i','/candidates/clip~1both/selection_aggregate/chimera/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "Q90",
+      "label": "rr/original",
+      "quoted": "86.67",
+      "expr": "100*f('i','/candidates/clip~1both/recompression_aggregate/rr/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "Q90",
+      "label": "rr/transfer",
+      "quoted": "86.67",
+      "expr": "100*f('i','/candidates/clip~1both/recompression_aggregate/rr/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "Q90",
+      "label": "rr/redigital",
+      "quoted": "83.89",
+      "expr": "100*f('i','/candidates/clip~1both/recompression_aggregate/rr/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "Q90",
+      "label": "chimera/original",
+      "quoted": "92.92",
+      "expr": "100*f('i','/candidates/clip~1both/recompression_aggregate/chimera/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "Q90",
+      "label": "chimera/mac_iphone",
+      "quoted": "91.25",
+      "expr": "100*f('i','/candidates/clip~1both/recompression_aggregate/chimera/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "Q90",
+      "label": "chimera/lg_blackfly",
+      "quoted": "92.50",
+      "expr": "100*f('i','/candidates/clip~1both/recompression_aggregate/chimera/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "Q70",
+      "label": "rr/original",
+      "quoted": "86.11",
+      "expr": "100*f('i','/candidates/clip~1both/held_encoding_aggregate/rr/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "Q70",
+      "label": "rr/transfer",
+      "quoted": "86.11",
+      "expr": "100*f('i','/candidates/clip~1both/held_encoding_aggregate/rr/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "Q70",
+      "label": "rr/redigital",
+      "quoted": "83.33",
+      "expr": "100*f('i','/candidates/clip~1both/held_encoding_aggregate/rr/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "Q70",
+      "label": "chimera/original",
+      "quoted": "90.42",
+      "expr": "100*f('i','/candidates/clip~1both/held_encoding_aggregate/chimera/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "Q70",
+      "label": "chimera/mac_iphone",
+      "quoted": "90.00",
+      "expr": "100*f('i','/candidates/clip~1both/held_encoding_aggregate/chimera/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "Q70",
+      "label": "chimera/lg_blackfly",
+      "quoted": "87.92",
+      "expr": "100*f('i','/candidates/clip~1both/held_encoding_aggregate/chimera/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "speed/all",
+      "label": "predict_ms/p50",
+      "quoted": "24.60",
+      "expr": "f('b','/summaries/all/predict_ms/p50')"
+    },
+    {
+      "section": "speed/all",
+      "label": "predict_ms/p95",
+      "quoted": "30.73",
+      "expr": "f('b','/summaries/all/predict_ms/p95')"
+    },
+    {
+      "section": "speed/all",
+      "label": "end_to_end_ms/p50",
+      "quoted": "42.19",
+      "expr": "f('b','/summaries/all/end_to_end_ms/p50')"
+    },
+    {
+      "section": "speed/all",
+      "label": "end_to_end_ms/p95",
+      "quoted": "64.51",
+      "expr": "f('b','/summaries/all/end_to_end_ms/p95')"
+    },
+    {
+      "section": "speed/at_most_2MP",
+      "label": "predict_ms/p50",
+      "quoted": "24.55",
+      "expr": "f('b','/summaries/at_most_2MP/predict_ms/p50')"
+    },
+    {
+      "section": "speed/at_most_2MP",
+      "label": "predict_ms/p95",
+      "quoted": "30.21",
+      "expr": "f('b','/summaries/at_most_2MP/predict_ms/p95')"
+    },
+    {
+      "section": "speed/at_most_2MP",
+      "label": "end_to_end_ms/p50",
+      "quoted": "41.77",
+      "expr": "f('b','/summaries/at_most_2MP/end_to_end_ms/p50')"
+    },
+    {
+      "section": "speed/at_most_2MP",
+      "label": "end_to_end_ms/p95",
+      "quoted": "62.77",
+      "expr": "f('b','/summaries/at_most_2MP/end_to_end_ms/p95')"
+    },
+    {
+      "section": "speed/above_2MP",
+      "label": "predict_ms/p50",
+      "quoted": "31.11",
+      "expr": "f('b','/summaries/above_2MP/predict_ms/p50')"
+    },
+    {
+      "section": "speed/above_2MP",
+      "label": "predict_ms/p95",
+      "quoted": "36.51",
+      "expr": "f('b','/summaries/above_2MP/predict_ms/p95')"
+    },
+    {
+      "section": "speed/above_2MP",
+      "label": "end_to_end_ms/p50",
+      "quoted": "66.35",
+      "expr": "f('b','/summaries/above_2MP/end_to_end_ms/p50')"
+    },
+    {
+      "section": "speed/above_2MP",
+      "label": "end_to_end_ms/p95",
+      "quoted": "73.07",
+      "expr": "f('b','/summaries/above_2MP/end_to_end_ms/p95')"
+    },
+    {
+      "section": "clip/erm",
+      "label": "minimum_ba",
+      "quoted": "82.78",
+      "expr": "100*f('i','/candidates/clip~1erm/final_target/minimum_ba')"
+    },
+    {
+      "section": "clip/erm",
+      "label": "maximum_observed_drop",
+      "quoted": "7.50",
+      "expr": "100*f('i','/candidates/clip~1erm/final_target/maximum_observed_drop')"
+    },
+    {
+      "section": "clip/both",
+      "label": "minimum_ba",
+      "quoted": "83.33",
+      "expr": "100*f('i','/candidates/clip~1both/final_target/minimum_ba')"
+    },
+    {
+      "section": "clip/both",
+      "label": "maximum_observed_drop",
+      "quoted": "4.58",
+      "expr": "100*f('i','/candidates/clip~1both/final_target/maximum_observed_drop')"
+    },
+    {
+      "section": "hybrid_clip/erm",
+      "label": "minimum_ba",
+      "quoted": "82.78",
+      "expr": "100*f('i','/candidates/hybrid_clip~1erm/final_target/minimum_ba')"
+    },
+    {
+      "section": "hybrid_clip/erm",
+      "label": "maximum_observed_drop",
+      "quoted": "6.67",
+      "expr": "100*f('i','/candidates/hybrid_clip~1erm/final_target/maximum_observed_drop')"
+    },
+    {
+      "section": "hybrid_clip/both",
+      "label": "minimum_ba",
+      "quoted": "82.78",
+      "expr": "100*f('i','/candidates/hybrid_clip~1both/final_target/minimum_ba')"
+    },
+    {
+      "section": "hybrid_clip/both",
+      "label": "maximum_observed_drop",
+      "quoted": "4.17",
+      "expr": "100*f('i','/candidates/hybrid_clip~1both/final_target/maximum_observed_drop')"
+    },
+    {
+      "section": "hybrid_clip/both_source_shuffled_null",
+      "label": "minimum_ba",
+      "quoted": "38.33",
+      "expr": "100*f('i','/candidates/hybrid_clip~1both_source_shuffled_null/final_target/minimum_ba')"
+    },
+    {
+      "section": "hybrid_clip/both_source_shuffled_null",
+      "label": "maximum_observed_drop",
+      "quoted": "4.17",
+      "expr": "100*f('i','/candidates/hybrid_clip~1both_source_shuffled_null/final_target/maximum_observed_drop')"
+    },
+    {
+      "section": "paired_audit",
+      "label": "maximum_domain_condition_drop",
+      "quoted": "4.58",
+      "expr": "100*f('a','/maximum_domain_condition_drop')"
+    },
+    {
+      "section": "paired_audit",
+      "label": "maximum_scene_drop",
+      "quoted": "10.00",
+      "expr": "100*f('a','/maximum_scene_drop')"
+    },
+    {
+      "section": "paired_audit",
+      "label": "minimum_scene_ba",
+      "quoted": "85.00",
+      "expr": "100*f('a','/minimum_scene_ba')"
+    },
+    {
+      "section": "counts",
+      "label": "feature_records",
+      "quoted": "13860",
+      "expr": "f('f','/records')"
+    },
+    {
+      "section": "counts",
+      "label": "timing_images",
+      "quoted": "120",
+      "expr": "f('b','/summaries/all/images')"
+    },
+    {
+      "section": "counts",
+      "label": "timing_measurements",
+      "quoted": "360",
+      "expr": "f('b','/summaries/all/measurements')"
+    }
+  ]
+}

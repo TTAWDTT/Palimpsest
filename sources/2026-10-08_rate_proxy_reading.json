@@ -1,0 +1,46 @@
+{
+  "scope": "Targeted implementation reading for a conventional rate-aware penalty prototype; no novelty or literature completeness claim",
+  "claims_before_implementation": [
+    "Changing score variance is not identical to changing hard balanced-accuracy decline",
+    "Finite sigmoid proxy penalties do not certify hard classification constraints",
+    "The proposed single-start L-BFGS-B head is not Cotter's proxy-Lagrangian or a globally optimal constrained classifier"
+  ],
+  "search_engine": "web.run",
+  "date": "2026-10-08",
+  "actual_queries": [
+    "Cotter Training Well-Generalizing Classifiers for Fairness Metrics Other Data-Dependent Constraints proxy Lagrangian 2019 PMLR",
+    "distributionally robust classification error rate constraints ramp loss convex concave procedure paired classifier consistency",
+    "2026 2025 classification rate constraints Cotter proxy Lagrangian direct error optimization robust classifiers",
+    "tensorflow constrained optimization rate constraints sigmoid ramp lower bound upper bound github official"
+  ],
+  "read_ledger": [
+    {
+      "url": "https://www.jmlr.org/papers/volume20/18-616/18-616.pdf",
+      "title": "Optimization with Non-Differentiable Constraints with Applications to Fairness, Recall, Churn, and Other Goals",
+      "primary_record": "https://www.jmlr.org/papers/v20/18-616.html",
+      "year": 2019,
+      "pages": 59,
+      "proximity": "P3 component/neighboring rate-constraint problem",
+      "status": "Targeted full-text pp2-9; remainder FULL-TEXT-UNREAD",
+      "location": "Introduction 1.2-1.6, related work 2.1-2.4 and rate definitions beginning section3",
+      "verbatim_under_25_words": "changing the constraint functions may lead to solutions which either over-constrain or fail to satisfy the original constraints",
+      "quote_location": "Printed page4, section1.5",
+      "credit": "Rate constraints, proxy distinction, nonconvex optimization and surrogate mismatch; no theorem transferred to this prototype"
+    },
+    {
+      "url": "https://github.com/google-research/tensorflow_constrained_optimization",
+      "status": "Official README proxy constraints, rate helpers and shrinking sections read; code optimizer/experiments not reproduced",
+      "credit": "Separates proxy and true constraint losses; explains rate composition and nonconvex limitations"
+    },
+    {
+      "url": "https://proceedings.mlr.press/v97/cotter19b.html",
+      "title": "Training Well-Generalizing Classifiers for Fairness Metrics and Other Data-Dependent Constraints",
+      "year": 2019,
+      "status": "Primary abstract/metadata only; linked9-page PDF opened but not fully read",
+      "credit": "Separate training/constraint datasets are a distinct approach; our source CV does not inherit its guarantee"
+    }
+  ],
+  "known_chain": "JMLR section2.1 cites Goh2016 ramp/cutting-plane constraints, Agarwal2018 reductions and Neyman-Pearson work; these ancestors not yet independently full-text read",
+  "gap_statement": "Two keyword rounds including current2026 query, not iterated to dry. No author-site recency sweep, forward cited-by inventory, full proofs/appendices, or complete rival software review. This is a targeted design record, not a completed BootLoops novelty review.",
+  "implementation_decision": "Test a fixed sigmoid group-rate penalty with exact held BA/drop and joint calibration separately; no imported optimality or physical robustness claim"
+}

@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-08",
+  "scope": "Correction of derived Git labels;original scientific pins/receipts and version ledgers unchanged",
+  "records": [
+    {
+      "file": "sources/2026-10-08_rate_training_boundary_pin_gap.json",
+      "field": "executed70_git",
+      "correct_meaning": "Git4ed16c4 restores the executed producer bytes;main process began on HEAD013b0a4 plus strengthened uncommitted test/protocol changes,commit4ed16c4wasmade during computation"
+    },
+    {
+      "campaign": "split_rate_score first full attempt",
+      "correct_meaning": "Git124eba1 restores executing producer/test/protocol bytes;main began on HEAD1c21889 plus uncommitted reviewed cache/pin/test changes;commit124eba1was made during computation"
+    }
+  ],
+  "reproducibility": "Use signed code_pins and restore compatible source tree;these Git references were not captured process-start HEAD fields"
+}

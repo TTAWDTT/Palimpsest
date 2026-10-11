@@ -1,0 +1,81 @@
+{
+  "date": "2026-10-06",
+  "primary_paper": {
+    "url": "https://openaccess.thecvf.com/content/CVPR2026W/APAI/papers/Guillaro_Quality-Aware_Calibration_for_AI-Generated_Image_Detection_in_the_Wild_CVPRW_2026_paper.pdf",
+    "pages": 10,
+    "bytes": 1147568,
+    "sha256": "c753ccba8856a3d413f64c82119751b871c8511dcdc0b4a9ed846f0a0af8d529",
+    "read": "all10pages text,formulas,tables,captions;not full visual figure audit"
+  },
+  "official_code": {
+    "revision": "c9d1a561fef9c772399a15822224cbcf99806500",
+    "files": {
+      "LICENSE.txt": {
+        "git_blob": "d8b4b61793551ad5bfcefd91a185e7dab3bff6ce",
+        "sha256": "cd00edf99fbfdbb173831bb0a4d5bfc40423c6e5041f62d7afdda220c4be8b27",
+        "bytes": 1843
+      },
+      "README.md": {
+        "git_blob": "227ec487657365965bc62b9faeeaa483236f1202",
+        "sha256": "c760178ee37a7600d4daca3e5a687c8415d4db95d500bd6de092a95959302c2b",
+        "bytes": 6670
+      },
+      "code_calibration/calibration.py": {
+        "git_blob": "120be70c5a4d75bb751b21f490ba5e3ea943c176",
+        "sha256": "4fac6255d76d5677201549716c37b78792efbcaf2c033eb10977a4a03792e2e7",
+        "bytes": 2551
+      },
+      "code_calibration/calibration_LOO.py": {
+        "git_blob": "d2a012a1b937d8c204fcb9469e4682d9a5fca989",
+        "sha256": "29ad695b0bf28f164feb3f68701eef741a82b42ca9f9b277d6c80cb336bfcbcc",
+        "bytes": 2689
+      },
+      "code_calibration/evaluate.py": {
+        "git_blob": "165bc25489852e168f21f100b131155aa47dcc04",
+        "sha256": "821038f9ddd25a8ab9dd1fec5a84aa68a3f4e8ed5f398def47f53e76c3963c47",
+        "bytes": 809
+      },
+      "code_calibration/script.sh": {
+        "git_blob": "2b8726e4d017fe29ed1d3dc0316a729c9c231f2b",
+        "sha256": "cf7bcc05362e99ed6e273ad478453f937d87e7a4c759d2ec4f07242801c7d937",
+        "bytes": 916
+      },
+      "code_calibration/utils.py": {
+        "git_blob": "751b21d1125b78b4afcda9e8998e5a00b2ca076a",
+        "sha256": "840e171ec5633e091917d7da78a54f6c1aa09f11ec7ba14fade3401dae8393e6",
+        "bytes": 2670
+      },
+      "datasets/AncesTree/README.md": {
+        "git_blob": "1c9d04af4f0eaddfcf423bee209c3cdf96d6c815",
+        "sha256": "96848c69f0c3f84347f36ffd98627182ca935c234d7a3e3e0219957d4179689f",
+        "bytes": 7370
+      },
+      "datasets/AncesTree/code/ancestree_utils.py": {
+        "git_blob": "213caf2ef3528daf660b4139abc95a636af581eb",
+        "sha256": "1a7ec7dcc17534135110d6c017ba12ea932dde7f99b1a4e110d2892204096c7d",
+        "bytes": 15825
+      },
+      "datasets/ReWIND/README.md": {
+        "git_blob": "f29312337caac30884423b5ed2dc630f82f3e963",
+        "sha256": "f872f0b0747d87f0e12de3871aa2eab8069001de40da3e0a1a8fed53ff02a8f6",
+        "bytes": 5366
+      }
+    }
+  },
+  "code_read": [
+    "code_calibration/utils.py",
+    "code_calibration/calibration.py",
+    "code_calibration/calibration_LOO.py",
+    "code_calibration/evaluate.py",
+    "datasets/ReWIND/README.md"
+  ],
+  "code_executed": false,
+  "new_external_pixels": 0,
+  "application": "Conditional scalar density only;CuRelognorm not IQA;notQuADreproduction",
+  "reading_debt": [
+    "script.sh",
+    "ancestree_utils.py",
+    "fullvisualcurves",
+    "independent physical recapture validation"
+  ]
+}

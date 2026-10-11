@@ -11,5 +11,6 @@
 | [审查原始记录](inventory_before.json) | 整理前的模块、导入和顶层操作；供机器核对 |
 | [迁移映射](experiment_migration.json) | 静态检查使用的旧入口映射 |
 | [提取映射](experiment_extractions.json) | 静态检查使用的共享实现归属 |
+| [CuRe方法归属迁移](cure_method_relocation.md) | 神经方法与纯算法分开、分支关系、直接迁移及回归核对 |
 
 `legacy_experiment_indexes/` 保留上一轮分类的历史导航，当前阅读使用实验首页。Git 版本 `21a4b1e` 保存本轮整理前源码；此目录不包含原始数据、权重或本机断点。

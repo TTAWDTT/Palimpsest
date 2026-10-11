@@ -1,0 +1,36 @@
+{
+  "scope": "Focused primary read plus artificial mathematical audit;not systematic review or replication",
+  "primary": [
+    {
+      "title": "Degradation-Consistent Paired Training for Robust AI-Generated Image Detection",
+      "authors": [
+        "Zongyou Yang",
+        "Yinghan Hou",
+        "Xiaokun Yang"
+      ],
+      "version": "arxiv2604.10102v1,2026-04-11",
+      "url": "https://arxiv.org/pdf/2604.10102v1",
+      "pages": 6,
+      "bytes": 732796,
+      "sha256": "da8a2bc726727f30d96ac1eb8e036551d3d3f959c81524dc9b8e9c47654ce5c0",
+      "read": "HTMLbody through conclusion;PDF6pages text incl references,figure captions/tabletext;not full visual figure inspection",
+      "locators": "PDFp2Eq1-4 frozenfeatures; p3Eq5stopgradient andTableI;pp4-5feature-onlyablation and averagedrop",
+      "owed": "Author source code/not located by two scoped queries;exact data sampling/baseline augmentation and all citation verification",
+      "boundary": "Printed frozenfeatures imply no head gradient from feature cosine;not proof of actual implementation. Digital Synthbuster corruption and meanACC not real recapture worst pairedBA."
+    },
+    {
+      "title": "Processing and acquisition traces in visual encoders:What does CLIP know about your camera?",
+      "version": "ICCV2025 official main/supplement",
+      "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Ramos_Processing_and_acquisition_traces_in_visual_encoders_What_does_CLIP_ICCV_2025_paper.pdf",
+      "pages": 11,
+      "bytes": 8333144,
+      "sha256": "7983e0e01ed7d947cb257113fa2f2fd3af2e768d449d480273c417903021351c",
+      "supplement_bytes": 194312,
+      "supplement_sha256": "f9d20f8e4dd81c06f301814c77ff2c943fac1a568cfc04f6edd2e7012c424cae",
+      "read": "MainPDFpp2-8 text; supplementpp1-6 text/tables/captions (large first output truncated,mainpp6-8 reopened separately)",
+      "owed": "Mainp1layout,pp9-11references;full numericfigure inspection;supplementfullfigures;actual author code and exact metadata nuisance controls",
+      "locators": "Mainp3PairCams ordinarytwo-camera capture,p4photographerdisjoint and masking,p6positive/negative metadata correlation,p8no specific mitigation and rootcause uncertainty;supplementp3ImageNet-ESnotAIlabelset",
+      "boundary": "CLIP embeddings are not certified purely semantic;less metadata decoding not automatically better AI discrimination. PairCams ordinary photos are not screen recaptures or AI/real provenance."
+    }
+  ]
+}

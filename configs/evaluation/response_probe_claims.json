@@ -1,0 +1,156 @@
+{
+  "campaign": "response_probe",
+  "register": "Transcription only,not scientific independent validation",
+  "quote_source": "reports/04_\u7b97\u6cd5\u7814\u53d1/\u7b2c\u4e8c\u5341\u4e94\u8f6e\u56fa\u5b9a\u54cd\u5e94_\u5c0f\u6f02\u79fb\u672a\u5f62\u6210\u7a33\u5b9a\u5224\u522b_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/response_probe/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "sensitivity/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/sensitivity~1source/minimum_domain_ba')",
+      "quoted": "47.78"
+    },
+    {
+      "section": "table",
+      "label": "sensitivity/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/sensitivity~1source/minimum_scene_ba')",
+      "quoted": "50.00"
+    },
+    {
+      "section": "table",
+      "label": "sensitivity/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/sensitivity~1source/maximum_any_scene_drop')",
+      "quoted": "2.50"
+    },
+    {
+      "section": "pair",
+      "label": "sensitivity/source/real",
+      "expr": "100*f('i','/candidates/sensitivity~1source/pairs/chimera~1cat~1mac_iphone~1raw>jpeg90_444_after_resize256/class_accuracy_change/REAL')",
+      "quoted": "-5.00"
+    },
+    {
+      "section": "pair",
+      "label": "sensitivity/source/fake",
+      "expr": "100*f('i','/candidates/sensitivity~1source/pairs/chimera~1cat~1mac_iphone~1raw>jpeg90_444_after_resize256/class_accuracy_change/FAKE')",
+      "quoted": "0.00"
+    },
+    {
+      "section": "pair",
+      "label": "sensitivity/source/change",
+      "expr": "100*f('i','/candidates/sensitivity~1source/pairs/chimera~1cat~1mac_iphone~1raw>jpeg90_444_after_resize256/balanced_accuracy_change')",
+      "quoted": "-2.50"
+    },
+    {
+      "section": "pair",
+      "label": "sensitivity/source/flip",
+      "expr": "100*f('i','/candidates/sensitivity~1source/pairs/chimera~1cat~1mac_iphone~1raw>jpeg90_444_after_resize256/source_macro_decision_flip_rate')",
+      "quoted": "2.50"
+    },
+    {
+      "section": "table",
+      "label": "global_response/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/global_response~1source/minimum_domain_ba')",
+      "quoted": "77.78"
+    },
+    {
+      "section": "table",
+      "label": "global_response/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/global_response~1source/minimum_scene_ba')",
+      "quoted": "76.25"
+    },
+    {
+      "section": "table",
+      "label": "global_response/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/global_response~1source/maximum_any_scene_drop')",
+      "quoted": "20.00"
+    },
+    {
+      "section": "pair",
+      "label": "global_response/source/real",
+      "expr": "100*f('i','/candidates/global_response~1source/pairs/chimera~1cat~1mac_iphone~1raw>jpeg60_420_after_resize256/class_accuracy_change/REAL')",
+      "quoted": "-40.00"
+    },
+    {
+      "section": "pair",
+      "label": "global_response/source/fake",
+      "expr": "100*f('i','/candidates/global_response~1source/pairs/chimera~1cat~1mac_iphone~1raw>jpeg60_420_after_resize256/class_accuracy_change/FAKE')",
+      "quoted": "0.00"
+    },
+    {
+      "section": "pair",
+      "label": "global_response/source/change",
+      "expr": "100*f('i','/candidates/global_response~1source/pairs/chimera~1cat~1mac_iphone~1raw>jpeg60_420_after_resize256/balanced_accuracy_change')",
+      "quoted": "-20.00"
+    },
+    {
+      "section": "pair",
+      "label": "global_response/source/flip",
+      "expr": "100*f('i','/candidates/global_response~1source/pairs/chimera~1cat~1mac_iphone~1raw>jpeg60_420_after_resize256/source_macro_decision_flip_rate')",
+      "quoted": "20.00"
+    },
+    {
+      "section": "table",
+      "label": "global_response/mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/global_response~1mean/minimum_domain_ba')",
+      "quoted": "73.75"
+    },
+    {
+      "section": "table",
+      "label": "global_response/mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/global_response~1mean/minimum_scene_ba')",
+      "quoted": "70.00"
+    },
+    {
+      "section": "table",
+      "label": "global_response/mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/global_response~1mean/maximum_any_scene_drop')",
+      "quoted": "22.50"
+    },
+    {
+      "section": "pair",
+      "label": "global_response/mean/real",
+      "expr": "100*f('i','/candidates/global_response~1mean/pairs/chimera~1cat~1mac_iphone~1raw>jpeg60_420_after_resize256/class_accuracy_change/REAL')",
+      "quoted": "-45.00"
+    },
+    {
+      "section": "pair",
+      "label": "global_response/mean/fake",
+      "expr": "100*f('i','/candidates/global_response~1mean/pairs/chimera~1cat~1mac_iphone~1raw>jpeg60_420_after_resize256/class_accuracy_change/FAKE')",
+      "quoted": "0.00"
+    },
+    {
+      "section": "pair",
+      "label": "global_response/mean/change",
+      "expr": "100*f('i','/candidates/global_response~1mean/pairs/chimera~1cat~1mac_iphone~1raw>jpeg60_420_after_resize256/balanced_accuracy_change')",
+      "quoted": "-22.50"
+    },
+    {
+      "section": "pair",
+      "label": "global_response/mean/flip",
+      "expr": "100*f('i','/candidates/global_response~1mean/pairs/chimera~1cat~1mac_iphone~1raw>jpeg60_420_after_resize256/source_macro_decision_flip_rate')",
+      "quoted": "22.50"
+    },
+    {
+      "section": "table",
+      "label": "global_response/source_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/global_response~1source_null/minimum_domain_ba')",
+      "quoted": "45.00"
+    },
+    {
+      "section": "table",
+      "label": "global_response/source_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/global_response~1source_null/minimum_scene_ba')",
+      "quoted": "43.75"
+    },
+    {
+      "section": "table",
+      "label": "global_response/source_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/global_response~1source_null/maximum_any_scene_drop')",
+      "quoted": "10.00"
+    }
+  ]
+}

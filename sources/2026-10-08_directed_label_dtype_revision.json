@@ -1,0 +1,11 @@
+{
+  "executed_source_ref": "fd061849e05c0bf9cf65821826583dd1f0bf5c04",
+  "path": "src/palimpsest/detection/algorithms/directed_score_margin.py",
+  "before": "3980ddebe0abff0cd63e73e5fe16b1ea4f663dddeac1493d725a4995736ab1fd",
+  "after": "ce7b327134f75e30fdd45f855f88fd0043506ea75b242a49fc5704808c25ce2e",
+  "change": "Validate andcastbinary wrapper labels toint64 before bank/key/pair creation;uint8 cold/warm cache behavior fixed",
+  "actual_main_labels_dtype": "int64 from frozen training/null arrays;existing realrun unaffected",
+  "new_known_answer_test": "Cold uint8 wrapper scores exactly equalint64 reference",
+  "scientific_receipts_andoldcontrols_not_rewritten": true,
+  "auditor_recorded_ref": "3a22a932a50d3a140199a83f2011afe7a50d5d4c"
+}

@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-06",
+  "hypothesis_before_real_fit": "Fixed nonlinear capacity may recover origin-class boundaries absent linear and single-Gaussian readouts; kernel approximation does not imply robustness to physical image propagation.",
+  "searches": [
+    {
+      "q": "Rahimi Recht Random Features Large Scale Kernel Machines NIPS 2007 pdf",
+      "kind": "primary/source lookup"
+    },
+    {
+      "q": "kernel methods invariant image blur downsampling AI generated image detector non neural robust 2025 2026",
+      "kind": "broad exploratory search; secondary hits not relied upon"
+    }
+  ],
+  "source": {
+    "title": "Random Features for Large-Scale Kernel Machines",
+    "authors": [
+      "Ali Rahimi",
+      "Benjamin Recht"
+    ],
+    "version": "NIPS2007 proceedings,8pages",
+    "url": "https://papers.nips.cc/paper/3182-random-features-for-large-scale-kernel-machines.pdf",
+    "read_scope": "All main sections1-6,acknowledgements,reference list,AppendixA lemma/Claims1-2 text,PDF pages1-8. Figures/table extracted text; no visual screenshot audit or independent proof verification.",
+    "specific_locations": [
+      "Section3 Eq2 Bochner representation",
+      "Algorithm1 paired cos/sin representation",
+      "Claim1 compact-domain/second-moment assumptions",
+      "Section5 ridge readout and task sensitivity",
+      "AppendixA proofs"
+    ],
+    "relied_on": "Gaussian kernel exp(-gamma*norm(delta)^2) has iid normal Fourier frequencies with coordinate variance2gamma. Paired cos/sin map divided bysqrt(frequency_count) has exact norm1 and approximates kernel in expectation.",
+    "not_claimed": [
+      "No invariance under pixel recapture/compression",
+      "No empirical uniform kernel error certificate with256 frequencies in499 dimensions",
+      "No novelty of random Fourier features or graph/kernel paired regularization",
+      "No accuracy theorem for this project"
+    ],
+    "direct_quotes": []
+  },
+  "next_reading_debts": [
+    "Rahimi/Recht2008 Random Kitchen Sinks",
+    "Kernel/RFF generalization papers",
+    "More intrinsic channel-observable nuisance extraction work; existing IPOL read not implemented yet"
+  ],
+  "protocol": "experiments/origin_detection/kernel_readout/README.md",
+  "scope": "Bounded follow-up, not exhaustive or DRY novelty search"
+}

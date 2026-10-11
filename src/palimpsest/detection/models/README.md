@@ -1,5 +1,7 @@
-# 自研神经来源模型
+# 含神经网络的自研判别方法
 
-待开发。推理实现 `OriginDetector`，训练实现 `palimpsest.training.interfaces.OriginTrainer`。权重位于仓库外，通过显式配置加载；导入模块不加载权重或下载数据。
+[frozen_features](frozen_features/README.md)：已有冻结CuRe编码器＋自研统计头，当前85%／2.5pp候选属于这条路线，尚未达标。冻结参数不改变整套方法包含神经网络的性质。
 
-后续记录输入分辨率、预处理、参数量、模型大小、设备、传播鲁棒性和包含预处理的延迟。当前没有自研模型或训练结果。
+[trainable](trainable/README.md)：后续训练神经参数的模型路线，待开发。
+
+特征提取器在相邻 `representations/`，通用传统风险与标定在 `algorithms/readouts/`。模型包负责组合方法、专用规则和推理接入。CuRe保留文件预处理接口，尚未接入区域RGB链。

@@ -1,0 +1,48 @@
+{
+  "identity": {
+    "authors": [
+      "Laurenz Wiskott",
+      "Terrence J. Sejnowski"
+    ],
+    "year": 2002,
+    "title": "Slow Feature Analysis: Unsupervised Learning of Invariances",
+    "journal": "Neural Computation",
+    "volume": 14,
+    "issue": 4,
+    "pages": "715–770",
+    "DOI": "10.1162/089976602317318938",
+    "crossref_sha256": "c964a92d28651f3f0ce106af4be0a348c86af96d7510dd1af52ec6818b557218"
+  },
+  "download": {
+    "url": "https://papers.cnl.salk.edu/PDFs/Slow%20Feature%20Analysis_%20Unsupervised%20Learning%20of%20Invariances%202002-3430.pdf",
+    "bytes": 1086794,
+    "sha256": "db60c14d5f9e4e25fb66168d2b3726785260dc28e34ddff7d30cb7ad4b5661bc"
+  },
+  "proximity": "P2 component credit;no novelty claim",
+  "reading_scope": "Sections2–3 PDFpages5–10,discussion5.1/5.2 pages50–53 and specific multiple-invariance discussionpage45;not full56-page applications",
+  "read_facts": [
+    {
+      "locator": "Section2 equations2.1–2.4,pdfpage5",
+      "quote": "Strict invariances are not the goal,",
+      "statement": "Minimize change with zero mean,unit variance,decorrelation constraints."
+    },
+    {
+      "locator": "Section3 equations3.11–3.22,pdfpages9–10",
+      "statement": "Whiten training expansion then take smallest derivative-covariance eigenvectors;reuse training normalization at test."
+    },
+    {
+      "locator": "Abstractpdfpage1;discussionpage45",
+      "quote": "Performance degrades if the network is\ntrained to learn multiple invariances simultaneously.",
+      "statement": "Multiple transformations can degrade performance in the author examples."
+    }
+  ],
+  "own_inference": [
+    "Pair differences can replace derivatives as a finite empirical objective;no temporal theorem carries over.",
+    "Unit variance can retain stable identity without AI/nonAI evidence.",
+    "Protecting a fit class-mean direction retains one linear signal,but neither classification nor unseen invariance is guaranteed."
+  ],
+  "unread_debt": [
+    "Remaining applications/tables and cited predecessor papers not reviewed in full;no exact paper experiment reproduction"
+  ],
+  "quote_verification": true
+}

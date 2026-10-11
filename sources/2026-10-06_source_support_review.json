@@ -1,0 +1,43 @@
+{
+  "sources": [
+    {
+      "title": "Frustratingly Easy NBNN Domain Adaptation",
+      "pdf": {
+        "url": "https://openaccess.thecvf.com/content_iccv_2013/papers/Tommasi_Frustratingly_Easy_NBNN_2013_ICCV_paper.pdf",
+        "bytes": 2001788,
+        "sha256": "05772ecc122768523544360409ca3a2e08490aaba986d11f79a7e70ec5624a32"
+      },
+      "reading": "PDFpages1-4 readincludingEq2image-to-class distancesandEq3-5 learnedmetric;laterexperimentsandreferencesnotdeepread",
+      "findings": [
+        "NBNNlocaldescriptorsumclassdistanceisprior,notours",
+        "DA-NBNNusesunlabeledtargetpseudo-labels,metrictraininganditerativeselection;notusedhere"
+      ]
+    },
+    {
+      "title": "Support and Invertibility in Domain-Invariant Representations",
+      "pdf": {
+        "url": "https://proceedings.mlr.press/v89/johansson19a/johansson19a.pdf",
+        "bytes": 630119,
+        "sha256": "99a10c9da4ab4989f0fbbcceff973bc459bd8f4843ab3694cba03a4f29784f31"
+      },
+      "primary": "https://proceedings.mlr.press/v89/johansson19a.html",
+      "reading": "PDFpages1-7mainassumptions1-3,Proposition1,Theorems2-3andinformationlosstermread;laterempiricsreferencesnotdeepread",
+      "findings": [
+        "Matchingfeaturemarginalsdoesnotitselfensurelabelretention",
+        "Covariateshift assumption andunobservableinformationloss boundlimittransfer",
+        "OurhighdimensionalfiniteNNsupportnotapopulationdensityoverlapcertificate"
+      ]
+    }
+  ],
+  "own_design": "Singleglobalvector,classnearestsourcebagsversuscentroid;neitherNBNNlocalpatchlikelihoodreplicationnorauthorUDA",
+  "status": "Completed;bags decline6.25pp,minDomain81.67%;not adopted;integer audit3passed;no live deployment speed",
+  "protocol": "experiments/origin_detection/source_support/README.md",
+  "history": [
+    {
+      "status": "Registeredbeforeindexing;evaluationpending"
+    },
+    {
+      "status": "Completed;bags decline6.25pp,minDomain81.67%;not adopted;integer audit3passed;no live deployment speed"
+    }
+  ]
+}

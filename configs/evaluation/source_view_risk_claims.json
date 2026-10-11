@@ -1,0 +1,381 @@
+{
+  "campaign": "Seventeenth source-view risk2026-10-06",
+  "register": "Transcription only,not independent validation",
+  "quote_source": "reports/04_算法研发/第十七轮来源内风险与强压缩_改善但局部退化仍明显_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/source_view_risk/iteration.json"
+    },
+    "f": {
+      "path": "../../work/robust_statistics/source_view_risk/features.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "results",
+      "label": "weak/mean/minimum_domain_ba",
+      "quoted": "82.78",
+      "expr": "100*f('i','/candidates/weak~1mean/minimum_domain_ba')"
+    },
+    {
+      "section": "results",
+      "label": "weak/mean/minimum_scene_ba",
+      "quoted": "78.75",
+      "expr": "100*f('i','/candidates/weak~1mean/minimum_scene_ba')"
+    },
+    {
+      "section": "results",
+      "label": "weak/mean/maximum_domain_drop",
+      "quoted": "8.33",
+      "expr": "100*f('i','/candidates/weak~1mean/maximum_domain_drop')"
+    },
+    {
+      "section": "results",
+      "label": "weak/mean/maximum_any_scene_drop",
+      "quoted": "13.75",
+      "expr": "100*f('i','/candidates/weak~1mean/maximum_any_scene_drop')"
+    },
+    {
+      "section": "results",
+      "label": "weak/source/minimum_domain_ba",
+      "quoted": "85.00",
+      "expr": "100*f('i','/candidates/weak~1source/minimum_domain_ba')"
+    },
+    {
+      "section": "results",
+      "label": "weak/source/minimum_scene_ba",
+      "quoted": "83.75",
+      "expr": "100*f('i','/candidates/weak~1source/minimum_scene_ba')"
+    },
+    {
+      "section": "results",
+      "label": "weak/source/maximum_domain_drop",
+      "quoted": "5.00",
+      "expr": "100*f('i','/candidates/weak~1source/maximum_domain_drop')"
+    },
+    {
+      "section": "results",
+      "label": "weak/source/maximum_any_scene_drop",
+      "quoted": "8.75",
+      "expr": "100*f('i','/candidates/weak~1source/maximum_any_scene_drop')"
+    },
+    {
+      "section": "results",
+      "label": "strong/mean/minimum_domain_ba",
+      "quoted": "82.78",
+      "expr": "100*f('i','/candidates/strong~1mean/minimum_domain_ba')"
+    },
+    {
+      "section": "results",
+      "label": "strong/mean/minimum_scene_ba",
+      "quoted": "81.25",
+      "expr": "100*f('i','/candidates/strong~1mean/minimum_scene_ba')"
+    },
+    {
+      "section": "results",
+      "label": "strong/mean/maximum_domain_drop",
+      "quoted": "5.42",
+      "expr": "100*f('i','/candidates/strong~1mean/maximum_domain_drop')"
+    },
+    {
+      "section": "results",
+      "label": "strong/mean/maximum_any_scene_drop",
+      "quoted": "10.00",
+      "expr": "100*f('i','/candidates/strong~1mean/maximum_any_scene_drop')"
+    },
+    {
+      "section": "results",
+      "label": "strong/source/minimum_domain_ba",
+      "quoted": "82.78",
+      "expr": "100*f('i','/candidates/strong~1source/minimum_domain_ba')"
+    },
+    {
+      "section": "results",
+      "label": "strong/source/minimum_scene_ba",
+      "quoted": "82.50",
+      "expr": "100*f('i','/candidates/strong~1source/minimum_scene_ba')"
+    },
+    {
+      "section": "results",
+      "label": "strong/source/maximum_domain_drop",
+      "quoted": "6.11",
+      "expr": "100*f('i','/candidates/strong~1source/maximum_domain_drop')"
+    },
+    {
+      "section": "results",
+      "label": "strong/source/maximum_any_scene_drop",
+      "quoted": "10.00",
+      "expr": "100*f('i','/candidates/strong~1source/maximum_any_scene_drop')"
+    },
+    {
+      "section": "results",
+      "label": "strong/source_source_shuffled_null/minimum_domain_ba",
+      "quoted": "42.50",
+      "expr": "100*f('i','/candidates/strong~1source_source_shuffled_null/minimum_domain_ba')"
+    },
+    {
+      "section": "results",
+      "label": "strong/source_source_shuffled_null/minimum_scene_ba",
+      "quoted": "31.25",
+      "expr": "100*f('i','/candidates/strong~1source_source_shuffled_null/minimum_scene_ba')"
+    },
+    {
+      "section": "results",
+      "label": "strong/source_source_shuffled_null/maximum_domain_drop",
+      "quoted": "3.89",
+      "expr": "100*f('i','/candidates/strong~1source_source_shuffled_null/maximum_domain_drop')"
+    },
+    {
+      "section": "results",
+      "label": "strong/source_source_shuffled_null/maximum_any_scene_drop",
+      "quoted": "6.25",
+      "expr": "100*f('i','/candidates/strong~1source_source_shuffled_null/maximum_any_scene_drop')"
+    },
+    {
+      "section": "results",
+      "label": "reference/both/minimum_domain_ba",
+      "quoted": "82.22",
+      "expr": "100*f('i','/candidates/reference~1both/minimum_domain_ba')"
+    },
+    {
+      "section": "results",
+      "label": "reference/both/minimum_scene_ba",
+      "quoted": "85.00",
+      "expr": "100*f('i','/candidates/reference~1both/minimum_scene_ba')"
+    },
+    {
+      "section": "results",
+      "label": "reference/both/maximum_domain_drop",
+      "quoted": "5.56",
+      "expr": "100*f('i','/candidates/reference~1both/maximum_domain_drop')"
+    },
+    {
+      "section": "results",
+      "label": "reference/both/maximum_any_scene_drop",
+      "quoted": "11.25",
+      "expr": "100*f('i','/candidates/reference~1both/maximum_any_scene_drop')"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/original/raw",
+      "quoted": "88.89",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/rr~1all~1original~1raw/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/original/jpeg90_444_after_resize256",
+      "quoted": "89.44",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/rr~1all~1original~1jpeg90_444_after_resize256/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/original/jpeg70_420_after_resize256",
+      "quoted": "87.78",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/rr~1all~1original~1jpeg70_420_after_resize256/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/original/jpeg60_420_after_resize256",
+      "quoted": "88.33",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/rr~1all~1original~1jpeg60_420_after_resize256/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/transfer/raw",
+      "quoted": "88.33",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/rr~1all~1transfer~1raw/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/transfer/jpeg90_444_after_resize256",
+      "quoted": "88.33",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/rr~1all~1transfer~1jpeg90_444_after_resize256/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/transfer/jpeg70_420_after_resize256",
+      "quoted": "87.78",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/rr~1all~1transfer~1jpeg70_420_after_resize256/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/transfer/jpeg60_420_after_resize256",
+      "quoted": "91.11",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/rr~1all~1transfer~1jpeg60_420_after_resize256/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/redigital/raw",
+      "quoted": "85.56",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/rr~1all~1redigital~1raw/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/redigital/jpeg90_444_after_resize256",
+      "quoted": "86.67",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/rr~1all~1redigital~1jpeg90_444_after_resize256/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/redigital/jpeg70_420_after_resize256",
+      "quoted": "85.56",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/rr~1all~1redigital~1jpeg70_420_after_resize256/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "rr/all/redigital/jpeg60_420_after_resize256",
+      "quoted": "85.00",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/rr~1all~1redigital~1jpeg60_420_after_resize256/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/original/raw",
+      "quoted": "94.17",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/chimera~1all~1original~1raw/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/original/jpeg90_444_after_resize256",
+      "quoted": "93.75",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/chimera~1all~1original~1jpeg90_444_after_resize256/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/original/jpeg70_420_after_resize256",
+      "quoted": "90.00",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/chimera~1all~1original~1jpeg70_420_after_resize256/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/original/jpeg60_420_after_resize256",
+      "quoted": "89.17",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/chimera~1all~1original~1jpeg60_420_after_resize256/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/mac_iphone/raw",
+      "quoted": "92.50",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/chimera~1all~1mac_iphone~1raw/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/mac_iphone/jpeg90_444_after_resize256",
+      "quoted": "90.00",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/chimera~1all~1mac_iphone~1jpeg90_444_after_resize256/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/mac_iphone/jpeg70_420_after_resize256",
+      "quoted": "88.33",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/chimera~1all~1mac_iphone~1jpeg70_420_after_resize256/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/mac_iphone/jpeg60_420_after_resize256",
+      "quoted": "89.17",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/chimera~1all~1mac_iphone~1jpeg60_420_after_resize256/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/lg_blackfly/raw",
+      "quoted": "92.92",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/chimera~1all~1lg_blackfly~1raw/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/lg_blackfly/jpeg90_444_after_resize256",
+      "quoted": "90.83",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/chimera~1all~1lg_blackfly~1jpeg90_444_after_resize256/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/lg_blackfly/jpeg70_420_after_resize256",
+      "quoted": "89.17",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/chimera~1all~1lg_blackfly~1jpeg70_420_after_resize256/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "results",
+      "label": "chimera/all/lg_blackfly/jpeg60_420_after_resize256",
+      "quoted": "88.75",
+      "expr": "100*f('i','/candidates/weak~1source/metrics/chimera~1all~1lg_blackfly~1jpeg60_420_after_resize256/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "cache",
+      "label": "images",
+      "quoted": "6300",
+      "expr": "f('f','/images')"
+    },
+    {
+      "section": "cache",
+      "label": "records",
+      "quoted": "7560",
+      "expr": "f('f','/records')"
+    },
+    {
+      "section": "cache",
+      "label": "repeated_selection_q70_records",
+      "quoted": "1260",
+      "expr": "f('f','/repeated_selection_q70_records')"
+    },
+    {
+      "section": "cost",
+      "label": "extraction seconds",
+      "quoted": "656.78",
+      "expr": "f('f','/elapsed_s')"
+    },
+    {
+      "section": "cost",
+      "label": "fit/eval seconds",
+      "quoted": "54.89",
+      "expr": "f('i','/elapsed_s')"
+    },
+    {
+      "section": "results",
+      "label": "paired_sources",
+      "quoted": "80",
+      "expr": "f('i','/candidates/weak~1source/pairs/chimera~1cat~1mac_iphone~1raw>jpeg70_420_after_resize256/paired_sources')"
+    },
+    {
+      "section": "results",
+      "label": "paired_real_sources",
+      "quoted": "40",
+      "expr": "f('i','/candidates/weak~1source/pairs/chimera~1cat~1mac_iphone~1raw>jpeg70_420_after_resize256/paired_real_sources')"
+    },
+    {
+      "section": "results",
+      "label": "paired_fake_sources",
+      "quoted": "40",
+      "expr": "f('i','/candidates/weak~1source/pairs/chimera~1cat~1mac_iphone~1raw>jpeg70_420_after_resize256/paired_fake_sources')"
+    },
+    {
+      "section": "results",
+      "label": "worst REAL change",
+      "quoted": "-2.50",
+      "expr": "100*f('i','/candidates/weak~1source/pairs/chimera~1cat~1mac_iphone~1raw>jpeg70_420_after_resize256/class_accuracy_change/REAL')"
+    },
+    {
+      "section": "results",
+      "label": "worst FAKE change",
+      "quoted": "-15.00",
+      "expr": "100*f('i','/candidates/weak~1source/pairs/chimera~1cat~1mac_iphone~1raw>jpeg70_420_after_resize256/class_accuracy_change/FAKE')"
+    },
+    {
+      "section": "results",
+      "label": "worst BA CI 0",
+      "quoted": "-16.25",
+      "expr": "100*f('i','/candidates/weak~1source/pairs/chimera~1cat~1mac_iphone~1raw>jpeg70_420_after_resize256/balanced_accuracy_change_ci95/0')"
+    },
+    {
+      "section": "results",
+      "label": "worst BA CI 1",
+      "quoted": "-2.50",
+      "expr": "100*f('i','/candidates/weak~1source/pairs/chimera~1cat~1mac_iphone~1raw>jpeg70_420_after_resize256/balanced_accuracy_change_ci95/1')"
+    },
+    {
+      "section": "results",
+      "label": "worst flip",
+      "quoted": "11.25",
+      "expr": "100*f('i','/candidates/weak~1source/pairs/chimera~1cat~1mac_iphone~1raw>jpeg70_420_after_resize256/source_macro_decision_flip_rate')"
+    }
+  ]
+}

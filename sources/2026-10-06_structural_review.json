@@ -1,0 +1,83 @@
+{
+  "scope": "Focused mechanism and decision-theory supplement;not full systematic/dry review",
+  "query_ledger": [
+    {
+      "query": "AI generated image detection recaptured robustness 2026 invariant preprocessing JPEG",
+      "route": "web search",
+      "candidate": "GlobalForge2607.14684v1"
+    },
+    {
+      "query": "AI generated image detection selective risk robustness processing 2026 certification",
+      "route": "web search",
+      "coverage": "partial"
+    },
+    {
+      "query": "Blackwell comparison experiments garbling classification Bayes risk information processing original paper",
+      "route": "web search",
+      "candidate": "Reid Williamson JMLR2011 primary synthesis;1953 original not retrieved"
+    }
+  ],
+  "sources": [
+    {
+      "name": "globalforge",
+      "url": "https://arxiv.org/pdf/2607.14684v1",
+      "bytes": 2700956,
+      "sha256": "f149fd6f98f0fc3b00e2532e2eff0627c40b6a9f4fd8f4e36f31654e8bd5c9b6",
+      "pages": 20,
+      "reading": "main1-9;appendix13-17,20;references10-12 and visuals18-19 not fully read"
+    },
+    {
+      "name": "binary_risk",
+      "url": "https://jmlr.org/papers/volume12/reid11a/reid11a.pdf",
+      "bytes": 1505604,
+      "sha256": "90fed808fc74230ddbe62f52ec96e285ac0fa22d0f5d13e1741a17817c0491df",
+      "pages": 87,
+      "reading": "SELECTIVE1-6,12-14,17-18,35-36,42-43;remainder/proofs unread"
+    }
+  ],
+  "resource_audit": {
+    "anonymous_code_page": "https://anonymous.4open.science/r/GlobalForge-BE0F/",
+    "html_http": 200,
+    "html_bytes": 16324,
+    "public_client_http": 403,
+    "browser_initialization": "failed to write kernel assets: path missing",
+    "code_or_weights_verified": false
+  },
+  "gaps": [
+    "GlobalForge actual source/weights and metadata not audited",
+    "Main fake-per-generator vs appendix total scope unresolved",
+    "Binary risk full proofs and primary1953 original unread",
+    "TV finite toy is not an image task bound",
+    "GlobalForge learned residual may still suppress shortcuts;zero-projection algebra only denies architecture-alone universal restriction"
+  ],
+  "next": "CuRe fixed native baseline continues;no final neural training or RR reserved opened",
+  "history": [
+    {
+      "stage": "finite toy route check",
+      "receipt_sha256": "8a40887a390d8a462cde2758e5c3106d0c36c0f8c4afcd6065a3cfa05f6237fb",
+      "route_a": "Fraction matrix product and balanced TV optimum",
+      "route_b": "integer100event P/Q grids and enumeration of4decisionrules",
+      "shared": "declared finite toy inputs only;no pixels or detector fit",
+      "p_processed": [
+        "29/50",
+        "21/50"
+      ],
+      "q_processed": [
+        "21/50",
+        "29/50"
+      ],
+      "raw_best_ba": "9/10",
+      "processed_best_ba": "29/50",
+      "all_processed_rule_rates": [
+        "1/2",
+        "21/50",
+        "29/50",
+        "1/2"
+      ],
+      "difference": "8/25",
+      "agreement": true,
+      "invalid_kernel_rejected": true,
+      "scope": "Two-symbol toy only;not unknown image-channel validation or a bound on this task"
+    }
+  ]
+}

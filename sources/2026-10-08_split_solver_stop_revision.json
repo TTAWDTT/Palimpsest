@@ -1,0 +1,33 @@
+{
+  "source_tree_restorable_at": "124eba1ea0d1971bb11d527ea8574a1d4791ebee",
+  "failure": "Rate optimizer relative-function stop with gradient1.0219490180263247e-5>unchanged1e-5 acceptance gate",
+  "failed_archive": "work/robust_statistics/split_rate_score_numerical_v1",
+  "failed_receipt_sha256": "562cd7cadb638fc45e7b9632899f93914ea841d2204e9cded544ba50e14f0012",
+  "completed_cv_files": 7,
+  "outer_scoring_completed": false,
+  "change": "Only split head optimizer_ftol=0;prior default1e-14 retained for other callsites;objective/grid/roles/seed/maximumiterations/gradientcap unchanged",
+  "changes": {
+    "src/palimpsest/detection/algorithms/rate_penalty.py": {
+      "before": "97a8521530550f351f777964f324f4fab5a2ce8a8643ca01b311bee7bcb973a0",
+      "after": "1c6aca76447596d484dfcafda8ea3d9c27c57bc67f665b93134db2eb8bb04c3d"
+    },
+    "src/palimpsest/detection/algorithms/split_rate_score.py": {
+      "before": "cff3669aa3289da9107b3319f08092ea7a6286db4901157f550153b58faeb1e4",
+      "after": "884afc864b2eed8bf476f274a8fd9f6d806dbea18965d3592ae584d8daa1cc20"
+    },
+    "experiments/origin_detection/split_rate_score/README.md": {
+      "before": "162d946be82e27c604b1724ae7edf831ede5ead8bbf29de39e8ac4dbf6b824f2",
+      "after": "d5ab3e5393b50b08fbb354c24e22d4dfa1015bdb3e352668abf545579452a21a"
+    },
+    "tests/detection/test_rate_penalty.py": {
+      "before": "388cdb5fa55098115a81182d062e291447e7930022ba7e56993c3a76d8554f84",
+      "after": "84888dc9a8037a6e4f9ca38059c839376228e8c7052f4952126e4e243eb158f3"
+    },
+    "tests/detection/test_source_partition.py": {
+      "before": "f2073df7c2a279c7693b21d109f9e964aafba9b2d5c5eb6dbb229695f6501bd7",
+      "after": "bacbc756d43c43b6ec8231799c37f954d54d7987d8332cc72f1bd85c2816e78e"
+    }
+  },
+  "new_controls_pilot_full_required": true,
+  "scope": "Numerical retry record;no passed performance or independent confirmation"
+}

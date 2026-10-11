@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-08",
+  "sources": [
+    {
+      "url": "https://mfc.nist.gov/",
+      "reading": "official overview,taskDD/MD,independent image-only input conditions,dataset access and schema summary",
+      "verified": "Registration and dataset license required;IDD includes deepfake frames andGANfilters/global generation;not confirmed paired AI-original/recapture benchmark",
+      "not_verified": [
+        "individual files",
+        "GAN-to-recapture journal paths",
+        "original pairing",
+        "near-duplicate/model overlap"
+      ],
+      "fetch_note": "Web overview loaded;subsequent fetchtimeout and directurllib403;no image files or registration sent"
+    },
+    {
+      "url": "https://www.sightengine.com/docs/image-recapture-detection",
+      "reading": "official FAQ task definition",
+      "verified": "Recapture flag concerns photosofscreen/prints;separategenai model needed;scans/screenshots excluded fromrecapture task",
+      "not_verified": [
+        "AI-after-recaptureBA",
+        "paired decline",
+        "runtime",
+        "datasets"
+      ]
+    }
+  ],
+  "new_external_pixels": 0,
+  "external_requests_submitted": false,
+  "scope": "Source/access/task-scope screening only;not independent detection evidence"
+}

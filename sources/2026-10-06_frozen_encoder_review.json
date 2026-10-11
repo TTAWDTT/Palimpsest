@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-06",
+  "scope": "Targeted frozen-representation follow-up during fifteenth-round extraction; not new neural training or exhaustive search",
+  "sources": [
+    {
+      "title": "Training-free Detection of AI-generated images via Cropping Robustness",
+      "authors": [
+        "Sungik Choi",
+        "Hankook Lee",
+        "Moontae Lee"
+      ],
+      "version": "arXiv2511.14030v1/NeurIPS2025",
+      "url": "https://arxiv.org/pdf/2511.14030",
+      "pdf_sha256": "9e8a9e1a5f6c0c2c30086a335c35a8c2b62dd02f60ad86d57456056670bc1944",
+      "read_scope": "Main pages1-10 all extracted text,selected bibliography pages13-15; Figure6 page10 visually viewed; checklist portions pages16-17. Appendix pages23-24 and remaining checklist/references not read. No full supplement/proof verification.",
+      "locations": [
+        "Eq1 high-frequency perturbation cosine",
+        "Eq2-3 square resize/patch mean",
+        "Table2 DALL-E3",
+        "Figure6",
+        "page10 limitations"
+      ],
+      "relied_on": "Frozen DINO with Haar-perturbation sensitivity is prior art; no detector fitting, but neural backbone. AUC-only corruption results do not certify a shared threshold or real recapture.",
+      "code_url": "https://github.com/sungikchoi/WaRPAD",
+      "code_revision": "59f2b382171e579f2b7e180165b327f10332152b",
+      "code_read_scope": "final_imgn.py score/preprocess/loader/output,roc_tpr.py; README and requirements full,utils.py only exposed fragments (output truncated). No execution or installation.",
+      "own_cost_count": "896/224 gives16patches and two encoded views=32 patch encodings;1344 gives36/72. Arithmetic count,not measured runtime."
+    },
+    {
+      "title": "DINO-Detect: A Simple yet Effective Framework for Blur-Robust AI-Generated Image Detection",
+      "authors": [
+        "Jialiang Shen",
+        "Jiyang Zheng",
+        "Yunqi Xue",
+        "Huajie Chen",
+        "Yu Yao",
+        "Hui Kang",
+        "Ruiqi Liu",
+        "Helin Gong",
+        "Yang Yang",
+        "Dadong Wang",
+        "Tongliang Liu"
+      ],
+      "url": "https://arxiv.org/pdf/2511.12511",
+      "pdf_sha256": "83d6e89915e5af15f5bb43c38d48e3b450718aed881ba1b465fcc14d82a6080f",
+      "version": "arXiv2511.12511v1,12PDFpages",
+      "read_scope": "Abstract web; PDF pages2-7 main sections/selected tables; page5 visual architecture/hardware text; pages1/8-12 not comprehensively read.",
+      "locations": [
+        "Section3 frozen encoder/trained heads",
+        "Section4 generated blur benchmark and real collections",
+        "Section5.1.2 ViT7B",
+        "Tables4-5"
+      ],
+      "relied_on": "Sharp/blur distillation has direct precedent. Chameleon accuracy93.68->86.28 still declines7.40pp. Published blur benchmark is not identified as full source-aligned physical-recapture data; no screen/print guarantee.",
+      "code_revision": "1ab872e83578ade5b71d06d9421401280ce0ce7d",
+      "code_read_scope": "Pinned README and root file inventory only; no model code/checkpoint parity or weight verification. README uses different title/year and Anonymous citation; not treated as proof of paper-parity release."
+    },
+    {
+      "title": "SSAFE: Simple and Strong AI-Generated Image Detection via Frozen Vision Encoders",
+      "url": "https://arxiv.org/pdf/2606.08634",
+      "version": "arXiv2606.08634v1,22PDFpages",
+      "read_scope": "Web main pages1-5 through Table2 lines332; Sections3.1-3.5 frozen encoder/data curation. PDF download connection failed,remaining experiments/appendices not read.",
+      "relied_on": "Frozen multimodal encoder plus fitted linear readout is existing methodology. Generator-shift evidence is not physical paired-stability proof.",
+      "download_failure": "Retained paper_fetch_receipt.json; no complete local PDF."
+    }
+  ],
+  "decision": "If additional representation diagnostics are needed, distinguish non-neural statistics from neural pretrained features. Freeze encoder,fit only existing conventional readout; no final source model training or paper claims based solely on abstract."
+}

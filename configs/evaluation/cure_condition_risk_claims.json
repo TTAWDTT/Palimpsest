@@ -1,0 +1,108 @@
+{
+  "campaign": "Iteration40 conditional CuRe",
+  "register": "Selected transcription only",
+  "quote_source": "reports/04_算法研发/第四十轮单编码器条件读出_处理可辨仍未稳定判别_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/cure_condition_risk/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "soft_gate/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/soft_gate/minimum_domain_ba')",
+      "quoted": "81.67"
+    },
+    {
+      "section": "table",
+      "label": "soft_gate/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/soft_gate/minimum_scene_ba')",
+      "quoted": "90.00"
+    },
+    {
+      "section": "table",
+      "label": "soft_gate/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/soft_gate/maximum_any_scene_drop')",
+      "quoted": "8.89"
+    },
+    {
+      "section": "table",
+      "label": "uniform_half/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/uniform_half/minimum_domain_ba')",
+      "quoted": "84.44"
+    },
+    {
+      "section": "table",
+      "label": "uniform_half/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/uniform_half/minimum_scene_ba')",
+      "quoted": "86.25"
+    },
+    {
+      "section": "table",
+      "label": "uniform_half/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/uniform_half/maximum_any_scene_drop')",
+      "quoted": "10.00"
+    },
+    {
+      "section": "table",
+      "label": "soft_gate_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/soft_gate_null/minimum_domain_ba')",
+      "quoted": "46.67"
+    },
+    {
+      "section": "table",
+      "label": "soft_gate_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/soft_gate_null/minimum_scene_ba')",
+      "quoted": "31.25"
+    },
+    {
+      "section": "table",
+      "label": "soft_gate_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/soft_gate_null/maximum_any_scene_drop')",
+      "quoted": "20.00"
+    },
+    {
+      "section": "table",
+      "label": "uniform_half_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/uniform_half_null/minimum_domain_ba')",
+      "quoted": "43.89"
+    },
+    {
+      "section": "table",
+      "label": "uniform_half_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/uniform_half_null/minimum_scene_ba')",
+      "quoted": "38.75"
+    },
+    {
+      "section": "table",
+      "label": "uniform_half_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/uniform_half_null/maximum_any_scene_drop')",
+      "quoted": "11.25"
+    },
+    {
+      "section": "processing",
+      "label": "rr/original_accuracy",
+      "expr": "100*f('i','/gate_controls/rr/original_accuracy')",
+      "quoted": "88.33"
+    },
+    {
+      "section": "processing",
+      "label": "rr/processed_accuracy",
+      "expr": "100*f('i','/gate_controls/rr/processed_accuracy')",
+      "quoted": "72.50"
+    },
+    {
+      "section": "processing",
+      "label": "chimera/original_accuracy",
+      "expr": "100*f('i','/gate_controls/chimera/original_accuracy')",
+      "quoted": "96.67"
+    },
+    {
+      "section": "processing",
+      "label": "chimera/processed_accuracy",
+      "expr": "100*f('i','/gate_controls/chimera/processed_accuracy')",
+      "quoted": "98.54"
+    }
+  ]
+}

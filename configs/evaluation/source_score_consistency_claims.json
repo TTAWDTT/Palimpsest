@@ -1,0 +1,180 @@
+{
+  "campaign": "Twenty-first source score consistency2026-10-06",
+  "register": "Transcription only,not independent validation",
+  "quote_source": "reports/04_算法研发/第二十一轮来源分数一致性_漂移减少未减少最差判错_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/source_score_consistency/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "results",
+      "label": "0/honest/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/0~1honest/minimum_domain_ba')",
+      "quoted": "85.00"
+    },
+    {
+      "section": "results",
+      "label": "0/honest/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/0~1honest/minimum_scene_ba')",
+      "quoted": "83.75"
+    },
+    {
+      "section": "results",
+      "label": "0/honest/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/0~1honest/maximum_any_scene_drop')",
+      "quoted": "8.75"
+    },
+    {
+      "section": "results",
+      "label": "0/honest/fit_variance",
+      "expr": "f('i','/candidates/0~1honest/fit_diagnostics/source_score_variance')",
+      "quoted": "0.757"
+    },
+    {
+      "section": "results",
+      "label": "0.1/honest/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/0.1~1honest/minimum_domain_ba')",
+      "quoted": "83.33"
+    },
+    {
+      "section": "results",
+      "label": "0.1/honest/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/0.1~1honest/minimum_scene_ba')",
+      "quoted": "82.50"
+    },
+    {
+      "section": "results",
+      "label": "0.1/honest/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/0.1~1honest/maximum_any_scene_drop')",
+      "quoted": "8.75"
+    },
+    {
+      "section": "results",
+      "label": "0.1/honest/fit_variance",
+      "expr": "f('i','/candidates/0.1~1honest/fit_diagnostics/source_score_variance')",
+      "quoted": "0.340"
+    },
+    {
+      "section": "results",
+      "label": "1/honest/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/1~1honest/minimum_domain_ba')",
+      "quoted": "80.56"
+    },
+    {
+      "section": "results",
+      "label": "1/honest/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/1~1honest/minimum_scene_ba')",
+      "quoted": "82.50"
+    },
+    {
+      "section": "results",
+      "label": "1/honest/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/1~1honest/maximum_any_scene_drop')",
+      "quoted": "8.75"
+    },
+    {
+      "section": "results",
+      "label": "1/honest/fit_variance",
+      "expr": "f('i','/candidates/1~1honest/fit_diagnostics/source_score_variance')",
+      "quoted": "0.077"
+    },
+    {
+      "section": "results",
+      "label": "0.1/wrong_pairs/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/0.1~1wrong_pairs/minimum_domain_ba')",
+      "quoted": "82.22"
+    },
+    {
+      "section": "results",
+      "label": "0.1/wrong_pairs/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/0.1~1wrong_pairs/minimum_scene_ba')",
+      "quoted": "82.50"
+    },
+    {
+      "section": "results",
+      "label": "0.1/wrong_pairs/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/0.1~1wrong_pairs/maximum_any_scene_drop')",
+      "quoted": "8.75"
+    },
+    {
+      "section": "results",
+      "label": "0.1/wrong_pairs/fit_variance",
+      "expr": "f('i','/candidates/0.1~1wrong_pairs/fit_diagnostics/source_score_variance')",
+      "quoted": "0.731"
+    },
+    {
+      "section": "results",
+      "label": "0.1/source_shuffled_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/0.1~1source_shuffled_null/minimum_domain_ba')",
+      "quoted": "43.33"
+    },
+    {
+      "section": "results",
+      "label": "0.1/source_shuffled_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/0.1~1source_shuffled_null/minimum_scene_ba')",
+      "quoted": "32.50"
+    },
+    {
+      "section": "results",
+      "label": "0.1/source_shuffled_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/0.1~1source_shuffled_null/maximum_any_scene_drop')",
+      "quoted": "10.00"
+    },
+    {
+      "section": "results",
+      "label": "0.1/source_shuffled_null/fit_variance",
+      "expr": "f('i','/candidates/0.1~1source_shuffled_null/fit_diagnostics/source_score_variance')",
+      "quoted": "0.042"
+    },
+    {
+      "section": "results",
+      "label": "paired_sources",
+      "expr": "f('i','/candidates/0~1honest/pairs/chimera~1cat~1mac_iphone~1raw>jpeg70_420_after_resize256/paired_sources')",
+      "quoted": "80"
+    },
+    {
+      "section": "results",
+      "label": "balanced_accuracy_change",
+      "expr": "100*f('i','/candidates/0~1honest/pairs/chimera~1cat~1mac_iphone~1raw>jpeg70_420_after_resize256/balanced_accuracy_change')",
+      "quoted": "-8.75"
+    },
+    {
+      "section": "results",
+      "label": "source_macro_decision_flip_rate",
+      "expr": "100*f('i','/candidates/0~1honest/pairs/chimera~1cat~1mac_iphone~1raw>jpeg70_420_after_resize256/source_macro_decision_flip_rate')",
+      "quoted": "11.25"
+    },
+    {
+      "section": "results",
+      "label": "REAL change",
+      "expr": "100*f('i','/candidates/0~1honest/pairs/chimera~1cat~1mac_iphone~1raw>jpeg70_420_after_resize256/class_accuracy_change/REAL')",
+      "quoted": "-2.50"
+    },
+    {
+      "section": "results",
+      "label": "FAKE change",
+      "expr": "100*f('i','/candidates/0~1honest/pairs/chimera~1cat~1mac_iphone~1raw>jpeg70_420_after_resize256/class_accuracy_change/FAKE')",
+      "quoted": "-15.00"
+    },
+    {
+      "section": "results",
+      "label": "CI0",
+      "expr": "100*f('i','/candidates/0~1honest/pairs/chimera~1cat~1mac_iphone~1raw>jpeg70_420_after_resize256/balanced_accuracy_change_ci95/0')",
+      "quoted": "-16.25"
+    },
+    {
+      "section": "results",
+      "label": "CI1",
+      "expr": "100*f('i','/candidates/0~1honest/pairs/chimera~1cat~1mac_iphone~1raw>jpeg70_420_after_resize256/balanced_accuracy_change_ci95/1')",
+      "quoted": "-2.50"
+    },
+    {
+      "section": "results",
+      "label": "elapsed_s",
+      "expr": "f('i','/elapsed_s')",
+      "quoted": "54.35"
+    }
+  ]
+}

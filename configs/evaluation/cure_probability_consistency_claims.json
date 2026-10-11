@@ -1,0 +1,102 @@
+{
+  "campaign": "cure_probability_consistency",
+  "register": "Selected transcription only",
+  "quote_source": "reports/04_\u7b97\u6cd5\u7814\u53d1/\u7b2c\u4e94\u5341\u4e00\u8f6e\u6982\u7387\u4e00\u81f4\u6027_\u62df\u5408\u5206\u6b67\u51cf\u5c0f\u4ecd\u672a\u7a33\u5b9a\u5224\u522b_2026-10-08.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/cure_probability_consistency/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "zero/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/zero/minimum_domain_ba')",
+      "quoted": "81.67"
+    },
+    {
+      "section": "table",
+      "label": "zero/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/zero/minimum_scene_ba')",
+      "quoted": "95.00"
+    },
+    {
+      "section": "table",
+      "label": "zero/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/zero/maximum_any_scene_drop')",
+      "quoted": "5.56"
+    },
+    {
+      "section": "table",
+      "label": "js1/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/js1/minimum_domain_ba')",
+      "quoted": "82.78"
+    },
+    {
+      "section": "table",
+      "label": "js1/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/js1/minimum_scene_ba')",
+      "quoted": "93.75"
+    },
+    {
+      "section": "table",
+      "label": "js1/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/js1/maximum_any_scene_drop')",
+      "quoted": "6.25"
+    },
+    {
+      "section": "table",
+      "label": "js12/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/js12/minimum_domain_ba')",
+      "quoted": "81.67"
+    },
+    {
+      "section": "table",
+      "label": "js12/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/js12/minimum_scene_ba')",
+      "quoted": "95.00"
+    },
+    {
+      "section": "table",
+      "label": "js12/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/js12/maximum_any_scene_drop')",
+      "quoted": "3.89"
+    },
+    {
+      "section": "table",
+      "label": "js12_wrong_source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/js12_wrong_source/minimum_domain_ba')",
+      "quoted": "79.44"
+    },
+    {
+      "section": "table",
+      "label": "js12_wrong_source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/js12_wrong_source/minimum_scene_ba')",
+      "quoted": "96.25"
+    },
+    {
+      "section": "table",
+      "label": "js12_wrong_source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/js12_wrong_source/maximum_any_scene_drop')",
+      "quoted": "5.56"
+    },
+    {
+      "section": "table",
+      "label": "js12_source_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/js12_source_null/minimum_domain_ba')",
+      "quoted": "44.44"
+    },
+    {
+      "section": "table",
+      "label": "js12_source_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/js12_source_null/minimum_scene_ba')",
+      "quoted": "33.75"
+    },
+    {
+      "section": "table",
+      "label": "js12_source_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/js12_source_null/maximum_any_scene_drop')",
+      "quoted": "11.25"
+    }
+  ]
+}

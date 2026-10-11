@@ -1,0 +1,39 @@
+{
+  "before_git": "1c21889515a0c03551664b1086341db1f75b9db9",
+  "changes": {
+    "src/palimpsest/detection/algorithms/split_rate_score.py": {
+      "before": "c1e811e4458ac8cfdb78665d5bb2d8f37e61d71725f46927b740b6bef8cd8a20",
+      "after": "cff3669aa3289da9107b3319f08092ea7a6286db4901157f550153b58faeb1e4"
+    },
+    "experiments/origin_detection/split_rate_score/run_iteration.py": {
+      "before": "029f823cff1a300f4fe995f68ea1a77b412cc22ed6cfcdd796f0ce7a9feaa363",
+      "after": "582f18e19f786f61e3f71e93abe08ba746f175c8a3c7ca46e0ac97ee4df8f897"
+    },
+    "experiments/origin_detection/split_rate_score/README.md": {
+      "before": "9f3fee964c4b47e8d2ad13d66386cd0e82ffe12e6d23451bfdc018f6a0975d0d",
+      "after": "162d946be82e27c604b1724ae7edf831ede5ead8bbf29de39e8ac4dbf6b824f2"
+    },
+    "tests/detection/test_source_partition.py": {
+      "before": "c507a42b47d9b77f51c259c6815344f6b7d8c82461279d89c13706e76f3067ed",
+      "after": "f2073df7c2a279c7693b21d109f9e964aafba9b2d5c5eb6dbb229695f6501bd7"
+    },
+    "tests/evaluation/test_split_readout_audit.py": {
+      "before": "0e00a0b2891ff88951713190058524e919b8fa163561e31334dc04909049c689",
+      "after": "1736b33293053f9cf70aac19a1aed932ee5d28a3e29a2ece96ac63342652ba6c"
+    }
+  },
+  "old_controls": "work/robust_statistics/split_rate_score_precheck_v1/software_controls.json",
+  "old_controls_sha256": "7b20e6a6752e0eeab3378d19cd1e25104033b3f0a896507d5b075f59a2fa9eb9",
+  "new_controls": "16 passed including metadata cache invalidation, boundary pin and literal SHA fixtures",
+  "real_pilot_or_full_before_revision": false,
+  "independent_fixture_engine": ".NET System.Security.Cryptography.SHA256 on explicit compact JSON UTF8 preimages",
+  "literal_hashes": {
+    "0": "5b9d434a492fb49dc26856182022610dfa072db561c20a85c4dec34955c33cac",
+    "1": "6f52761f2d87971de8ba02a1d8878ce7e5430afbe69046ad3c15d3ce22147bf9",
+    "2": "d448c38eaa9e16fcbd3a800ec4cf8e57a758472e90c991d25888e878da7cff50",
+    "3": "fa7abd788915a3e9a4a55c019c6ca98cc1096fa1181af2640ed01e9ac4b36c13",
+    "4": "e3eb2258ed9b9c01627931f1b0dad0ab060f575b1a96808b1b7147ec536880a5",
+    "5": "ef6c2c9b5ad7eb5461ec056c0c52dd1d26494b3f493743e9a6f96d015c6752a1"
+  },
+  "scope": "Pre-fit software/provenance fixes;not real image performance"
+}

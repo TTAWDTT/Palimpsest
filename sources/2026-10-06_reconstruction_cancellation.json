@@ -1,0 +1,53 @@
+{
+  "scope": "focused read, not a complete lit-review or novelty certificate",
+  "search_queries": [
+    "2026 AI generated image detection recaptured screen dataset physical photographed public benchmark",
+    "2026 robust synthetic image detection camera recapture dataset static paired",
+    "\"Qi\" \"A Difference-in-Difference Approach\" \"AI\" CVPR 2026",
+    "2026 \"AI-generated\" \"class conditional\" \"mixture\" robust detection frozen"
+  ],
+  "primary": [
+    {
+      "title": "A Difference-in-Difference Approach to Detecting AI-Generated Images",
+      "publication": "CVPR2026 accepted OA",
+      "main": {
+        "url": "https://openaccess.thecvf.com/content/CVPR2026/papers/Qi_A_Difference-in-Difference_Approach_to_Detecting_AI-Generated_Images_CVPR_2026_paper.pdf",
+        "status": 200,
+        "bytes": 8076771,
+        "sha256": "9cc76dbbf60523b2b0df0654faf378c464dcf3bf26a4a9722061559451306c46"
+      },
+      "main_pages": 12,
+      "main_read": "main1-8 fully text-read; references9 context;references10-12 owed",
+      "supplement": {
+        "url": "https://openaccess.thecvf.com/content/CVPR2026/supplemental/Qi_A_Difference-in-Difference_Approach_CVPR_2026_supplemental.pdf",
+        "status": 200,
+        "bytes": 63216974,
+        "sha256": "00f15f8f1754aaa7158d1225e32c1a50d5e346c72b6d536da2eaf655eafabe32"
+      },
+      "supplement_pages": 14,
+      "supplement_read": "pages3 and5 targeted C1/C3/C4 and Tables1/4/5; remaining pages owed",
+      "quotes": [
+        {
+          "page": "main4 Eq1",
+          "quote": "projection of an input image x onto the generative manifold"
+        },
+        {
+          "page": "supplement3 C3",
+          "quote": "DID takes 2.46 seconds per image"
+        }
+      ],
+      "debt": "algorithm code and released weights not audited;no author recency/citation graph/dry round;physical image evidence not established"
+    }
+  ],
+  "search_return_not_adopted": [
+    "CoC restricted future publication unchanged, no pixels/request",
+    "SafeIMG and TextFake task/channels need primary full reading",
+    "RISA single-vs-recaptured route detection not original AI provenance;no technical adoption"
+  ],
+  "gaussian_supplemental_read": {
+    "url": "https://arxiv.org/html/2608.18523v1",
+    "locators": "Appendix C score forms and D covariance regularization, lines596-634;fixed estimator/shrinkage/loading/pseudoinverse",
+    "scope": "current ridge.1/shrinkage.5 weightedMLE/Cholesky not identical paper estimator; not paper reproduction",
+    "debt": "rest of existing source ledger still applies"
+  }
+}

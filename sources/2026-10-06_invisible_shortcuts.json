@@ -1,0 +1,20 @@
+{
+  "scope": "Followed2025authorrepository to new2026primary;separate version,not a mitigation reproduction",
+  "title": "Invisible Shortcuts:Why Vision Encoders Know Your Camera",
+  "authors": [
+    "Vladan Stojnic",
+    "Ryan Ramos",
+    "Giorgos Kordopatis-Zilos",
+    "Noa Garcia",
+    "Giorgos Tolias"
+  ],
+  "version": "arxiv2608.05424v1,2026-08-05,ECCV2026authorstatement",
+  "url": "https://arxiv.org/pdf/2608.05424v1",
+  "pages": 29,
+  "bytes": 6480983,
+  "sha256": "ecb715f6e08804614feb1f3d8dfdb360e35d3f7efb798b5c849da084d7225538",
+  "read": "PDFpp1-15text,pp23-26targeted supplementtext/formula/table;pp16-29headingindexonly outside readscope;HTML404recorded",
+  "locators": "p9adversariallinearposthocmap,p10-11metadata-sensitivity vsfakeimage1NN,p13OODgainsandDINOv2harm,p26exactloss andweights;not2015XQDA",
+  "owed": "pp16-22and27-29fullreference/supplement;visualfigures;authorimplementation(metadatarepositoryREADMEcurrentcodecomingsoonfor2026);fullcode andcitation verification",
+  "boundary": "Metadata-linearprobe and semanticretrieval measures do not certify retainedAIlabels orreal recapture BA. Fake-imageTable1variespretrainingcorrelation,not posthocmitigation norpairedphysicalAIperformance. Printedposthoclinear transform can be absorbed by downstreamlinearhead iffullrank,invariance cannot be inferred from lower regularizedprobeaccuracy."
+}

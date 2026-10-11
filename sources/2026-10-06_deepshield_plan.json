@@ -1,0 +1,75 @@
+{
+  "metadata_only": true,
+  "official_record": "https://zenodo.org/records/15648378",
+  "plan": "work\\robust_statistics\\deepshield_validation\\sealed_plan.json",
+  "plan_status": {
+    "schema": 1,
+    "source_count": 800,
+    "image_count": 3200,
+    "class_source_counts": {
+      "REAL": 400,
+      "FAKE": 400
+    },
+    "quotas": {
+      "Real/FFHQ": 200,
+      "Real/FORLAB": 200,
+      "Fake/FLUX.1/animals": 13,
+      "Fake/FLUX.1/faces": 13,
+      "Fake/FLUX.1/general": 12,
+      "Fake/FLUX.1/landscapes": 12,
+      "Fake/StableDiffusion1.5/animals": 13,
+      "Fake/StableDiffusion1.5/faces": 13,
+      "Fake/StableDiffusion1.5/general": 12,
+      "Fake/StableDiffusion1.5/landscapes": 12,
+      "Fake/StableDiffusion2/animals": 13,
+      "Fake/StableDiffusion2/faces": 13,
+      "Fake/StableDiffusion2/general": 12,
+      "Fake/StableDiffusion2/landscapes": 12,
+      "Fake/StableDiffusion3/animals": 13,
+      "Fake/StableDiffusion3/faces": 13,
+      "Fake/StableDiffusion3/general": 12,
+      "Fake/StableDiffusion3/landscapes": 12,
+      "Fake/StableDiffusionXL/animals": 13,
+      "Fake/StableDiffusionXL/faces": 13,
+      "Fake/StableDiffusionXL/general": 12,
+      "Fake/StableDiffusionXL/landscapes": 12,
+      "Fake/StyleGAN/images-psi-0.5": 25,
+      "Fake/StyleGAN/images-psi-0.7": 25,
+      "Fake/StyleGAN2/conf-f-psi-0.5": 25,
+      "Fake/StyleGAN2/conf-f-psi-1": 25,
+      "Fake/StyleGAN3/conf-t-psi-0.5": 25,
+      "Fake/StyleGAN3/conf-t-psi-0.7": 25
+    },
+    "excluded_exposed_sources": [
+      "Real/FFHQ/00741",
+      "Fake/FLUX.1/general/00098"
+    ],
+    "selection": "Seeded SHA order within fixed generator/content strata",
+    "seed": 20261006,
+    "inventory_sha256": "d7cdd49723d0b2ab53c968237e4f2e741b80b5fd21f0b8027277dc0c8bb97f40",
+    "record_sha256": "2a7a6f6b8a6e8e82b3241604bd19df42ce23e136a8d709de31d9efbd5f5ff78f",
+    "archive_bytes": 167573270584,
+    "published_archive_checksum": "md5:f99ea49817e1641697166cfb8f53aa1b",
+    "full_archive_md5_verified": false,
+    "pixels_downloaded_by_this_program": 0,
+    "classifier_bound": false,
+    "compressed_payload_bytes": 1680572616,
+    "range_request_upper_plan_one_per_image": 3200,
+    "range_bytes_plus_1024_header_allowance": 1683849416,
+    "source_list_sha256": "92fe4bde1c8e1b8288facbf4b38b288c9ca15d649d65a8c470b2f98b2da5e6cf",
+    "role": "external_validation_sealed_pending_integrity_overlap_and_fixed_method",
+    "limitations": [
+      "Metadata mapping is not per-file pixel certification",
+      "Model/pretraining/near-duplicate overlap not audited",
+      "True digital platform comparisons only,no physical capture",
+      "Do not tune after scores;bind method before inference",
+      "800sources is a cost plan,not assured2pp confidence coverage"
+    ]
+  },
+  "not_completed": [
+    "Pixels not acquired for new800source cohort",
+    "CRC/decode/overlap/near-duplicate auditing pending",
+    "Fixed classifier unbound",
+    "Real digital social platforms only;physical validation still separate"
+  ]
+}

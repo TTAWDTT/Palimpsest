@@ -1,0 +1,318 @@
+{
+  "campaign": "Fifteenth fixed RGB relation diagnostic2026-10-06",
+  "register": "Transcription only,not physical validation",
+  "quote_source": "reports/04_算法研发/第十五轮RGB联合关系_原始关联提高但强编码仍失败_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/color_relations/iteration.json"
+    },
+    "f": {
+      "path": "../../work/robust_statistics/color_relations/features.json"
+    },
+    "c": {
+      "path": "../../work/robust_statistics/color_relations/controls.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "color/erm/raw",
+      "label": "rr/original",
+      "quoted": "80.00",
+      "expr": "100*f('i','/candidates/color~1erm/selection_aggregate/rr/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/erm/raw",
+      "label": "rr/transfer",
+      "quoted": "74.44",
+      "expr": "100*f('i','/candidates/color~1erm/selection_aggregate/rr/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/erm/raw",
+      "label": "rr/redigital",
+      "quoted": "67.22",
+      "expr": "100*f('i','/candidates/color~1erm/selection_aggregate/rr/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/erm/raw",
+      "label": "chimera/original",
+      "quoted": "92.08",
+      "expr": "100*f('i','/candidates/color~1erm/selection_aggregate/chimera/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/erm/raw",
+      "label": "chimera/mac_iphone",
+      "quoted": "82.92",
+      "expr": "100*f('i','/candidates/color~1erm/selection_aggregate/chimera/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/erm/raw",
+      "label": "chimera/lg_blackfly",
+      "quoted": "72.92",
+      "expr": "100*f('i','/candidates/color~1erm/selection_aggregate/chimera/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/erm/Q70",
+      "label": "rr/original",
+      "quoted": "55.00",
+      "expr": "100*f('i','/candidates/color~1erm/held_encoding_aggregate/rr/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/erm/Q70",
+      "label": "rr/transfer",
+      "quoted": "56.11",
+      "expr": "100*f('i','/candidates/color~1erm/held_encoding_aggregate/rr/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/erm/Q70",
+      "label": "rr/redigital",
+      "quoted": "47.22",
+      "expr": "100*f('i','/candidates/color~1erm/held_encoding_aggregate/rr/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/erm/Q70",
+      "label": "chimera/original",
+      "quoted": "82.50",
+      "expr": "100*f('i','/candidates/color~1erm/held_encoding_aggregate/chimera/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/erm/Q70",
+      "label": "chimera/mac_iphone",
+      "quoted": "72.50",
+      "expr": "100*f('i','/candidates/color~1erm/held_encoding_aggregate/chimera/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/erm/Q70",
+      "label": "chimera/lg_blackfly",
+      "quoted": "67.50",
+      "expr": "100*f('i','/candidates/color~1erm/held_encoding_aggregate/chimera/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/both/raw",
+      "label": "rr/original",
+      "quoted": "75.00",
+      "expr": "100*f('i','/candidates/color~1both/selection_aggregate/rr/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/both/raw",
+      "label": "rr/transfer",
+      "quoted": "71.11",
+      "expr": "100*f('i','/candidates/color~1both/selection_aggregate/rr/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/both/raw",
+      "label": "rr/redigital",
+      "quoted": "66.67",
+      "expr": "100*f('i','/candidates/color~1both/selection_aggregate/rr/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/both/raw",
+      "label": "chimera/original",
+      "quoted": "81.25",
+      "expr": "100*f('i','/candidates/color~1both/selection_aggregate/chimera/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/both/raw",
+      "label": "chimera/mac_iphone",
+      "quoted": "81.25",
+      "expr": "100*f('i','/candidates/color~1both/selection_aggregate/chimera/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/both/raw",
+      "label": "chimera/lg_blackfly",
+      "quoted": "75.83",
+      "expr": "100*f('i','/candidates/color~1both/selection_aggregate/chimera/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/both/Q70",
+      "label": "rr/original",
+      "quoted": "57.78",
+      "expr": "100*f('i','/candidates/color~1both/held_encoding_aggregate/rr/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/both/Q70",
+      "label": "rr/transfer",
+      "quoted": "55.56",
+      "expr": "100*f('i','/candidates/color~1both/held_encoding_aggregate/rr/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/both/Q70",
+      "label": "rr/redigital",
+      "quoted": "53.33",
+      "expr": "100*f('i','/candidates/color~1both/held_encoding_aggregate/rr/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/both/Q70",
+      "label": "chimera/original",
+      "quoted": "79.58",
+      "expr": "100*f('i','/candidates/color~1both/held_encoding_aggregate/chimera/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/both/Q70",
+      "label": "chimera/mac_iphone",
+      "quoted": "71.25",
+      "expr": "100*f('i','/candidates/color~1both/held_encoding_aggregate/chimera/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "color/both/Q70",
+      "label": "chimera/lg_blackfly",
+      "quoted": "68.75",
+      "expr": "100*f('i','/candidates/color~1both/held_encoding_aggregate/chimera/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/erm/raw",
+      "label": "rr/original",
+      "quoted": "80.56",
+      "expr": "100*f('i','/candidates/hybrid_color~1erm/selection_aggregate/rr/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/erm/raw",
+      "label": "rr/transfer",
+      "quoted": "80.00",
+      "expr": "100*f('i','/candidates/hybrid_color~1erm/selection_aggregate/rr/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/erm/raw",
+      "label": "rr/redigital",
+      "quoted": "68.33",
+      "expr": "100*f('i','/candidates/hybrid_color~1erm/selection_aggregate/rr/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/erm/raw",
+      "label": "chimera/original",
+      "quoted": "92.92",
+      "expr": "100*f('i','/candidates/hybrid_color~1erm/selection_aggregate/chimera/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/erm/raw",
+      "label": "chimera/mac_iphone",
+      "quoted": "85.83",
+      "expr": "100*f('i','/candidates/hybrid_color~1erm/selection_aggregate/chimera/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/erm/raw",
+      "label": "chimera/lg_blackfly",
+      "quoted": "84.17",
+      "expr": "100*f('i','/candidates/hybrid_color~1erm/selection_aggregate/chimera/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/erm/Q70",
+      "label": "rr/original",
+      "quoted": "63.33",
+      "expr": "100*f('i','/candidates/hybrid_color~1erm/held_encoding_aggregate/rr/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/erm/Q70",
+      "label": "rr/transfer",
+      "quoted": "63.33",
+      "expr": "100*f('i','/candidates/hybrid_color~1erm/held_encoding_aggregate/rr/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/erm/Q70",
+      "label": "rr/redigital",
+      "quoted": "60.00",
+      "expr": "100*f('i','/candidates/hybrid_color~1erm/held_encoding_aggregate/rr/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/erm/Q70",
+      "label": "chimera/original",
+      "quoted": "83.33",
+      "expr": "100*f('i','/candidates/hybrid_color~1erm/held_encoding_aggregate/chimera/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/erm/Q70",
+      "label": "chimera/mac_iphone",
+      "quoted": "79.58",
+      "expr": "100*f('i','/candidates/hybrid_color~1erm/held_encoding_aggregate/chimera/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/erm/Q70",
+      "label": "chimera/lg_blackfly",
+      "quoted": "79.17",
+      "expr": "100*f('i','/candidates/hybrid_color~1erm/held_encoding_aggregate/chimera/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/both/raw",
+      "label": "rr/original",
+      "quoted": "75.56",
+      "expr": "100*f('i','/candidates/hybrid_color~1both/selection_aggregate/rr/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/both/raw",
+      "label": "rr/transfer",
+      "quoted": "72.22",
+      "expr": "100*f('i','/candidates/hybrid_color~1both/selection_aggregate/rr/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/both/raw",
+      "label": "rr/redigital",
+      "quoted": "69.44",
+      "expr": "100*f('i','/candidates/hybrid_color~1both/selection_aggregate/rr/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/both/raw",
+      "label": "chimera/original",
+      "quoted": "83.33",
+      "expr": "100*f('i','/candidates/hybrid_color~1both/selection_aggregate/chimera/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/both/raw",
+      "label": "chimera/mac_iphone",
+      "quoted": "82.92",
+      "expr": "100*f('i','/candidates/hybrid_color~1both/selection_aggregate/chimera/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/both/raw",
+      "label": "chimera/lg_blackfly",
+      "quoted": "84.58",
+      "expr": "100*f('i','/candidates/hybrid_color~1both/selection_aggregate/chimera/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/both/Q70",
+      "label": "rr/original",
+      "quoted": "63.33",
+      "expr": "100*f('i','/candidates/hybrid_color~1both/held_encoding_aggregate/rr/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/both/Q70",
+      "label": "rr/transfer",
+      "quoted": "61.11",
+      "expr": "100*f('i','/candidates/hybrid_color~1both/held_encoding_aggregate/rr/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/both/Q70",
+      "label": "rr/redigital",
+      "quoted": "58.33",
+      "expr": "100*f('i','/candidates/hybrid_color~1both/held_encoding_aggregate/rr/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/both/Q70",
+      "label": "chimera/original",
+      "quoted": "83.75",
+      "expr": "100*f('i','/candidates/hybrid_color~1both/held_encoding_aggregate/chimera/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/both/Q70",
+      "label": "chimera/mac_iphone",
+      "quoted": "80.00",
+      "expr": "100*f('i','/candidates/hybrid_color~1both/held_encoding_aggregate/chimera/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "hybrid_color/both/Q70",
+      "label": "chimera/lg_blackfly",
+      "quoted": "82.08",
+      "expr": "100*f('i','/candidates/hybrid_color~1both/held_encoding_aggregate/chimera/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "controls",
+      "label": "records",
+      "quoted": "13860",
+      "expr": "f('f','/records')"
+    },
+    {
+      "section": "controls",
+      "label": "tests",
+      "quoted": "2",
+      "expr": "f('c','/tests_passed')"
+    }
+  ]
+}

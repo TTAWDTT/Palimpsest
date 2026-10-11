@@ -1,0 +1,23 @@
+{
+  "executed_initial_git": "013b0a41d9cfbdbe835875d76b7ae0cfbdb9ecc9",
+  "production_algorithm_changed": false,
+  "revision": "Added reviewer-required artificial counterexamples and first-impression scope before full campaign",
+  "old_controls_and_pilot": "work/robust_statistics/rate_score_readout_precheck_v1",
+  "new_run": "work/robust_statistics/rate_score_readout",
+  "tests_and_protocol": {
+    "tests/detection/test_rate_penalty.py": {
+      "before": "32f90e81c583b9786e1d4756e1a17b24de3bb813acb050b12bd00cb76a965d8f",
+      "after": "388cdb5fa55098115a81182d062e291447e7930022ba7e56993c3a76d8554f84"
+    },
+    "experiments/origin_detection/rate_score_readout/README.md": {
+      "before": "56d8563ae3ae65d7f58b84984dc81d36f235389197e06b7c279e1be629e71835",
+      "after": "c249a4f1f7331f2d0dc3e245a1ea37742161464809ac47333e93b271cab1ad9e"
+    }
+  },
+  "old_receipts": {
+    "pilot.json": "e6517f6f598ba14e3acee0b3cde8cfad74d016b52c00f05ac42f2942e103b630",
+    "pilot_fold_rule.json": "f97284e8b42785ecbe42b2cdeb506b22eae98fd6828dd55e8c8fcdeb5c961c93",
+    "software_controls.json": "e10984b534deca62063f774db16f0f96f3f6a5e51209d682348c528e7e3b8b1c"
+  },
+  "scope": "Initial pilot not relabeled; new tests require new controls/pilot; no numerical result changed"
+}

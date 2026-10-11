@@ -1,0 +1,270 @@
+{
+  "campaign": "Twenty-third fixed DEAR-r2026-10-06",
+  "register": "Transcription only; shared inference is not independent validation",
+  "quote_source": "reports/04_\u7b97\u6cd5\u7814\u53d1/\u7b2c\u4e8c\u5341\u4e09\u8f6e\u56fa\u5b9aDEAR\u5bf9\u7167_\u539f\u56fe\u6cd5\u533b\u7ebf\u7d22\u672a\u4fdd\u6301\u7269\u7406\u4f20\u64ad\u5224\u522b_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/dear_baseline_tiled/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "raw_table",
+      "label": "rr/all/original/raw/real_accuracy_at_zero",
+      "expr": "100*f('i','/result/metrics/rr~1all~1original~1raw/real_accuracy_at_zero')",
+      "quoted": "98.89"
+    },
+    {
+      "section": "raw_table",
+      "label": "rr/all/original/raw/fake_accuracy_at_zero",
+      "expr": "100*f('i','/result/metrics/rr~1all~1original~1raw/fake_accuracy_at_zero')",
+      "quoted": "84.44"
+    },
+    {
+      "section": "raw_table",
+      "label": "rr/all/original/raw/balanced_accuracy_at_zero",
+      "expr": "100*f('i','/result/metrics/rr~1all~1original~1raw/balanced_accuracy_at_zero')",
+      "quoted": "91.67"
+    },
+    {
+      "section": "raw_table",
+      "label": "rr/all/original/raw/auc",
+      "expr": "1*f('i','/result/metrics/rr~1all~1original~1raw/auc')",
+      "quoted": "0.9522"
+    },
+    {
+      "section": "raw_table",
+      "label": "rr/all/transfer/raw/real_accuracy_at_zero",
+      "expr": "100*f('i','/result/metrics/rr~1all~1transfer~1raw/real_accuracy_at_zero')",
+      "quoted": "91.11"
+    },
+    {
+      "section": "raw_table",
+      "label": "rr/all/transfer/raw/fake_accuracy_at_zero",
+      "expr": "100*f('i','/result/metrics/rr~1all~1transfer~1raw/fake_accuracy_at_zero')",
+      "quoted": "83.33"
+    },
+    {
+      "section": "raw_table",
+      "label": "rr/all/transfer/raw/balanced_accuracy_at_zero",
+      "expr": "100*f('i','/result/metrics/rr~1all~1transfer~1raw/balanced_accuracy_at_zero')",
+      "quoted": "87.22"
+    },
+    {
+      "section": "raw_table",
+      "label": "rr/all/transfer/raw/auc",
+      "expr": "1*f('i','/result/metrics/rr~1all~1transfer~1raw/auc')",
+      "quoted": "0.9264"
+    },
+    {
+      "section": "raw_table",
+      "label": "rr/all/redigital/raw/real_accuracy_at_zero",
+      "expr": "100*f('i','/result/metrics/rr~1all~1redigital~1raw/real_accuracy_at_zero')",
+      "quoted": "98.89"
+    },
+    {
+      "section": "raw_table",
+      "label": "rr/all/redigital/raw/fake_accuracy_at_zero",
+      "expr": "100*f('i','/result/metrics/rr~1all~1redigital~1raw/fake_accuracy_at_zero')",
+      "quoted": "8.89"
+    },
+    {
+      "section": "raw_table",
+      "label": "rr/all/redigital/raw/balanced_accuracy_at_zero",
+      "expr": "100*f('i','/result/metrics/rr~1all~1redigital~1raw/balanced_accuracy_at_zero')",
+      "quoted": "53.89"
+    },
+    {
+      "section": "raw_table",
+      "label": "rr/all/redigital/raw/auc",
+      "expr": "1*f('i','/result/metrics/rr~1all~1redigital~1raw/auc')",
+      "quoted": "0.6301"
+    },
+    {
+      "section": "raw_table",
+      "label": "chimera/all/original/raw/real_accuracy_at_zero",
+      "expr": "100*f('i','/result/metrics/chimera~1all~1original~1raw/real_accuracy_at_zero')",
+      "quoted": "88.33"
+    },
+    {
+      "section": "raw_table",
+      "label": "chimera/all/original/raw/fake_accuracy_at_zero",
+      "expr": "100*f('i','/result/metrics/chimera~1all~1original~1raw/fake_accuracy_at_zero')",
+      "quoted": "24.17"
+    },
+    {
+      "section": "raw_table",
+      "label": "chimera/all/original/raw/balanced_accuracy_at_zero",
+      "expr": "100*f('i','/result/metrics/chimera~1all~1original~1raw/balanced_accuracy_at_zero')",
+      "quoted": "56.25"
+    },
+    {
+      "section": "raw_table",
+      "label": "chimera/all/original/raw/auc",
+      "expr": "1*f('i','/result/metrics/chimera~1all~1original~1raw/auc')",
+      "quoted": "0.6228"
+    },
+    {
+      "section": "raw_table",
+      "label": "chimera/all/mac_iphone/raw/real_accuracy_at_zero",
+      "expr": "100*f('i','/result/metrics/chimera~1all~1mac_iphone~1raw/real_accuracy_at_zero')",
+      "quoted": "99.17"
+    },
+    {
+      "section": "raw_table",
+      "label": "chimera/all/mac_iphone/raw/fake_accuracy_at_zero",
+      "expr": "100*f('i','/result/metrics/chimera~1all~1mac_iphone~1raw/fake_accuracy_at_zero')",
+      "quoted": "0.00"
+    },
+    {
+      "section": "raw_table",
+      "label": "chimera/all/mac_iphone/raw/balanced_accuracy_at_zero",
+      "expr": "100*f('i','/result/metrics/chimera~1all~1mac_iphone~1raw/balanced_accuracy_at_zero')",
+      "quoted": "49.58"
+    },
+    {
+      "section": "raw_table",
+      "label": "chimera/all/mac_iphone/raw/auc",
+      "expr": "1*f('i','/result/metrics/chimera~1all~1mac_iphone~1raw/auc')",
+      "quoted": "0.5583"
+    },
+    {
+      "section": "raw_table",
+      "label": "chimera/all/lg_blackfly/raw/real_accuracy_at_zero",
+      "expr": "100*f('i','/result/metrics/chimera~1all~1lg_blackfly~1raw/real_accuracy_at_zero')",
+      "quoted": "100.00"
+    },
+    {
+      "section": "raw_table",
+      "label": "chimera/all/lg_blackfly/raw/fake_accuracy_at_zero",
+      "expr": "100*f('i','/result/metrics/chimera~1all~1lg_blackfly~1raw/fake_accuracy_at_zero')",
+      "quoted": "0.83"
+    },
+    {
+      "section": "raw_table",
+      "label": "chimera/all/lg_blackfly/raw/balanced_accuracy_at_zero",
+      "expr": "100*f('i','/result/metrics/chimera~1all~1lg_blackfly~1raw/balanced_accuracy_at_zero')",
+      "quoted": "50.42"
+    },
+    {
+      "section": "raw_table",
+      "label": "chimera/all/lg_blackfly/raw/auc",
+      "expr": "1*f('i','/result/metrics/chimera~1all~1lg_blackfly~1raw/auc')",
+      "quoted": "0.5072"
+    },
+    {
+      "section": "extrema",
+      "label": "minimum_domain_ba",
+      "expr": "100*f('i','/result/minimum_domain_ba')",
+      "quoted": "46.67"
+    },
+    {
+      "section": "extrema",
+      "label": "minimum_scene_ba",
+      "expr": "100*f('i','/result/minimum_scene_ba')",
+      "quoted": "43.75"
+    },
+    {
+      "section": "extrema",
+      "label": "maximum_any_scene_drop",
+      "expr": "100*f('i','/result/maximum_any_scene_drop')",
+      "quoted": "42.78"
+    },
+    {
+      "section": "pairs",
+      "label": "rr/all/original>redigital/raw/balanced_accuracy_change",
+      "expr": "100*f('i','/result/pairs/rr~1all~1original>redigital~1raw/balanced_accuracy_change')",
+      "quoted": "-37.78"
+    },
+    {
+      "section": "pairs",
+      "label": "rr/all/original>redigital/raw/balanced_accuracy_change_ci95/0",
+      "expr": "100*f('i','/result/pairs/rr~1all~1original>redigital~1raw/balanced_accuracy_change_ci95/0')",
+      "quoted": "-42.78"
+    },
+    {
+      "section": "pairs",
+      "label": "rr/all/original>redigital/raw/balanced_accuracy_change_ci95/1",
+      "expr": "100*f('i','/result/pairs/rr~1all~1original>redigital~1raw/balanced_accuracy_change_ci95/1')",
+      "quoted": "-32.78"
+    },
+    {
+      "section": "pairs",
+      "label": "rr/all/original/raw>jpeg60_420_after_resize256/balanced_accuracy_change",
+      "expr": "100*f('i','/result/pairs/rr~1all~1original~1raw>jpeg60_420_after_resize256/balanced_accuracy_change')",
+      "quoted": "-42.78"
+    },
+    {
+      "section": "pairs",
+      "label": "rr/all/original/raw>jpeg60_420_after_resize256/balanced_accuracy_change_ci95/0",
+      "expr": "100*f('i','/result/pairs/rr~1all~1original~1raw>jpeg60_420_after_resize256/balanced_accuracy_change_ci95/0')",
+      "quoted": "-50.00"
+    },
+    {
+      "section": "pairs",
+      "label": "rr/all/original/raw>jpeg60_420_after_resize256/balanced_accuracy_change_ci95/1",
+      "expr": "100*f('i','/result/pairs/rr~1all~1original~1raw>jpeg60_420_after_resize256/balanced_accuracy_change_ci95/1')",
+      "quoted": "-35.00"
+    },
+    {
+      "section": "pairs",
+      "label": "rr/all/original>transfer/raw/balanced_accuracy_change",
+      "expr": "100*f('i','/result/pairs/rr~1all~1original>transfer~1raw/balanced_accuracy_change')",
+      "quoted": "-4.44"
+    },
+    {
+      "section": "pairs",
+      "label": "rr/all/original>transfer/raw/balanced_accuracy_change_ci95/0",
+      "expr": "100*f('i','/result/pairs/rr~1all~1original>transfer~1raw/balanced_accuracy_change_ci95/0')",
+      "quoted": "-9.44"
+    },
+    {
+      "section": "pairs",
+      "label": "rr/all/original>transfer/raw/balanced_accuracy_change_ci95/1",
+      "expr": "100*f('i','/result/pairs/rr~1all~1original>transfer~1raw/balanced_accuracy_change_ci95/1')",
+      "quoted": "0.56"
+    },
+    {
+      "section": "pairs",
+      "label": "rr/all/original>redigital/raw/REAL",
+      "expr": "100*f('i','/result/pairs/rr~1all~1original>redigital~1raw/class_accuracy_change/REAL')",
+      "quoted": "0.00"
+    },
+    {
+      "section": "pairs",
+      "label": "rr/all/original>redigital/raw/FAKE",
+      "expr": "100*f('i','/result/pairs/rr~1all~1original>redigital~1raw/class_accuracy_change/FAKE')",
+      "quoted": "-75.56"
+    },
+    {
+      "section": "pairs",
+      "label": "rr/all/original/raw>jpeg60_420_after_resize256/REAL",
+      "expr": "100*f('i','/result/pairs/rr~1all~1original~1raw>jpeg60_420_after_resize256/class_accuracy_change/REAL')",
+      "quoted": "-51.11"
+    },
+    {
+      "section": "pairs",
+      "label": "rr/all/original/raw>jpeg60_420_after_resize256/FAKE",
+      "expr": "100*f('i','/result/pairs/rr~1all~1original~1raw>jpeg60_420_after_resize256/class_accuracy_change/FAKE')",
+      "quoted": "-34.44"
+    },
+    {
+      "section": "coverage",
+      "label": "images",
+      "expr": "1*f('i','/images')",
+      "quoted": "1260"
+    },
+    {
+      "section": "coverage",
+      "label": "records",
+      "expr": "1*f('i','/records')",
+      "quoted": "5040"
+    },
+    {
+      "section": "cost",
+      "label": "generation_elapsed_seconds_not_latency",
+      "expr": "f('i','/elapsed_s')",
+      "quoted": "1055.82"
+    }
+  ]
+}

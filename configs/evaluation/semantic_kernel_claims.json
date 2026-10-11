@@ -1,0 +1,291 @@
+{
+  "campaign": "Nineteenth semantic kernel and capture2026-10-06",
+  "register": "Transcription only,not independent validation",
+  "quote_source": "reports/04_算法研发/第十九轮语义核与执行加速_速度改善但局部退化加重_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/semantic_kernel/iteration.json"
+    },
+    "b": {
+      "path": "../../work/robust_statistics/semantic_kernel/capture_benchmark.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "results",
+      "label": "fourier/mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/fourier~1mean/minimum_domain_ba')",
+      "quoted": "70.83"
+    },
+    {
+      "section": "results",
+      "label": "fourier/mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/fourier~1mean/minimum_scene_ba')",
+      "quoted": "63.75"
+    },
+    {
+      "section": "results",
+      "label": "fourier/mean/maximum_domain_drop",
+      "expr": "100*f('i','/candidates/fourier~1mean/maximum_domain_drop')",
+      "quoted": "12.50"
+    },
+    {
+      "section": "results",
+      "label": "fourier/mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/fourier~1mean/maximum_any_scene_drop')",
+      "quoted": "20.00"
+    },
+    {
+      "section": "results",
+      "label": "fourier/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/fourier~1source/minimum_domain_ba')",
+      "quoted": "70.83"
+    },
+    {
+      "section": "results",
+      "label": "fourier/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/fourier~1source/minimum_scene_ba')",
+      "quoted": "63.75"
+    },
+    {
+      "section": "results",
+      "label": "fourier/source/maximum_domain_drop",
+      "expr": "100*f('i','/candidates/fourier~1source/maximum_domain_drop')",
+      "quoted": "12.92"
+    },
+    {
+      "section": "results",
+      "label": "fourier/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/fourier~1source/maximum_any_scene_drop')",
+      "quoted": "17.50"
+    },
+    {
+      "section": "results",
+      "label": "hybrid_fourier/mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/hybrid_fourier~1mean/minimum_domain_ba')",
+      "quoted": "82.78"
+    },
+    {
+      "section": "results",
+      "label": "hybrid_fourier/mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/hybrid_fourier~1mean/minimum_scene_ba')",
+      "quoted": "80.00"
+    },
+    {
+      "section": "results",
+      "label": "hybrid_fourier/mean/maximum_domain_drop",
+      "expr": "100*f('i','/candidates/hybrid_fourier~1mean/maximum_domain_drop')",
+      "quoted": "7.50"
+    },
+    {
+      "section": "results",
+      "label": "hybrid_fourier/mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/hybrid_fourier~1mean/maximum_any_scene_drop')",
+      "quoted": "11.25"
+    },
+    {
+      "section": "results",
+      "label": "hybrid_fourier/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/hybrid_fourier~1source/minimum_domain_ba')",
+      "quoted": "82.22"
+    },
+    {
+      "section": "results",
+      "label": "hybrid_fourier/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/hybrid_fourier~1source/minimum_scene_ba')",
+      "quoted": "82.50"
+    },
+    {
+      "section": "results",
+      "label": "hybrid_fourier/source/maximum_domain_drop",
+      "expr": "100*f('i','/candidates/hybrid_fourier~1source/maximum_domain_drop')",
+      "quoted": "8.33"
+    },
+    {
+      "section": "results",
+      "label": "hybrid_fourier/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/hybrid_fourier~1source/maximum_any_scene_drop')",
+      "quoted": "12.50"
+    },
+    {
+      "section": "results",
+      "label": "hybrid_fourier/source_source_shuffled_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/hybrid_fourier~1source_source_shuffled_null/minimum_domain_ba')",
+      "quoted": "41.25"
+    },
+    {
+      "section": "results",
+      "label": "hybrid_fourier/source_source_shuffled_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/hybrid_fourier~1source_source_shuffled_null/minimum_scene_ba')",
+      "quoted": "36.25"
+    },
+    {
+      "section": "results",
+      "label": "hybrid_fourier/source_source_shuffled_null/maximum_domain_drop",
+      "expr": "100*f('i','/candidates/hybrid_fourier~1source_source_shuffled_null/maximum_domain_drop')",
+      "quoted": "8.33"
+    },
+    {
+      "section": "results",
+      "label": "hybrid_fourier/source_source_shuffled_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/hybrid_fourier~1source_source_shuffled_null/maximum_any_scene_drop')",
+      "quoted": "11.25"
+    },
+    {
+      "section": "results",
+      "label": "all/predict_ms/p50",
+      "expr": "f('b','/summaries/all/predict_ms/p50')",
+      "quoted": "17.38"
+    },
+    {
+      "section": "results",
+      "label": "all/predict_ms/p95",
+      "expr": "f('b','/summaries/all/predict_ms/p95')",
+      "quoted": "22.14"
+    },
+    {
+      "section": "results",
+      "label": "all/end_to_end_ms/p50",
+      "expr": "f('b','/summaries/all/end_to_end_ms/p50')",
+      "quoted": "24.55"
+    },
+    {
+      "section": "results",
+      "label": "all/end_to_end_ms/p95",
+      "expr": "f('b','/summaries/all/end_to_end_ms/p95')",
+      "quoted": "38.48"
+    },
+    {
+      "section": "results",
+      "label": "all/images",
+      "expr": "f('b','/summaries/all/images')",
+      "quoted": "120"
+    },
+    {
+      "section": "results",
+      "label": "all/measurements",
+      "expr": "f('b','/summaries/all/measurements')",
+      "quoted": "360"
+    },
+    {
+      "section": "results",
+      "label": "at_most_2MP/predict_ms/p50",
+      "expr": "f('b','/summaries/at_most_2MP/predict_ms/p50')",
+      "quoted": "17.30"
+    },
+    {
+      "section": "results",
+      "label": "at_most_2MP/predict_ms/p95",
+      "expr": "f('b','/summaries/at_most_2MP/predict_ms/p95')",
+      "quoted": "20.95"
+    },
+    {
+      "section": "results",
+      "label": "at_most_2MP/end_to_end_ms/p50",
+      "expr": "f('b','/summaries/at_most_2MP/end_to_end_ms/p50')",
+      "quoted": "24.17"
+    },
+    {
+      "section": "results",
+      "label": "at_most_2MP/end_to_end_ms/p95",
+      "expr": "f('b','/summaries/at_most_2MP/end_to_end_ms/p95')",
+      "quoted": "38.14"
+    },
+    {
+      "section": "results",
+      "label": "at_most_2MP/images",
+      "expr": "f('b','/summaries/at_most_2MP/images')",
+      "quoted": "117"
+    },
+    {
+      "section": "results",
+      "label": "at_most_2MP/measurements",
+      "expr": "f('b','/summaries/at_most_2MP/measurements')",
+      "quoted": "351"
+    },
+    {
+      "section": "results",
+      "label": "above_2MP/predict_ms/p50",
+      "expr": "f('b','/summaries/above_2MP/predict_ms/p50')",
+      "quoted": "24.52"
+    },
+    {
+      "section": "results",
+      "label": "above_2MP/predict_ms/p95",
+      "expr": "f('b','/summaries/above_2MP/predict_ms/p95')",
+      "quoted": "26.93"
+    },
+    {
+      "section": "results",
+      "label": "above_2MP/end_to_end_ms/p50",
+      "expr": "f('b','/summaries/above_2MP/end_to_end_ms/p50')",
+      "quoted": "36.97"
+    },
+    {
+      "section": "results",
+      "label": "above_2MP/end_to_end_ms/p95",
+      "expr": "f('b','/summaries/above_2MP/end_to_end_ms/p95')",
+      "quoted": "40.08"
+    },
+    {
+      "section": "results",
+      "label": "above_2MP/images",
+      "expr": "f('b','/summaries/above_2MP/images')",
+      "quoted": "3"
+    },
+    {
+      "section": "results",
+      "label": "above_2MP/measurements",
+      "expr": "f('b','/summaries/above_2MP/measurements')",
+      "quoted": "9"
+    },
+    {
+      "section": "results",
+      "label": "paired_sources",
+      "expr": "f('i','/candidates/hybrid_fourier~1source/pairs/chimera~1cat~1lg_blackfly~1raw>jpeg60_420_after_resize256/paired_sources')",
+      "quoted": "80"
+    },
+    {
+      "section": "results",
+      "label": "balanced_accuracy_change",
+      "expr": "100*f('i','/candidates/hybrid_fourier~1source/pairs/chimera~1cat~1lg_blackfly~1raw>jpeg60_420_after_resize256/balanced_accuracy_change')",
+      "quoted": "-12.50"
+    },
+    {
+      "section": "results",
+      "label": "source_macro_decision_flip_rate",
+      "expr": "100*f('i','/candidates/hybrid_fourier~1source/pairs/chimera~1cat~1lg_blackfly~1raw>jpeg60_420_after_resize256/source_macro_decision_flip_rate')",
+      "quoted": "12.50"
+    },
+    {
+      "section": "results",
+      "label": "REAL change",
+      "expr": "100*f('i','/candidates/hybrid_fourier~1source/pairs/chimera~1cat~1lg_blackfly~1raw>jpeg60_420_after_resize256/class_accuracy_change/REAL')",
+      "quoted": "-20.00"
+    },
+    {
+      "section": "results",
+      "label": "FAKE change",
+      "expr": "100*f('i','/candidates/hybrid_fourier~1source/pairs/chimera~1cat~1lg_blackfly~1raw>jpeg60_420_after_resize256/class_accuracy_change/FAKE')",
+      "quoted": "-5.00"
+    },
+    {
+      "section": "results",
+      "label": "ci0",
+      "expr": "100*f('i','/candidates/hybrid_fourier~1source/pairs/chimera~1cat~1lg_blackfly~1raw>jpeg60_420_after_resize256/balanced_accuracy_change_ci95/0')",
+      "quoted": "-20.00"
+    },
+    {
+      "section": "results",
+      "label": "ci1",
+      "expr": "100*f('i','/candidates/hybrid_fourier~1source/pairs/chimera~1cat~1lg_blackfly~1raw>jpeg60_420_after_resize256/balanced_accuracy_change_ci95/1')",
+      "quoted": "-6.25"
+    },
+    {
+      "section": "results",
+      "label": "elapsed_s",
+      "expr": "f('i','/elapsed_s')",
+      "quoted": "77.69"
+    }
+  ]
+}

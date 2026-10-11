@@ -1,0 +1,378 @@
+{
+  "campaign": "Eighth paired stability, 2026-10-06",
+  "register": "Selected numeric claims only",
+  "quote_source": "reports/04_算法研发/第八轮配对分数稳定_漂移降低与判别损失_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/paired_stability/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "lambda0/selection_aggregate",
+      "label": "rr/original/auc",
+      "quoted": "0.7851",
+      "expr": "1*f('i','/candidates/lambda0/selection_aggregate/rr/conditions/original/auc')"
+    },
+    {
+      "section": "lambda0/selection_aggregate",
+      "label": "rr/original/balanced_accuracy_at_zero",
+      "quoted": "72.78",
+      "expr": "100*f('i','/candidates/lambda0/selection_aggregate/rr/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/selection_aggregate",
+      "label": "rr/transfer/auc",
+      "quoted": "0.7820",
+      "expr": "1*f('i','/candidates/lambda0/selection_aggregate/rr/conditions/transfer/auc')"
+    },
+    {
+      "section": "lambda0/selection_aggregate",
+      "label": "rr/transfer/balanced_accuracy_at_zero",
+      "quoted": "68.89",
+      "expr": "100*f('i','/candidates/lambda0/selection_aggregate/rr/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/selection_aggregate",
+      "label": "rr/redigital/auc",
+      "quoted": "0.6051",
+      "expr": "1*f('i','/candidates/lambda0/selection_aggregate/rr/conditions/redigital/auc')"
+    },
+    {
+      "section": "lambda0/selection_aggregate",
+      "label": "rr/redigital/balanced_accuracy_at_zero",
+      "quoted": "58.33",
+      "expr": "100*f('i','/candidates/lambda0/selection_aggregate/rr/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/selection_aggregate",
+      "label": "chimera/original/auc",
+      "quoted": "0.9352",
+      "expr": "1*f('i','/candidates/lambda0/selection_aggregate/chimera/conditions/original/auc')"
+    },
+    {
+      "section": "lambda0/selection_aggregate",
+      "label": "chimera/original/balanced_accuracy_at_zero",
+      "quoted": "86.67",
+      "expr": "100*f('i','/candidates/lambda0/selection_aggregate/chimera/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/selection_aggregate",
+      "label": "chimera/mac_iphone/auc",
+      "quoted": "0.8414",
+      "expr": "1*f('i','/candidates/lambda0/selection_aggregate/chimera/conditions/mac_iphone/auc')"
+    },
+    {
+      "section": "lambda0/selection_aggregate",
+      "label": "chimera/mac_iphone/balanced_accuracy_at_zero",
+      "quoted": "77.08",
+      "expr": "100*f('i','/candidates/lambda0/selection_aggregate/chimera/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/selection_aggregate",
+      "label": "chimera/lg_blackfly/auc",
+      "quoted": "0.8636",
+      "expr": "1*f('i','/candidates/lambda0/selection_aggregate/chimera/conditions/lg_blackfly/auc')"
+    },
+    {
+      "section": "lambda0/selection_aggregate",
+      "label": "chimera/lg_blackfly/balanced_accuracy_at_zero",
+      "quoted": "78.75",
+      "expr": "100*f('i','/candidates/lambda0/selection_aggregate/chimera/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/held_encoding_aggregate",
+      "label": "rr/original/auc",
+      "quoted": "0.6504",
+      "expr": "1*f('i','/candidates/lambda0/held_encoding_aggregate/rr/conditions/original/auc')"
+    },
+    {
+      "section": "lambda0/held_encoding_aggregate",
+      "label": "rr/original/balanced_accuracy_at_zero",
+      "quoted": "62.22",
+      "expr": "100*f('i','/candidates/lambda0/held_encoding_aggregate/rr/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/held_encoding_aggregate",
+      "label": "rr/transfer/auc",
+      "quoted": "0.7163",
+      "expr": "1*f('i','/candidates/lambda0/held_encoding_aggregate/rr/conditions/transfer/auc')"
+    },
+    {
+      "section": "lambda0/held_encoding_aggregate",
+      "label": "rr/transfer/balanced_accuracy_at_zero",
+      "quoted": "66.11",
+      "expr": "100*f('i','/candidates/lambda0/held_encoding_aggregate/rr/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/held_encoding_aggregate",
+      "label": "rr/redigital/auc",
+      "quoted": "0.5852",
+      "expr": "1*f('i','/candidates/lambda0/held_encoding_aggregate/rr/conditions/redigital/auc')"
+    },
+    {
+      "section": "lambda0/held_encoding_aggregate",
+      "label": "rr/redigital/balanced_accuracy_at_zero",
+      "quoted": "59.44",
+      "expr": "100*f('i','/candidates/lambda0/held_encoding_aggregate/rr/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/held_encoding_aggregate",
+      "label": "chimera/original/auc",
+      "quoted": "0.7863",
+      "expr": "1*f('i','/candidates/lambda0/held_encoding_aggregate/chimera/conditions/original/auc')"
+    },
+    {
+      "section": "lambda0/held_encoding_aggregate",
+      "label": "chimera/original/balanced_accuracy_at_zero",
+      "quoted": "67.50",
+      "expr": "100*f('i','/candidates/lambda0/held_encoding_aggregate/chimera/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/held_encoding_aggregate",
+      "label": "chimera/mac_iphone/auc",
+      "quoted": "0.7661",
+      "expr": "1*f('i','/candidates/lambda0/held_encoding_aggregate/chimera/conditions/mac_iphone/auc')"
+    },
+    {
+      "section": "lambda0/held_encoding_aggregate",
+      "label": "chimera/mac_iphone/balanced_accuracy_at_zero",
+      "quoted": "65.83",
+      "expr": "100*f('i','/candidates/lambda0/held_encoding_aggregate/chimera/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0/held_encoding_aggregate",
+      "label": "chimera/lg_blackfly/auc",
+      "quoted": "0.7871",
+      "expr": "1*f('i','/candidates/lambda0/held_encoding_aggregate/chimera/conditions/lg_blackfly/auc')"
+    },
+    {
+      "section": "lambda0/held_encoding_aggregate",
+      "label": "chimera/lg_blackfly/balanced_accuracy_at_zero",
+      "quoted": "67.92",
+      "expr": "100*f('i','/candidates/lambda0/held_encoding_aggregate/chimera/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda0",
+      "label": "fit_diagnostics/paired_score_drift",
+      "quoted": "0.187617",
+      "expr": "f('i','/candidates/lambda0/fit_diagnostics/paired_score_drift')"
+    },
+    {
+      "section": "lambda0",
+      "label": "selection_paired_drift/raw",
+      "quoted": "0.226466",
+      "expr": "f('i','/candidates/lambda0/selection_paired_drift/raw')"
+    },
+    {
+      "section": "lambda0",
+      "label": "normalized_selection_paired_drift/raw",
+      "quoted": "1.023101",
+      "expr": "f('i','/candidates/lambda0/normalized_selection_paired_drift/raw')"
+    },
+    {
+      "section": "lambda0",
+      "label": "normalized_selection_paired_drift/jpeg70_420_after_resize256",
+      "quoted": "1.031223",
+      "expr": "f('i','/candidates/lambda0/normalized_selection_paired_drift/jpeg70_420_after_resize256')"
+    },
+    {
+      "section": "lambda1/selection_aggregate",
+      "label": "rr/original/auc",
+      "quoted": "0.7164",
+      "expr": "1*f('i','/candidates/lambda1/selection_aggregate/rr/conditions/original/auc')"
+    },
+    {
+      "section": "lambda1/selection_aggregate",
+      "label": "rr/original/balanced_accuracy_at_zero",
+      "quoted": "63.33",
+      "expr": "100*f('i','/candidates/lambda1/selection_aggregate/rr/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda1/selection_aggregate",
+      "label": "rr/transfer/auc",
+      "quoted": "0.7544",
+      "expr": "1*f('i','/candidates/lambda1/selection_aggregate/rr/conditions/transfer/auc')"
+    },
+    {
+      "section": "lambda1/selection_aggregate",
+      "label": "rr/transfer/balanced_accuracy_at_zero",
+      "quoted": "63.33",
+      "expr": "100*f('i','/candidates/lambda1/selection_aggregate/rr/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda1/selection_aggregate",
+      "label": "rr/redigital/auc",
+      "quoted": "0.6021",
+      "expr": "1*f('i','/candidates/lambda1/selection_aggregate/rr/conditions/redigital/auc')"
+    },
+    {
+      "section": "lambda1/selection_aggregate",
+      "label": "rr/redigital/balanced_accuracy_at_zero",
+      "quoted": "58.33",
+      "expr": "100*f('i','/candidates/lambda1/selection_aggregate/rr/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda1/selection_aggregate",
+      "label": "chimera/original/auc",
+      "quoted": "0.9341",
+      "expr": "1*f('i','/candidates/lambda1/selection_aggregate/chimera/conditions/original/auc')"
+    },
+    {
+      "section": "lambda1/selection_aggregate",
+      "label": "chimera/original/balanced_accuracy_at_zero",
+      "quoted": "74.17",
+      "expr": "100*f('i','/candidates/lambda1/selection_aggregate/chimera/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda1/selection_aggregate",
+      "label": "chimera/mac_iphone/auc",
+      "quoted": "0.8616",
+      "expr": "1*f('i','/candidates/lambda1/selection_aggregate/chimera/conditions/mac_iphone/auc')"
+    },
+    {
+      "section": "lambda1/selection_aggregate",
+      "label": "chimera/mac_iphone/balanced_accuracy_at_zero",
+      "quoted": "72.08",
+      "expr": "100*f('i','/candidates/lambda1/selection_aggregate/chimera/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda1/selection_aggregate",
+      "label": "chimera/lg_blackfly/auc",
+      "quoted": "0.8726",
+      "expr": "1*f('i','/candidates/lambda1/selection_aggregate/chimera/conditions/lg_blackfly/auc')"
+    },
+    {
+      "section": "lambda1/selection_aggregate",
+      "label": "chimera/lg_blackfly/balanced_accuracy_at_zero",
+      "quoted": "73.33",
+      "expr": "100*f('i','/candidates/lambda1/selection_aggregate/chimera/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda1",
+      "label": "fit_diagnostics/paired_score_drift",
+      "quoted": "0.043091",
+      "expr": "f('i','/candidates/lambda1/fit_diagnostics/paired_score_drift')"
+    },
+    {
+      "section": "lambda1",
+      "label": "selection_paired_drift/raw",
+      "quoted": "0.061247",
+      "expr": "f('i','/candidates/lambda1/selection_paired_drift/raw')"
+    },
+    {
+      "section": "lambda1",
+      "label": "normalized_selection_paired_drift/raw",
+      "quoted": "0.653917",
+      "expr": "f('i','/candidates/lambda1/normalized_selection_paired_drift/raw')"
+    },
+    {
+      "section": "lambda1",
+      "label": "normalized_selection_paired_drift/jpeg70_420_after_resize256",
+      "quoted": "0.644577",
+      "expr": "f('i','/candidates/lambda1/normalized_selection_paired_drift/jpeg70_420_after_resize256')"
+    },
+    {
+      "section": "lambda10/selection_aggregate",
+      "label": "rr/original/auc",
+      "quoted": "0.6183",
+      "expr": "1*f('i','/candidates/lambda10/selection_aggregate/rr/conditions/original/auc')"
+    },
+    {
+      "section": "lambda10/selection_aggregate",
+      "label": "rr/original/balanced_accuracy_at_zero",
+      "quoted": "56.67",
+      "expr": "100*f('i','/candidates/lambda10/selection_aggregate/rr/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda10/selection_aggregate",
+      "label": "rr/transfer/auc",
+      "quoted": "0.6446",
+      "expr": "1*f('i','/candidates/lambda10/selection_aggregate/rr/conditions/transfer/auc')"
+    },
+    {
+      "section": "lambda10/selection_aggregate",
+      "label": "rr/transfer/balanced_accuracy_at_zero",
+      "quoted": "57.22",
+      "expr": "100*f('i','/candidates/lambda10/selection_aggregate/rr/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda10/selection_aggregate",
+      "label": "rr/redigital/auc",
+      "quoted": "0.5725",
+      "expr": "1*f('i','/candidates/lambda10/selection_aggregate/rr/conditions/redigital/auc')"
+    },
+    {
+      "section": "lambda10/selection_aggregate",
+      "label": "rr/redigital/balanced_accuracy_at_zero",
+      "quoted": "55.56",
+      "expr": "100*f('i','/candidates/lambda10/selection_aggregate/rr/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda10/selection_aggregate",
+      "label": "chimera/original/auc",
+      "quoted": "0.9021",
+      "expr": "1*f('i','/candidates/lambda10/selection_aggregate/chimera/conditions/original/auc')"
+    },
+    {
+      "section": "lambda10/selection_aggregate",
+      "label": "chimera/original/balanced_accuracy_at_zero",
+      "quoted": "72.50",
+      "expr": "100*f('i','/candidates/lambda10/selection_aggregate/chimera/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda10/selection_aggregate",
+      "label": "chimera/mac_iphone/auc",
+      "quoted": "0.8443",
+      "expr": "1*f('i','/candidates/lambda10/selection_aggregate/chimera/conditions/mac_iphone/auc')"
+    },
+    {
+      "section": "lambda10/selection_aggregate",
+      "label": "chimera/mac_iphone/balanced_accuracy_at_zero",
+      "quoted": "71.25",
+      "expr": "100*f('i','/candidates/lambda10/selection_aggregate/chimera/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda10/selection_aggregate",
+      "label": "chimera/lg_blackfly/auc",
+      "quoted": "0.8449",
+      "expr": "1*f('i','/candidates/lambda10/selection_aggregate/chimera/conditions/lg_blackfly/auc')"
+    },
+    {
+      "section": "lambda10/selection_aggregate",
+      "label": "chimera/lg_blackfly/balanced_accuracy_at_zero",
+      "quoted": "71.67",
+      "expr": "100*f('i','/candidates/lambda10/selection_aggregate/chimera/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "lambda10",
+      "label": "fit_diagnostics/paired_score_drift",
+      "quoted": "0.003403",
+      "expr": "f('i','/candidates/lambda10/fit_diagnostics/paired_score_drift')"
+    },
+    {
+      "section": "lambda10",
+      "label": "selection_paired_drift/raw",
+      "quoted": "0.005681",
+      "expr": "f('i','/candidates/lambda10/selection_paired_drift/raw')"
+    },
+    {
+      "section": "lambda10",
+      "label": "normalized_selection_paired_drift/raw",
+      "quoted": "0.287292",
+      "expr": "f('i','/candidates/lambda10/normalized_selection_paired_drift/raw')"
+    },
+    {
+      "section": "lambda10",
+      "label": "normalized_selection_paired_drift/jpeg70_420_after_resize256",
+      "quoted": "0.297966",
+      "expr": "f('i','/candidates/lambda10/normalized_selection_paired_drift/jpeg70_420_after_resize256')"
+    },
+    {
+      "section": "run",
+      "label": "elapsed",
+      "quoted": "46.24",
+      "expr": "f('i','/elapsed_s')"
+    }
+  ]
+}

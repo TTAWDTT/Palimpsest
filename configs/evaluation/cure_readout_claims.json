@@ -1,0 +1,141 @@
+{
+  "campaign": "Iteration36 frozen CuRe readout",
+  "register": "Selected transcription only",
+  "quote_source": "reports/04_算法研发/第三十六轮冻结CuRe读出_场景改善与汇总速度取舍_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/cure_readout/iteration.json"
+    },
+    "b": {
+      "path": "../../work/robust_statistics/cure_readout_timing/benchmark.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "full/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/full~1source/minimum_domain_ba')",
+      "quoted": "81.67"
+    },
+    {
+      "section": "table",
+      "label": "full/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/full~1source/minimum_scene_ba')",
+      "quoted": "95.00"
+    },
+    {
+      "section": "table",
+      "label": "full/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/full~1source/maximum_any_scene_drop')",
+      "quoted": "5.56"
+    },
+    {
+      "section": "table",
+      "label": "full/mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/full~1mean/minimum_domain_ba')",
+      "quoted": "83.33"
+    },
+    {
+      "section": "table",
+      "label": "full/mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/full~1mean/minimum_scene_ba')",
+      "quoted": "88.75"
+    },
+    {
+      "section": "table",
+      "label": "full/mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/full~1mean/maximum_any_scene_drop')",
+      "quoted": "8.75"
+    },
+    {
+      "section": "table",
+      "label": "projected/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/projected~1source/minimum_domain_ba')",
+      "quoted": "80.00"
+    },
+    {
+      "section": "table",
+      "label": "projected/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/projected~1source/minimum_scene_ba')",
+      "quoted": "85.00"
+    },
+    {
+      "section": "table",
+      "label": "projected/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/projected~1source/maximum_any_scene_drop')",
+      "quoted": "10.00"
+    },
+    {
+      "section": "table",
+      "label": "projected/mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/projected~1mean/minimum_domain_ba')",
+      "quoted": "77.22"
+    },
+    {
+      "section": "table",
+      "label": "projected/mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/projected~1mean/minimum_scene_ba')",
+      "quoted": "76.25"
+    },
+    {
+      "section": "table",
+      "label": "projected/mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/projected~1mean/maximum_any_scene_drop')",
+      "quoted": "10.00"
+    },
+    {
+      "section": "table",
+      "label": "full/source_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/full~1source_null/minimum_domain_ba')",
+      "quoted": "45.56"
+    },
+    {
+      "section": "table",
+      "label": "full/source_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/full~1source_null/minimum_scene_ba')",
+      "quoted": "36.25"
+    },
+    {
+      "section": "table",
+      "label": "full/source_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/full~1source_null/maximum_any_scene_drop')",
+      "quoted": "8.75"
+    },
+    {
+      "section": "table",
+      "label": "projected/source_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/projected~1source_null/minimum_domain_ba')",
+      "quoted": "48.33"
+    },
+    {
+      "section": "table",
+      "label": "projected/source_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/projected~1source_null/minimum_scene_ba')",
+      "quoted": "42.50"
+    },
+    {
+      "section": "table",
+      "label": "projected/source_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/projected~1source_null/maximum_any_scene_drop')",
+      "quoted": "7.50"
+    },
+    {
+      "section": "timing",
+      "label": "end_to_end_ms/p50",
+      "expr": "f('b','/summaries/at_most_2MP/end_to_end_ms/p50')",
+      "quoted": "50.07360"
+    },
+    {
+      "section": "timing",
+      "label": "end_to_end_ms/p95",
+      "expr": "f('b','/summaries/at_most_2MP/end_to_end_ms/p95')",
+      "quoted": "69.40625"
+    },
+    {
+      "section": "timing",
+      "label": "readout_ms/p95",
+      "expr": "f('b','/summaries/at_most_2MP/readout_ms/p95')",
+      "quoted": "0.48100"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "campaign": "DCT sign and global phase numerical bridge",
+  "register": "Selected numerical quotes only,no theorem certificate",
+  "quote_source": "reports/04_\u7b97\u6cd5\u7814\u53d1/\u76f8\u4f4d\u4e0e\u88c1\u5207\u9c81\u68d2\u6027\u8865\u8bfb_\u5206\u5757\u7b26\u53f7\u4e0d\u7b49\u4e8e\u6574\u4f53\u76f8\u4f4d\u4e0d\u53d8_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/broad_methods_review/phase_bridge.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "witness",
+      "label": "before_phase",
+      "expr": "f('i','/before_phase')",
+      "quoted": "-0.097330"
+    },
+    {
+      "section": "witness",
+      "label": "after_phase",
+      "expr": "f('i','/after_phase')",
+      "quoted": "-0.368269"
+    },
+    {
+      "section": "witness",
+      "label": "wrapped_phase_change_rad",
+      "expr": "f('i','/wrapped_phase_change_rad')",
+      "quoted": "-0.270939"
+    },
+    {
+      "section": "witness",
+      "label": "wrapped_phase_change_degrees",
+      "expr": "f('i','/wrapped_phase_change_degrees')",
+      "quoted": "-15.523657"
+    }
+  ]
+}

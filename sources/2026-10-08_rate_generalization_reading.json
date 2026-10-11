@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-08",
+  "primary_pdf": "https://proceedings.mlr.press/v97/cotter19b/cotter19b.pdf",
+  "primary_record": "https://proceedings.mlr.press/v97/cotter19b.html",
+  "main_text_pages": 9,
+  "status": "Main text sections1-5,algorithms1-2,tables1-4 and references read through PDF extracted text;printed Definition1 page3 also opened as screenshot;no supplement proofs reproduced",
+  "relevant_scope": {
+    "Definition1_printed_page3": "Two independently sampled datasets;proxy upper bound required;model player uses training/proxies,lambda player usesvalidation/true constraints",
+    "section4_2_printed_page5": "Strong convexity and Lipschitz assumptions for the gradient theorem;our sigmoid objective not covered",
+    "section5_printed_page6": "Practical algorithms explicitly lack section4 guarantees;performancetradeoff and entity dataset exceptions discussed",
+    "section5_1_printed_page8": "Bothalgorithmssee same totaldata;split makes eachplayersee lessdata"
+  },
+  "application": "Conventional basis/head source split is a different heuristic;no players/multipliers/upperboundproxies/theorem inheritance",
+  "verbatim_quote": "Neither algorithm enjoys the theoretical guarantees of Section 4",
+  "quote_location": "Printed page6 section5",
+  "remaining_debt": "Supplement proofs/practicalalgorithms3-4;59pageJMLR remainder;authorrecency/citationforwardchains;not a completed noveltyreview",
+  "append_only_relationship": "Earlier sources/2026-10-08_rate_proxy_reading.json retains initial abstract-only status;this records later main-text read,doesnotretroactivelychangethefirstimplementation"
+}

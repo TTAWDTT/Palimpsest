@@ -1,0 +1,1 @@
+"""Frozen representation covariance diagnostics."""

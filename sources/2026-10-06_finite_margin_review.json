@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-06",
+  "sources": [
+    {
+      "primary": "https://jmlr.org/papers/v10/xu09b.html",
+      "pdf": {
+        "url": "https://www.jmlr.org/papers/volume10/xu09b/xu09b.pdf",
+        "bytes": 189265,
+        "sha256": "5e65de0eb1583cb05ea2d5eb5673b3ffe4871351f43477b49c34baf8076c607b"
+      },
+      "reading": "PDF1-10 exceptFigure1notvisuallyaudited;laterprobabilistic/kernel/consistencyunread",
+      "scope": "Preserve atomic/sublinearaggregate/nonseparable premises;not instantiated universal propagation guarantee"
+    },
+    {
+      "primary": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9879373/",
+      "reading": "Abstract/tasksetting/conclusion only;notfullproof",
+      "decision": "Template-deformation class assumption and geometric invertibility mismatch;not implemented"
+    },
+    {
+      "primary": "https://docs.scipy.org/doc/scipy/reference/optimize.linprog-highs.html",
+      "reading": "Inputs/bounds/marginals/failurestatuses/tolerances",
+      "scope": "Local installed version separately recorded;toolcertificate not imagevalidation"
+    }
+  ],
+  "report": "reports/04_\u7b97\u6cd5\u7814\u53d1/\u6709\u9650\u89c6\u56fe\u9c81\u68d2\u95f4\u9694_\u4f18\u5316\u5148\u884c\u5de5\u4f5c\u4e0e\u9002\u7528\u8fb9\u754c_2026-10-06.md",
+  "prospective_experiment": "experiments/origin_detection/source_hinge/README.md",
+  "status": "Complete finite hinge development campaign,not adopted;RR shuffledcontrol anomalies retained",
+  "prior_credit": "Robust SVM/linear uncertainty sets; own finite source hull use, not a new robust optimization principle",
+  "status_history": [
+    "Registeredbeforefit;software instrument active;no candidate results",
+    "Four known software controls passed;wholefit maxsource LP44.43s and primal/dual residuals passed;mean/null fixed controls evaluating"
+  ],
+  "experimental_history": [
+    "Four known software controls passed;wholefit maxsource LP44.43s and primal/dual residuals passed;mean/null fixed controls evaluating"
+  ],
+  "experimental_status": "Complete fixed campaign,integer audit passed;not adopted;goal active",
+  "own_result_report": "reports/04_\u7b97\u6cd5\u7814\u53d1/\u7b2c\u4e8c\u5341\u516d\u8f6e\u6709\u9650\u6700\u5927\u95f4\u9694_\u6c42\u89e3\u6b63\u786e\u672a\u6d88\u9664\u9000\u5316_2026-10-06.md"
+}

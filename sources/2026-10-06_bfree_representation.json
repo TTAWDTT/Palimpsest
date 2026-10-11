@@ -1,0 +1,43 @@
+{
+  "scope": "Focused primary reread for frozen representation extraction;not a full review or novelty certificate",
+  "search_queries": ["B-Free bias-free detectors synthetic images paper DINOv2 2025 official"],
+  "primary": [
+    {
+      "title": "A Bias-Free Training Paradigm for More General AI-generated Image Detection",
+      "publication": "CVPR2025",
+      "url": "https://openaccess.thecvf.com/content/CVPR2025/papers/Guillaro_A_Bias-Free_Training_Paradigm_for_More_General_AI-generated_Image_Detection_CVPR_2025_paper.pdf",
+      "bytes": 1710245,
+      "sha256": "268221a5e3f92bced7bca180a680bc781127eda2697f54bc52ced7bf1fe43ed3",
+      "pages": 10,
+      "read": "Main pp4-7 text read in this continuation;pp1-3/8-10 owed in this reread",
+      "locators": "p5 end-to-end DINOv2-reg training;p6 Table3 original linear probe vs fine-tuning and Fig6 JPEG/resizing/blur;p7 robustness datasets",
+      "quotes": [],
+      "boundary": "Author original pretrained DINO linear probe is not our new head on the already fine-tuned released B-Free encoder. Augmentation and robustness plots do not establish arbitrary real screen-camera invariance."
+    },
+    {
+      "title": "B-Free CVPR2025 Supplementary Material",
+      "url": "https://openaccess.thecvf.com/content/CVPR2025/supplemental/Guillaro_A_Bias-Free_Training_CVPR_2025_supplemental.pdf",
+      "bytes": 470138,
+      "sha256": "881831382ed8a2b0b1b066f7e869086b2eabe1fb8ce11808648d3166a334b530",
+      "pages": 6,
+      "read": "pp1-3 text read;pp4-6 owed",
+      "locators": "p1 FC head,504-pixel native crops,patch padding and multicrop inference;training settings",
+      "quotes": [],
+      "boundary": "Frozen extraction tests released inference behavior;does not reproduce author training."
+    },
+    {
+      "title": "B-Free official code",
+      "url": "https://github.com/grip-unina/B-Free",
+      "revision": "c6a9f898782fb466b29af01f21960b67415afb0e",
+      "read": "Local released wrapper,normalization and architecture loader;online official README",
+      "boundary": "Nonprofit author license retained;no source or weights redistributed. Vendor not updated to latest online state."
+    }
+  ],
+  "search_return_not_adopted": [
+    "Understanding and Improving Training-Free AI-Generated Image Detections with Vision Foundation Models,arxiv2411.19117:search abstract only",
+    "Do Computer Vision Foundation Models Learn the Low-level Characteristics of the Human Visual System?,CVPR2025:search snippet only",
+    "DinoLizer,arxiv2511.20722:unread"
+  ],
+  "debt": "Remaining paper pages,full citation graph,pretraining source overlap and independent camera evidence remain unaudited",
+  "experiment": "experiments/origin_detection/bfree_readout/README.md"
+}

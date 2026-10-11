@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-08",
+  "sources": [
+    {
+      "title": "Compact Bilinear Pooling",
+      "artifact": {
+        "url": "https://openaccess.thecvf.com/content_cvpr_2016/papers/Gao_Compact_Bilinear_Pooling_CVPR_2016_paper.pdf",
+        "bytes": 912486,
+        "sha256": "9e585c23a445c49d618208c1d986e1fd7ee31f62192350539ee75af0e542a4f7",
+        "status": "downloaded;not yet read"
+      },
+      "pages": 10,
+      "reading": "Pages3-4 only: kernels,RM/TS,cost;remaining pages/visual plots not deep read"
+    },
+    {
+      "title": "Towards Faster Training of Global Covariance Pooling Networks by Iterative Matrix Square Root Normalization",
+      "artifact": {
+        "url": "https://openaccess.thecvf.com/content_cvpr_2018/papers/Li_Towards_Faster_Training_CVPR_2018_paper.pdf",
+        "bytes": 538128,
+        "sha256": "f72352788c1644a3c07a72a422b8d326f13485ad60ba30bab217b6c97a9733d3",
+        "status": "downloaded;not yet read"
+      },
+      "pages": 9,
+      "reading": "Pages3-4 only: forward/conditions/derivatives;remaining empirical figures/references not deep read"
+    }
+  ],
+  "own_control": "experiments/origin_detection/token_correlation_audit/audit_information_loss.py",
+  "limits": [
+    "Known information loss in feature bags does not demonstrate AI class signal",
+    "No author code/weights/training reproduced",
+    "Low-dimensional projection is not Tensor Sketch equivalence",
+    "No camera or JPEG invariance theorem"
+  ]
+}

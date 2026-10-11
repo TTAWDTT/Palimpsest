@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-06",
+  "source": {
+    "url": "https://openaccess.thecvf.com/content/CVPR2021/papers/Gong_MaxUp_Lightweight_Adversarial_Training_With_Data_Augmentation_Improves_Neural_Network_CVPR_2021_paper.pdf",
+    "sha256": "2150f9683669c1ecb353f87137a51a0da2b9d08b9ac06930d519b97760440de5",
+    "bytes": 370098,
+    "status": "fetched_not_full_read"
+  },
+  "title": "MaxUp: Lightweight Adversarial Training With Data Augmentation Improves Neural Network Training",
+  "reading_scope": "OriginalPDFpages1-3 abstract,Eq2-5,Algorithm1 andTheorem1 hypotheses/partialproof;notfullresults4,completeproof/refs/supplement",
+  "own_adaptation": "Entropy-smoothed worst loss across signed finite same-source real/encoded views for frozen linear readout",
+  "limitations": [
+    "Already known maximum-augmentation loss principle,not mathematical novelty",
+    "Finite real views need not be iid Gaussian perturbations;do not inherit paper smoothness theorem or guarantee unseen physical path",
+    "Known source groups only available in fitting,inferencepixel-only",
+    "Q70already exposedselection earlier;new fitQ70usesfit sources only;Q60notindependent source validation"
+  ]
+}

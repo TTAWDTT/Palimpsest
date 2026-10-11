@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-07",
+  "title": "Spectral Tail Auxiliary Learning for AI-Generated Image Detection",
+  "url": "https://arxiv.org/pdf/2605.22751v2",
+  "version": "v2 2026-10-01;v1 2026-05-21",
+  "sha256": "7a0332991bf3c45f0bb75ab765308f301cde5fa00d6f0c297b7a44c67f147c04",
+  "pages": 21,
+  "reading": "all pages text,formulas,tables,captions;visual rendered main8 and appendix20;other figures not fully visual audited",
+  "code_or_weights_executed": false,
+  "table_audit_sha256": "d122977d04c8b6d07f9c720d2624b1b7185d891cd8ffbad24aa42d82864eb798",
+  "table_controls_sha256": "fe05cf7366aa0db7d8ea9657a4101d024bae7caf25760d55b4f5efa8f9558c37",
+  "unresolved": [
+    "Table9 STAL ForenSynths13-entry mean92.56154 vsTable1 94.7",
+    "Table5 AIDE SynthWildx54.7 vsTable1 48.8",
+    "Subset/checkpoint definitions not reconciled",
+    "No paired physical recapture evidence in this paper",
+    "Absolute speed and pretraining overlap not verified"
+  ],
+  "scope": "Printed results and limited mechanism study;not model reproduction or accepted detection method"
+}

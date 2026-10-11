@@ -1,0 +1,82 @@
+{
+  "campaign": "71 split sources",
+  "register": "Transcription only",
+  "quote_source": "reports/04_\u7b97\u6cd5\u7814\u53d1/\u7b2c\u4e03\u5341\u4e00\u8f6e\u6765\u6e90\u5206\u62c6_\u7f5a\u9879\u6fc0\u6d3b\u4f46\u5224\u522b\u529b\u4e0b\u964d_2026-10-08.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/split_rate_score/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "label": "zero/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/zero/minimum_domain_ba')",
+      "quoted": "81.11"
+    },
+    {
+      "label": "zero/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/zero/minimum_scene_ba')",
+      "quoted": "91.25"
+    },
+    {
+      "label": "zero/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/zero/maximum_any_scene_drop')",
+      "quoted": "6.25"
+    },
+    {
+      "label": "selected/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/selected/minimum_domain_ba')",
+      "quoted": "81.11"
+    },
+    {
+      "label": "selected/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/selected/minimum_scene_ba')",
+      "quoted": "92.50"
+    },
+    {
+      "label": "selected/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/selected/maximum_any_scene_drop')",
+      "quoted": "5.00"
+    },
+    {
+      "label": "selected_wrong_source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/selected_wrong_source/minimum_domain_ba')",
+      "quoted": "81.11"
+    },
+    {
+      "label": "selected_wrong_source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/selected_wrong_source/minimum_scene_ba')",
+      "quoted": "92.50"
+    },
+    {
+      "label": "selected_wrong_source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/selected_wrong_source/maximum_any_scene_drop')",
+      "quoted": "5.00"
+    },
+    {
+      "label": "selected_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/selected_null/minimum_domain_ba')",
+      "quoted": "50.42"
+    },
+    {
+      "label": "selected_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/selected_null/minimum_scene_ba')",
+      "quoted": "45.00"
+    },
+    {
+      "label": "selected_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/selected_null/maximum_any_scene_drop')",
+      "quoted": "10.00"
+    },
+    {
+      "label": "cv_elapsed_s",
+      "expr": "f('i','/cv_elapsed_s')",
+      "quoted": "214.049"
+    },
+    {
+      "label": "elapsed_s",
+      "expr": "f('i','/elapsed_s')",
+      "quoted": "100.191"
+    }
+  ]
+}

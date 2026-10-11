@@ -1,0 +1,503 @@
+{
+  "campaign": "Palimpsest fourth phase development iteration, 2026-10-05",
+  "register": "Selected numerical claims only; no science or independence certification",
+  "quote_source": "reports/04_算法研发/第四轮闭合相位与多原型_有限不变性未形成判别力_2026-10-05.md",
+  "receipts": {
+    "f": {
+      "path": "../../work/robust_statistics/joint_phase_statistics/features.json"
+    },
+    "i": {
+      "path": "../../work/robust_statistics/joint_phase_statistics/iteration.json"
+    },
+    "b": {
+      "path": "../../work/robust_statistics/joint_phase_statistics/benchmark.json"
+    },
+    "c": {
+      "path": "../../work/robust_statistics/joint_ordinal_statistics/baseline_comparison.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "data",
+      "label": "images",
+      "quoted": "6300",
+      "expr": "f('f','/images')",
+      "mode": "exact"
+    },
+    {
+      "section": "data",
+      "label": "records",
+      "quoted": "12600",
+      "expr": "f('f','/records')",
+      "mode": "exact"
+    },
+    {
+      "section": "data",
+      "label": "elapsed_s",
+      "quoted": "196.73",
+      "expr": "f('f','/elapsed_s')"
+    },
+    {
+      "section": "linear/rr",
+      "label": "original auc",
+      "quoted": "0.4817",
+      "expr": "f('i','/candidates/linear/selection_aggregate/rr/conditions/original/auc')"
+    },
+    {
+      "section": "linear/rr",
+      "label": "original balanced_accuracy_at_zero",
+      "quoted": "47.22",
+      "expr": "100*f('i','/candidates/linear/selection_aggregate/rr/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "linear/rr",
+      "label": "original real_accuracy_at_zero",
+      "quoted": "15.56",
+      "expr": "100*f('i','/candidates/linear/selection_aggregate/rr/conditions/original/real_accuracy_at_zero')"
+    },
+    {
+      "section": "linear/rr",
+      "label": "original fake_accuracy_at_zero",
+      "quoted": "78.89",
+      "expr": "100*f('i','/candidates/linear/selection_aggregate/rr/conditions/original/fake_accuracy_at_zero')"
+    },
+    {
+      "section": "linear/rr",
+      "label": "transfer auc",
+      "quoted": "0.4286",
+      "expr": "f('i','/candidates/linear/selection_aggregate/rr/conditions/transfer/auc')"
+    },
+    {
+      "section": "linear/rr",
+      "label": "transfer balanced_accuracy_at_zero",
+      "quoted": "46.11",
+      "expr": "100*f('i','/candidates/linear/selection_aggregate/rr/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "linear/rr",
+      "label": "transfer real_accuracy_at_zero",
+      "quoted": "16.67",
+      "expr": "100*f('i','/candidates/linear/selection_aggregate/rr/conditions/transfer/real_accuracy_at_zero')"
+    },
+    {
+      "section": "linear/rr",
+      "label": "transfer fake_accuracy_at_zero",
+      "quoted": "75.56",
+      "expr": "100*f('i','/candidates/linear/selection_aggregate/rr/conditions/transfer/fake_accuracy_at_zero')"
+    },
+    {
+      "section": "linear/rr",
+      "label": "redigital auc",
+      "quoted": "0.4911",
+      "expr": "f('i','/candidates/linear/selection_aggregate/rr/conditions/redigital/auc')"
+    },
+    {
+      "section": "linear/rr",
+      "label": "redigital balanced_accuracy_at_zero",
+      "quoted": "48.89",
+      "expr": "100*f('i','/candidates/linear/selection_aggregate/rr/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "linear/rr",
+      "label": "redigital real_accuracy_at_zero",
+      "quoted": "20.00",
+      "expr": "100*f('i','/candidates/linear/selection_aggregate/rr/conditions/redigital/real_accuracy_at_zero')"
+    },
+    {
+      "section": "linear/rr",
+      "label": "redigital fake_accuracy_at_zero",
+      "quoted": "77.78",
+      "expr": "100*f('i','/candidates/linear/selection_aggregate/rr/conditions/redigital/fake_accuracy_at_zero')"
+    },
+    {
+      "section": "linear/chimera",
+      "label": "original auc",
+      "quoted": "0.4809",
+      "expr": "f('i','/candidates/linear/selection_aggregate/chimera/conditions/original/auc')"
+    },
+    {
+      "section": "linear/chimera",
+      "label": "original balanced_accuracy_at_zero",
+      "quoted": "46.67",
+      "expr": "100*f('i','/candidates/linear/selection_aggregate/chimera/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "linear/chimera",
+      "label": "original real_accuracy_at_zero",
+      "quoted": "13.33",
+      "expr": "100*f('i','/candidates/linear/selection_aggregate/chimera/conditions/original/real_accuracy_at_zero')"
+    },
+    {
+      "section": "linear/chimera",
+      "label": "original fake_accuracy_at_zero",
+      "quoted": "80.00",
+      "expr": "100*f('i','/candidates/linear/selection_aggregate/chimera/conditions/original/fake_accuracy_at_zero')"
+    },
+    {
+      "section": "linear/chimera",
+      "label": "mac_iphone auc",
+      "quoted": "0.6063",
+      "expr": "f('i','/candidates/linear/selection_aggregate/chimera/conditions/mac_iphone/auc')"
+    },
+    {
+      "section": "linear/chimera",
+      "label": "mac_iphone balanced_accuracy_at_zero",
+      "quoted": "53.33",
+      "expr": "100*f('i','/candidates/linear/selection_aggregate/chimera/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "linear/chimera",
+      "label": "mac_iphone real_accuracy_at_zero",
+      "quoted": "10.83",
+      "expr": "100*f('i','/candidates/linear/selection_aggregate/chimera/conditions/mac_iphone/real_accuracy_at_zero')"
+    },
+    {
+      "section": "linear/chimera",
+      "label": "mac_iphone fake_accuracy_at_zero",
+      "quoted": "95.83",
+      "expr": "100*f('i','/candidates/linear/selection_aggregate/chimera/conditions/mac_iphone/fake_accuracy_at_zero')"
+    },
+    {
+      "section": "linear/chimera",
+      "label": "lg_blackfly auc",
+      "quoted": "0.5322",
+      "expr": "f('i','/candidates/linear/selection_aggregate/chimera/conditions/lg_blackfly/auc')"
+    },
+    {
+      "section": "linear/chimera",
+      "label": "lg_blackfly balanced_accuracy_at_zero",
+      "quoted": "52.50",
+      "expr": "100*f('i','/candidates/linear/selection_aggregate/chimera/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "linear/chimera",
+      "label": "lg_blackfly real_accuracy_at_zero",
+      "quoted": "13.33",
+      "expr": "100*f('i','/candidates/linear/selection_aggregate/chimera/conditions/lg_blackfly/real_accuracy_at_zero')"
+    },
+    {
+      "section": "linear/chimera",
+      "label": "lg_blackfly fake_accuracy_at_zero",
+      "quoted": "91.67",
+      "expr": "100*f('i','/candidates/linear/selection_aggregate/chimera/conditions/lg_blackfly/fake_accuracy_at_zero')"
+    },
+    {
+      "section": "nearest_prototype/rr",
+      "label": "original auc",
+      "quoted": "0.4983",
+      "expr": "f('i','/candidates/nearest_prototype/selection_aggregate/rr/conditions/original/auc')"
+    },
+    {
+      "section": "nearest_prototype/rr",
+      "label": "original balanced_accuracy_at_zero",
+      "quoted": "49.44",
+      "expr": "100*f('i','/candidates/nearest_prototype/selection_aggregate/rr/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "nearest_prototype/rr",
+      "label": "original real_accuracy_at_zero",
+      "quoted": "25.56",
+      "expr": "100*f('i','/candidates/nearest_prototype/selection_aggregate/rr/conditions/original/real_accuracy_at_zero')"
+    },
+    {
+      "section": "nearest_prototype/rr",
+      "label": "original fake_accuracy_at_zero",
+      "quoted": "73.33",
+      "expr": "100*f('i','/candidates/nearest_prototype/selection_aggregate/rr/conditions/original/fake_accuracy_at_zero')"
+    },
+    {
+      "section": "nearest_prototype/rr",
+      "label": "transfer auc",
+      "quoted": "0.4821",
+      "expr": "f('i','/candidates/nearest_prototype/selection_aggregate/rr/conditions/transfer/auc')"
+    },
+    {
+      "section": "nearest_prototype/rr",
+      "label": "transfer balanced_accuracy_at_zero",
+      "quoted": "47.78",
+      "expr": "100*f('i','/candidates/nearest_prototype/selection_aggregate/rr/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "nearest_prototype/rr",
+      "label": "transfer real_accuracy_at_zero",
+      "quoted": "26.67",
+      "expr": "100*f('i','/candidates/nearest_prototype/selection_aggregate/rr/conditions/transfer/real_accuracy_at_zero')"
+    },
+    {
+      "section": "nearest_prototype/rr",
+      "label": "transfer fake_accuracy_at_zero",
+      "quoted": "68.89",
+      "expr": "100*f('i','/candidates/nearest_prototype/selection_aggregate/rr/conditions/transfer/fake_accuracy_at_zero')"
+    },
+    {
+      "section": "nearest_prototype/rr",
+      "label": "redigital auc",
+      "quoted": "0.4775",
+      "expr": "f('i','/candidates/nearest_prototype/selection_aggregate/rr/conditions/redigital/auc')"
+    },
+    {
+      "section": "nearest_prototype/rr",
+      "label": "redigital balanced_accuracy_at_zero",
+      "quoted": "51.11",
+      "expr": "100*f('i','/candidates/nearest_prototype/selection_aggregate/rr/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "nearest_prototype/rr",
+      "label": "redigital real_accuracy_at_zero",
+      "quoted": "31.11",
+      "expr": "100*f('i','/candidates/nearest_prototype/selection_aggregate/rr/conditions/redigital/real_accuracy_at_zero')"
+    },
+    {
+      "section": "nearest_prototype/rr",
+      "label": "redigital fake_accuracy_at_zero",
+      "quoted": "71.11",
+      "expr": "100*f('i','/candidates/nearest_prototype/selection_aggregate/rr/conditions/redigital/fake_accuracy_at_zero')"
+    },
+    {
+      "section": "nearest_prototype/chimera",
+      "label": "original auc",
+      "quoted": "0.5008",
+      "expr": "f('i','/candidates/nearest_prototype/selection_aggregate/chimera/conditions/original/auc')"
+    },
+    {
+      "section": "nearest_prototype/chimera",
+      "label": "original balanced_accuracy_at_zero",
+      "quoted": "51.67",
+      "expr": "100*f('i','/candidates/nearest_prototype/selection_aggregate/chimera/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "nearest_prototype/chimera",
+      "label": "original real_accuracy_at_zero",
+      "quoted": "25.00",
+      "expr": "100*f('i','/candidates/nearest_prototype/selection_aggregate/chimera/conditions/original/real_accuracy_at_zero')"
+    },
+    {
+      "section": "nearest_prototype/chimera",
+      "label": "original fake_accuracy_at_zero",
+      "quoted": "78.33",
+      "expr": "100*f('i','/candidates/nearest_prototype/selection_aggregate/chimera/conditions/original/fake_accuracy_at_zero')"
+    },
+    {
+      "section": "nearest_prototype/chimera",
+      "label": "mac_iphone auc",
+      "quoted": "0.5584",
+      "expr": "f('i','/candidates/nearest_prototype/selection_aggregate/chimera/conditions/mac_iphone/auc')"
+    },
+    {
+      "section": "nearest_prototype/chimera",
+      "label": "mac_iphone balanced_accuracy_at_zero",
+      "quoted": "53.33",
+      "expr": "100*f('i','/candidates/nearest_prototype/selection_aggregate/chimera/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "nearest_prototype/chimera",
+      "label": "mac_iphone real_accuracy_at_zero",
+      "quoted": "26.67",
+      "expr": "100*f('i','/candidates/nearest_prototype/selection_aggregate/chimera/conditions/mac_iphone/real_accuracy_at_zero')"
+    },
+    {
+      "section": "nearest_prototype/chimera",
+      "label": "mac_iphone fake_accuracy_at_zero",
+      "quoted": "80.00",
+      "expr": "100*f('i','/candidates/nearest_prototype/selection_aggregate/chimera/conditions/mac_iphone/fake_accuracy_at_zero')"
+    },
+    {
+      "section": "nearest_prototype/chimera",
+      "label": "lg_blackfly auc",
+      "quoted": "0.5503",
+      "expr": "f('i','/candidates/nearest_prototype/selection_aggregate/chimera/conditions/lg_blackfly/auc')"
+    },
+    {
+      "section": "nearest_prototype/chimera",
+      "label": "lg_blackfly balanced_accuracy_at_zero",
+      "quoted": "54.17",
+      "expr": "100*f('i','/candidates/nearest_prototype/selection_aggregate/chimera/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "nearest_prototype/chimera",
+      "label": "lg_blackfly real_accuracy_at_zero",
+      "quoted": "34.17",
+      "expr": "100*f('i','/candidates/nearest_prototype/selection_aggregate/chimera/conditions/lg_blackfly/real_accuracy_at_zero')"
+    },
+    {
+      "section": "nearest_prototype/chimera",
+      "label": "lg_blackfly fake_accuracy_at_zero",
+      "quoted": "74.17",
+      "expr": "100*f('i','/candidates/nearest_prototype/selection_aggregate/chimera/conditions/lg_blackfly/fake_accuracy_at_zero')"
+    },
+    {
+      "section": "rr",
+      "label": "B-Free original",
+      "quoted": "85.00",
+      "expr": "100*f('c','/domains/rr/methods/B-Free/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "rr",
+      "label": "B-Free transfer",
+      "quoted": "75.00",
+      "expr": "100*f('c','/domains/rr/methods/B-Free/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "rr",
+      "label": "B-Free redigital",
+      "quoted": "64.44",
+      "expr": "100*f('c','/domains/rr/methods/B-Free/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "chimera",
+      "label": "B-Free original",
+      "quoted": "76.25",
+      "expr": "100*f('c','/domains/chimera/methods/B-Free/conditions/original/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "chimera",
+      "label": "B-Free mac_iphone",
+      "quoted": "58.33",
+      "expr": "100*f('c','/domains/chimera/methods/B-Free/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "chimera",
+      "label": "B-Free lg_blackfly",
+      "quoted": "70.00",
+      "expr": "100*f('c','/domains/chimera/methods/B-Free/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "rr",
+      "label": "JPEG transfer",
+      "quoted": "50.56",
+      "expr": "100*f('i','/candidates/nearest_prototype/recompression_aggregate/rr/conditions/transfer/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "rr",
+      "label": "JPEG redigital",
+      "quoted": "51.11",
+      "expr": "100*f('i','/candidates/nearest_prototype/recompression_aggregate/rr/conditions/redigital/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "chimera",
+      "label": "JPEG mac_iphone",
+      "quoted": "51.25",
+      "expr": "100*f('i','/candidates/nearest_prototype/recompression_aggregate/chimera/conditions/mac_iphone/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "chimera",
+      "label": "JPEG lg_blackfly",
+      "quoted": "49.58",
+      "expr": "100*f('i','/candidates/nearest_prototype/recompression_aggregate/chimera/conditions/lg_blackfly/balanced_accuracy_at_zero')"
+    },
+    {
+      "section": "linear",
+      "label": "at_most_2MPpredict_msp50",
+      "quoted": "7.57",
+      "expr": "f('b','/methods/linear/summaries/at_most_2MP/predict_ms/p50')"
+    },
+    {
+      "section": "linear",
+      "label": "at_most_2MPpredict_msp95",
+      "quoted": "12.34",
+      "expr": "f('b','/methods/linear/summaries/at_most_2MP/predict_ms/p95')"
+    },
+    {
+      "section": "linear",
+      "label": "at_most_2MPend_to_end_msp50",
+      "quoted": "13.60",
+      "expr": "f('b','/methods/linear/summaries/at_most_2MP/end_to_end_ms/p50')"
+    },
+    {
+      "section": "linear",
+      "label": "at_most_2MPend_to_end_msp95",
+      "quoted": "32.51",
+      "expr": "f('b','/methods/linear/summaries/at_most_2MP/end_to_end_ms/p95')"
+    },
+    {
+      "section": "nearest_prototype",
+      "label": "at_most_2MPpredict_msp50",
+      "quoted": "7.38",
+      "expr": "f('b','/methods/nearest_prototype/summaries/at_most_2MP/predict_ms/p50')"
+    },
+    {
+      "section": "nearest_prototype",
+      "label": "at_most_2MPpredict_msp95",
+      "quoted": "11.37",
+      "expr": "f('b','/methods/nearest_prototype/summaries/at_most_2MP/predict_ms/p95')"
+    },
+    {
+      "section": "nearest_prototype",
+      "label": "at_most_2MPend_to_end_msp50",
+      "quoted": "13.67",
+      "expr": "f('b','/methods/nearest_prototype/summaries/at_most_2MP/end_to_end_ms/p50')"
+    },
+    {
+      "section": "nearest_prototype",
+      "label": "at_most_2MPend_to_end_msp95",
+      "quoted": "24.99",
+      "expr": "f('b','/methods/nearest_prototype/summaries/at_most_2MP/end_to_end_ms/p95')"
+    },
+    {
+      "section": "nearest_prototype",
+      "label": "allpredict_msp50",
+      "quoted": "7.69",
+      "expr": "f('b','/methods/nearest_prototype/summaries/all/predict_ms/p50')"
+    },
+    {
+      "section": "nearest_prototype",
+      "label": "allpredict_msp95",
+      "quoted": "11.92",
+      "expr": "f('b','/methods/nearest_prototype/summaries/all/predict_ms/p95')"
+    },
+    {
+      "section": "nearest_prototype",
+      "label": "allend_to_end_msp50",
+      "quoted": "13.75",
+      "expr": "f('b','/methods/nearest_prototype/summaries/all/end_to_end_ms/p50')"
+    },
+    {
+      "section": "nearest_prototype",
+      "label": "allend_to_end_msp95",
+      "quoted": "28.40",
+      "expr": "f('b','/methods/nearest_prototype/summaries/all/end_to_end_ms/p95')"
+    },
+    {
+      "section": "benchmark",
+      "label": "allimages",
+      "quoted": "60",
+      "expr": "f('b','/methods/nearest_prototype/summaries/all/images')",
+      "mode": "exact"
+    },
+    {
+      "section": "benchmark",
+      "label": "allmeasurements",
+      "quoted": "180",
+      "expr": "f('b','/methods/nearest_prototype/summaries/all/measurements')",
+      "mode": "exact"
+    },
+    {
+      "section": "benchmark",
+      "label": "at_most_2MPimages",
+      "quoted": "57",
+      "expr": "f('b','/methods/nearest_prototype/summaries/at_most_2MP/images')",
+      "mode": "exact"
+    },
+    {
+      "section": "benchmark",
+      "label": "at_most_2MPmeasurements",
+      "quoted": "171",
+      "expr": "f('b','/methods/nearest_prototype/summaries/at_most_2MP/measurements')",
+      "mode": "exact"
+    },
+    {
+      "section": "benchmark",
+      "label": "above_2MPimages",
+      "quoted": "3",
+      "expr": "f('b','/methods/nearest_prototype/summaries/above_2MP/images')",
+      "mode": "exact"
+    },
+    {
+      "section": "benchmark",
+      "label": "above_2MPmeasurements",
+      "quoted": "9",
+      "expr": "f('b','/methods/nearest_prototype/summaries/above_2MP/measurements')",
+      "mode": "exact"
+    }
+  ]
+}

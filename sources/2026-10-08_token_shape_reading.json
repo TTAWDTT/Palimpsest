@@ -1,0 +1,18 @@
+{
+  "title": "Sliced Wasserstein Kernels for Probability Distributions",
+  "cvf_primary": "https://openaccess.thecvf.com/content_cvpr_2016/papers/Kolouri_Sliced_Wasserstein_Kernels_CVPR_2016_paper.pdf",
+  "cvf_fetch": "403 viaweb reader",
+  "fallback_primary": "https://arxiv.org/pdf/1511.03198",
+  "observed_version": "1511.03198v1,10pages",
+  "reading_scope": "Targeted extracted PDF text:abstract,2.1/2.2,3 beginning;not full paper,allproofs/code/experiments orvisual fullpageverification",
+  "proximity": "Priorprojection/1Ddistribution representation idea;not source detection orcamera invariance evidence",
+  "own_candidate": "32 fixed directions,10 linear empiricalquantiles,percolumnmedian/MAD withRMSfallback;320coordinates plusold3600",
+  "limits": [
+    "Finite directions andlevels are not continuousSW distance orinjective distribution representation",
+    "Empirical atomic bags do not automatically inherit printed positivecontinuous-density hypotheses",
+    "Normalization discardslocation/scale andextremequantiles maychange withsmall contamination",
+    "Token bag properties do not establishimagechannel invariance orAI separability"
+  ],
+  "prototype_report": "reports/04_算法研发/投影分位数接入小试_旧特征不变且分类尚待评测_2026-10-08.md",
+  "status": "Engineering240query pilot complete;full numeric extraction underway;no newclassifier acceptance"
+}

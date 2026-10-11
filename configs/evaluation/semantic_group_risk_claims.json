@@ -1,0 +1,120 @@
+{
+  "campaign": "Iteration37 semantic group risk",
+  "register": "Selected transcription only",
+  "quote_source": "reports/04_算法研发/第三十七轮语义组风险_局部改善未保持整体判别_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/semantic_group_risk/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/mean/minimum_domain_ba')",
+      "quoted": "82.78"
+    },
+    {
+      "section": "table",
+      "label": "mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/mean/minimum_scene_ba')",
+      "quoted": "78.75"
+    },
+    {
+      "section": "table",
+      "label": "mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/mean/maximum_any_scene_drop')",
+      "quoted": "13.75"
+    },
+    {
+      "section": "table",
+      "label": "group/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/group/minimum_domain_ba')",
+      "quoted": "82.78"
+    },
+    {
+      "section": "table",
+      "label": "group/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/group/minimum_scene_ba')",
+      "quoted": "81.25"
+    },
+    {
+      "section": "table",
+      "label": "group/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/group/maximum_any_scene_drop')",
+      "quoted": "8.75"
+    },
+    {
+      "section": "table",
+      "label": "pair/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/pair/minimum_domain_ba')",
+      "quoted": "81.67"
+    },
+    {
+      "section": "table",
+      "label": "pair/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/pair/minimum_scene_ba')",
+      "quoted": "83.75"
+    },
+    {
+      "section": "table",
+      "label": "pair/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/pair/maximum_any_scene_drop')",
+      "quoted": "8.75"
+    },
+    {
+      "section": "table",
+      "label": "both/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/both/minimum_domain_ba')",
+      "quoted": "82.22"
+    },
+    {
+      "section": "table",
+      "label": "both/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/both/minimum_scene_ba')",
+      "quoted": "85.00"
+    },
+    {
+      "section": "table",
+      "label": "both/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/both/maximum_any_scene_drop')",
+      "quoted": "11.25"
+    },
+    {
+      "section": "table",
+      "label": "wrong_pair_both/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/wrong_pair_both/minimum_domain_ba')",
+      "quoted": "80.56"
+    },
+    {
+      "section": "table",
+      "label": "wrong_pair_both/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/wrong_pair_both/minimum_scene_ba')",
+      "quoted": "81.25"
+    },
+    {
+      "section": "table",
+      "label": "wrong_pair_both/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/wrong_pair_both/maximum_any_scene_drop')",
+      "quoted": "13.75"
+    },
+    {
+      "section": "table",
+      "label": "balanced_null_both/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/balanced_null_both/minimum_domain_ba')",
+      "quoted": "47.78"
+    },
+    {
+      "section": "table",
+      "label": "balanced_null_both/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/balanced_null_both/minimum_scene_ba')",
+      "quoted": "47.50"
+    },
+    {
+      "section": "table",
+      "label": "balanced_null_both/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/balanced_null_both/maximum_any_scene_drop')",
+      "quoted": "13.75"
+    }
+  ]
+}

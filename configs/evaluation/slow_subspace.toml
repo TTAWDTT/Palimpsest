@@ -1,0 +1,13 @@
+seed = 20261006
+dimension = 64
+eigen_floor = 0.000001
+representations = ['pca','slow','protected_slow']
+objectives = ['mean','source']
+ridge = 0.01
+scale_floor = 0.001
+source_temperature = 0.1
+maximum_iterations = 500
+gradient_tolerance = 0.00001
+provisional_final_ba = 0.80
+provisional_final_drop = 0.02
+bootstrap_repetitions = 2000

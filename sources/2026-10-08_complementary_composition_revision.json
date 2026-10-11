@@ -1,0 +1,35 @@
+{
+  "before_git": "e69647515f61dd2c4656acc7b962f1c580d2b895",
+  "changes": {
+    "src/palimpsest/detection/algorithms/quantile_score_consistency.py": {
+      "before": "189e465659992748f5ed48a9e5b8b2d6380aff28a412286e9ebfbeeec8031b4a",
+      "after": "f0cfaeeb34197a182092848205148516ad637d6fdcb45a77560b9d0c2225e7e1"
+    },
+    "src/palimpsest/detection/algorithms/split_rate_score.py": {
+      "before": "884afc864b2eed8bf476f274a8fd9f6d806dbea18965d3592ae584d8daa1cc20",
+      "after": "09318e0390f687656da91a8180df3ee2481255d177f6237633d98f50de226a70"
+    },
+    "src/palimpsest/evaluation/calibrated_readout_campaign.py": {
+      "before": "a8985f6fe77cbc530a669608a044715a0c27527f6a77be947cfe98a7c1719a5d",
+      "after": "5363043a0842eeb29a42f83fd654b20324ee81755ebcf29bf263c8f562a7743b"
+    },
+    "src/palimpsest/evaluation/panel_readout_campaign.py": {
+      "before": "fc5d74f43a7435fbadb0ca86eae3af3e1123fd46ecd0600b897f0072f5832030",
+      "after": "f4e21bfd75f4cd589e7ebbe4f01c3b702fd235955678463c78f821b78f827404"
+    },
+    "tools/audit_typed_source_panel_cv.py": {
+      "before": "5049a60184f06237c188a5ea8af9be45dd10bfed0ce9b7eda5344d81244fa14d",
+      "after": "a7455dd160da32d6f5a314f0ddec54de5abcfa8ab68a8ce4b95b67525e723254"
+    },
+    "tests/evaluation/test_split_readout_audit.py": {
+      "before": "1736b33293053f9cf70aac19a1aed932ee5d28a3e29a2ece96ac63342652ba6c",
+      "after": "fc1cef7dcc882854bd16da759ab66c0ffc8da42e1d69dde68b1a15173193b428"
+    }
+  },
+  "shared_changes": "Quantile payload composition;explicit bank budgetsdefault12/1,new24/2;explicitcomplementFALSEoldbehavior;typednewensemblemember schema",
+  "old_actual_rule_byte_roundtrip": true,
+  "old_rule_sha256": "94af3a5ff6f84053a663a4c7eae309b3d62fb53a202d370efd1521371d034e92",
+  "roundtrip_sha256": "94af3a5ff6f84053a663a4c7eae309b3d62fb53a202d370efd1521371d034e92",
+  "old_scientific_receipts_unchanged": true,
+  "scope": "Serialization/software source revision;not a rerun,accuracyor scientific independence"
+}

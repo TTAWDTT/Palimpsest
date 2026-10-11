@@ -1,0 +1,134 @@
+{
+  "title": "Dissect and Prune: Enhancing Robustness in AI-Generated Image Detection",
+  "authors": [
+    "Dahye Kim",
+    "Jaehyun Choi",
+    "Hyun Seok Seong",
+    "Seongho Kim",
+    "Donghun Lee",
+    "Sungwon Yi",
+    "Jang-Ho Choi"
+  ],
+  "venue": "ICML2026/PMLR306",
+  "pages": "57385-57410",
+  "primary_url": "https://proceedings.mlr.press/v306/kim26k.html",
+  "pdf": {
+    "url": "https://raw.githubusercontent.com/mlresearch/v306/main/assets/kim26k/kim26k.pdf",
+    "bytes": 8262342,
+    "sha256": "d5d27343546e7cec61eb62196ecf78390ba4332ff2522c7e13b0ad55261033cd"
+  },
+  "proximity": "P3 same question:blind AI detection after processing",
+  "reading": {
+    "main": "PDF1-8 read;Table1PDF7 rendered and inspected",
+    "appendix": "PDF12-23 mechanism,limitations,implementation,eval andadditional results read;PDF24-26text/captionsread,curvesnot digitized",
+    "references": "PDF9 and12read;10-11notdeep-read;secondaryworksnotcreditedasprimaryevidence",
+    "method_locators": [
+      "Sec3Eq3;AppEEq9",
+      "PDF18Table9",
+      "PDF19inference",
+      "PDF7Table1"
+    ],
+    "code": "Pinned inference,preprocessing generation,shellrecipe,gated detector,completeResNet andtrainingtransformsread;bucketedinferencefirst160linesread,nottrainingpipelineexecution"
+  },
+  "code_commit": "5e0dc665eee24b632c03be09a27a05319abc9e7f",
+  "archive_receipt": {
+    "url": "https://api.github.com/repos/anti-fake/dear/tarball/5e0dc665eee24b632c03be09a27a05319abc9e7f",
+    "commit": "5e0dc665eee24b632c03be09a27a05319abc9e7f",
+    "bytes": 2594432,
+    "sha256": "0c645c3d120aaf7335f458c52bbe24f93cb7bc312ffcdbe09f7adbd3b971fa65"
+  },
+  "code_sha256": {
+    "code/README.md": "23e68f256d7deeeb10df46cc3922ee0ba2bf3d19a99f6d570dfa989957e83959",
+    "code/setup.py": "3e1c778d906314173954776b6982262158c5f0f268613f79ef889ad42d908fbb",
+    "code/configs/corvi.yaml": "e7063efbfadf4ba25fc7594588f949b201510b32872f4b0ae31be3ed1f0555f7",
+    "code/configs/corvi_mask_gated.yaml": "12faf221046c1c59fa1590b54c5f37b1fbe1af23fe7a734265a14376fff01ffa",
+    "code/configs/rajan.yaml": "2225552869914127b07bf4c2636287d054a47fdfd69b0ef3cc7ed1acfbfff159",
+    "code/configs/rajan_mask_gated.yaml": "4a5342938d7c78a9d77ce4d4439eec6cd3c2443c5203631a486bb68c1f21facd",
+    "code/dear/utils.py": "4c252160310764ec8fb9a2f0bafb7806fe4d9fd28609ed9a410d6920bdb352fb",
+    "code/dear/__init__.py": "2be119237c58de4acf69d305f60059bb3066da35df6d40d36fb4ed8609bb021b",
+    "code/docs/DATASET.md": "a190ecab8b16f48be7805eeceebc2a64ebe8cee3a2da44d5251e3c31c3056a56",
+    "code/pipelines/corvi.py": "394dd34f723d852ec1c92227c4296ec17d52ed2aa9a6b6fc30f72edeee56a2cb",
+    "code/pipelines/corvi_mask_gated.py": "320732296d027a2ba0b4b02682409c43a0d15a4a3394756b94f2f5eb28f20a7c",
+    "code/pipelines/rajan.py": "a4e34df03e54c212f7e87debcd705898ab75c86cea5f52389ee7b315451c8a94",
+    "code/pipelines/rajan_mask_gated.py": "71682931797821c836fb20972349e706269cc7c28bfeb24982d4fe654ddd0b0c",
+    "code/pipelines/utils.py": "6649437651632872540121e4687ff2938858604db88806d8dee68385b0d7e7f0",
+    "code/pipelines/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "code/scripts/analyze_results.py": "792e037e42ffb3e4f08026ff06bfa0e6adc2bab684ff44a62f4704e35767dff8",
+    "code/scripts/bucketed_inference.py": "b77d6644660eb12c44e00f8e2c1987acb780cf9141db214d48cd0d5ff126d174",
+    "code/scripts/eval.py": "f78913ef9340a2a43630453eac0ac2f7858f6135bf1fe9cf362702534287b4c1",
+    "code/scripts/inference.py": "47387af4f11621bee90df77ec5448cb70ede60735eb4bfb0579dd328c3969ab7",
+    "code/dear/dataset/corvi_dataset.py": "ef23505fca0e5421301482b2c3862e3017813e7e5aa506bd75133773055553c1",
+    "code/dear/dataset/folder_dataset.py": "cbabe33c5a324e30968d169c254c034ad01cfe0bfe92a00cda92021fe459b3df",
+    "code/dear/dataset/inpaint_dataset.py": "414abddc67703a9aeb435143395f9f6d622fd3300df57914597934b1ae8dc214",
+    "code/dear/dataset/rajan_dataset.py": "55cb31b839e3678c67e49d1dac4e9b7e6b80a99bc8177c753004ea42fb1493ec",
+    "code/dear/dataset/transforms.py": "3834637515456f4070349dc64c6c9bf2fce7c3f0bdaad7edb23f0f5f90d33ed2",
+    "code/dear/dataset/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "code/dear/detector/corvi_detector.py": "de6e57f8108ec10ece24784a56d91020e06d96f6d2f5d940646452159c3d92f0",
+    "code/dear/detector/corvi_mask_gated_detector.py": "1709c66d292d5d826c0547f42aaf615109e055192d1b678b2e5150b3b1c6065c",
+    "code/dear/detector/rajan_detector.py": "64802f5e67143c662c3d82e59bd0b6dccba7839c1b70780adce740975874b8e9",
+    "code/dear/detector/rajan_mask_gated_detector.py": "ef5d52dbc0a647753d342b6c19d6f876de700b183db08960a4536804bdf78bd8",
+    "code/dear/detector/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "code/dear/nn_classifier/resnet.py": "dfa3616d0a38ec1da3b88c731f700b6494d811028a8c7c018b51c63557bdec53",
+    "code/dear/nn_classifier/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "code/scripts/inpaint_data_gen/gen_inpaint_data.py": "5409e065048940b773ddd95f46c8981177ab5ff0349ed607c2725c443acd2978",
+    "code/scripts/inpaint_data_gen/gen_mask.py": "af216005fa624afe50ab63f16a8c925fd14969829385c4315e1d424844ddc01c",
+    "code/scripts/processed_data_gen/process_test_data.py": "2966d3d001abc28a234670b852ff200907f4f908cbd3d5bf58c60a2e95c16b4f"
+  },
+  "diagnostic_dataset_metadata": {
+    "revision": "557a647a98263d8eb18b62cc047a6c019a6e02a3",
+    "gated": false,
+    "images_tar_bytes": 8758937600,
+    "mask_tar_bytes": 95897600,
+    "downloaded_bytes": 0
+  },
+  "weight_receipt": {
+    "url": "https://huggingface.co/k-aisi-anti-deepfake/dear-checkpoints/resolve/5b57350b0ee75553109b3844f3c8a9341fc7e707/dear_r/model_best.pth",
+    "bytes": 94372114,
+    "sha256": "430fde11debe1850ab24af43945b4d68f2bb3ee52a837d84cf525eb603ccde97",
+    "elapsed_s": 28.65401309999288,
+    "license": "CC BY-NC 4.0 and declared OpenRAIL-M use restrictions",
+    "pixels_inferred": "1260 selection images x4 encodings completed; plus execution controls and cost pilots separately recorded",
+    "pixels_inferred_history": [
+      0
+    ]
+  },
+  "author_results_not_ours": {
+    "dear_r_table1_original_real": 0.974,
+    "original_fake": 0.992,
+    "processed_real": 0.951,
+    "processed_fake": 0.895,
+    "derived_original_ba": 0.983,
+    "derived_processed_ba": 0.923,
+    "derived_average_drop_pp": 6.0,
+    "scope": "Derived arithmetic ofauthoraverages,not our paired sources or real screen evidence"
+  },
+  "code_paper_cautions": [
+    "Maintextsyntheticprocessing wording doesnot establishreal unchanged;publishedshellalso processesRedCapsreal",
+    "PublishedshellonlyRedCapsreal path;wildreal subsetsnot explicitlycovered",
+    "Nativeinference,noresize/crop,batch1differsbucketed throughput",
+    "AuthorREADMEroundedDEARcRAcc76.5vsPDFTable1visual76.4;usePDFvalue",
+    "RADwithinimagegeneratedmaskalignment isnot equivalentto globalCLIP class direction or matchedvariance"
+  ],
+  "licensing": {
+    "code": "MIT with Apache2.0 ResNetcomponent",
+    "weights": "CC BY-NC4.0 anddeclaredSD1.5OpenRAIL-Mrestrictions",
+    "weights_license_sha256": "87fc3de9022859e06308558200b0006e2e2a440d8791e1fa9b55a3d8fd5e3ca3",
+    "weight_notice_sha256": "01fe0e7c91f87a9178e5082f8255a798559caa94e6b1f1b0b45f393f7b6b875a"
+  },
+  "own_inference": "Spatialforensiccue attribution maycomplementglobalrepresentations;neitherauthorneuralresultsnor pruning giveguaranteed physicalinvariance",
+  "experiment": "experiments/origin_detection/dear_baseline/README.md",
+  "status": "Completed fixed tiled DEAR-r: 1260 images, 5040 records, no fitting; minimum domain BA46.67%, worst drop42.78pp; not adopted",
+  "status_history": [
+    "OneofficialDEAR-rnativecostpilotrunning;no accuracyclaim",
+    "Native cost pilot CUDA OOM;explicit tiled execution synthetic and12real parity passed;60image tiled pilot active"
+  ],
+  "execution_receipts": [
+    "work/robust_statistics/dear_baseline_pilot/failed_native_pilot.json",
+    "work/robust_statistics/dear_baseline/tiling_first_io_failure.json",
+    "work/robust_statistics/dear_baseline/tiling_controls.json",
+    "work/robust_statistics/dear_baseline/real_tiling_controls.json",
+    "work/robust_statistics/dear_baseline_tiled_pilot/iteration.json",
+    "work/robust_statistics/dear_baseline_tiled/iteration.json",
+    "work/robust_statistics/dear_baseline_tiled/score_counts_audit.json"
+  ]
+}

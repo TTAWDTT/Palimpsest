@@ -1,0 +1,120 @@
+{
+  "campaign": "cure_angular_risk",
+  "register": "Selected transcription only",
+  "quote_source": "reports/04_算法研发/第四十二轮角度与长度_归一化有取舍仍未保持稳定判别_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/cure_angular_risk/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "direction/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/direction~1source/minimum_domain_ba')",
+      "quoted": "83.89"
+    },
+    {
+      "section": "table",
+      "label": "direction/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/direction~1source/minimum_scene_ba')",
+      "quoted": "93.75"
+    },
+    {
+      "section": "table",
+      "label": "direction/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/direction~1source/maximum_any_scene_drop')",
+      "quoted": "6.25"
+    },
+    {
+      "section": "table",
+      "label": "direction/mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/direction~1mean/minimum_domain_ba')",
+      "quoted": "83.33"
+    },
+    {
+      "section": "table",
+      "label": "direction/mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/direction~1mean/minimum_scene_ba')",
+      "quoted": "90.00"
+    },
+    {
+      "section": "table",
+      "label": "direction/mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/direction~1mean/maximum_any_scene_drop')",
+      "quoted": "7.78"
+    },
+    {
+      "section": "table",
+      "label": "direction/source_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/direction~1source_null/minimum_domain_ba')",
+      "quoted": "45.00"
+    },
+    {
+      "section": "table",
+      "label": "direction/source_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/direction~1source_null/minimum_scene_ba')",
+      "quoted": "35.00"
+    },
+    {
+      "section": "table",
+      "label": "direction/source_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/direction~1source_null/maximum_any_scene_drop')",
+      "quoted": "11.25"
+    },
+    {
+      "section": "table",
+      "label": "direction_radius/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/direction_radius~1source/minimum_domain_ba')",
+      "quoted": "83.89"
+    },
+    {
+      "section": "table",
+      "label": "direction_radius/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/direction_radius~1source/minimum_scene_ba')",
+      "quoted": "93.75"
+    },
+    {
+      "section": "table",
+      "label": "direction_radius/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/direction_radius~1source/maximum_any_scene_drop')",
+      "quoted": "6.25"
+    },
+    {
+      "section": "table",
+      "label": "direction_radius/mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/direction_radius~1mean/minimum_domain_ba')",
+      "quoted": "83.33"
+    },
+    {
+      "section": "table",
+      "label": "direction_radius/mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/direction_radius~1mean/minimum_scene_ba')",
+      "quoted": "90.00"
+    },
+    {
+      "section": "table",
+      "label": "direction_radius/mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/direction_radius~1mean/maximum_any_scene_drop')",
+      "quoted": "7.78"
+    },
+    {
+      "section": "table",
+      "label": "direction_radius/source_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/direction_radius~1source_null/minimum_domain_ba')",
+      "quoted": "45.56"
+    },
+    {
+      "section": "table",
+      "label": "direction_radius/source_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/direction_radius~1source_null/minimum_scene_ba')",
+      "quoted": "35.00"
+    },
+    {
+      "section": "table",
+      "label": "direction_radius/source_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/direction_radius~1source_null/maximum_any_scene_drop')",
+      "quoted": "11.25"
+    }
+  ]
+}

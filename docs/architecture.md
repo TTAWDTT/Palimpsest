@@ -10,7 +10,7 @@
 |---|---|
 | [contracts](../src/palimpsest/contracts.py) | RGB、Box、Region、Prediction：坐标、标签、分数方向、阈值与计时 |
 | [localization](../src/palimpsest/localization/README.md) | 四边形提议、SAM 2 自动分割已接入；图像表面筛选与跟踪待开发 |
-| [detection](../src/palimpsest/detection/README.md) | B-Free/D3 推理、Benford 特征与森林导出/加载；自研 algorithms/models 待开发 |
+| [detection](../src/palimpsest/detection/README.md) | 已有baseline、非神经统计候选、冻结CuRe＋自研读出；神经训练路线待开发 |
 | [pipelines](../src/palimpsest/pipelines/README.md) | 图片链可调用；视频/手机实时应用待开发 |
 | [training](../src/palimpsest/training/README.md) | 训练/标定协议预留，无默认训练器，本轮不训练研究模型 |
 

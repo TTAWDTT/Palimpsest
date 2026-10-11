@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-08",
+  "paper": "AugMix: A Simple Data Processing Method to Improve Robustness and Uncertainty",
+  "url": "https://arxiv.org/pdf/1912.02781v2",
+  "version": "v2 17Feb2020 acceptedICLR",
+  "sha256": "183541155e3778babffb84f4dd9b7bebb64cc2077174fb6a4a219b3bb73f97c4",
+  "pages": 15,
+  "reading": "main1-7;equations1-2;imagenet.py augmentation wrapper/trainingJS block;not fullcodeexecution/visualtables",
+  "code": {
+    "revision": "9b9824c7c19bf7e72df2d085d97b99b3bfb00ba4",
+    "files": {
+      "LICENSE": {
+        "git_blob": "7a4a3ea2424c09fbe48d455aed1eaa94d9124835",
+        "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd"
+      },
+      "README.md": {
+        "git_blob": "a753073ef88fd97077403a24de576b552cf57116",
+        "sha256": "c5c6119decfbd8b2256558b5fa29b300461c8c3eac97b2326d50151f1c0b9a18"
+      },
+      "imagenet.py": {
+        "git_blob": "d88431ad233506e1f42a20e00802ae2892019b50",
+        "sha256": "ac77c185e34820c61fb39f731a564619a993c1e82e9ce77ab878229dc8bbacb3"
+      }
+    }
+  },
+  "initial_pdf_fetch": "OpenReview attachment403;arxivprimaryPDFsuccess",
+  "scope": "Known consistency principle only;not AugMix reproduction",
+  "reading_debt": [
+    "appendix8-15",
+    "fullfigures/tables",
+    "official model reproduction",
+    "AI/physical paired accuracy/speed verification"
+  ]
+}

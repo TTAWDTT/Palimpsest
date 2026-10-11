@@ -1,0 +1,28 @@
+{
+  "scope": "Focused primary reading, not a full literature review or novelty certificate",
+  "search_queries": [
+    "2026 image generated detection feature norm normalization frozen encoder robustness L2",
+    "2026 feature normalization norm directional invariance domain generalization neural embeddings"
+  ],
+  "primary": [{
+    "title": "Domain Generalization through the Lens of Angular Invariance",
+    "authors": ["Yujie Jin", "Xu Chu", "Yasha Wang", "Wenwu Zhu"],
+    "version": "arXiv2210.15836v1, 2022-10-28",
+    "url": "https://arxiv.org/pdf/2210.15836",
+    "bytes": 989642,
+    "sha256": "643abd4100e8b6b83a57d45cbd1c22fc82bd1c597633413d8a32fc02c3b81ddd",
+    "pages": 15,
+    "read": "Main pp1-6 text read and p7 reference context; pp3-5 conditional assumptions and training protocol inspected",
+    "locators": "p3 Assumptions1-2/Theorem1; p4 Assumption3 and norm-dependent objective; p5 DomainBed trained ResNet protocol; p6 norm regularizer ablations",
+    "quotes": [],
+    "debt": "pp8-15 proofs and supplementary tables unread; author recency and full citation graph not audited",
+    "applicability": "Conditional angular distribution equality is assumed, not established for screen capture. Frozen vector L2+linear head is not AIDGN replication. No camera-origin task guarantee."
+  }],
+  "search_only_unread": [
+    "Bridging Domain Invariance and Diversity: A Fine-Grained Risk Bound for Domain Generalization (JMLR2026)",
+    "Dimensional Coactivation arXiv2605.08249",
+    "Universal Normal Embedding CVPR2026"
+  ],
+  "experiment": "experiments/origin_detection/cure_angular_risk/README.md",
+  "scope_control": "Registered maps and controls before fit-only drift statistics. No new external pixels. Repeated exposed RR/Chimera development."
+}

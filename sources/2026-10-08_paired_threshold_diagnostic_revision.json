@@ -1,0 +1,9 @@
+{
+  "executed_source_ref": "0ca852b13f13aad80ee9ab0374168210e71ba35e",
+  "path": "src/palimpsest/detection/algorithms/paired_threshold.py",
+  "before": "6ff3ed0412aa2e41a9bed530feb592eac1e893fc16628ccde02968ba76cf420d",
+  "after": "03356bb0334bba2fa02779ad843c24ae9d708986141fbcdcd0009e6e24d61245",
+  "change": "Addexplicit BAfeasibility/fallback_mode diagnostics aftermain completed;threshold score/comparison body unchanged",
+  "old_receipts_not_rewritten": true,
+  "old_fallback_can_be_read_fromexactBA_andjointflag": true
+}

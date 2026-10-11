@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-08",
+  "official_documentation": {
+    "mdm": {
+      "url": "https://pyriemann.readthedocs.io/en/latest/generated/pyriemann.classification.MDM.html",
+      "status": "not saved",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    "distance": {
+      "url": "https://pyriemann.readthedocs.io/en/latest/generated/pyriemann.geometry.distance.distance_riemann.html",
+      "status": "not saved",
+      "error": "HTTP Error 403: Forbidden"
+    },
+    "logmean": {
+      "url": "https://pyriemann.readthedocs.io/en/latest/generated/pyriemann.geometry.mean.mean_logeuclid.html",
+      "status": "not saved",
+      "error": "HTTP Error 403: Forbidden"
+    }
+  },
+  "original_paper_access": {
+    "url": "https://hal.science/hal-00681328v1/document",
+    "status": "not_read",
+    "error": "Not PDF;do not treat anti-botHTML as paper"
+  },
+  "own_control": "experiments/origin_detection/covariance_geometry_audit/audit_geometry.py",
+  "limits": [
+    "HAL HTML anti-bot is not a read PDF",
+    "No pyRiemann package installed or executed",
+    "Metric pair congruence is not fixed-template decision invariance",
+    "Analytic SPD matrices do not certify an image channel or brain/AI performance"
+  ],
+  "web_reading": {
+    "version_label": "pyRiemann0.13.dev",
+    "coverage": "MDM definition/sample weights;distance formula;log-Euclidean mean formula/API notes",
+    "archive_status": "Browser read succeeded;urllibHTML archive403;HALoriginalPDFnotread"
+  }
+}

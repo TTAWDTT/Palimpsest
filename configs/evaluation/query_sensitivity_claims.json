@@ -1,0 +1,84 @@
+{
+  "campaign": "Query sensitivity native-only development",
+  "register": "Transcription,not independent scientific evidence",
+  "quote_source": "reports/04_算法研发/第六十六轮查询敏感度_复用缓存但判别不足_2026-10-08.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/query_sensitivity/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/mean/minimum_domain_ba')",
+      "quoted": "52.78"
+    },
+    {
+      "section": "table",
+      "label": "mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/mean/minimum_scene_ba')",
+      "quoted": "53.75"
+    },
+    {
+      "section": "table",
+      "label": "mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/mean/maximum_any_scene_drop')",
+      "quoted": "12.50"
+    },
+    {
+      "section": "table",
+      "label": "source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/source/minimum_domain_ba')",
+      "quoted": "52.22"
+    },
+    {
+      "section": "table",
+      "label": "source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/source/minimum_scene_ba')",
+      "quoted": "55.00"
+    },
+    {
+      "section": "table",
+      "label": "source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/source/maximum_any_scene_drop')",
+      "quoted": "6.25"
+    },
+    {
+      "section": "table",
+      "label": "wrong_source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/wrong_source/minimum_domain_ba')",
+      "quoted": "53.33"
+    },
+    {
+      "section": "table",
+      "label": "wrong_source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/wrong_source/minimum_scene_ba')",
+      "quoted": "53.75"
+    },
+    {
+      "section": "table",
+      "label": "wrong_source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/wrong_source/maximum_any_scene_drop')",
+      "quoted": "8.75"
+    },
+    {
+      "section": "table",
+      "label": "null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/null/minimum_domain_ba')",
+      "quoted": "37.22"
+    },
+    {
+      "section": "table",
+      "label": "null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/null/minimum_scene_ba')",
+      "quoted": "56.25"
+    },
+    {
+      "section": "table",
+      "label": "null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/null/maximum_any_scene_drop')",
+      "quoted": "35.00"
+    }
+  ]
+}

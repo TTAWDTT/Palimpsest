@@ -1,0 +1,11 @@
+{
+  "primary": "https://arxiv.org/html/2605.04358v1",
+  "version": "arxiv2605.04358v1",
+  "title": "Intermediate Representations are Strong AI-Generated Image Detectors",
+  "reading_scope": "HTML abstract,1/2 targeted,3.1-3.3,4.1/4.3,5 extractor/search size/perturbation/Table3,limitations;not full paper,appendix/code/PDF verification",
+  "paper_object": "Cosine query/perturbed CLS similarity;train AUROC layer search;frozen model",
+  "own_experiment_relation": "Own fixed block12LN2 plusfinal representation;AREA+Q90 query from existing cache;not defocus orsearched layer reproduction",
+  "prior_record": "sources/2026-10-06_intermediate_encoder_review.json",
+  "own_report": "reports/04_算法研发/第六十六轮查询敏感度_复用缓存但判别不足_2026-10-08.md",
+  "scope": "Author perturbation table not paired real propagation BA decline;own exposed development,not independent acceptance"
+}

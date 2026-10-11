@@ -1,0 +1,66 @@
+{
+  "campaign": "thirtyfirst source support",
+  "register": "Selected quote arithmetic only",
+  "quote_source": "reports/04_\u7b97\u6cd5\u7814\u53d1/\u7b2c\u4e09\u5341\u4e00\u8f6e\u7c7b\u652f\u6301\u96c6_\u8fd1\u90bb\u5e73\u6ed1\u672a\u6d88\u9664\u5224\u522b\u9000\u5316_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/source_support/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "centroid/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/centroid/minimum_domain_ba')",
+      "quoted": "81.11"
+    },
+    {
+      "section": "table",
+      "label": "centroid/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/centroid/minimum_scene_ba')",
+      "quoted": "83.75"
+    },
+    {
+      "section": "table",
+      "label": "centroid/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/centroid/maximum_any_scene_drop')",
+      "quoted": "7.50"
+    },
+    {
+      "section": "table",
+      "label": "bags/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/bags/minimum_domain_ba')",
+      "quoted": "81.67"
+    },
+    {
+      "section": "table",
+      "label": "bags/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/bags/minimum_scene_ba')",
+      "quoted": "82.50"
+    },
+    {
+      "section": "table",
+      "label": "bags/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/bags/maximum_any_scene_drop')",
+      "quoted": "6.25"
+    },
+    {
+      "section": "table",
+      "label": "bags_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/bags_null/minimum_domain_ba')",
+      "quoted": "47.78"
+    },
+    {
+      "section": "table",
+      "label": "bags_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/bags_null/minimum_scene_ba')",
+      "quoted": "46.25"
+    },
+    {
+      "section": "table",
+      "label": "bags_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/bags_null/maximum_any_scene_drop')",
+      "quoted": "8.75"
+    }
+  ]
+}

@@ -10,6 +10,8 @@ import ast
 import json
 from pathlib import Path
 import re
+import shutil
+import subprocess
 from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -43,6 +45,18 @@ PATH_METHODS = {
     "glob",
     "rglob",
 }
+
+
+def ignored_link_targets(root: Path, targets: list[Path]) -> set[Path]:
+    """Reject links that work locally only because ignored artifacts exist."""
+    if not targets or shutil.which('git') is None or not (root/'.git').exists():
+        return set()
+    names = sorted({p.relative_to(root).as_posix() for p in targets})
+    result = subprocess.run(['git','check-ignore','--stdin','-z'],cwd=root,
+        input=('\0'.join(names)+'\0').encode('utf-8'),capture_output=True)
+    if result.returncode not in (0,1):
+        raise RuntimeError('Cannot check ignored documentation targets: '+result.stderr.decode('utf-8','replace'))
+    return {(root/p.decode('utf-8')).resolve() for p in result.stdout.split(b'\0') if p}
 
 
 def experiment_issues(tree: ast.AST) -> list[str]:
@@ -286,6 +300,7 @@ def main() -> None:
     for folder in ("docs", "reports", "sources", "experiments", "configs", "src"):
         documents.extend((ROOT / folder).rglob("*.md"))
     links = 0
+    local_links = []
     for path in documents:
         for match in LINK.finditer(path.read_text(encoding="utf-8")):
             url = unquote(match[1])
@@ -301,7 +316,12 @@ def main() -> None:
                 )
             elif not destination.exists():
                 problems.append(f"{path.relative_to(ROOT)}: missing link {url}")
+            else:
+                local_links.append((path,destination,url))
             links += 1
+    ignored = ignored_link_targets(ROOT,[target for _,target,_ in local_links])
+    problems.extend(f'{path.relative_to(ROOT)}: link targets ignored local artifact: {url}'
+                    for path,target,url in local_links if target in ignored)
     if problems:
         print("\n".join(problems))
         raise SystemExit(1)

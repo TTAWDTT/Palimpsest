@@ -1,0 +1,1215 @@
+{
+  "date": "2026-10-06",
+  "status": "bounded mechanism review; no novelty certification; NOT DRY",
+  "entries": {
+    "pinned_claims": {
+      "status": "prospective hypotheses; none validated; no novelty claim",
+      "goal": "sufficient AI/natural discrimination with small real propagation degradation; continue until verified",
+      "claims": {
+        "C1": "Pixel-observable nuisance calibration may align score shifts without original/condition metadata. Identifiability and class-confounding must be tested.",
+        "C2": "Stable multiscale/topological/scattering representations may preserve some origin signal across resizing/compression/recapture. Signal retention is unknown.",
+        "C3": "Classical composite hypothesis testing, invariant statistics or robust communication receivers may supply useful blind-channel decision structures. Transfer is hypothetical.",
+        "C4": "Worst-group classification objectives and nonlinear pair constraints may improve both class margins without constant predictions. New environments still require testing."
+      },
+      "angles": [
+        "composite hypothesis testing and communications",
+        "scattering and topology/scale-space",
+        "conditional alignment and statistical calibration",
+        "distributional robustness and grouped margins",
+        "current robust AI-image detection and non-neural methods",
+        "independent genuine recapture benchmark availability"
+      ],
+      "completion": "not number of iterations; absolute performance, small paired drop, speed, independent real data required",
+      "proposed_acceptance_pending_user": "BA>=80%, paired BA drop<=2 percentage points; no claim of final success until independent evidence",
+      "data_constraints": [
+        "existing RR/Chimera exposed development only",
+        "RR reserved sealed",
+        "no frozen receipt or code-pin rewrites",
+        "no simulation development or final neural training"
+      ]
+    },
+    "root_iqa": {
+      "status": "bounded mechanism read; literature not exhausted",
+      "queries": [
+        "BRISQUE no reference image quality assessment natural scene statistics blind image spatial quality evaluator paper Bovik pdf",
+        "2026 image generated detection blind image quality assessment preprocessing canonicalization JPEG robust non neural",
+        "2025 2026 AI image detection causal nuisance compression robustness canonical preprocessing handcrafted"
+      ],
+      "search_coverage_limit": "Batch result was dominated by BRISQUE; other two queries do not establish balanced coverage. Delegated branches supply separate current-year searches.",
+      "reads": [
+        {
+          "title": "No-Reference Image Quality Assessment in the Spatial Domain",
+          "authors": [
+            "Anish Mittal",
+            "Anush K. Moorthy",
+            "Alan C. Bovik"
+          ],
+          "doi": "10.1109/TIP.2012.2214050",
+          "url": "https://live.ece.utexas.edu/research/quality/brisque_journal.pdf",
+          "read_scope": "Full main text Sections I-VI, author PDF pages1-13; references partially inspected, last reference page not fully read",
+          "relevant_locators": [
+            "Section III.A Eq1 C=1 normalization",
+            "Section III.A TableI 36 features at2scales",
+            "Section IV.E TableVII two-stage distortion classification reduces correlation",
+            "Section IV.F only trained-for distortions tested in TID2008",
+            "Section V regression predicts denoiser parameter; not necessarily true physical variance"
+          ],
+          "claim": "Blind observable nuisance may condition a readout; inferential proposal, not detector invariance guarantee",
+          "quote": "The slight dip in the performance can be attributed to imperfect distortion identification",
+          "quote_locator": "Section IV.E author PDF page10",
+          "transfer_limit": "Image quality/NSS naturalness is not AI origin. Our379 normalized-residual features are not BRISQUE features. ExtraJPEG gate is not blind recovery of arbitrary physical history."
+        }
+      ],
+      "debts": [
+        {
+          "title": "Non-reference image quality assessment and natural scene statistics to counter biometric sensor spoofing",
+          "url": "https://ietresearch.onlinelibrary.wiley.com/doi/10.1049/iet-bmt.2017.0146",
+          "status": "FULL-TEXT-UNREAD; biometric task not yet adopted"
+        },
+        {
+          "title": "Blind quality index for camera images with natural scene statistics and patch-based sharpness assessment",
+          "url": "https://doi.org/10.1016/j.jvcir.2016.07.007",
+          "status": "FULL-TEXT-UNREAD; no result used"
+        }
+      ]
+    },
+    "blind_channel": {
+      "review_date": "2026-10-06",
+      "task": "C1/C3 blind channel lineage",
+      "skills": [
+        "bootloops-research:lit-review",
+        "bootloops-protocols:reading-contract"
+      ],
+      "claim_pin": "../claims_before_search.json",
+      "status": "bounded report; search not dry; no novelty/effectiveness claim",
+      "read_sources": [
+        {
+          "id": "G1",
+          "title": "Generalized Likelihood Ratio Test for Adversarially Robust Hypothesis Testing",
+          "authors": [
+            "Bhagyashree Puranik",
+            "Upamanyu Madhow",
+            "Ramtin Pedarsani"
+          ],
+          "version": "arXiv:2112.02209v1; submitted 2021-12-04; journal metadata IEEE TSP 70 (2022) 4124–4139, journal body not read",
+          "canonical_url": "https://arxiv.org/abs/2112.02209v1",
+          "local_pdf": "glrt.pdf",
+          "sha256": "72c840e14b3d283e391b0dd0f26bbffe1f6f807ceae19c327e17f6f4ce837d0f",
+          "read_status": "fulltext_read_not_independent_reproduction",
+          "pages_read": "1–12, including appendices and references",
+          "figures": "captions/table entries read; image panels not independently pixel-verified",
+          "proofs": "read, not independently rederived",
+          "proximity": "P3+ mechanism for prospective claim; not a demonstrated image-channel guarantee",
+          "claims": [
+            "C3"
+          ],
+          "opened_locators": [
+            "§III p.3 general class/nuisance maximum likelihood",
+            "§III p.3 Eqs.(1)–(3), Gaussian additive bounded perturbation and dead-zone residual",
+            "§IV pp.4–5 GLRT vs minimax limitations",
+            "§VI pp.7–10 multiclass",
+            "Appendices pp.10–11; references pp.11–12"
+          ],
+          "quote": {
+            "source": "glrt",
+            "pdf_page": 3,
+            "quote": "The GLRT defense consists of joint maximum likelihood estimation of the class and the adversary’s parameter:",
+            "word_count": 16,
+            "verified": true,
+            "method": "pdftotext-layout; source column selection; whitespace normalization and line-break hyphen joining; no semantic rewrite",
+            "column": 0
+          },
+          "backward_chain": [
+            "ICASSP 2021 Adversarially Robust Classification Based on GLRT (same authors): discovered in refs [1], fulltext unread",
+            "Huber 1965: ref [18], primary DOI fetch failed",
+            "Gül/Zoubir 2017: ref [20], fulltext unread",
+            "Bhagoji/Cullina/Mittal 2019: ref [22], fulltext unread"
+          ],
+          "forward_chain": [
+            "Exact-title searches 2025/2026: no verified fulltext forward source used",
+            "Semantic Scholar ARXIV lookup 429: no complete forward traversal"
+          ],
+          "author_recency": [
+            "Puranik 2024 UCSB thesis primary record https://escholarship.org/uc/item/7q93b81v; thesis not read",
+            "Puranik et al AISTATS 2024 Tilted Exponential Layer publisher abstract opened https://proceedings.mlr.press/v238/puranik24a.html; neural component, P2; fulltext unread",
+            "Three-author grouped 2025/2026 query; personal pages for all authors not completed"
+          ],
+          "proximity_grade": "P3",
+          "proximity_basis": "Same decision/nuisance machinery from neighboring task; no direct processed-AI-image guarantee."
+        },
+        {
+          "id": "H1",
+          "title": "Robust hypothesis testing and distribution estimation in Hellinger distance",
+          "authors": [
+            "Ananda Theertha Suresh"
+          ],
+          "version": "PMLR 130 (AISTATS 2021), 2962–2970; publisher PDF; arXiv 2011.01848 not used as locator",
+          "canonical_url": "https://proceedings.mlr.press/v130/theertha-suresh21a.html",
+          "local_pdf": "hellinger.pdf",
+          "sha256": "f1a336d04a82d86b9d4af1eeb9e8de0f7e3c6275c6dc277ac4e44f156edd54c7",
+          "read_status": "fulltext_read_not_independent_reproduction",
+          "pages_read": "1–9, including appendices and references",
+          "figures": "captions/table entries read; image panels not independently pixel-verified",
+          "proofs": "read, not independently rederived",
+          "proximity": "P3+ mechanism for prospective claim; not a demonstrated image-channel guarantee",
+          "claims": [
+            "C3"
+          ],
+          "opened_locators": [
+            "§1.1 p.1 known distributions and independent samples",
+            "§2.1 p.3 bounded P-Q/P+Q statistic",
+            "§2.2 p.3 Theorems 1–2 distance conventions and conditions",
+            "§5.1 p.7 support counterexample",
+            "§7 p.8 limitations/conclusion; refs p.9"
+          ],
+          "quote": {
+            "source": "hellinger",
+            "pdf_page": 8,
+            "quote": "The test is relatively parameter free and easy to use.",
+            "word_count": 10,
+            "verified": true,
+            "method": "pdftotext-layout; source column selection; whitespace normalization and line-break hyphen joining; no semantic rewrite",
+            "column": 1
+          },
+          "backward_chain": [
+            "Huber 1965, Baraud 2011, Gül/Zoubir 2017: bibliography; fulltext debts",
+            "Gao/Xie/Xie/Xu 2018 Wasserstein uncertainty sets: bibliography, unread"
+          ],
+          "forward_chain": [
+            "H2 2026v3 cites H1 as ref [7], verified in H2 fulltext",
+            "Semantic Scholar lists 11 citations; included new 2026 minimax and communication-constrained candidates; these are indexed candidates, not read results"
+          ],
+          "author_recency": [
+            "Official https://theertha.info/ read; selected papers only through 2023, page directs to Scholar",
+            "Grouped author 2025/2026 query found H2; DBLP metadata checked; Scholar full publication history not traversed"
+          ],
+          "proximity_grade": "P3",
+          "proximity_basis": "Same decision/nuisance machinery from neighboring task; no direct processed-AI-image guarantee."
+        },
+        {
+          "id": "H2",
+          "title": "On Robust Hypothesis Testing with respect to the Hellinger Distance",
+          "authors": [
+            "Eeshan Modak",
+            "Sivaraman Balakrishnan",
+            "Ananda Theertha Suresh"
+          ],
+          "version": "arXiv:2510.16750v3, 2026-04-20; originally 2025-10-19; short ISIT2026 version mentioned in arXiv metadata, locators not to conference body",
+          "canonical_url": "https://arxiv.org/abs/2510.16750v3",
+          "local_pdf": "hellinger_2026.pdf",
+          "sha256": "0c1d8dc1ce64a029378a0f3aa1234caa3f58582ec3fddbbaac095c1f99129775",
+          "read_status": "fulltext_read_not_independent_reproduction",
+          "pages_read": "1–15, including appendices and references",
+          "figures": "captions/table entries read; image panels not independently pixel-verified",
+          "proofs": "read, not independently rederived",
+          "proximity": "P3+ mechanism for prospective claim; not a demonstrated image-channel guarantee",
+          "claims": [
+            "C3"
+          ],
+          "opened_locators": [
+            "§2 p.4 squared-Hellinger definition",
+            "§4 Theorem 2 pp.5–6; §4A pp.10–11 lower-bound special case",
+            "§6 pp.12–14 midpoint, Eq.(2), Theorem 4 and radius bound",
+            "§7 p.14 gap remains; refs pp.14–15"
+          ],
+          "quote": {
+            "source": "hellinger_2026",
+            "pdf_page": 12,
+            "quote": "Naturally, the radius r should be such that the two balls do not intersect.",
+            "word_count": 14,
+            "verified": true,
+            "method": "pdftotext-layout; source column selection; whitespace normalization and line-break hyphen joining; no semantic rewrite",
+            "column": null
+          },
+          "backward_chain": [
+            "H1 fully read; refs [7]",
+            "Huber, Levy 2008, Gül/Zoubir 2017, Baraud 2011, Yu 1997: reference ancestors unread"
+          ],
+          "forward_chain": [
+            "Exact-title 2026 search: conference/duplicate records; no additional fulltext citing article verified",
+            "Semantic Scholar H1 forward list includes both H2 preprint-title variants; treated as same lineage, no independent replication"
+          ],
+          "author_recency": [
+            "Modak and Balakrishnan DBLP metadata browsed; author-specific homepages/latest 2026 paper lists incomplete",
+            "Suresh page + recency query as H1"
+          ],
+          "proximity_grade": "P3",
+          "proximity_basis": "Same decision/nuisance machinery from neighboring task; no direct processed-AI-image guarantee."
+        },
+        {
+          "id": "J1",
+          "title": "A Reliable JPEG Quantization Table Estimator",
+          "authors": [
+            "Tina Nikoukhah",
+            "Miguel Colom",
+            "Jean-Michel Morel",
+            "Rafael Grompone von Gioi"
+          ],
+          "version": "IPOL 12 (2022), 173–197, DOI 10.5201/ipol.2022.399; publisher PDF article_lr.pdf",
+          "canonical_url": "https://www.ipol.im/pub/art/2022/399/",
+          "local_pdf": "jpeg_estimator.pdf",
+          "sha256": "1182295fe36c07bed59316aea5e4531e51e48e24ed20f4b58ebe03d2c12216be",
+          "read_status": "fulltext_read_not_independent_reproduction",
+          "pages_read": "1–25, including appendices and references",
+          "figures": "captions/table entries read; image panels not independently pixel-verified",
+          "proofs": "read, not independently rederived",
+          "proximity": "P3+ mechanism for prospective claim; not a demonstrated image-channel guarantee",
+          "claims": [
+            "C1"
+          ],
+          "opened_locators": [
+            "§3 printed pp.176–177 / PDF pp.4–5 and Algorithm 1",
+            "§3.2 printed pp.178–181 / PDF pp.6–9 NFA, null assumptions",
+            "§3.3 printed p.182 / PDF p.10 complexity",
+            "§4.2–4.6 printed pp.184–189 / PDF pp.12–17 failure settings",
+            "§5 printed p.196 / PDF p.24; refs pp.196–197"
+          ],
+          "quote": {
+            "source": "jpeg_estimator",
+            "pdf_page": 4,
+            "quote": "The method focuses on the 63 AC coefficients and leaves the DC coefficient",
+            "word_count": 13,
+            "verified": true,
+            "method": "pdftotext-layout; source column selection; whitespace normalization and line-break hyphen joining; no semantic rewrite",
+            "column": null
+          },
+          "backward_chain": [
+            "Fan/de Queiroz 2000/2003 quantizer estimation: unread",
+            "ZERO IPOL2021 DOI10.5201/ipol.2021.390: unread",
+            "Thai/Cogranne/Retraint/Doan 2017 DOI10.1109/TIFS.2016.2604208: unread"
+          ],
+          "forward_chain": [
+            "Semantic Scholar lists 5 citations, one Synthbuster 2024; candidates only, not fulltext read here",
+            "Exact-title 2025/2026 query also self/secondary records; cannot infer no later work"
+          ],
+          "author_recency": [
+            "Tina official https://nikoukhah.com/tina/ read; selected 2024 MaskSim is relevant direct AI-image candidate, fulltext unread",
+            "Four-author group 2026 query; separate Colom/Morel/Grompone pages incomplete; French author page covered, wider non-English searches not complete"
+          ],
+          "proximity_grade": "P3",
+          "proximity_basis": "Same decision/nuisance machinery from neighboring task; no direct processed-AI-image guarantee."
+        },
+        {
+          "id": "K1",
+          "title": "Your AI-Generated Image Detector Can Secretly Achieve SOTA Accuracy, If Calibrated",
+          "authors": [
+            "Muli Yang",
+            "Gabriel James Goenawan",
+            "Henan Wang",
+            "Huaiyuan Qin",
+            "Chenghao Xu",
+            "Yanhua Yang",
+            "Fen Fang",
+            "Ying Sun",
+            "Joo-Hwee Lim",
+            "Hongyuan Zhu"
+          ],
+          "version": "arXiv:2602.01973v1 2026-02-02, locators to preprint; AAAI40(14):11622–11630 DOI10.1609/aaai.v40i14.38146 identity verified on publisher page 2026-03-14",
+          "canonical_url": "https://arxiv.org/abs/2602.01973v1",
+          "local_pdf": "calibration.pdf",
+          "sha256": "3e9c80979c972fc277cc8bd93d247e465653b33bd8f43f2b3e6f6c609bf884b6",
+          "read_status": "fulltext_read_not_independent_reproduction",
+          "pages_read": "1–16, including appendices and references",
+          "figures": "captions/table entries read; image panels not independently pixel-verified",
+          "proofs": "read, not independently rederived",
+          "proximity": "P3+ mechanism for prospective claim; not a demonstrated image-channel guarantee",
+          "claims": [
+            "C1"
+          ],
+          "opened_locators": [
+            "§3.2 p.3 Eq.(4); §3.3 pp.3–4 Assumption 1",
+            "§4 pp.4–5 Eqs.(10),(13)",
+            "Table 3 p.7 JPEG and blur comparison",
+            "Appendix A.1/A.3 p.12 Eqs.(A),(C),(D); Appendix B.1 pp.13–14"
+          ],
+          "quote": {
+            "source": "calibration",
+            "pdf_page": 12,
+            "quote": "the optimal threshold is simply the expected logit under the estimated distribution.",
+            "word_count": 12,
+            "verified": true,
+            "method": "pdftotext-layout; source column selection; whitespace normalization and line-break hyphen joining; no semantic rewrite",
+            "column": 0
+          },
+          "backward_chain": [
+            "Menon et al 2021 Long-tail learning via logit adjustment: unread",
+            "Mai et al 2024 Fine-Tuning Is Fine, If Calibrated: unread",
+            "B-Free citation 2025: existing project baseline, not re-read in this branch"
+          ],
+          "forward_chain": [
+            "Semantic Scholar lists 3 2026 citations: Gaussian discriminants, PRISM, STeREx-Net; only Gaussian canonical primary abstract located",
+            "Gaussian discriminants arXiv2608.18523: unread fulltext debt",
+            "PRISM exact-title search no primary location; do not treat index title as verified primary result"
+          ],
+          "author_recency": [
+            "Muli GitHub https://github.com/muliyangm opened, pinned AAAI2026 official repo; other pinned 2022/2023 work",
+            "All ten author grouped recency query; individual homepages/coauthor 2026 lists incomplete; homonym Mouxing/Minye Yang results discarded"
+          ],
+          "proximity_grade": "P4",
+          "proximity_basis": "Direct AI-generated image post-hoc decision calibration; does not establish one-image nuisance estimation."
+        }
+      ],
+      "code_audit": {
+        "repository": "muliyangm/AIGI-Det-Calib",
+        "commit": "66d4bc606f7cf325d9bd4e67ca34b0c59d6a9d53",
+        "receipt": "official_code_receipt.json",
+        "read_status": "both files fully read; static inspection only; no execution",
+        "previous_main_normalized_equal": true,
+        "difference": "previous saved text used different line-ending bytes; newline-normalized contents match pinned bytes",
+        "locators": {
+          "run.py": "20–34 balanced label-dependent sample; 56 missing n_shots forwarding; 61–65 shared sample and inclusive evaluation; 72 average-threshold inclusive evaluation; 79–82 CLI default100",
+          "src/calibration.py": "62–89 unsupervised function and default ratio0.5; 103–106 supervised sign"
+        }
+      },
+      "search_ledger": [
+        {
+          "query": "composite hypothesis testing unknown channel nuisance parameters invariant GLRT robust radar detection arxiv",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 1
+        },
+        {
+          "query": "2026 AI generated image detection degradation quality conditional calibration blind JPEG resize",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 1
+        },
+        {
+          "query": "blind noise JPEG estimation single image nuisance statistics class conditional detection arxiv",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 1
+        },
+        {
+          "query": "robust hypothesis testing least favorable distributions Huber 1965 likelihood ratio",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 1
+        },
+        {
+          "query": "site.arxiv.org blind JPEG quality factor estimation image noise estimation single image",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 1
+        },
+        {
+          "query": "site.openaccess.thecvf.com quality agnostic AI generated image detection calibration JPEG 2025 2026",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 1
+        },
+        {
+          "query": "single image resampling detection interpolation periodic correlations Popescu Farid 2005 pdf",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 1
+        },
+        {
+          "query": "JPEG quality estimation without header quantization table blind image pixel paper",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 1
+        },
+        {
+          "query": "\"A Reliable JPEG Quantization Table Estimator\" 2025 2026 Nikoukhah",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 2
+        },
+        {
+          "query": "\"Generalized Likelihood Ratio Test for Adversarially Robust Hypothesis Testing\" citations 2025 2026",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 2
+        },
+        {
+          "query": "\"Robust hypothesis testing and distribution estimation in Hellinger distance\" 2026 2025",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 2
+        },
+        {
+          "query": "\"Your AI-Generated Image Detector Can Secretly Achieve SOTA Accuracy\" 2026 citations",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 2
+        },
+        {
+          "query": "Bhagyashree Puranik Upamanyu Madhow Ramtin Pedarsani publications 2025 2026 GLRT",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 3
+        },
+        {
+          "query": "Ananda Theertha Suresh publications 2025 2026 Hellinger hypothesis testing",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 3
+        },
+        {
+          "query": "Tina Nikoukhah Miguel Colom Jean Michel Morel Rafael Grompone von Gioi 2026 publications JPEG",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 3
+        },
+        {
+          "query": "Muli Yang Gabriel James Goenawan Henan Wang Huaiyuan Qin Chenghao Xu Yanhua Yang Fen Fang Ying Sun Joo Hwee Lim Hongyuan Zhu 2026 publications calibration",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 3
+        },
+        {
+          "query": "Bhagyashree Puranik official homepage publications",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 3
+        },
+        {
+          "query": "Tina Nikoukhah publications homepage",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 3
+        },
+        {
+          "query": "Muli Yang homepage publications 2026",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 3
+        },
+        {
+          "query": "\"On Robust Hypothesis Testing with respect to the Hellinger Distance\" 2026 citations",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 4
+        },
+        {
+          "query": "\"A Reliable JPEG Quantization Table Estimator\" \"cites\"",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 4
+        },
+        {
+          "query": "\"Generalized Likelihood Ratio Test for Adversarially Robust Hypothesis Testing\" \"2026\" \"pdf\"",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 4
+        },
+        {
+          "query": "\"Prior-Conditioned Gaussian Discriminants for Generalizable AI-generated Image Detection\"",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 5
+        },
+        {
+          "query": "\"PRISM: Prior-Robust Operating Points for Cross-Generator AI-Generated Image Detection\"",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 5
+        },
+        {
+          "query": "\"Asymptotically Minimax Robust Likelihood Ratio Test\" 2026",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 5
+        },
+        {
+          "query": "\"Communication-Constrained Hypothesis Testing: Optimality, Robustness, and Reverse Data Processing Inequalities\"",
+          "date": "2026-10-06",
+          "engine": "web search",
+          "year_filter": "literal query terms only; no hidden date filter",
+          "round": 5
+        }
+      ],
+      "citation_channel_receipt": "citation_api_receipt.json",
+      "round_result": {
+        "round1": "core GLRT/Hellinger/JPEG/calibration fulltext candidates added",
+        "round2": "forward-title screening, not exhaustive index completion",
+        "round3": "new 2026 Hellinger fulltext added; author recency incomplete",
+        "round4": "new unread robust-testing candidates added",
+        "round5": "forward index succeeded for 3 sources, GLRT429; Gaussian primary abstract located, PRISM primary unresolved",
+        "dry": false
+      },
+      "fulltext_debts": [
+        {
+          "title": "A robust version of the probability ratio test",
+          "url": "https://doi.org/10.1214/aoms/1177699803",
+          "status": "FULL-TEXT-UNREAD; DOI route error",
+          "note": "Huber 1965 identity from reference lists; canonical DOI open failed. Not used as read evidence."
+        },
+        {
+          "title": "Baraud 2011 Estimator selection with respect to Hellinger-type risks",
+          "status": "FULL-TEXT-UNREAD; cited ancestor"
+        },
+        {
+          "title": "Adversarially Robust Classification Based on GLRT",
+          "status": "FULL-TEXT-UNREAD; same authors ICASSP2021"
+        },
+        {
+          "title": "New Findings on GLRT Radar Detection of Nonfluctuating Targets via Phased Arrays",
+          "url": "https://arxiv.org/abs/2101.11077",
+          "status": "abstract/search screening only; P2 component"
+        },
+        {
+          "title": "ZERO: a Local JPEG Grid Origin Detector Based on the Number of DCT Zeros and its Applications in Image Forensics",
+          "url": "https://doi.org/10.5201/ipol.2021.390",
+          "status": "FULL-TEXT-UNREAD; primary location identified"
+        },
+        {
+          "title": "JPEG quantization step estimation and its applications to digital image forensics",
+          "url": "https://doi.org/10.1109/TIFS.2016.2604208",
+          "status": "FULL-TEXT-UNREAD"
+        },
+        {
+          "title": "Exposing digital forgeries by detecting traces of resampling",
+          "status": "FULL-TEXT-UNREAD; secondary-only route, cannot attribute algorithm details"
+        },
+        {
+          "title": "Robust Hypothesis Testing with Squared Hellinger Distance",
+          "url": "https://www.eurasip.org/Proceedings/Eusipco/Eusipco2014/HTML/papers/1569926589.pdf",
+          "status": "partial search text only; FULL-TEXT-UNREAD"
+        },
+        {
+          "title": "Asymptotically Minimax Robust Likelihood Ratio Test",
+          "url": "https://arxiv.org/abs/2602.08174",
+          "status": "primary abstract verified; FULL-TEXT-UNREAD P3 ceiling"
+        },
+        {
+          "title": "Prior-Conditioned Gaussian Discriminants for Generalizable AI-generated Image Detection",
+          "url": "https://arxiv.org/abs/2608.18523",
+          "status": "primary abstract verified; FULL-TEXT-UNREAD P3/P4 ceiling"
+        },
+        {
+          "title": "Communication-constrained hypothesis testing: Optimality, robustness, and reverse data processing inequalities",
+          "url": "https://arxiv.org/abs/2206.02765",
+          "status": "primary abstract verified; FULL-TEXT-UNREAD P3 ceiling"
+        },
+        {
+          "title": "PRISM: Prior-Robust Operating Points for Cross-Generator AI-Generated Image Detection",
+          "status": "Semantic Scholar citation-index candidate only; primary search unresolved; excluded from asserted bibliography"
+        },
+        {
+          "title": "MaskSim: Detection of Synthetic Images by Masked Spectrum Similarity Analysis",
+          "status": "author selected-publication record; FULL-TEXT-UNREAD direct AI candidate"
+        },
+        {
+          "title": "Towards Responsible Machine Learning: Enhancing Robustness Against Adversaries and Corruptions and Promoting Fairness in Decision-Making",
+          "url": "https://escholarship.org/uc/item/7q93b81v",
+          "status": "primary thesis record only; FULL-TEXT-UNREAD"
+        },
+        {
+          "title": "Improving Robustness via Tilted Exponential Layer: A Communication-Theoretic Perspective",
+          "url": "https://proceedings.mlr.press/v238/puranik24a.html",
+          "status": "primary abstract read; neural component P2; FULL-TEXT-UNREAD"
+        },
+        {
+          "title": "Hierarchical quality-aware guidance for blind JPEG artifacts removal",
+          "url": "https://www.sciencedirect.com/science/article/pii/S1047320326001136",
+          "status": "primary abstract screening only; learned restoration P2; not used as origin evidence"
+        },
+        {
+          "title": "From Asymptotic to Finite-Sample Minimax Robust Hypothesis Testing; On the Sample Complexity of Robust Binary Hypothesis Testing; Sequential Adversarial Hypothesis Testing",
+          "status": "secondary/abstract candidates; primary body debts"
+        },
+        {
+          "title": "Likelihood-free hypothesis testing",
+          "url": "https://people.lids.mit.edu/yp/homepage/data/2022_lfi.pdf",
+          "status": "primary location only, FULL-TEXT-UNREAD"
+        }
+      ],
+      "coverage_gaps": [
+        "No full radar receiver/invariant-test lineage yet",
+        "Direct Google Scholar/OpenAlex/Crossref citation lists not traversed; Semantic Scholar is partial",
+        "Every-coauthor homepages and all 2026 working paper/preprint channels not complete",
+        "Dissertation fulltexts, lecture syllabuses, registries, latest journal TOCs not complete",
+        "Non-English search beyond one French author page not systematic",
+        "IPOL official implementation not run or audited",
+        "No independent source/condition/device real-image verification here"
+      ],
+      "separation": {
+        "read": "five source PDFs, static official code, exact locators",
+        "inferred": "three proposed image algorithms and experimental controls in review.md §3–4",
+        "background": "none used for load-bearing claims; unread candidates are quarantined"
+      },
+      "acceptance": "This branch neither validates C1/C3 nor terminates parent iteration. Independent real-data absolute discrimination and small paired decline remain required.",
+      "claim_verdicts": {
+        "C1": {
+          "verdict": "retain narrowed prospective hypothesis; not validated",
+          "prior_credit": "K1 direct calibration precedent; J1 blind coding-estimation precedent",
+          "essential_gap": "single image, class-confounding, nuisance estimation failure and device transfer"
+        },
+        "C3": {
+          "verdict": "retain prospective transfer; not validated",
+          "prior_credit": "G1 joint class/nuisance maximum likelihood; H1/H2 bounded density contrasts",
+          "essential_gap": "composite real recapture family not identified; image patches violate iid; full radar/invariant lineage still unread"
+        }
+      }
+    },
+    "stable_search": {
+      "date": "2026-10-06",
+      "engine": "web.run search_query",
+      "scope": "C2 stable representations; broad queries unbounded years unless year present; current-year receipt explicit",
+      "queries": [
+        {
+          "round": "round1",
+          "q": "Bruna Mallat Invariant Scattering Convolution Networks 2013 pdf deformation stability"
+        },
+        {
+          "round": "round1",
+          "q": "Garin Tauzin topological image classification 2019 persistent homology pdf"
+        },
+        {
+          "round": "round1",
+          "q": "2026 scattering transform image forensics JPEG robustness topology texture persistent homology"
+        },
+        {
+          "round": "round2",
+          "q": "\"persistent homology\" \"texture\" materials images classification stability pdf"
+        },
+        {
+          "round": "round2",
+          "q": "\"2026\" \"scattering\" \"Bruna\" texture"
+        },
+        {
+          "round": "round2",
+          "q": "\"2025\" \"2026\" \"Garin\" \"Tauzin\" topological image"
+        },
+        {
+          "round": "round2",
+          "q": "\"Mallat\" publications 2025 2026 scattering"
+        },
+        {
+          "round": "round2",
+          "q": "\"Stability of persistence diagrams\" Cohen Steiner Edelsbrunner Harer pdf"
+        },
+        {
+          "round": "author_sweep",
+          "q": "\"Guillaume Tauzin\" publications website"
+        },
+        {
+          "round": "author_sweep",
+          "q": "\"Adélie Garin\" publications website"
+        },
+        {
+          "round": "author_sweep",
+          "q": "\"Stéphane Mallat\" publications site:di.ens.fr"
+        },
+        {
+          "round": "round3",
+          "q": "\"A Stable Multi-Scale Kernel\" Reininghaus Huber Bauer Kwitt pdf cvpr 2015"
+        },
+        {
+          "round": "round3",
+          "q": "\"Invariant Scattering Convolution Networks\" \"2026\" \"noise\""
+        },
+        {
+          "round": "round3",
+          "q": "\"A Topological Reading Lesson\" citations 2025 2026"
+        },
+        {
+          "round": "round3",
+          "q": "\"Kymatio: Scattering Transforms in Python\" JMLR"
+        },
+        {
+          "round": "round3",
+          "q": "\"A Stable Multi-Scale Kernel\" \"2025\" \"2026\" texture"
+        },
+        {
+          "round": "round3",
+          "q": "\"A Topological\" \"Reading\" \"Lesson\" \"2026\" \"2025\" noise"
+        },
+        {
+          "round": "round3",
+          "q": "\"Beyond sparse denoising\" \"scattering transform\" arxiv"
+        },
+        {
+          "round": "author_sweep",
+          "q": "Jan Reininghaus publications website 2025 2026 topology"
+        },
+        {
+          "round": "author_sweep",
+          "q": "Stefan Huber topology publications 2025 2026 website"
+        },
+        {
+          "round": "author_sweep",
+          "q": "Ulrich Bauer publications 2026 persistence website"
+        },
+        {
+          "round": "author_sweep",
+          "q": "Roland Kwitt publications 2026 topology website"
+        },
+        {
+          "round": "round4",
+          "q": "\"Feature Detection and Hypothesis Testing for Extremely Noisy Nanoparticle Images\" arxiv"
+        },
+        {
+          "round": "round4",
+          "q": "\"local phase quantization\" \"2025\" \"2026\" blur invariant texture"
+        },
+        {
+          "round": "round4",
+          "q": "\"rank\" \"persistent homology\" \"contrast\" image texture invariant"
+        }
+      ],
+      "not_dry": true,
+      "reason": "Round4 and author sweeps return P3-ceiling debts, explicitly not exhausted"
+    },
+    "stable_read": [
+      {
+        "key": "bruna_mallat_2012v2",
+        "title": "Invariant Scattering Convolution Networks",
+        "authors": [
+          "Joan Bruna",
+          "Stéphane Mallat"
+        ],
+        "record": "https://arxiv.org/abs/1203.1513v2",
+        "pdf": "https://arxiv.org/pdf/1203.1513v2",
+        "version": "arXiv v2, 8 March 2012; published identity TPAMI 35(8):1872-1886 (2013), DOI10.1109/TPAMI.2012.230 verified via DBLP",
+        "pages": 15,
+        "grade": "P3",
+        "read": "FULL_MAIN_TEXT_READ",
+        "locator": "sections1-5 and references; load-bearing Eq13 p7, section4.1 pp10-11, section4.3 pp13-14",
+        "debt": "Underlying rigorous proofs [22] Group Invariant Scattering and [36] phase recovery not read in full; no independent proof certification",
+        "pdf_local": "bruna_mallat_2012v2.pdf",
+        "sha256": "3632be1fc24080c89df784e00214eecfeac5dd2b2bfcda67a6905fa4c3294d4a"
+      },
+      {
+        "key": "garin_tauzin_2019v2",
+        "title": "A Topological “Reading” Lesson: Classification of MNIST using TDA",
+        "authors": [
+          "Adélie Garin",
+          "Guillaume Tauzin"
+        ],
+        "record": "https://arxiv.org/abs/1910.08345v2",
+        "pdf": "https://arxiv.org/pdf/1910.08345v2",
+        "version": "arXiv v2 22 October2019; ICMLA2019 identity verified author EPFL page",
+        "pages": 6,
+        "grade": "P3",
+        "read": "FULL_MAIN_TEXT_READ",
+        "locator": "sectionsI-V and references; sectionIII-A p2, sectionIV-A pp3-4, sectionIV-C p5 and conclusion p6",
+        "debt": "Referenced original persistence stability theorem not fully read, do not certify its assumptions from this application paper",
+        "pdf_local": "garin_tauzin_2019v2.pdf",
+        "sha256": "3030a707ee1aae72d8eee0697d09d9c1a0ae2aa9f8b0e05cc153c50033cdda08"
+      },
+      {
+        "key": "reininghaus_2015",
+        "title": "A Stable Multi-Scale Kernel for Topological Machine Learning",
+        "authors": [
+          "Jan Reininghaus",
+          "Stefan Huber",
+          "Ulrich Bauer",
+          "Roland Kwitt"
+        ],
+        "record": "https://openaccess.thecvf.com/content_cvpr_2015/html/Reininghaus_A_Stable_Multi-Scale_2015_CVPR_paper.html",
+        "pdf": "https://openaccess.thecvf.com/content_cvpr_2015/papers/Reininghaus_A_Stable_Multi-Scale_2015_CVPR_paper.pdf",
+        "version": "CVF open-access CVPR2015 main paper, pp4741-4748; DOI10.1109/CVPR.2015.7299106 verified DBLP",
+        "pages": 8,
+        "grade": "P3",
+        "read": "FULL_MAIN_TEXT_READ",
+        "locator": "sections1-6 and references; section3 p4743, Definition1/Eq9-11 p4744, Theorem3 p4745, Table4 p4748 and section5.3 p4747",
+        "debt": "Supplement cited for kernel closed-form elementary derivation and retrieval measures not fetched; those independent derivations not certified",
+        "pdf_local": "reininghaus_2015.pdf",
+        "sha256": "213e1c7ed6824f407bf1557fd1c7bbe995be9d3bea8631dada0e985c64e93a5b"
+      },
+      {
+        "key": "kymatio_2020",
+        "title": "Kymatio: Scattering Transforms in Python",
+        "record": "https://www.jmlr.org/papers/v21/19-047.html",
+        "pdf": "https://www.jmlr.org/papers/volume21/19-047/19-047.pdf",
+        "version": "JMLR21(60):1-6,2020",
+        "pages": 6,
+        "grade": "P2",
+        "read": "SELECTED_SECTIONS_AND_REFERENCES_ONLY",
+        "locator": "section2 implementation p3, references pp4-6",
+        "debt": "Not full reading; used for lineage/tool availability only, no performance transfer claim",
+        "pdf_local": "kymatio_2020.pdf",
+        "sha256": "8434c0082299f23cf3f3d679efe5289ccd40bff41954eef14edec2376d0d9b25"
+      },
+      {
+        "key": "thomas_2023v3",
+        "title": "Feature detection and hypothesis testing for extremely noisy nanoparticle images using topological data analysis",
+        "authors": [
+          "Andrew M. Thomas",
+          "Peter A. Crozier",
+          "Yuchen Xu",
+          "David S. Matteson"
+        ],
+        "record": "https://arxiv.org/abs/2209.13584",
+        "pdf": "https://arxiv.org/pdf/2209.13584v3",
+        "version": "arXiv v3 18January2023 includes supplement; published Technometrics65(4), DOI10.1080/00401706.2023.2203744 verified publisher",
+        "pages": 42,
+        "grade": "P3_CEILING",
+        "read": "FULL_TEXT_UNREAD; selected citation paragraphs/reference list only",
+        "locator": "reference to Garin/Tauzin section1 and bibliography; no detailed theorem claim taken",
+        "debt": "Primary crossdisciplinary noisy-microscopy lead, requires42page main+supp reading before using its testing guarantees",
+        "pdf_local": "thomas_2023v3.pdf",
+        "sha256": "cbc97378ec853620054d837dcca59d9ca02f3d2bce7d6600bdad4d986502e508"
+      },
+      {
+        "key": "chung_2020",
+        "title": "Smooth Summaries of Persistence Diagrams and Texture Classification",
+        "authors": [
+          "Yu-Min Chung",
+          "Michael Hull",
+          "Austin Lawson"
+        ],
+        "record": "https://openaccess.thecvf.com/content_CVPRW_2020/html/w50/Chung_Smooth_Summaries_of_Persistence_Diagrams_and_Texture_Classification_CVPRW_2020_paper.html",
+        "pdf": "https://openaccess.thecvf.com/content_CVPRW_2020/papers/w50/Chung_Smooth_Summaries_of_Persistence_Diagrams_and_Texture_Classification_CVPRW_2020_paper.pdf",
+        "version": "CVF2020 PDF9pages (landing lists proceedings840-841; version discrepancy retained)",
+        "pages": 9,
+        "grade": "P3_CEILING",
+        "read": "FULL_TEXT_UNREAD; reference36 only opened",
+        "locator": "reference36 p9 cites Reininghaus2015",
+        "debt": "Do not treat2page landing-page metadata as2page paper;9pagePDF still owed",
+        "pdf_local": "chung_2020.pdf",
+        "sha256": "9fb45266992893b526f0ef099142cfd7bc3c59086b2537e0f7b95b99118b1223"
+      }
+    ],
+    "stable_verified_quotes": [
+      {
+        "key": "bruna_mallat_2012v2",
+        "locator": "p11, section4.1",
+        "quote": "but it comes with a partial loss of information which brings the representations of different signals closer.",
+        "word_count": 17,
+        "verified_against_page_raw_extraction": true
+      },
+      {
+        "key": "garin_tauzin_2019v2",
+        "locator": "p6, sectionIV-C continuation",
+        "quote": "Topological features are very sensitive to loops and disconnections",
+        "word_count": 9,
+        "verified_against_page_raw_extraction": true
+      },
+      {
+        "key": "reininghaus_2015",
+        "locator": "p4747, section5.3",
+        "quote": "topological information alone is not competitive with SVMs using simple orderless operator response histograms.",
+        "word_count": 14,
+        "verified_against_page_raw_extraction": true
+      }
+    ],
+    "detector_search": {
+      "date_local": "2026-10-06",
+      "engine": "web search index",
+      "rounds": [
+        {
+          "round": 1,
+          "queries": [
+            "AI generated image detection robust recapture JPEG 2025 2026 dataset non neural",
+            "AI image detection screen recapture dataset 2025 paired real fake",
+            "distributionally robust kernel classifier paired consistency nuisance alignment worst group 2025 2026"
+          ]
+        },
+        {
+          "round": 2,
+          "queries": [
+            "AI generated image detection \"non-neural\" 2025 2026",
+            "AI generated image detection \"training-free\" \"JPEG\" 2026",
+            "group robust kernel SVM conditional variance regularization causal 2024 2025 2026"
+          ]
+        },
+        {
+          "round": 3,
+          "queries": [
+            "\"Chimera\" \"recapture\" dataset AI images github",
+            "\"CoRe\" \"conditional variance\" Heinze Deml 2025 2026",
+            "\"RealStats\" Shaham 2026 paper",
+            "\"DeepShield\" Montibeller Boato 2025 2026 paper"
+          ]
+        },
+        {
+          "round": 4,
+          "queries": [
+            "\"RealStats\" \"Zisman\" \"2026\" compression",
+            "\"Xenia Konti\" publications 2026 distributionally robust",
+            "\"Jingwen Zhou\" \"Mingzhe Wang\" \"2606.20488\""
+          ]
+        },
+        {
+          "round": 5,
+          "queries": [
+            "\"DeepShield\" \"167.6\" images dataset paper",
+            "\"social\" \"Montibeller\" \"2025\" detection",
+            "\"group distributionally robust\" \"kernel\" margin classification 2025",
+            "\"conditional\" \"alignment\" \"label\" \"domain\" \"2026\" kernel robustness"
+          ]
+        },
+        {
+          "round": 6,
+          "queries": [
+            "\"Conditional variance penalties\" \"2026\" citations",
+            "\"RealStats\" \"2026\" \"cites\"",
+            "\"How fragile are training-free\" \"2026\" citation",
+            "\"Group Distributionally Robust Machine Learning under Group Level\" \"2026\""
+          ]
+        },
+        {
+          "round": 7,
+          "queries": [
+            "Belkin Niyogi Sindhwani 2006 manifold regularization JMLR pdf",
+            "conditional variance penalties nonlinear kernel CoRe Heinze-Deml Meinshausen classification robustness",
+            "Group distributionally robust kernel classification Wasserstein robust logistic regression Shafieezadeh Abadeh 2015 pdf"
+          ]
+        }
+      ],
+      "scopes": [
+        "robust static AI/natural image discrimination",
+        "classical/non-neural vs training-free distinction",
+        "independent true social platform and physical recapture data",
+        "conditional pair invariance, group Wasserstein risk, nonlinear classifiers"
+      ],
+      "backward_chains": [
+        "CoRe -> Belkin2006 targeted PDF read",
+        "GroupWDRO -> Shafieezadeh-Abadeh2015 targeted PDF read",
+        "RealStats -> RIGID/AEROBLADE/manifold bias, latter primary full reads owed"
+      ],
+      "forward_status": "Exact-title searches returned adjacent P3+ and mirrors; not dry; exhaustive citation database coverage not claimed",
+      "synonyms_generated": [
+        "core/style/conditionally invariant",
+        "source ID",
+        "graph Laplacian",
+        "conditional variance",
+        "group Wasserstein",
+        "class conditional alignment",
+        "kernel Cauchy Schwarz mutual information",
+        "real-only null",
+        "ECDF/MinP",
+        "perturbation stability"
+      ],
+      "gap_file": "gap_statement.md"
+    }
+  },
+  "detector_read_scope": "# 阅读账本（BootLoops reading-contract / lit-review）\n\n本轮先固定 `claims.md`，阅读等级 P3=足以改变方法/数据决策的主证据，P4=直接先行工作/潜在反例。`text-read` 不等于证明或实验已独立复核。全文加载失败与只读章节明确保留。\n\n| ID / 版本 | 等级 | 实际读与取件状态 | 精确定位 / ≤25-word 证据片段 | 可支持/不可支持 |\n|---|---|---|---|---|\n| CORE-2018 arxiv1710.11469v3 | P4 | HTML已完整取并main+appendix text读；PDF46页web打开，截图2页失败；图数值未全目视/证明未独立检查 | §5.2–5.3 Eq8–10；§6.1 Assumption1；§6.2；§7.2；摘要11-word graph-Laplacian quote见综述 | 直接先行pair score penalty；不代表2020正式版定理全集 |\n| CORE-VOR DOI10.1007/s10994-020-05924-1 | P4 | Springer全文页面可读；目标§2、§3、§4、§5.1读；§5其余及Appendix未全文读，正式版PDF欠取 | §3 Eq8–10；§4.1(A1–3)/Thm1；§4.2(B1,B2)/Thm2 Eq12及caveats；§5.1.2 | 泛损失局部一阶结果；不是任意强屏摄保证。单独版本，不混页码 |\n| GWDRO arxiv2509.08942v1 | P3 | HTML完整取/body+appendix text读；PDF21页web打开；完整数学独立验证未做 | §3 Algorithm2；§3.1凸例；§4 Adult；Intro11-word quote见综述 | group×within-group DRO已有；预印本proof有引用/占位依赖，不做证明认证 |\n| FRAGILE arxiv2606.20488v1 | P3 | HTML完整取/main+refs text读；PDF5页web打开；表缺损位置web补核 | §2.1、2.5；§3.1 Table1；§3.2 Table3；§3.5；§5 6-word quote | JPEG/AUC protocol敏感；无平台/再数字化固定阈值保证 |\n| REALSTATS arxiv2601.18900v1 | P3 | HTML已取main+appendix text读；参考条目470–500摘录段未逐条读；PDF14MB web返回获取失败 | §3.2/4 independence；§D.1/D.2 Table4/D.5；§4.1 8-word quote | neural statistics null test先行；PDF/图欠读，非纯非神经 |\n| NTIRE arxiv2604.11487v1 | P3 | HTML已完整取；§2、§3.5、Table3、§8.3/8.4与局部tables读；全文其余欠读 | Table3、§8.3 ShallowReal；部分36 synthetic transformations上下文 | neural synthetic-robust ceiling；不能直接对比本机RR速度/物理屏摄 |\n| DRLR NeurIPS2015 | P3 | PDF9页web取；正文§1–4.3逐段读，末页表/refs未全读；technical appendix不在9页稿内，欠取 | §3 Thm1–3；§4.2 p7 β趋0与log2；§4.3 UCI/MNIST | 可说明鲁棒半径常数塌缩；定理iid/light-tail/ambiguity限制 |\n| MANIFOLD JMLR7 2006 | P4 | PDF36页web取；§2.2、§4.2、§4.3 targeted-read；全文欠读 | §2.2 Eq4 / Thm2；§4.2 fᵀLf；§4.3 LapSVM | kernel+graph不是新组件；不得称全文review完成 |\n| DEEPSHIELD Zenodo15648378 | P3 数据 | 官方API、ZIP64 tail与完整central directory；8像素CRC长度解码+4目视 | Description/file metadata + our byte audit | 可下载配对平台候选；整包MD5/全像素/来源独立性未审 |\n| COC Zenodo21790608 | P3 数据 | record页面读，受限files未取 | publication日期2026-10-14 / restricted | 当前不可称可下载；目标匹配欠查 |\n| NTIRE HF publictest | P3 数据 | 页面读；真实file API/bytes未审 | 2500 test images页面 | 访问未认证，非physical pair证据 |\n| CHIMERA Zenodo14736478 | P3 数据 | 当前仅record与artifact scope；此前已知开发曝光 | USENIX artifact appendix | 不能新增独立盲集；本轮论文全文未重读 |\n| WaRPAD NeurIPS2025 | P3 | PDF索引曾打开24页，正文尚未读，后fetch超时 | 下列gap URL | FULL-TEXT-UNREAD，不能沿abstract承诺 |\n| DAS-MI OpenReview nGbdYCPlZw | P3 | 仅搜索命中，FULL-TEXT-UNREAD；匿名/接受状态未核 | classconditional kernel MI snippet | 不作技术事实依据 |\n| Difference-in-Difference CVPR2026 | P3 | 只命中supplement，主文未取/未读 | supplemental URL见gap | 不作技术依据 |\n\nHTML原件与SHA见 `fetch_receipts.json`。后面的web目标补读以本账本记录为准，未伪造本地下载receipt。引用总字数按每一论文跨版本合并 ≤25（CoRe11、GWDRO11、FRAGILE6、REALSTATS8；其余无直接引文）。\n\n完整取件不意味着完整阅读；`P3+ owed` 仍要进入下一轮，而非标记 review complete。\n",
+  "detector_gaps": "# 检索缺口与断言上限\n\n- 尚未完成全部核心作者2024–2026个人主页/机构出版清单扫读；已检索Konti、Zisman/Shaham、Zhou/Wang、Heinze-Deml、Montibeller/Boato部分谱系。多人NTIRE作者不能称已扫。\n- 搜索引擎标题forward查链只找得到部分mirror和邻接工作；未使用正式完整citation graph检索，不等于“没有引用”。最近一轮还出现P3+，故 **未迭代到dry**。\n- CORE正式版全文/PDF欠读。2018v3正文读完不应替代2020VOR；已修正不同Thm2，不把旧结论错当当前版本。\n- 需要下一轮primary全文：WaRPAD、DAS-MI、Difference-in-Difference、Intermediate Representations are Strong AI Image Detectors(arxiv2605.04358)、NaturalImage-fitting NeurIPS2025、2026comprehensive review。训练/阈值/实际部署协议仍可能改变建议。\n- 神经zero-shot无需训练 ≠ 非神经。专利噪声相关方法当前只有二级检索，不用于技术断言。\n- 条件分布对齐必须检查label/source信号是否同时被抹去；一般边际对齐不能自动保持两类可分。新kernel conditional MI论文未读，当前只作为欠读线索。\n- DeepShield按文件名有配对且8像素核验；没有全目录逐像素一致认证、近重复/预训练重叠审计、设备/发送参数日志。来源独立性未成立。不能把新包叫完全独立；FFHQ/FORLAB可能与RR/训练重叠。\n- 成本是本地中央目录加和，未下载800/2000子集，未给实测ETA。原2来源已曝光应从正式盲集排除。\n- CoC restricted + future publication日期，未取文件，不能称现在可获取；物理屏摄benchmark尚没有本轮核到可直接使用的独立静态AI/real paired全干预网格。\n\n优先欠读primary links：\n1. https://papers.neurips.cc/paper_files/paper/2025/file/1d8f05e4da49a4e1e1b052a3046bceac-Paper-Conference.pdf\n2. https://openreview.net/pdf?id=nGbdYCPlZw\n3. https://openaccess.thecvf.com/content/CVPR2026/supplemental/Qi_A_Difference-in-Difference_Approach_CVPR_2026_supplemental.pdf （需反查主文）\n4. https://arxiv.org/abs/2605.04358\n5. https://proceedings.neurips.cc/paper_files/paper/2025/file/2cfa9b0d9be8a5c01cf3eb7f21b4f2b8-Paper-Conference.pdf\n6. https://flore.unifi.it/handle/2158/1442664 （Montibeller2025socialvideoemulation，视频不是静态，主文欠读）\n7. https://www.sciencedirect.com/science/article/abs/pii/S0305054824002272 （2024kernelSVMchanceconstraints，主文可取性未核）\n8. https://arxiv.org/abs/2209.09352 （2023forwardCoRe谱系，全文欠读）\n\n不作新颖性宣告。方法组件是既有；真正贡献需由新的表示/条件读出机理、可复算绝对性能、传播跌幅和独立数据证据建立。\n",
+  "deepshield_index_summary": "See work subdirectory for exact index receipts",
+  "additional_root_reads": [
+    {
+      "title": "Prior-Conditioned Gaussian Discriminants for Generalizable AI-generated Image Detection",
+      "url": "https://arxiv.org/html/2608.18523v1",
+      "version": "v1, 2026-08-19",
+      "status": "Main text Sections1-6 read; AppendixB1-B4 read; other appendices not fully read",
+      "locators": [
+        "Section5.1 classaccuracy includes oneclass",
+        "Section1 retrospective best-rung diagnostic",
+        "AppendixB3 EqsB15-B17 optimal vs fixed direction/local covariance dependence"
+      ],
+      "adopted_scope": "Motivates fixed-feature classical-head comparison; does not guarantee fixed-threshold BA or physical recapture stability",
+      "full_text_debt": "AppendicesA,C-G, detailed tables and complete references remain unread"
+    }
+  ],
+  "deepshield_byte_evidence": {
+    "deepshield_pair_index_audit.json": {
+      "X": {
+        "files": 10000,
+        "exact_basename_stem_matches": 10000,
+        "unmatched_examples": []
+      },
+      "Telegram": {
+        "files": 10000,
+        "exact_basename_stem_matches": 10000,
+        "unmatched_examples": []
+      },
+      "Facebook": {
+        "files": 10000,
+        "exact_basename_stem_matches": 10000,
+        "unmatched_examples": []
+      }
+    },
+    "deepshield_pixel_spotcheck.json": [
+      {
+        "name": "DeepShield/PreSocial/Real/FFHQ/00741.png",
+        "relative_saved": "pixel_spotcheck\\DeepShield\\PreSocial\\Real\\FFHQ\\00741.png",
+        "http_status": 206,
+        "bytes_read": 1446449,
+        "entry_crc32": 667324740,
+        "crc_pass": true,
+        "entry_bytes": 1445621,
+        "sha256": "4da19a969f02b3d5c735b33657a757dab3a6cf3703b888d2d608c4026e71ec19",
+        "dimensions": [
+          1024,
+          1024
+        ],
+        "mode": "RGB",
+        "format": "PNG"
+      },
+      {
+        "name": "DeepShield/X/Real/FFHQ/00741.jpg",
+        "relative_saved": "pixel_spotcheck\\DeepShield\\X\\Real\\FFHQ\\00741.jpg",
+        "http_status": 206,
+        "bytes_read": 149364,
+        "entry_crc32": 996278691,
+        "crc_pass": true,
+        "entry_bytes": 148547,
+        "sha256": "a0a308e527d88bfb37ddecfe52ac2b98a76969ad9c7994f7fc3eb0cc5068b730",
+        "dimensions": [
+          1024,
+          1024
+        ],
+        "mode": "RGB",
+        "format": "JPEG"
+      },
+      {
+        "name": "DeepShield/Telegram/Real/FFHQ/00741.jpg",
+        "relative_saved": "pixel_spotcheck\\DeepShield\\Telegram\\Real\\FFHQ\\00741.jpg",
+        "http_status": 206,
+        "bytes_read": 110686,
+        "entry_crc32": 3334889196,
+        "crc_pass": true,
+        "entry_bytes": 109682,
+        "sha256": "2704dd624af7400723031473524f213b1750482781d3d3d0a464fc7d6b318a6a",
+        "dimensions": [
+          800,
+          800
+        ],
+        "mode": "RGB",
+        "format": "JPEG"
+      },
+      {
+        "name": "DeepShield/Facebook/Real/FFHQ/00741.jpg",
+        "relative_saved": "pixel_spotcheck\\DeepShield\\Facebook\\Real\\FFHQ\\00741.jpg",
+        "http_status": 206,
+        "bytes_read": 55700,
+        "entry_crc32": 686656118,
+        "crc_pass": true,
+        "entry_bytes": 54800,
+        "sha256": "c06844d4339daf56d5d43f2463f842a1cd05745ea5b0bb6f2604aa182d3ac2be",
+        "dimensions": [
+          720,
+          720
+        ],
+        "mode": "RGB",
+        "format": "JPEG"
+      },
+      {
+        "name": "DeepShield/PreSocial/Fake/FLUX.1/general/00098.png",
+        "relative_saved": "pixel_spotcheck\\DeepShield\\PreSocial\\Fake\\FLUX.1\\general\\00098.png",
+        "http_status": 206,
+        "bytes_read": 1899874,
+        "entry_crc32": 869828850,
+        "crc_pass": true,
+        "entry_bytes": 1899416,
+        "sha256": "7b131a77ba1f5b640d64b71789c0ebd710b507d4a4ea3e7d8b5fb87a33add156",
+        "dimensions": [
+          1024,
+          1024
+        ],
+        "mode": "RGB",
+        "format": "PNG"
+      },
+      {
+        "name": "DeepShield/X/Fake/FLUX.1/general/00098.jpg",
+        "relative_saved": "pixel_spotcheck\\DeepShield\\X\\Fake\\FLUX.1\\general\\00098.jpg",
+        "http_status": 206,
+        "bytes_read": 259758,
+        "entry_crc32": 4104118074,
+        "crc_pass": true,
+        "entry_bytes": 259954,
+        "sha256": "93b260a35a06acf5a69fdc911e80e4599583bf88ae020085a6ae138818ad767d",
+        "dimensions": [
+          1024,
+          1024
+        ],
+        "mode": "RGB",
+        "format": "JPEG"
+      },
+      {
+        "name": "DeepShield/Telegram/Fake/FLUX.1/general/00098.jpg",
+        "relative_saved": "pixel_spotcheck\\DeepShield\\Telegram\\Fake\\FLUX.1\\general\\00098.jpg",
+        "http_status": 206,
+        "bytes_read": 182213,
+        "entry_crc32": 1561597864,
+        "crc_pass": true,
+        "entry_bytes": 181799,
+        "sha256": "ee9144a8f3c8d8ce7d0244ce600b8a09b6d17b6279a498953a26a96415ca029b",
+        "dimensions": [
+          800,
+          800
+        ],
+        "mode": "RGB",
+        "format": "JPEG"
+      },
+      {
+        "name": "DeepShield/Facebook/Fake/FLUX.1/general/00098.jpg",
+        "relative_saved": "pixel_spotcheck\\DeepShield\\Facebook\\Fake\\FLUX.1\\general\\00098.jpg",
+        "http_status": 206,
+        "bytes_read": 105041,
+        "entry_crc32": 601948319,
+        "crc_pass": true,
+        "entry_bytes": 104686,
+        "sha256": "75ff4bdec32252207eff35e545aa85d172c7854d293a5262f6e0d5d13dbc8bb2",
+        "dimensions": [
+          720,
+          720
+        ],
+        "mode": "RGB",
+        "format": "JPEG"
+      }
+    ],
+    "deepshield_range_cost_plan_with_headers.json": {
+      "800": {
+        "source_count": 800,
+        "image_count": 3200,
+        "compressed_bytes_by_condition": {
+          "PreSocial": 1353490892,
+          "X": 185706021,
+          "Telegram": 85835706,
+          "Facebook": 56139401
+        },
+        "total_compressed_bytes": 1681172020,
+        "total_uncompressed_bytes": 1690616429,
+        "range_requests_if_one_per_image": 3200,
+        "transfer_seconds_10MiBs": 160.32905769348145,
+        "request_pacing_seconds_at_2s": 6400,
+        "selected_key_sha256": "fc83be5d61092a880d7e6d5b99e7e44a63720f6f7cbb1fc7f6bb702208edf3e5",
+        "plan_only_not_fetched": true,
+        "estimated_range_bytes_plus_1024_header_allowance": 1684448820,
+        "request_count_is_one_per_image_assumption": true,
+        "request_count_caveat": "Header larger than 1024 bytes requires an additional Range; no subset downloaded, no measured end-to-end ETA."
+      },
+      "2000": {
+        "source_count": 2000,
+        "image_count": 8000,
+        "compressed_bytes_by_condition": {
+          "PreSocial": 3406718745,
+          "X": 463983104,
+          "Telegram": 215594415,
+          "Facebook": 141590628
+        },
+        "total_compressed_bytes": 4227886892,
+        "total_uncompressed_bytes": 4250716370,
+        "range_requests_if_one_per_image": 8000,
+        "transfer_seconds_10MiBs": 403.2027141571045,
+        "request_pacing_seconds_at_2s": 16000,
+        "selected_key_sha256": "55fe32b31156687cde8bcf4daee962a26ace5175a33a9fd9ec2942cebe934e0b",
+        "plan_only_not_fetched": true,
+        "estimated_range_bytes_plus_1024_header_allowance": 4236078892,
+        "request_count_is_one_per_image_assumption": true,
+        "request_count_caveat": "Header larger than 1024 bytes requires an additional Range; no subset downloaded, no measured end-to-end ETA."
+      }
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "sources": [
+    {
+      "title": "Is Second-order Information Helpful for Large-scale Visual Recognition?",
+      "primary": "https://openaccess.thecvf.com/content_iccv_2017/html/Li_Is_Second-Order_Information_ICCV_2017_paper.html",
+      "pdf": {
+        "url": "https://openaccess.thecvf.com/content_ICCV_2017/papers/Li_Is_Second-Order_Information_ICCV_2017_paper.pdf",
+        "bytes": 596649,
+        "sha256": "93ef6092c03f107b3748f3ae254d4aae5989c5987e0f2941f1bfb4d09277e110"
+      },
+      "reading": "Mainpages1-5read,forwardcovarianceEq1-5,backpropEq6-11,mechanismPropositions1-2andnormalization;remainingempiricsandreferencesnotdeepread",
+      "findings": [
+        "Covariancepoolingandmatrixpowernormalizationareprior",
+        "Highdimensionalfewpatchcovariancecanberankdeficient",
+        "Articleend-to-endneuraltrainingandfullmatrixfunctionnotreplicatedhere"
+      ]
+    },
+    {
+      "title": "Bilinear CNN Models for Fine-Grained Visual Recognition",
+      "primary": "https://openaccess.thecvf.com/content_iccv_2015/html/Lin_Bilinear_CNN_Models_ICCV_2015_paper.html",
+      "reading": "Officialabstractonly;fullPDFnotread",
+      "use": "Prior recognitiononly,notmethodcertificate"
+    }
+  ],
+  "own_design": "FixedDINOdiagonalSDofunitpatchtokens;notmatrixpoweroroffdiagonalcovariance;frozenweights,conventionalriskheads",
+  "limits": [
+    "sqrt(diag covariance) differs from diag(matrix square root)",
+    "No Wishart/Gaussian or independentpatch assumption",
+    "Fixed-token order pooling is not arbitraryimagewarp invariance",
+    "No guarantee of retained AI/nonAI information underphysicalprocessing"
+  ],
+  "status": "Complete20160vectors originalprefixexact;4readouts complete;minimumjointBA69.44%,decline7.5pp;notadopted,no live speed;integerauditpassed",
+  "protocol": "experiments/origin_detection/patch_dispersion/README.md",
+  "history": [
+    {
+      "status": "Registered;3handcontrols passed;CUDAcontrols andboundedpilot underway"
+    },
+    {
+      "status": "3syntheticCUDAcases exact oldprefix/repeat;60pilot196prefixexact;complete6300images20160vectorsoriginal768prefixexact;4heads running"
+    },
+    {
+      "status": "Complete20160vectors originalprefixexact;4readouts complete;minimumjointBA69.44%,decline7.5pp;notadopted,no live speed;integerauditpassed"
+    }
+  ]
+}

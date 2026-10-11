@@ -1,0 +1,82 @@
+{
+  "claims_before_fit": [
+    "Only test whether fixed nonlinear randomized forest improves exposed development decisions; no novelty or robustness guarantee"
+  ],
+  "searches": [
+    {
+      "engine": "web",
+      "date": "2026-10-06",
+      "query": "Extremely randomized trees Geurts Ernst Wehenkel 2006 PDF original"
+    },
+    {
+      "engine": "web",
+      "date": "2026-10-06",
+      "query": "random forest clustered data bootstrap subject level classifier grouped observations"
+    },
+    {
+      "engine": "web",
+      "date": "2026-10-06",
+      "query": "2026 image AI detection frozen embedding random forest robust compression recapture tree"
+    },
+    {
+      "engine": "web",
+      "date": "2026-10-06",
+      "query": "2026 Pierre Geurts grouped trees domain generalization publications"
+    }
+  ],
+  "sources": [
+    {
+      "title": "Ensembles of extremely randomized trees and some generic applications",
+      "url": "https://orbi.uliege.be/bitstream/2268/13447/1/robust-trees.pdf",
+      "bytes": 253733,
+      "sha256": "fa86ec1f41eb1bfd42603603d73f9fca5c3df2e5ca3315f167931221aefc649e",
+      "reading": "10page author workshop; mechanism pages3-7, averaging30-35, remaining context1-2,8-10; extracted page7 contains control-character artifacts",
+      "grade": "P2 component",
+      "quote": "Each tree is grown by selecting at each node a number K of random splits",
+      "location": "page6 section3.3"
+    },
+    {
+      "title": "Clustered random forests with correlated data for optimal estimation and inference under potential covariate shift",
+      "url": "https://arxiv.org/pdf/2503.12634v2",
+      "bytes": 1791222,
+      "sha256": "d7a69717e6496bf9c62214b8f3301f2bed131529eca6502c470504c9165aee45",
+      "reading": "63pages; main1-10 read including Algorithms1-2 and A1,A2. Subsequent theorem statements inspected HTML; later main and proofs unread",
+      "grade": "P2 component; any stronger overlap provisional pending fulltext",
+      "findings": [
+        "Honest disjoint cluster split/evaluation/correlation estimation",
+        "Covariance-weighted least squares and covariate-shift assumptions; not ordinary source bootstrap",
+        "No imported asymptotic theorem for our fixed-depth nonhonest classification forest"
+      ]
+    },
+    {
+      "title": "Extremely randomized trees 2006 original article",
+      "url": "https://orbi.uliege.be/handle/2268/9357",
+      "reading": "FULL-TEXT-UNREAD; record fetch timed out; author workshop obtained instead"
+    },
+    {
+      "title": "ExtraTreeClassifier API",
+      "url": "https://sklearn.org/stable/modules/generated/sklearn.tree.ExtraTreeClassifier.html",
+      "reading": "Current primary docs, used to identify predictor float32 casting. Actual installed fitting version1.7.2 recorded separately"
+    }
+  ],
+  "chains": {
+    "backward": [
+      "workshop cites Geurts et al 2006 original, Breiman bagging1996/randomforests2001; full originals not newly read",
+      "clustered paper cites Wager/Athey2018 and existing MERF/REEM; not imported"
+    ],
+    "forward": "2026 author university publication search run; titles inspected, full sweep not complete"
+  },
+  "gap": "Focused component audit, not systematic/dry literature review. No new-method claim. Scholar/OpenAlex/citation completeness and original40page ExtraTrees remain unread debts.",
+  "protocol": "experiments/origin_detection/source_bagged_forest/README.md",
+  "status": "registered and software controls passed, selection not yet run",
+  "history": [
+    {
+      "stage": "complete development",
+      "goal_achieved": false,
+      "null_anomaly": "rr/redigital lower AUC bound above .5",
+      "minimum_domain_ba": 0.7444444444444445,
+      "maximum_any_scene_drop": 0.175,
+      "report": "reports/04_算法研发/第三十四轮来源重采样森林_非线性与配平仍未达标_2026-10-06.md"
+    }
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "campaign": "Iteration39 centroid covariance source risk",
+  "register": "Selected transcription only",
+  "quote_source": "reports/04_算法研发/第三十九轮类别方差与来源风险_准确率改善未减少退化_2026-10-06.md",
+  "receipts": {
+    "i": {
+      "path": "../../work/robust_statistics/semantic_covariance_risk/iteration.json"
+    }
+  },
+  "claims": [
+    {
+      "section": "table",
+      "label": "clip/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/clip~1source/minimum_domain_ba')",
+      "quoted": "84.44"
+    },
+    {
+      "section": "table",
+      "label": "clip/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/clip~1source/minimum_scene_ba')",
+      "quoted": "83.75"
+    },
+    {
+      "section": "table",
+      "label": "clip/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/clip~1source/maximum_any_scene_drop')",
+      "quoted": "12.50"
+    },
+    {
+      "section": "table",
+      "label": "clip/mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/clip~1mean/minimum_domain_ba')",
+      "quoted": "85.56"
+    },
+    {
+      "section": "table",
+      "label": "clip/mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/clip~1mean/minimum_scene_ba')",
+      "quoted": "83.75"
+    },
+    {
+      "section": "table",
+      "label": "clip/mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/clip~1mean/maximum_any_scene_drop')",
+      "quoted": "11.25"
+    },
+    {
+      "section": "table",
+      "label": "clip/quadratic_source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/clip~1quadratic_source/minimum_domain_ba')",
+      "quoted": "77.92"
+    },
+    {
+      "section": "table",
+      "label": "clip/quadratic_source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/clip~1quadratic_source/minimum_scene_ba')",
+      "quoted": "68.75"
+    },
+    {
+      "section": "table",
+      "label": "clip/quadratic_source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/clip~1quadratic_source/maximum_any_scene_drop')",
+      "quoted": "20.00"
+    },
+    {
+      "section": "table",
+      "label": "clip/source_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/clip~1source_null/minimum_domain_ba')",
+      "quoted": "43.75"
+    },
+    {
+      "section": "table",
+      "label": "clip/source_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/clip~1source_null/minimum_scene_ba')",
+      "quoted": "36.25"
+    },
+    {
+      "section": "table",
+      "label": "clip/source_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/clip~1source_null/maximum_any_scene_drop')",
+      "quoted": "20.00"
+    },
+    {
+      "section": "table",
+      "label": "cure/source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/cure~1source/minimum_domain_ba')",
+      "quoted": "82.78"
+    },
+    {
+      "section": "table",
+      "label": "cure/source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/cure~1source/minimum_scene_ba')",
+      "quoted": "96.25"
+    },
+    {
+      "section": "table",
+      "label": "cure/source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/cure~1source/maximum_any_scene_drop')",
+      "quoted": "6.67"
+    },
+    {
+      "section": "table",
+      "label": "cure/mean/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/cure~1mean/minimum_domain_ba')",
+      "quoted": "83.89"
+    },
+    {
+      "section": "table",
+      "label": "cure/mean/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/cure~1mean/minimum_scene_ba')",
+      "quoted": "92.50"
+    },
+    {
+      "section": "table",
+      "label": "cure/mean/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/cure~1mean/maximum_any_scene_drop')",
+      "quoted": "6.67"
+    },
+    {
+      "section": "table",
+      "label": "cure/quadratic_source/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/cure~1quadratic_source/minimum_domain_ba')",
+      "quoted": "82.78"
+    },
+    {
+      "section": "table",
+      "label": "cure/quadratic_source/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/cure~1quadratic_source/minimum_scene_ba')",
+      "quoted": "83.75"
+    },
+    {
+      "section": "table",
+      "label": "cure/quadratic_source/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/cure~1quadratic_source/maximum_any_scene_drop')",
+      "quoted": "12.50"
+    },
+    {
+      "section": "table",
+      "label": "cure/source_null/minimum_domain_ba",
+      "expr": "100*f('i','/candidates/cure~1source_null/minimum_domain_ba')",
+      "quoted": "47.08"
+    },
+    {
+      "section": "table",
+      "label": "cure/source_null/minimum_scene_ba",
+      "expr": "100*f('i','/candidates/cure~1source_null/minimum_scene_ba')",
+      "quoted": "42.50"
+    },
+    {
+      "section": "table",
+      "label": "cure/source_null/maximum_any_scene_drop",
+      "expr": "100*f('i','/candidates/cure~1source_null/maximum_any_scene_drop')",
+      "quoted": "10.00"
+    }
+  ]
+}
