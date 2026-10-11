@@ -10,6 +10,7 @@ from palimpsest.evaluation.cumulants import (
     normalized_cumulant_magnitude,
     population_cumulant4,
     unbiased_cumulant4,
+    zero_mean_group_decomposition,
 )
 
 
@@ -59,3 +60,37 @@ def test_too_few_vectors_and_invalid_floor_refused():
         unbiased_cumulant4(np.zeros((3, 4)))
     with pytest.raises(ValueError):
         normalized_cumulant_magnitude(1, [1, 1, 1, 1], floor=-1)
+
+
+@pytest.mark.parametrize("complex_columns", (False, True))
+def test_zero_conditional_cumulants_do_not_imply_zero_mixture(complex_columns):
+    z = np.array([-np.sqrt(3), 0, np.sqrt(3)])
+    x = np.concatenate((z, 2 * z))
+    factors = np.array([1, 1j, 2, -1j]) if complex_columns else np.ones(4)
+    row = zero_mean_group_decomposition(
+        x[:, None] * factors, np.tile([1 / 12, 1 / 3, 1 / 12], 2), [0, 0, 0, 1, 1, 1]
+    )
+    scale = 2 if complex_columns else 1
+    assert row["weighted_conditional"] == pytest.approx(0, abs=1e-10)
+    assert row["joint"] == pytest.approx(scale * 27 / 4)
+    assert row["covariance_mixing"] == pytest.approx(scale * 27 / 4)
+    assert row["residual"] == pytest.approx(0, abs=1e-10)
+
+
+def test_sign_cumulant_survives_variance_mixture_decomposition():
+    x = np.array([-1, 1, -2, 2])
+    row = zero_mean_group_decomposition(
+        np.repeat(x[:, None], 4, axis=1), [0.25] * 4, [0, 0, 1, 1]
+    )
+    assert row["weighted_conditional"] == pytest.approx(-17)
+    assert row["joint"] == pytest.approx(-41 / 4)
+    assert row["covariance_mixing"] == pytest.approx(27 / 4)
+
+
+@pytest.mark.parametrize("weights", ([0.25] * 4, [0.5, 0.5, 0, 0]))
+def test_unknown_conditional_means_and_empty_mass_are_refused(weights):
+    x = np.array([-1, 1, 0, 2])
+    with pytest.raises(ValueError):
+        zero_mean_group_decomposition(
+            np.repeat(x[:, None], 4, axis=1), weights, [0, 0, 1, 1]
+        )

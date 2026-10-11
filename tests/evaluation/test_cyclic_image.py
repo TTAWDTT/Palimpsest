@@ -121,3 +121,28 @@ def test_window_phase_zero_degeneracy_and_translated_support_bounds():
     )
     with pytest.raises(ValueError, match="Translated patch support"):
         window_phase_summary(np.zeros((32, 32)), margin=0)
+
+
+def test_optimized_execution_cannot_disable_audit_gates(tmp_path):
+    import subprocess
+    import sys
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            "-O",
+            "-m",
+            "experiments.origin_detection.non_neural.generator_mechanisms.audit_window_phase",
+            "--mode",
+            "controls",
+            "--protocol-revision",
+            "0" * 40,
+            "--output",
+            str(tmp_path / "forbidden.json"),
+        ],
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode != 0
+    assert "assertions enabled" in result.stderr
+    assert not (tmp_path / "forbidden.json").exists()

@@ -51,5 +51,34 @@
     "variance_mixture": "77b8030e9e14068f0704500bf6d59f3cdbbb8715"
   },
   "independence": "Direct-DFT plus generic15-partition reviewer independent of author implementation, shares NumPy, cached pixels and quartet definitions. Same-function replay is not independent. emitall checks numeric transcription, not scientific validity.",
-  "remaining_debts": ["FullP3 near-neighbour reading and citation chains", "Image conditional-population observability", "Photography CFA/resampling and scene periodicity nulls", "Real propagation effects", "Independent real source discrimination at user threshold"]
+  "capture_noise_followup_reading": [
+    {
+      "id": "emva1288_linear_4",
+      "url": "https://www.emva.org/wp-content/uploads/EMVA1288Linear_4.0Release.pdf",
+      "official_index": "https://www.emva.org/standards-technology/emva-1288/emva-standard-1288-downloads-2/",
+      "version": "Release4.0 Linear,16June2021",
+      "read_status": "PARTIAL: PDF/printedpages6,7,9,10; section1.2 assumptions, start2.1, sections2.4-2.5. Equations and model diagram checked visually where used; other sections including full setup and General module unread.",
+      "capture": "work/non_neural/generation_mechanisms/window_phase/emva_linear_4.pdf",
+      "bytes": 3170905,
+      "sha256": "7d9839c3d09421696d2ed2ac35135fe2be3d7c0fd7c2ad51d737f6264683297a",
+      "boundary": "Linear camera-response and independent temporal-noise assumptions. Breaking them by demosaicing/denoising invalidates this Linear module. One-image spatial variance also contains nonuniformity; paired same-exposure images distinguish temporal fluctuations. Not an AI source test or a calibration of our images.",
+      "status": "Reading only; no camera-noise estimator or new image experiment executed"
+    },
+    {
+      "id": "foi_raw_noise",
+      "url": "https://webpages.tuni.fi/foi/papers/Foi-PoissonianGaussianClippedRaw-2007-IEEE_TIP.pdf",
+      "canonical_record": "https://researchportal.tuni.fi/en/publications/practical-poissonian-gaussian-noise-modeling-and-fitting-for-sing/",
+      "title": "Practical Poissonian-Gaussian noise modeling and fitting for single-image raw-data",
+      "authors": ["Alessandro Foi", "Mejdi Trimeche", "Vladimir Katkovnik", "Karen Egiazarian"],
+      "publication": "IEEE TIP17(10),2008,pp1737-1754; DOI10.1109/TIP.2008.2001399",
+      "version_boundary": "Read author manuscript headed TIP-03364-2007-FINAL; filename year not publication year",
+      "read_status": "PARTIAL: first3of18pages, introduction, sectionII/IIA/IIB and beginningIIIA throughEq8; fitting, clipping derivation and full experimental sections unread",
+      "capture": "work/non_neural/generation_mechanisms/window_phase/foi_poisson_gaussian.pdf",
+      "bytes": 6751576,
+      "sha256": "0a415344670400f2e7689cdb980d36b79fd8511912b0332e04cade915a22485e",
+      "boundary": "RAW observation model with conditional mean and signal-dependent variance. Photon Gaussian approximation is task-dependent; mean/variance adequacy does not certify fourth moments. Processed JPEG or recaptured RGB is not automatically RAW.",
+      "status": "Reading only; no algorithm reproduction, new descriptor or source-score claim"
+    }
+  ],
+  "remaining_debts": ["FullP3 near-neighbour reading and citation chains", "Image conditional-population observability", "Photography CFA/resampling and scene periodicity nulls", "FullRAW noise-estimation and clipping reading", "Original-capture versus recapture process attribution", "Real propagation effects", "Independent real source discrimination at user threshold"]
 }

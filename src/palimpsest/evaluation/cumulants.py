@@ -55,6 +55,54 @@ def unbiased_cumulant4(values) -> complex:
     return n**2 * ((n + 1) * fourth - (n - 1) * pairs) / ((n - 1) * (n - 2) * (n - 3))
 
 
+def zero_mean_group_decomposition(values, probabilities, groups) -> dict:
+    """Separate conditional fourth cumulants and covariance-mixture terms.
+
+    An explicit finite population and known integer condition labels are needed.
+    Every group's four conditional means must be zero (relative numerical
+    tolerance 1e-12). Nonzero means need the full conditioning formula; subtracting
+    them here would change the object. Conjugations remain the caller's choice.
+    This function does not estimate conditions from an image or classify sources.
+    """
+    joint = population_cumulant4(values, probabilities)  # Shared input validation.
+    data = np.asarray(values, dtype=np.complex128)
+    weights = np.asarray(probabilities, dtype=float)
+    labels = np.asarray(groups)
+    if labels.shape != (len(data),) or labels.dtype.kind not in "iu":
+        raise ValueError("Supply one integer condition label per state")
+    covariances, conditional, masses = [], [], []
+    for group in np.unique(labels):
+        mask = labels == group
+        mass = float(weights[mask].sum())
+        if mass <= 0:
+            raise ValueError("Every declared condition must have positive mass")
+        probability = weights[mask] / mass
+        columns = data[mask]
+        means = probability @ columns
+        tolerance = 1e-12 * max(1.0, float(np.max(abs(columns))))
+        if (abs(means) > tolerance).any():
+            raise ValueError("Zero-mean identity requires zero conditional means")
+        centered = columns - means
+        covariances.append(centered.T @ (probability[:, None] * centered))
+        conditional.append(population_cumulant4(columns, probability))
+        masses.append(mass)
+    covariances, masses = np.asarray(covariances), np.asarray(masses)
+    average_covariance = np.einsum("g,gij->ij", masses, covariances)
+    mixing = sum(
+        masses @ (covariances[:, i, j] * covariances[:, k, l])
+        - average_covariance[i, j] * average_covariance[k, l]
+        for i, j, k, l in ((0, 1, 2, 3), (0, 2, 1, 3), (0, 3, 1, 2))
+    )
+    within = masses @ np.asarray(conditional)
+    return {
+        "joint": joint,
+        "weighted_conditional": complex(within),
+        "covariance_mixing": complex(mixing),
+        "residual": complex(joint - within - mixing),
+        "groups": len(masses),
+    }
+
+
 def normalized_cumulant_magnitude(cumulant, marginal_cumulants, *, floor=0.0):
     """Normalize by four auto-cumulants; return None for an explicit degeneracy.
 

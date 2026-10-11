@@ -19,6 +19,7 @@ from palimpsest.evaluation.cumulants import (
     normalized_cumulant_magnitude,
     population_cumulant4,
     unbiased_cumulant4,
+    zero_mean_group_decomposition,
 )
 from palimpsest.evaluation.polyphase import periodic_upsampling_matrix
 from palimpsest.io.hashing import file_sha256
@@ -365,17 +366,137 @@ def controls(spec):
     }
 
 
+def variance_mixture_controls(spec):
+    """Finite zero-mean specialization, separately from historical cyclic suite."""
+    started = perf_counter()
+    assert "variance_mixture_followup" in spec
+    rows = []
+    caught = []
+    for name, states, conditional_variances, expected in (
+        (
+            "gaussian_matched_mixture",
+            (-np.sqrt(3), 0, np.sqrt(3)),
+            (1, 4),
+            (27 / 4, 0, 27 / 4),
+        ),
+        ("sign_mixture", (-1, 1), (1, 4), (-41 / 4, -17, 27 / 4)),
+        ("constant_variance", (-np.sqrt(3), 0, np.sqrt(3)), (1, 1), (0, 0, 0)),
+    ):
+        state_probability = np.array(
+            (1 / 6, 2 / 3, 1 / 6) if len(states) == 3 else (1 / 2, 1 / 2)
+        )
+        values = np.concatenate(
+            [np.sqrt(v) * np.array(states) for v in conditional_variances]
+        )
+        probability = np.tile(state_probability / 2, 2)
+        labels = np.repeat((0, 1), len(states))
+        columns = np.repeat(values[:, None], 4, axis=1)
+        result = zero_mean_group_decomposition(columns, probability, labels)
+        for key, truth in zip(
+            ("joint", "weighted_conditional", "covariance_mixing"), expected
+        ):
+            np.testing.assert_allclose(result[key], truth, rtol=0, atol=1e-10)
+        np.testing.assert_allclose(result["residual"], 0, rtol=0, atol=1e-10)
+        # Exact rational moments of variance levels provide a separate oracle.
+        v = [Fraction(n) for n in conditional_variances]
+        e_v2 = sum(n * n for n in v) / 2
+        e_v = sum(v) / 2
+        exact_mixing = 3 * (e_v2 - e_v**2)
+        exact_within = (-2 * e_v2) if len(states) == 2 else Fraction(0)
+        assert float(exact_mixing) == expected[2] and float(exact_within) == expected[1]
+        if name != "constant_variance":
+            try:
+                np.testing.assert_allclose(
+                    result["joint"], result["weighted_conditional"], rtol=0, atol=1e-10
+                )
+            except AssertionError:
+                caught.append(f"{name}: omitted mixture term")
+            else:
+                raise AssertionError("Omitted mixture term accepted")
+        if name == "sign_mixture":
+            try:
+                np.testing.assert_allclose(
+                    result["weighted_conditional"], 0, rtol=0, atol=1e-10
+                )
+            except AssertionError:
+                caught.append("sign mixture: suppressed conditional fourth cumulant")
+            else:
+                raise AssertionError("Conditional cumulant interpreted as zero")
+        # Nonzero group mean is refused, not silently removed to bless the formula.
+        shifted = columns.copy()
+        shifted[labels == 1] += 1
+        for reason, broken_values, broken_weights in (
+            ("nonzero conditional mean", shifted, probability),
+            (
+                "zero-mass condition",
+                columns,
+                np.array([1 / len(states)] * len(states) + [0] * len(states)),
+            ),
+        ):
+            try:
+                zero_mean_group_decomposition(broken_values, broken_weights, labels)
+            except ValueError:
+                caught.append(f"{name}: {reason}")
+            else:
+                raise AssertionError("Nonzero mean or zero-mass condition accepted")
+        rows.append(
+            {
+                "case": name,
+                "states": len(values),
+                **{
+                    k: encoded(result[k])
+                    for k in (
+                        "joint",
+                        "weighted_conditional",
+                        "covariance_mixing",
+                        "residual",
+                    )
+                },
+            }
+        )
+    try:
+        zero_mean_group_decomposition(np.empty((0, 4)), [], [])
+    except ValueError:
+        caught.append("empty finite population")
+    else:
+        raise AssertionError("Empty population accepted")
+    assert len(caught) == 10
+    return {
+        "elapsed_seconds": perf_counter() - started,
+        "case_count": 3,
+        "controls_passed": True,
+        "rows": rows,
+        "negative_controls_caught": caught,
+        "scope": spec["variance_mixture_followup"]["scope"],
+    }
+
+
 def main():
+    if not __debug__:
+        raise RuntimeError(
+            "Scientific audit requires assertions enabled; do not use -O"
+        )
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--suite", choices=("cyclic", "variance-mixture"), default="cyclic"
+    )
     parser.add_argument("--protocol-revision", required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     spec, digest = load_committed_json(PROTOCOL, args.protocol_revision, REPO_ROOT)
-    result = controls(spec)
+    if args.output.exists():
+        raise FileExistsError("Receipt overwrite refused")
+    result = (
+        controls(spec) if args.suite == "cyclic" else variance_mixture_controls(spec)
+    )
     result.update(
         protocol_revision=args.protocol_revision,
         protocol_sha256=digest,
         code_sha256=file_sha256(Path(__file__)),
+        cumulant_sha256=file_sha256(
+            REPO_ROOT / "src/palimpsest/evaluation/cumulants.py"
+        ),
+        suite=args.suite,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(
@@ -386,7 +507,9 @@ def main():
             {
                 "output": str(args.output),
                 "elapsed_seconds": result["elapsed_seconds"],
-                "negative_controls": len(result["negative_controls_caught"]),
+                "negative_controls": len(result.get("negative_controls_caught", [])),
+                "suite": args.suite,
+                "case_count": result.get("case_count"),
             },
             ensure_ascii=False,
         )

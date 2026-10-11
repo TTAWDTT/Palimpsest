@@ -261,6 +261,10 @@ def cached_views(protocol):
 
 
 def main():
+    if not __debug__:
+        raise RuntimeError(
+            "Scientific audit requires assertions enabled; do not use -O"
+        )
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--mode", choices=("controls", "pilot", "cached"), required=True
@@ -280,6 +284,9 @@ def main():
         "metric_sha256": file_sha256(
             REPO_ROOT / "src/palimpsest/evaluation/cyclic_image.py"
         ),
+        "cumulant_sha256": file_sha256(
+            REPO_ROOT / "src/palimpsest/evaluation/cumulants.py"
+        ),
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "mode": args.mode,
     }
@@ -290,7 +297,12 @@ def main():
             raise ValueError("Require passed analytic control receipt")
         control = json.loads(args.controls.read_text(encoding="utf-8"))
         assert control["controls_passed"] and control["case_count"] == 5
-        for key in ("protocol_sha256", "code_sha256", "metric_sha256"):
+        for key in (
+            "protocol_sha256",
+            "code_sha256",
+            "metric_sha256",
+            "cumulant_sha256",
+        ):
             assert control[key] == identity[key]
         views = cached_views(protocol)
         rows = []
@@ -300,7 +312,12 @@ def main():
             if args.pilot is None:
                 raise ValueError("Require same-instrument three-view timing pilot")
             pilot = json.loads(args.pilot.read_text(encoding="utf-8"))
-            for key in ("protocol_sha256", "code_sha256", "metric_sha256"):
+            for key in (
+                "protocol_sha256",
+                "code_sha256",
+                "metric_sha256",
+                "cumulant_sha256",
+            ):
                 assert pilot[key] == identity[key]
             assert [r["view"] for r in pilot["rows"]] == views[:3]
             selected, reused = views[3:], pilot["rows"]
