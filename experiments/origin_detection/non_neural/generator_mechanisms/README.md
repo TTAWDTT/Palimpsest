@@ -73,7 +73,7 @@ pilot只检查up.1的第0输出通道；正式检查三个层的输出通道0–
 
 这一步验证真实训练权重下的算子响应，没有完整生成器、语义合理样本或来源判别器。与之前手写核的区别须明确；不能因调用Torch实验工具就把它归入最终纯算法部署实现，也不能声称本项目训练了新模型。
 
-## 完整编码／解码链的下一组协议
+## 完整编码／解码链协议与执行
 
 [decoder_chain_probe.json](../../../../configs/evaluation/decoder_chain_probe.json)先提交Git，再以指定commit的blob SHA与working-copy比较，执行前将两者写入新收据。首先用确定性合成chart验证完整组件加载／实际隐藏输入的线性响应路径与成本，再读取已登记4个历史fit原图。选择只使用历史签名metadata中的domain／label／原图SHA，没有从特征数值筛选图片。
 
@@ -84,3 +84,18 @@ pilot只检查up.1的第0输出通道；正式检查三个层的输出通道0–
 加载协议勘误：第一次chart在forward／像素读取之前，被“未解释参数”闸门拒绝。档案另含`model_ema.decay`与`model_ema.num_updates`两个标量buffer；已查固定版本`LitEma`源码及AE.forward，它们属于EMA记账，不进入此次forward。新协议逐个规定其shape／dtype并计入总数；未知额外键仍拒绝，没有用strict=False绕过，也没有修改数值容限。
 
 chart之后、四张照片之前追加一个明确因果干预：固定编码mean与全部权重，只改decoder.up.1中最近邻为双线性、align_corners=False；两路进入该层的hidden须逐值一致，并核新插值核的局部系数预测。该干预由最近邻／线性插值的机制问题提出，不把新forward当同等训练的另一生成器，不预言最终RGB的统一变化方向。另记原图偶数格采样后最近邻重复的普通处理负对照；不声称其是真实平台或拍屏模拟。
+
+代码独立核对每层输出通道0–3的全部valid内部像素，其余输出通道只参与完整forward。已有四图实验勿重复读取或运行；各收据及结论见[机制报告第10节](../../../../reports/04_算法研发/机制研究/从生成环节推导可观测差异_2026-10-11.md)。
+
+## 四阶循环关系控制
+
+[cyclic_cumulant_controls.json](../../../../configs/evaluation/cyclic_cumulant_controls.json)记录有限总体、独立／信号依赖噪声、低通、相位分组和有限估计对照。先提交本地Git，再以完整revision核working-copy和blob。三个递增协议与三份收据都保留；只验证已知分布，程序不读取图像。
+
+```powershell
+$revision = git rev-parse aba4219
+python -m experiments.origin_detection.non_neural.generator_mechanisms.audit_cyclic_cumulants `
+  --protocol-revision $revision `
+  --output work/non_neural/generation_mechanisms/operator_moments/cumulant_recheck.json
+```
+
+使用仓库基础环境即可。共享四阶矩／k-statistic计算位于`palimpsest.evaluation.cumulants`；源标签、模型、阈值不进入此程序。有限Gaussian四阶匹配控制、Gaussian八阶求积和真实相机噪声是不同对象。结果见[第11节](../../../../reports/04_算法研发/机制研究/从生成环节推导可观测差异_2026-10-11.md)，不将该模块注册为来源判别器。

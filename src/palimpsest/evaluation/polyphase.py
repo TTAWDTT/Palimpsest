@@ -25,8 +25,10 @@ def periodic_upsampling_matrix(kernel, stride: int, latent_length: int) -> np.nd
     size = stride * latent_length
     impulses = np.zeros((size, latent_length), dtype=np.float64)
     impulses[::stride] = np.eye(latent_length)
-    return sum((weight * np.roll(impulses, k, axis=0) for k, weight in enumerate(h)),
-               np.zeros_like(impulses))
+    return sum(
+        (weight * np.roll(impulses, k, axis=0) for k, weight in enumerate(h)),
+        np.zeros_like(impulses),
+    )
 
 
 @dataclass(frozen=True)
@@ -35,7 +37,9 @@ class PopulationMoments:
     covariance: np.ndarray
 
 
-def linear_population_moments(operator, input_mean, input_covariance) -> PopulationMoments:
+def linear_population_moments(
+    operator, input_mean, input_covariance
+) -> PopulationMoments:
     """Propagate supplied finite first and second moments through a matrix."""
     a = np.asarray(operator, dtype=np.float64)
     mean = np.asarray(input_mean, dtype=np.float64)
@@ -69,8 +73,12 @@ def phase_summary(moments: PopulationMoments, stride: int) -> dict:
     next_indices = (indices + 1) % mean.size
     variances = np.diag(covariance)
     adjacent = covariance[indices, next_indices]
-    differences = (variances + variances[next_indices] - 2 * adjacent
-                   + (mean[next_indices] - mean) ** 2)
+    differences = (
+        variances
+        + variances[next_indices]
+        - 2 * adjacent
+        + (mean[next_indices] - mean) ** 2
+    )
     grouped = lambda x: x.reshape(-1, stride).mean(axis=0).tolist()
     return {
         "means": grouped(mean),
@@ -78,8 +86,9 @@ def phase_summary(moments: PopulationMoments, stride: int) -> dict:
         "adjacent_covariances": grouped(adjacent),
         "difference_energies": grouped(differences),
         "mean_shift_residual": float(np.max(np.abs(mean - np.roll(mean, 1)))),
-        "covariance_shift_residual": float(np.max(np.abs(
-            covariance - np.roll(covariance, (1, 1), axis=(0, 1))))),
+        "covariance_shift_residual": float(
+            np.max(np.abs(covariance - np.roll(covariance, (1, 1), axis=(0, 1))))
+        ),
     }
 
 
@@ -95,20 +104,67 @@ def frequency_covariance(covariance) -> np.ndarray:
         raise ValueError("covariance must be square")
     size = covariance.shape[0]
     checked = linear_population_moments(np.eye(size), np.zeros(size), covariance)
-    return np.fft.ifft(np.fft.fft(checked.covariance, axis=0, norm="ortho"),
-                       axis=1, norm="ortho")
+    return np.fft.ifft(
+        np.fft.fft(checked.covariance, axis=0, norm="ortho"), axis=1, norm="ortho"
+    )
 
 
 def spectral_coherence_magnitude(covariance, first: int, second: int) -> float | None:
     """Magnitude of normalized frequency covariance; zero powers give None."""
     spectrum = frequency_covariance(covariance)
     size = spectrum.shape[0]
-    if (isinstance(first,bool) or isinstance(second,bool)
-            or not isinstance(first,(int,np.integer)) or not isinstance(second,(int,np.integer))
-            or not 0 <= first < size or not 0 <= second < size):
+    if (
+        isinstance(first, bool)
+        or isinstance(second, bool)
+        or not isinstance(first, (int, np.integer))
+        or not isinstance(second, (int, np.integer))
+        or not 0 <= first < size
+        or not 0 <= second < size
+    ):
         raise ValueError("frequency indices must be explicit in-range integers")
-    first_power,second_power = float(spectrum[first,first].real),float(spectrum[second,second].real)
+    first_power, second_power = (
+        float(spectrum[first, first].real),
+        float(spectrum[second, second].real),
+    )
     if first_power <= 0 or second_power <= 0:
         return None
     denominator = first_power * second_power
-    return float(abs(spectrum[first,second])/np.sqrt(denominator))
+    return float(abs(spectrum[first, second]) / np.sqrt(denominator))
+
+
+def spatial_phase_moments(field, stride: int = 2) -> dict:
+    """Descriptive spatial moments of one finite field, not population evidence.
+
+    Absolute phase0 starts at the supplied field's origin. Caller must preserve
+    the crop offset. Counts are reported; zero variance stays undefined forCV.
+    """
+    stride = _positive_integer(stride, "stride")
+    data = np.asarray(field, dtype=np.float64)
+    if (
+        data.ndim != 2
+        or min(data.shape, default=0) < stride
+        or any(length % stride for length in data.shape)
+        or not np.isfinite(data).all()
+    ):
+        raise ValueError("field must be a finite2D array divisible by stride")
+    means, variances, counts = [], [], []
+    for r in range(stride):
+        row_mean, row_variance, row_count = [], [], []
+        for c in range(stride):
+            values = data[r::stride, c::stride]
+            row_mean.append(float(values.mean()))
+            row_variance.append(float(values.var()))
+            row_count.append(int(values.size))
+        means.append(row_mean)
+        variances.append(row_variance)
+        counts.append(row_count)
+    average_variance = float(np.mean(variances))
+    return {
+        "means": means,
+        "variances": variances,
+        "counts": counts,
+        "variance_cv": None
+        if average_variance == 0
+        else float(np.std(variances) / average_variance),
+        "scope": "Descriptive spatial phases of a single field; no iid, ensemble or significance assertion",
+    }

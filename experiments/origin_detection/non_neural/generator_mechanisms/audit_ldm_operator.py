@@ -22,18 +22,18 @@ WEIGHTS_SHA = "735e4c3a447a3255760d7f86845f09f937809baa529c17370d83e4c3758f3c75"
 WEIGHTS_BYTES = 334641190
 
 
-def _pinned_class(source_path):
+def pinned_source_ast(source_path, names=("Upsample",)):
     data = source_path.read_bytes()
     if sha256(data).hexdigest() != PINNED_SOURCE_SHA:
         raise ValueError("Source SHA does not match inspected LDM revision")
-    classes = [
+    selected = [
         node
         for node in ast.parse(data).body
-        if isinstance(node, ast.ClassDef) and node.name == "Upsample"
+        if isinstance(node, (ast.ClassDef, ast.FunctionDef)) and node.name in names
     ]
-    if len(classes) != 1:
-        raise ValueError("Expected exactly one pinned Upsample class")
-    return ast.Module(body=classes, type_ignores=[])
+    if len(selected) != len(names) or {node.name for node in selected} != set(names):
+        raise ValueError("Pinned source is missing or duplicates requested definitions")
+    return ast.Module(body=selected, type_ignores=[])
 
 
 def _periodic_operator(length, kernel):
@@ -52,7 +52,7 @@ def _periodic_operator(length, kernel):
 def assay(source_path, length):
     if length not in (3, 4):
         raise ValueError("Registered fixture length must be3 or4")
-    class_ast = _pinned_class(source_path)
+    class_ast = pinned_source_ast(source_path)
     import torch
 
     torch.set_num_threads(1)
@@ -132,8 +132,10 @@ def assay(source_path, length):
     }
 
 
-def trained_footprint(weight, row_phase, column_phase, output_channels):
-    """Fold3x3 correlation taps through nearest-neighbor indices, interior only."""
+def trained_footprint(
+    weight, row_phase, column_phase, output_channels, *, mode="nearest"
+):
+    """Fold correlation through registered nearest/bilinear2x interior indices."""
     weight = np.asarray(weight, dtype=np.float64)
     if (
         weight.ndim != 4
@@ -142,14 +144,25 @@ def trained_footprint(weight, row_phase, column_phase, output_channels):
         or row_phase not in (0, 1)
         or column_phase not in (0, 1)
         or not 1 <= output_channels <= weight.shape[0]
+        or mode not in ("nearest", "bilinear")
     ):
         raise ValueError("Invalid trained-layer footprint request")
     footprint = np.zeros((output_channels, weight.shape[1], 4, 4), dtype=np.float64)
+
+    def support(pixel):
+        if mode == "nearest":
+            return ((pixel // 2, 1.0),)
+        numerator = 2 * pixel - 1  # align_corners=False: (pixel+1/2)/2-1/2.
+        left, fraction = numerator // 4, (numerator % 4) / 4
+        return ((left, 1 - fraction), (left + 1, fraction))
+
     for kr in range(3):
         for kc in range(3):
-            row = (2 + row_phase + kr - 1) // 2
-            column = (2 + column_phase + kc - 1) // 2
-            footprint[:, :, row, column] += weight[:output_channels, :, kr, kc]
+            for row, row_weight in support(2 + row_phase + kr - 1):
+                for column, column_weight in support(2 + column_phase + kc - 1):
+                    footprint[:, :, row, column] += (
+                        weight[:output_channels, :, kr, kc] * row_weight * column_weight
+                    )
     return footprint
 
 
@@ -169,7 +182,7 @@ def trained_assay(source_path, weights_path, layer_count=3, probe_channels=4):
     """Check trained linear sublayers; hidden-input covariance remains unknown."""
     if layer_count not in (1, 3) or probe_channels not in (1, 4):
         raise ValueError("Unregistered trained-layer probe size")
-    class_ast = _pinned_class(source_path)
+    class_ast = pinned_source_ast(source_path)
     weights_sha = _checked_weights(weights_path)
     import torch
     from safetensors.torch import load_file
