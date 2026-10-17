@@ -1,6 +1,6 @@
-# M 双特征统计判别器
+# M 四特征跨尺度白化统计判别器（`M_2a3a3c_zca`）
 
-M 从局部亮度增量的跨距离矩比例和分布形状计算来源证据，不依赖神经编码器、生成模型或 GPU。它使用 738 个 Chimera 原始来源的有标签稳健标定；推理没有分类器训练或阈值搜索。当前发布的是固定边际分支 M，不包含旧四轴融合 S、关系分支 R 或它们的拒判规则。
+M 从局部亮度增量的跨距离矩比例、分布形状以及经过最细离散尺度净化后的二进跨尺度自参照差分计算来源证据，不依赖神经编码器、生成模型或 GPU。它完全复用单个 $64\times 4\times 4\times 4\times 3$ 结构函数张量（零额外滤波开销），仅使用 738 个 Chimera 原始来源（`stylegan2_orig`）做有标签稳健标定与 ZCA-CAT 去共线性白化投影；推理没有分类器训练或阈值搜索。
 
 [算法实现](../../../src/palimpsest/detection/algorithms/marginal_intermittency.py) · [冻结参数](../../../src/palimpsest/detection/algorithms/m_calibration.json) · [实验报告与逐图分数](../../../reports/m_intermittency/README.md)
 
@@ -18,7 +18,7 @@ uv run --locked palimpsest-detect example.jpg --detector m --localizer whole-ima
 
 `whole-image` 对应当前验证条件。定位后裁切可调用，但裁切后的准确率没有在本发布中验证。解码保持文件存储朝向，不自动执行 EXIF 旋转、ICC 转换或透视校正。
 
-冻结参数随安装包发布。显式 `--calibration other.json` 可加载另一份 schema 1 参数，但其结果不属于这里报告的冻结 M；推理不会自动拟合参数。
+冻结参数随安装包发布。显式 `--calibration other.json` 可加载另一份 schema 2 参数，但其结果不属于这里报告的冻结 M；推理不会自动拟合参数。
 
 ## 批量图片推理
 
@@ -68,9 +68,17 @@ $$f_1=\operatorname{median}_{valid}|A/B-4/3|,$$
 
 $$f_2=\operatorname{median}_{valid}(\log S_4+\log S_2-2\log S_3)-\log(3\pi/8).$$
 
-无有效项时返回有限零值并标记退化；不向矩加 epsilon。冻结判别式为
+同时结合三项理论改进（2a + 3a + 3c）：
 
-$$M=\frac12\left[\frac{0.011286373441984687-f_1}{0.0012565981389395357}+\frac{f_2+0.03770162652337486}{0.007320421409122827}\right].$$
+1. **离散尺度空间截断净化（2a）**：在细尺度 $\sigma=1.0$ 下，单位步长 $r=1$ 处于高离散 Péclet 数（$\mathrm{Pe}=r/\sigma=1$），受像素网格离散化、建筑 1px 人工阶跃边缘与屏幕子像素混叠主导。计算跨尺度轨迹时精确剔除单个高污染网格单元 $(\sigma=1.0, r=1)$，保留全部 $r\ge 2$ 与 $\sigma\ge 2.0$，在每个尺度 $\sigma\in\{1,2,4,8\}$ 上求中位数 $f_1^{\text{san}}(\sigma), f_2^{\text{san}}(\sigma)$。
+2. **自参照二进跨尺度差分（3a）**：以粗尺度 $\sigma\in\{4,8\}$ 作为图像内部参考基底，定义细尺度与粗尺度的二进差分：
+
+$$d_1^{\text{san}}=\log\frac{\frac{1}{2}(f_1^{\text{san}}(1)+f_1^{\text{san}}(2))}{\frac{1}{2}(f_1^{\text{san}}(4)+f_1^{\text{san}}(8))},\qquad d_2^{\text{san}}=\frac{f_2^{\text{san}}(1)+f_2^{\text{san}}(2)}{2}-\frac{f_2^{\text{san}}(4)+f_2^{\text{san}}(8)}{2}.$$
+
+其中 $d_2^{\text{san}}$ 在理论上精确抵消屏摄光学 PSF 与传感器底噪注入的跨尺度共模加性对数累积量漂移 $\delta_H$。
+3. **ZCA-CAT 相关调整白化判别头（3c）**：在 738 张 calibration 原图上，各轴经中心 $c_i$、尺度 $s_i=1.4826\cdot\operatorname{MAD}$ 与方向 $\operatorname{dir}_i\in\{\pm 1\}$ 标准化为 $z_i=\operatorname{dir}_i(x_i-c_i)/s_i$。用两类中位数中心化残差（Huber 截断于 $[-3,3]$）配合解析 Ledoit–Wolf 收缩估计类内相关矩阵 $R_W$，计算零截距 ZCA-CAT 权重 $w\propto R_W^{-1/2}\Delta_{\text{med}}$（归一化至 $\sum_{i=1}^4 w_i=1$）：
+
+$$M=0.34547305\,z_1+0.21436778\,z_2+0.22461540\,z_3+0.21554377\,z_4.$$
 
 $M\ge0$ 判 AI，$M<0$ 判真实。公共 `Prediction` 使用严格 `score>threshold`，因此适配阈值为零的前一个 float64 值 `-5e-324`，准确保留旧版的零点判 AI 规则。
 
@@ -78,7 +86,7 @@ $M\ge0$ 判 AI，$M<0$ 判真实。公共 `Prediction` 使用严格 `score>thres
 
 ## 数学性质与实验范围
 
-对预处理后的浮点亮度，在无裁切、量化和新增噪声的 $Y'=aY+b$、$a\ne0$ 下，$S'_p=|a|^pS_p$。相邻距离的 log 差消去常数增益，矩形状的增益系数 $4+2-2\times3=0$，故两特征不变。该恒等式不涵盖 JPEG、gamma、缩放或屏摄。
+对预处理后的浮点亮度，在无裁切、量化和新增噪声的 $Y'=aY+b$、$a\ne0$ 下，$S'_p=|a|^pS_p$。相邻距离的 log 差消去常数增益，矩形状的增益系数 $4+2-2\times3=0$，故全部四项特征对非零线性亮度变换严格不变（误差 $<10^{-10}$），且 $d_2^{\text{san}}$ 对跨尺度共模对数矩偏移严格不变（误差 $<10^{-14}$）。该恒等式不涵盖 JPEG、gamma、缩放或屏摄。
 
 Cauchy–Schwarz 给出 $S_3^2\le S_2S_4$。零均值 Gaussian 绝对矩给出形状参考 $\log(3\pi/8)$，只改变其方差的距离轨迹给出 $4/3$。这些参考对定义特征有用，并没有证明真实照片必须 Gaussian 或 AI 必须违反它们；来源方向仍由标定与实测确认。
 

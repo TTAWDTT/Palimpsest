@@ -2,7 +2,7 @@
 
 研究图像经过数字传播与物理再拍后，如何判断其原始视觉内容来自自然摄影还是 AI 生成。
 
-本分支同时提供冻结的 M 双特征统计判别器：不依赖神经编码器或 GPU，入口与可复算结果见[ M 判别器实验](experiments/origin_detection/marginal_intermittency/README.md)和[发布报告](reports/m_intermittency/README.md)。
+本分支同时提供冻结的 M 四特征跨尺度白化统计判别器（`M_2a3a3c_zca`）：不依赖神经编码器或 GPU，零额外滤波开销，入口与可复算结果见[ M 判别器实验](experiments/origin_detection/marginal_intermittency/README.md)和[发布报告](reports/m_intermittency/README.md)。
 
 **已完成第72轮，尚未达到BA≥80%、传播后跌幅≤2个百分点并经独立真实数据验证的联合目标。** 当前最佳联合候选为[冻结CuRe特征＋自研统计头](src/palimpsest/detection/models/frozen_features/cure/README.md)，第69轮最低域汇总BA85%、最大同源下降2.5个百分点。它包含神经网络；非神经路线拟接续第15轮，历史结果见[研发记录](reports/04_算法研发/README.md)。
 

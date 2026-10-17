@@ -48,25 +48,37 @@ def test_packaged_calibration_and_legacy_zero_tie_are_preserved():
     detector = MIntermittencyDetector()
     centers = {axis: p.center for axis, p in zip(AXES, detector.parameters)}
     score, standardized = detector.score_features(centers)
-    assert score == 0.0 and list(standardized.values()) == [0.0, 0.0]
+    assert score == 0.0 and list(standardized.values()) == [0.0, 0.0, 0.0, 0.0]
+    assert np.isclose(sum(p.weight for p in detector.parameters), 1.0, rtol=0, atol=1e-12)
     for value in (-1.0, LEGACY_THRESHOLD, -0.0, 0.0, 1.0):
         prediction = Prediction("M", value, threshold=LEGACY_THRESHOLD)
         assert (prediction.origin == Origin.AI) == (value >= 0)
     assert detector.parameters[0].center == 0.011286373441984687
     assert detector.parameters[1].scale == 0.007320421409122827
+    assert detector.parameters[2].center == 1.9943937115323118
+    assert detector.parameters[3].scale == 0.008271678466483186
 
 
 @pytest.mark.parametrize(
-    "scale,direction", [(0, 1), (-1, 1), (np.nan, 1), (1, 0), (1, np.inf)]
+    "scale,direction,weight",
+    [
+        (0, 1, 0.25),
+        (-1, 1, 0.25),
+        (np.nan, 1, 0.25),
+        (1, 0, 0.25),
+        (1, np.inf, 0.25),
+        (1, 1, 0),
+        (1, 1, -0.1),
+    ],
 )
-def test_calibration_rejects_invalid_numeric_parameters(scale, direction):
+def test_calibration_rejects_invalid_numeric_parameters(scale, direction, weight):
     with pytest.raises(ValueError, match="calibration"):
-        AxisCalibration(0, scale, direction)
+        AxisCalibration(0, scale, direction, weight)
 
 
 def test_custom_calibration_requires_exact_schema(tmp_path):
     path = tmp_path / "parameters.json"
-    path.write_text(json.dumps({"schema": 1, "features": {}}), encoding="utf-8")
+    path.write_text(json.dumps({"schema": 2, "features": {}}), encoding="utf-8")
     with pytest.raises(ValueError, match="schema"):
         MIntermittencyDetector(path)
 
