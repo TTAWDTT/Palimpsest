@@ -1,0 +1,32 @@
+{
+  "kind": "packaging regression; existing development pixels, not independent validation",
+  "sources": 231,
+  "images": 1155,
+  "old_test_pixels_read": false,
+  "recalibration": false,
+  "max_abs_feature_error_vs_reference": 0.0,
+  "max_abs_standardized_error_vs_reference": 0.0,
+  "max_abs_score_error_vs_reference": 2.220446049250313e-16,
+  "marginal_qc_mismatches": 0,
+  "forced_predictions_identical": true,
+  "image_file_hashes_verified": 1155,
+  "versions": {
+    "python": "3.12.5",
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "Pillow": "10.4.0"
+  },
+  "reference_sha256": {
+    "paired_scores": "63d10c49896a8791b4689d8ac695ce6ed0977fb0ee5927c240af8470712de0e3",
+    "scored": "4290c70b45fad62dc6c71d8b8d25f56d88478124b2e53086b3f9fd5015c96a1e",
+    "calibration": "20b408d8c7eb78ddd5141bf1897c33fc9ad368440584627a9ef5baaa353d4ece"
+  },
+  "published_sha256": {
+    "src/palimpsest/detection/algorithms/marginal_intermittency.py": "d54b14e90c856973ad8e9f31ca9315ed8f362a16153cebfd6359396b95ae836b",
+    "src/palimpsest/detection/algorithms/m_calibration.json": "14a59d0ab6d041c8328846c67af45eaad794a24ad06fe2fefd5e092a624e01c2",
+    "experiments/origin_detection/marginal_intermittency/evaluate_manifest.py": "6109e2d3d385f5783d7f0b2ee9cf7109a7d70a6e6dbe5b5b42d3051dba55c4cb",
+    "reports/m_intermittency/development_scores.csv": "40fc6e5a2117efa4c26b22dfef1f57c72d6dc049d20ea52e6f4907a49313942e",
+    "reports/m_intermittency/development_manifest.csv": "b084c0caf465190c4f50133bef5e96207ee88f1f985423e4eb4da0feb7656e85"
+  },
+  "elapsed_seconds": 481.8897828999907
+}

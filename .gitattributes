@@ -6,5 +6,10 @@
 *.lock text eol=lf
 # Audit JSON files can have recorded byte-level hashes; preserve their bytes.
 *.json -text
+# M score/manifest receipts include byte hashes; retain CSV newline bytes.
+reports/m_intermittency/*.csv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/m_intermittency/evaluation/*.csv -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/m_intermittency/*.json whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+reports/m_intermittency/evaluation/*.json whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 *.png binary
 *.jpg binary

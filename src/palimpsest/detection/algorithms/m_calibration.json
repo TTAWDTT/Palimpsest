@@ -1,0 +1,44 @@
+{
+  "schema": 2,
+  "version": "M-whitened-scale-2026-10-17",
+  "calibration_source_count": 738,
+  "calibration_views": "Chimera originals only",
+  "legacy_full_calibration_sha256": "21d7b2bffc962d847618e983a4e50c1d5c0f6504d546725ebd9f6ba39369e603",
+  "features": {
+    "intermittency_ess_deviation": {
+      "center": 0.011286373441984687,
+      "scale": 0.0012565981389395357,
+      "direction": -1.0,
+      "weight": 0.3454730489804664
+    },
+    "intermittency_logmoment_gaussian_offset": {
+      "center": -0.03770162652337486,
+      "scale": 0.007320421409122827,
+      "direction": 1.0,
+      "weight": 0.2143677792452201
+    },
+    "sanitized_scale_ess_log_ratio": {
+      "center": 1.9943937115323118,
+      "scale": 0.167654643154425,
+      "direction": -1.0,
+      "weight": 0.22461540030583999
+    },
+    "sanitized_scale_logmoment_excess": {
+      "center": 0.045995673837602835,
+      "scale": 0.008271678466483186,
+      "direction": 1.0,
+      "weight": 0.2155437714684735
+    }
+  },
+  "whitening": {
+    "method": "Huber-clipped ([-3,3] MAD) median-centered within-class residuals -> analytic Ledoit-Wolf shrinkage correlation R_W -> ZCA-CAT weights R_W^(-1/2) delta_med normalized to sum=1",
+    "ledoit_wolf_shrinkage": 0.027153656365306176,
+    "delta_median_in_mad": [
+      0.8706398418723418,
+      0.5584833979806729,
+      0.5538761335350043,
+      0.6500363909657777
+    ],
+    "intercept": 0.0
+  }
+}

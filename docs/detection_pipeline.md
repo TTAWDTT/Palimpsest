@@ -10,6 +10,7 @@
 | 分割 | 官方 SAM 2.1 Tiny 自动掩膜 | 通用候选，可含背景/整帧；不保证找到承载图像的区域 |
 | 深度来源 baseline | B-Free、D3 | 本机已有官方权重，保留各自预处理 |
 | 传统来源 baseline | Benford 特征与已拟合森林推理 | 旧 RR 运行未保存森林；需要显式已拟合 NPZ，旧分数不能代替模型 |
+| 自研非神经算法 | [冻结 M 四特征跨尺度白化规则](../experiments/origin_detection/marginal_intermittency/README.md) | 使用冻结标定参数（Schema 2）；分数不是概率，完整评测与适用边界见发布报告 |
 | 非神经自研算法 | 像素／残差／顺序等统计候选 | 未通过稳健性验收 |
 | 冻结神经特征自研方法 | [CuRe五方向文件检测器](../src/palimpsest/detection/models/frozen_features/cure/README.md) | 保留作者文件预处理，未接区域RGB或CLI；独立未验证 |
 | 神经模型训练 | trainable目录及接口预留 | 待开发 |
