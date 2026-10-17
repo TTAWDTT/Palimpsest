@@ -1,0 +1,31 @@
+{
+  "scope": "Finite population and estimator controls; no image classification or new image pixels",
+  "assumptions": [
+    "Joint cumulants use all three centered pairings, including noncircular complex pairings",
+    "Gain/noise invariance is population-only, for nonzero scalar gains and additive jointly Gaussian noise independent of the signal",
+    "A finite three-point surrogate matches Gaussian moments only through order four; it is not a Gaussian distribution",
+    "Unbiased fourth k-statistic assumes iid sample vectors; spatial image windows are not assumed iid"
+  ],
+  "finite_operator": {"kernel": [1, 1], "stride": 2, "latent_length": 4, "latent_distribution": "iid symmetric signs", "quartet": [1, 2, 3, 6], "cycle_mod8": 4, "expected_cumulant": "i*sqrt(2)/4", "expected_normalized_magnitude": 1},
+  "stationary_null": {"length": 8, "distribution": "iid symmetric signs", "same_quartet_expected_cumulant": 0, "zero_cycle_energy_normalized_magnitude": 1},
+  "transport": {"filter": [0.75, 0.25], "integer_shift": 1, "joint_noise_primitives": [-3, 0, 3], "primitive_probabilities": ["1/6", "2/3", "1/6"], "expected_ratio": 1, "killed_frequency": 1, "killed_expected_status": "undefined"},
+  "signal_dependent_noise": {"signal": "symmetric sign X", "conditional_variance": "2+X", "independent_variance_control": 2, "expected_signal_k4": -2, "expected_independent_noise_k4": -2, "expected_dependent_noise_k4": 1, "expected_mixed_normalized_magnitude": "sqrt(2)"},
+  "finite_estimator": {"iid_sign_sample_size": 4, "expected_plugin_mean": "-15/16", "expected_unbiased_mean": -2, "expected_unbiased_variance": "140/3", "negative_control": "Repeat one random symbol four times; unbiased formula no longer estimates the iid population cumulant"},
+  "centering_counterexample": {"kernel": ["1", "2/3", "0", "-1/3", "0", "2/3"], "stride": 2, "latent_length": 3, "claim_to_check": "After per-vector DC removal, the entire finite sign-output distribution is invariant under one-pixel circular shift"},
+  "higher_order_survival": {"retained_frequencies": [0, 1, 7], "quartet": [1, 7, 1, 7], "cycle_mod8": 4, "expected_second_order_shift_residual": 0, "expected_normalized_fourth_magnitude": 1, "boundary": "Ideal finite circular filter, not general JPEG or optical screen capture"},
+  "phase_grouping": {"per_record_global_shifts": [0, 1, 2, 3, 4, 5, 6, 7], "expected_each_record_population_ratio": 1, "uniform_random_shift_per_observation_expected_quartet": 0, "boundary": "Distinguish per-record magnitude from complex pooling across unaligned records or independent local shifts"},
+  "noise_estimator_variance": {"sample_size": 4, "iid_signal": "symmetric signs", "independent_gaussian_variances": [0, 1, 4], "routes": ["Exact Fraction expectation of expanded k4 polynomial and its square, with analytic Gaussian moments through order8", "Five-point Gaussian quadrature and direct sample-centered k-statistic formula"], "expected_population_k4": -2, "question": "Does population cumulant invariance coexist with increased finite iid estimator variance?", "larger_sampling": "Not authorized by this control; do not infer real-window sample size from this toy"},
+  "variance_mixture_followup": {
+    "date": "2026-10-12",
+    "chronology": "Motivated after native and window-phase results; registered before this separate finite-mixture suite, not prior control for exposed images",
+    "identity": "For zero conditional means: kappa4(X1,X2,X3,X4)=E_G[kappa4(X|G)]+sum_three_pairings cov_G(Cij(G),Ckl(G)), Cij=E[Xi*Xj|G], no automatic conjugation",
+    "prior_theory": "Brillinger1969 conditioning identity; this zero-mean specialization follows directly from centered fourth moment minus three pairings, not a new theorem",
+    "gaussian_moment_surrogate": {"states": ["-sqrt(3)", "0", "sqrt(3)"], "probabilities": ["1/6", "2/3", "1/6"], "conditional_variances": [1, 4], "group_probabilities": ["1/2", "1/2"], "expected_conditional_k4": 0, "expected_mixture_k4": "27/4", "expected_covariance_mixing": "27/4", "boundary": "Finite three-point law matches Gaussian through fourth moments, not a true Gaussian sample experiment"},
+    "sign_control": {"states": [-1, 1], "conditional_variances": [1, 4], "expected_weighted_conditional_k4": -17, "expected_mixture_k4": "-41/4", "expected_covariance_mixing": "27/4"},
+    "constant_variance_null": {"conditional_variances": [1, 1], "expected_conditional_k4": 0, "expected_mixing": 0, "expected_joint": 0},
+    "corruptions": ["interpret Gaussian-matched variance mixture as within-condition nonGaussian k4", "omit covariance-mixing term from reconstruction", "treat retained sign k4 as zero", "apply zero-mean formula to a nonzero conditional mean without refusal", "turn empty or zero-probability group into a silent pass"],
+    "scope": "Known finite conditional populations only, no image grouping, observed noise calibration or source scores. Removing conditional variance mixture does not establish AI specificity."
+  },
+  "gate": {"numeric_absolute_tolerance": 1e-10, "negative_controls": ["omit pseudocovariance pairing", "treat signal-dependent noise as independent", "treat zero-cycle energy cumulant as cyclic artifact", "treat normalized cumulant as bounded by one", "treat repeated symbols as independent", "treat plugin cumulant as unbiased"], "timing": "First bounded execution is a pilot; record actual runtime before any larger compute"},
+  "excluded_claims": ["AI specificity", "actual Gaussian sample experiment", "JPEG or screen-capture invariance", "classifier BA or speed", "novelty", "real-image window independence"]
+}

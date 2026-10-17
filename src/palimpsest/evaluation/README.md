@@ -8,6 +8,8 @@
 | features | 新特征缓存的身份校验与来源角色视图 | 全部预期文件×variant的唯一记录及排序矩阵；不是特征真实性或近重复审计 |
 | file_benchmark | CPU单图文件测量，复用predict_file | SHA预读后解码/核心/端到端P50/P95，单列≤2MP；错误分数、SHA或分母拒绝 |
 | timing | 既有推理CSV的延迟汇总 | 含预处理/传输/端到端的历史测量；不覆盖模型首次加载 |
+| polyphase | 已知周期上采样／线性滤波模型的总体矩传播 | 相位均值、方差、邻域协方差与平移残差；非法矩阵／协方差拒绝，不从图片估计潜变量或判AI |
+| cumulants | 显式有限联合总体的四阶累积量与iid向量的k-statistic | 共轭由四列明确指定；归一化退化返回未定义，不保证相关patch无偏、单图稳定或AI特异性 |
 
 2026-10-05第四轮新增`features`与`file_benchmark`，用于多个手工特征候选复用身份检查和文件计时。验证入口为[相位候选控制](../../../tests/detection/test_phase_statistics.py)：人工构造CSV的干净/损坏双胞胎、实际图像SHA修改、已知分数和故意改错的分数。分母和范围必须明确，软件控制通过不代表图像判别科学目标成立。
 
@@ -16,3 +18,6 @@
 `pixel_features.py`复用签名图像解码、显式编码variant、特征覆盖与拼接。第十五轮采用；历史已冻结收据及实现不回写。
 
 `scored_pixels.py`复用签名原生解码与显式编码视图，向检测器只传RGB，记录明确margin；不自动选数据、训练或缩小原生输入。`tests/evaluation/test_scored_pixels.py`用已知像素/阈值控制检查。
+# 手工特征的配对变化诊断
+
+`feature_drift.py`比较同源描述符变化、真假类质心差及其方向；输入为明确配对的数值，来源匹配要求fit角色、完整覆盖与一致标签。输出不是AUC、BA或稳健性证明。适合定位手工表征在处理后的变化；分类性能仍由原有分类／同源评价模块核对。解析平移／反转／零表和元数据负控见 `tests/evaluation/test_feature_drift.py`。

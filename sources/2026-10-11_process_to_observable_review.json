@@ -1,0 +1,237 @@
+{
+  "date": "2026-10-11",
+  "reader": "Lady",
+  "initial_snapshot_note": "Top-level scope, elementary_derivations.status and coverage_gaps describe the initial2026-10-11 reading/derivation snapshot before this packet's numerical controls. They are retained as history, not a current-status summary; followup_current_status and dated followup objects govern later progress. Original full-text debts are not cleared by numerical work.",
+  "scope": "Mechanism derivation and future causal-control design; not a complete literature review, novelty audit, numerical verification or detector evaluation",
+  "registered_before_this_packet_search": {
+    "H1": "Under an explicitly linear upsampling-plus-filter model, output covariance depends on output phase unless the relevant polyphase covariances match; neither nonzero phase contrast nor AI specificity is guaranteed",
+    "H2": "A deterministic squared-error optimal reconstruction retains conditional means and omits conditional residual covariance; stochastic generation need not omit it, so this is not a generic diffusion defect",
+    "H3": "For a differentiable decoder from fewer continuous latent coordinates to more output coordinates, local first-order covariance has restricted rank; pixel quantization, observation noise and unknown postprocessing limit a direct low-rank detector"
+  },
+  "registration_boundary": "H1-H3 stored before searches in this packet. These are follow-up questions informed by prior literature exposure, not claims of globally preregistered research. The DDPM posterior-mixture covariance subquestion arose during reading.",
+  "search_engine": "web search and direct primary-source opens",
+  "queries_run": [
+    "site.distill.pub deconvolution checkerboard artifacts uneven overlap",
+    "site.proceedings.neurips.cc \"Denoising Diffusion Probabilistic Models\" 2020",
+    "2026 generated image detection decoder upsampling mechanism covariance artifacts counterexample site:arxiv.org",
+    "2026 \"image detection\" \"decoder\" \"mechanism\" site:arxiv.org",
+    "\"2026\" \"AI-generated\" \"decoder\" \"artifacts\" site:arxiv.org/abs",
+    "\"diffusion\" \"conditional mean\" \"variance\" site:proceedings.mlr.press",
+    "\"Improved Denoising Diffusion Probabilistic Models\" learned variances site:proceedings.mlr.press"
+  ],
+  "sources": [
+    {
+      "id": "distill_deconvolution",
+      "title": "Deconvolution and Checkerboard Artifacts",
+      "authors": ["Augustus Odena", "Vincent Dumoulin", "Chris Olah"],
+      "date_verified": "2016-10-17",
+      "doi": "10.23915/distill.00003",
+      "url": "https://distill.pub/2016/deconv-checkerboard/",
+      "proximity": "P3",
+      "read_status": "Full body text and reference list read; interactive diagrams not operated or visually audited",
+      "locator": "Deconvolution & Overlap; Overlap & Learning; Better Upsampling; Image Generation Results; Artifacts in Gradients",
+      "verified_short_quote": "so that the output is evenly balanced.",
+      "quote_locator": "Overlap & Learning, second paragraph",
+      "claim_boundary": "Uneven overlap and weight-dependent artifacts in the described architectures, with cancellation and alternative upsampling explicitly discussed; not all AI generators or robust source detection",
+      "local_capture": "work/non_neural/generation_mechanisms/process_derivation/distill_deconvolution.html",
+      "bytes": 87247,
+      "sha256": "960509f6729d5a92a26d5869060ca9f15084b8a527578ce99167103dd3817238",
+      "capture_note": "HTTP HTML captured by Invoke-WebRequest; linked image media and interactive assets not archived"
+    },
+    {
+      "id": "ddpm",
+      "title": "Denoising Diffusion Probabilistic Models",
+      "authors": ["Jonathan Ho", "Ajay Jain", "Pieter Abbeel"],
+      "canonical_record_verified": "NeurIPS 2020 proceedings abstract record",
+      "record_url": "https://proceedings.neurips.cc/paper/2020/hash/4c5bcfec8584af0d967f1ab10179ca4b-Abstract.html",
+      "version_read": "arXiv:2006.11239v2, 2020-12-16 HTML conversion",
+      "url": "https://arxiv.org/html/2006.11239v2",
+      "proximity_ceiling": "P3",
+      "read_status": "PARTIAL full-text: sections2 through3.2, Eq1-11 and following sampling expression; full paper and appendix reading owed",
+      "verified_short_quote": "untrained time dependent constants.",
+      "quote_locator": "section3.2, first paragraph",
+      "load_bearing_locators": ["Eq1: learned Gaussian reverse transition", "Eq6-7: clean-image-conditioned forward posterior", "section3.2: fixed isotropic variance", "text immediately afterEq11: random sampling term"],
+      "claim_boundary": "Original fixed-variance finite-step implementation only. Covariance after marginalizing clean input is an elementary derivation based onEq6-7, not an empirical result extracted from the paper; no final-image artifact or robustness guarantee",
+      "local_capture": "work/non_neural/generation_mechanisms/process_derivation/ddpm_v2.html",
+      "bytes": 1013312,
+      "sha256": "889bf6b3d1e18930447c30ab2c32c4c9b6134777502794e2f09aa7fd4506aef5",
+      "retrieval_issue": "Proceedings PDF open failed in web due33,025,164-byte size; actual full-text HTML used, without claiming complete reading"
+    },
+    {
+      "id": "ldm",
+      "title": "High-Resolution Image Synthesis with Latent Diffusion Models",
+      "authors": ["Robin Rombach", "Andreas Blattmann", "Dominik Lorenz", "Patrick Esser", "Bjorn Ommer"],
+      "version_read": "arXiv:2112.10752v2, 2022-04-13 HTML conversion",
+      "url": "https://arxiv.org/html/2112.10752v2",
+      "proximity_ceiling": "P3",
+      "read_status": "PARTIAL full-text: sections3.1-3.2; full paper and supplements reading owed",
+      "verified_short_quote": "enforcing local realism",
+      "quote_locator": "section3.1, first paragraph",
+      "quote_check_note": "Initial draft omitted a citation embedded between patch-based and adversarial; exact-string capture check rejected it. Replaced with a contiguous source phrase before delivery.",
+      "claim_boundary": "Latent representation and perceptual/adversarial decoder objective. Jacobian rank discussion is elementary local linear analysis under explicit differentiability and dimensional assumptions, not a detector theorem attributed to LDM",
+      "local_capture": "work/non_neural/generation_mechanisms/process_derivation/ldm_v2.html",
+      "bytes": 816760,
+      "sha256": "bc27be0c28b03fbd9e444e31224035d38d3f6622c59e45e49ef37ed927dcd5ea"
+    },
+    {
+      "id": "improved_ddpm",
+      "title": "Improved Denoising Diffusion Probabilistic Models",
+      "authors": ["Alexander Quinn Nichol", "Prafulla Dhariwal"],
+      "canonical_record_verified": "ICML2021, PMLR139:8162-8171",
+      "record_url": "https://proceedings.mlr.press/v139/nichol21a.html",
+      "url": "https://proceedings.mlr.press/v139/nichol21a/nichol21a.pdf",
+      "version_read": "Publisher PDF,10 pages",
+      "proximity_ceiling": "P3",
+      "read_status": "PARTIAL full-text: PDF pp3-4 section3.1, Eq14-15; other text returned by search not counted as systematically read",
+      "verified_short_quote": "one component per dimension",
+      "quote_locator": "PDF p4, continuation of section3.1, immediately beforeEq14",
+      "claim_boundary": "Learned per-dimension variance invalidates treating fixed isotropic variance as a universal modern diffusion property; no replication of reported sample quality",
+      "capture_note": "Read via web PDF text extraction, no local archive hash claimed"
+    }
+  ],
+  "elementary_derivations": [
+    {"id":"H1", "assumptions":"1D finite-filter linear upsampling; iid latent with finite variance; boundaries ignored", "status":"Hand algebra recorded, no new numerical control", "limits":"Does not establish phase contrast for actual learned weights, AI specificity, nonlinear generator behavior or propagation invariance"},
+    {"id":"H2", "assumptions":"Finite second moments and unrestricted optimal deterministic squared-error estimator", "status":"Conditional expectation decomposition recorded; binary stochastic counterexample supplied", "limits":"Not the full diffusion sampler or a perceptual/adversarial decoder"},
+    {"id":"H2_ddpm_extension", "assumptions":"Original forward process, t>1, exact clean-input-conditioned posterior Eq6-7, finite conditional second moments", "status":"Total conditional covariance calculation recorded", "limits":"Mismatch of one reverse transition does not prove a specific final-image statistic, direction of change, source specificity or propagation survival"},
+    {"id":"H3", "assumptions":"Fixed differentiable deterministic decoder, m<d, infinitesimal perturbations around one latent point", "status":"First-order covariance rank bound and curved-manifold counterexample recorded", "limits":"Neither global image covariance nor spatial patch covariance is thereby low rank; observation noise, rounding and clipping change the problem"}
+  ],
+  "finite_chain_progress": [
+    "Distill reference list inspected; linked ancestors not claimed fully read",
+    "Original DDPM fixed variance followed intoImproved DDPM learned-variance section3.1"
+  ],
+  "recency_search_limits": "Current-year searches returned tangential sonar detection, music decoding and watermarking. Those abstracts are not evidence about passive static-image generation mechanisms and were not used as load-bearing sources.",
+  "coverage_gaps": [
+    "DDPM, LDM andImproved DDPM full P3+ papers and supplements remain owed",
+    "No systematic forward-citation or all-author recency sweep",
+    "No Google Scholar, Semantic Scholar orOpenAlex citation-index coverage",
+    "No completed independent mathematical review or numerical planted-truth controls for this packet",
+    "No real generator intervention, newly extracted image features, new classification or latency measurement",
+    "No independent real propagation validation",
+    "Not iterated to dry; no completeness, novelty or leading-performance claim"
+  ],
+  "followup_operator_audit": {
+    "scope": "Same-day finite population controls and pinned source-class execution with hand-set weights; not actual pretrained generator evidence",
+    "control_spec": "configs/evaluation/polyphase_operator_controls.json",
+    "control_spec_sha256": "ea2361bb9a5bfdcf1a7a0c65414a8f7685d38972e4f5aa7b654b4d4838a4477f",
+    "read_source_commit": "a506df5756472e2ebaf9078affdde2c4f1502cd4",
+    "retrieval_route": "Official CompVis repository opened; GitHub commits/main and recursive tree API; contents API with fixed commit, base64-decoded raw bytes",
+    "source_captures": [
+      {"path":"ldm/modules/diffusionmodules/model.py", "blob":"533e589a2024f1d7c52093d8c472c3b1b6617e26", "bytes":33409, "sha256":"043ff43c4d4304f7259419d1bd4529445da71661b5362653ecd174bd4342c413", "read":"lines42-57 Upsample and462-568 Decoder", "local":"work/non_neural/generation_mechanisms/ldm_source/ldm__modules__diffusionmodules__model.py"},
+      {"path":"ldm/modules/diffusionmodules/openaimodel.py", "blob":"fcf95d1ea8a078dd259915109203789f78f0643a", "bytes":34953, "sha256":"92e0c23ada849f532be12d9be2ebcddd98d3b040aa366981ac5f06c96d53b6af", "read":"Retrieved only, no load-bearing claims", "local":"work/non_neural/generation_mechanisms/ldm_source/ldm__modules__diffusionmodules__openaimodel.py"},
+      {"path":"ldm/models/autoencoder.py", "blob":"6a9c4f45498561953b8085981609b2a3298a5473", "bytes":17619, "sha256":"8ba30483454b431e0642c229f286fe387c60130c26516cd392594186f9b4a4e5", "read":"Selected VQ decode andAutoencoderKL.decode/forward lines330-341", "local":"work/non_neural/generation_mechanisms/ldm_source/ldm__models__autoencoder.py"},
+      {"path":"configs/autoencoder/autoencoder_kl_32x32x4.yaml", "blob":"ab8b36fe6e3e95df2942a437b7d9c919b60d5c86", "bytes":1140, "sha256":"c2abfe5293bb47af6488f4f4faa6636a025e732ac0f5ccae0a660d11580600ba", "read":"Full config; no trained parameters downloaded", "local":"work/non_neural/generation_mechanisms/ldm_source/configs__autoencoder__autoencoder_kl_32x32x4.yaml"}
+    ],
+    "controls_receipt":"work/non_neural/generation_mechanisms/operator_moments/controls.json",
+    "ldm_receipt":"work/non_neural/generation_mechanisms/operator_moments/ldm_controls.json",
+    "pilot_and_plan":"work/non_neural/generation_mechanisms/operator_moments/timing_plan.json",
+    "controls":"7 exact known-answer cases and7 wrong-variance twins; complete rational mean/covariance vs matrix propagation;16 selected software tests",
+    "independence":"Separate direct sign enumeration and matrix implementation share model/fixtures. Source-class assay uses pinned author code and NumPy prediction, manually assigned kernels. No independent data, generator-weight replication or formal VERIFIED-CLOSED claim.",
+    "scientific_boundaries":["Finite periodic source populations only", "Second-order stationarity does not imply full non-Gaussian stationarity", "Gaussian stationary-output extension is algebraic, not a sampling result", "Actual zero-padding source differs from periodic model at image edges", "No original/processed image inference or accuracy claim"]
+  },
+  "followup_spectral_reading_started": {
+    "queries_run":["Gardner spectral correlation cyclostationary signals linear filtering stationary noise author pdf", "2026 AI generated image detection cyclostationary spectral correlation upsampling site:arxiv.org", "\"cyclostationarity\" \"generated images\""],
+    "records": [
+      {"title":"The spectral correlation theory of cyclostationary time-series", "author":"William A. Gardner", "doi":"10.1016/0165-1684(86)90092-7", "url":"https://www.sciencedirect.com/science/article/pii/0165168486900927", "status":"Publisher metadata and abstract only; no technical theorem imported. Erratum10.1016/0165-1684(86)90080-0 also surfaced, unread."},
+      {"title":"Spectral Correlation of Modulated Signals: PartI—Analog Modulation", "author":"William A. Gardner", "url":"https://cyclostationarity.com/wp-content/uploads/2022/12/202210141509.pdf", "initial_status":"Search excerpt only; web opens timed out; no unread formula used at that stage", "followup_reading":{"status":"Downloaded scanned reprint; visual selected-section reading, not full paper", "bytes":5350083, "sha256":"1cc5a8e2e6c5fe51ceaebb74e1dbfa9658dec4a9bb24ba3429027f8cf08ee6d5", "pages":12, "local":"work/non_neural/generation_mechanisms/cyclostationarity/gardner_1987_analog.pdf", "text_layer":"pypdf extracted only page delimiters, no body text; not treated as a readable extraction", "visually_read":"Cover andPDF pp2-4, printed584-586; sectionII Eq1-24", "load_bearing_locator":"printed586/PDFp4 Eq24: time-invariant filtering multiplies cyclic spectrum by shifted transfer functions", "short_quote_visually_transcribed":"A special case of interest is a time-invariant filter", "proximity":"P2, signal-processing component; no image-origin or novelty claim", "remaining_debt":"Later modulation examples, applications and full reference chain unread"}},
+      {"title":"On cycloergodicity", "author":"William A. Gardner", "doi":"10.1016/j.sigpro.2025.110186", "url":"https://cyclostationarity.com/wp-content/uploads/2025/08/On-Cycloergodicity.pdf", "version":"Signal Processing238(2026),110186; online2025-07-10", "proximity":"P2: estimation foundations, not image detection", "read":"PDF abstract and section1.3 pp1-3 only", "boundary":"Definition and warning about ensemble vs one-record averages; did not read/prove all theorems or adopt the author's broad philosophical conclusions"}
+    ],
+    "next_question":"Finite Fourier covariance propagation under known linear filters, integer shifts and independent stationary noise; single-image estimation remains a separate problem"
+  },
+  "followup_software_gate":{"tests":431,"seconds":122.95,"command":".venv/Scripts/python.exe -X utf8 -m pytest -q","scope":"Whole current repository software suite, not scientific or external-data validation"},
+  "followup_spectral_controls": {
+    "as_of":"2026-10-11 after report section7",
+    "receipt":"work/non_neural/generation_mechanisms/operator_moments/spectral_pilot.json",
+    "code_commit":"438c520",
+    "verification":"Whole centered frequency covariance compared against direct spatial filtering;5 wrong statements caught; no empirical image estimator",
+    "protocol_provenance":"Author's same-session tool sequence records README entry before execution. No immutable preregistration receipt proves external chronology; do not describe the run as independently verified preregistered."
+  },
+  "followup_estimation_controls": {
+    "as_of":"2026-10-11 after report section8",
+    "receipt":"work/non_neural/generation_mechanisms/operator_moments/estimation_controls.json",
+    "code_commit":"2aea2b5",
+    "verification":"Exact rational convolution of16 symbol states;10 known means/MSE rows,10 wrong-MSE catches and false iid-scaling rejection",
+    "boundary":"Two toys have different lengths/frequency pairs; not a fair image classifier benchmark or proof of real-window independence",
+    "protocol_provenance":"Same-session tool-order record, not an externally immutable preregistration receipt"
+  },
+  "followup_trained_layers": {
+    "as_of":"2026-10-11 after report section9",
+    "source_commit":"a506df5756472e2ebaf9078affdde2c4f1502cd4",
+    "weights_repo":"stabilityai/sd-vae-ft-mse-original",
+    "weights_revision":"629b3ad3030ce36e15e70c5db7d91df0d60c627f",
+    "weights_file":"vae-ft-mse-840000-ema-pruned.safetensors",
+    "weights_bytes":334641190,
+    "publisher_sha256":"735e4c3a447a3255760d7f86845f09f937809baa529c17370d83e4c3758f3c75",
+    "complete_download_receipt":"work/non_neural/generation_mechanisms/ldm_source/vae_download.json",
+    "complete_hash_verified":true,
+    "weights_license":"MIT on officialHF model record",
+    "model_card_url":"https://huggingface.co/stabilityai/sd-vae-ft-mse-original",
+    "model_card_read_scope":"Decoder Finetuning and Utilization sections; author states decoder-only finetuning andMSE+0.1LPIPS; not reconstructed full training history",
+    "original_archive_restructured":"CompVis originalkl-f8 ZIP index verified but1GB archive not downloaded; final object is a different officialfinetuned variant and is named as such",
+    "receipt":"work/non_neural/generation_mechanisms/operator_moments/trained_layer_controls.json",
+    "checks":48,
+    "verification":"Predicted weight/index footprints vs source autograd Jacobians on3 layers and4 output channels×4 phases;3 planted coefficient errors rejected",
+    "boundary":"Iid unit-variance hidden-input covariance is hypothetical. No measured finalRGB, full diffusion generator, detectionBA or robustness result",
+    "protocol_provenance":"Protocol text was locally committed before trained-layerpilot. Tool records support sequencing, but there is no independent external immutable timestamp claim."
+  },
+  "followup_current_status": {
+    "as_of":"2026-10-11 after numerical sections7-9 and initial independent-referee findings",
+    "executed":"Finite operator, finite-window and official trained-sublayer assays",
+    "independent_recheck":"Fresh-context referee independently executed exact finite-window and3-to6 covariance examples; final table completed with2MEDIUM addressed and no unresolvedHIGH/MEDIUM within sections1-9",
+    "referee_table":"reports/04_算法研发/机制研究/referee_sim_生成过程差异推导.md",
+    "not_achieved":["FullP3+ reading and novelty audit", "FinalRGB source-specific signal", "Trained non-neural detector", "BA>=80 and degradation<=2pp", "Independent real propagation validation"],
+    "protocol_limit":"Same-session registration statements are not externally verified preregistration. Future controls will bind a git-committed protocol and working-copy SHA before execution."
+  },
+  "followup_full_chain": {
+    "as_of":"2026-10-11 after section10, with subsequent independent-review scope correction",
+    "protocol":"configs/evaluation/decoder_chain_probe.json",
+    "protocol_commits":["5737a394a78168b93ccb57261827cec4ca62c8ec", "3abc5af7808d618e6792564aec198226fda0dea9", "3932c1f5cf1356f81c2a268f37d65b2726a86631"],
+    "first_attempt":"Stopped beforeforward/pixels by complete tensor-accounting gate; twoEMA bookkeeping buffers not initially declared. Subsequent committed protocol explicitly accounts for them without widening numeric tolerance.",
+    "source_reads_added":[
+      {"path":"ldm/modules/distributions/distributions.py", "commit":"a506df5756472e2ebaf9078affdde2c4f1502cd4", "bytes":2970, "sha256":"a304b343529b915c8d7191f696adcb7bbdd539ea9b9eed30ef0bad6d9565ee28", "read":"First100 lines, selectedGaussian posterior constructor andmode; no import execution", "local":"work/non_neural/generation_mechanisms/ldm_source/ldm__modules__distributions__distributions.py"},
+      {"path":"ldm/modules/ema.py", "commit":"a506df5756472e2ebaf9078affdde2c4f1502cd4", "blob":"c8c75af43565f6e140287644aaaefa97dd6e67c5", "bytes":2982, "sha256":"96cf170a9d7b49c846990694a0abef039e2046d934d37f7a219015ccc0da4e1b", "read":"Full95-line definition inspected fordecay/num_updates bookkeeping; noEMAforward implementation used", "local":"work/non_neural/generation_mechanisms/ldm_source/ldm__modules__ema.py"}
+    ],
+    "previous_source_scope_extended":"model.py lines1-245,368-568; autoencoder.py selectedAutoencoderKL construction/encode/decode/forward lines295-343; config remains fullread",
+    "forward":"Official pinnedEncoder/Decoder plusquant/post_quant conv; posterior mean only; CPUfloat64,128px;248 strictly loaded forward tensors+2 explicitly accountedEMA buffers",
+    "intervention":"Only lastUpsample nearest2 replaced withbilinear2,align_cornersFalse; fixedweights andencodedmean; identical incominghidden field checked",
+    "data_scope":"Four previously exposedRR/Chimera fit originals, not independent/new heldsource observations. Bytehashes andnative sizes verified. No new classification orprocessedRR inference.",
+    "response_check_scope":"All valid interior pixels in outputchannels0-3 of each of3 Upsample layers; not all layer outputchannels. Other channels only participate in fullforward.",
+    "scope_erratum":"Independent fresh review pointed out section10 omitted the four-channel limit; corrected explicitly without changing receipts.",
+    "receipts":["work/non_neural/generation_mechanisms/operator_moments/decoder_chart_load_failure.json", "work/non_neural/generation_mechanisms/operator_moments/decoder_chart_pilot.json", "work/non_neural/generation_mechanisms/operator_moments/decoder_intervention_chart_pilot.json", "work/non_neural/generation_mechanisms/operator_moments/decoder_image_probes.json"],
+    "conclusion":"Scalar spatialphase varianceCV has inconsistent intervention direction and ordinary-processing confounds; not admitted asAI criterion. Rawfloat response experiment, not standalone source detector."
+  },
+  "followup_higher_order": {
+    "as_of":"2026-10-11 section11, fresh independentreview completed and scope corrections rechecked",
+    "sources":[
+      {"title":"The Cumulant Theory of Cyclostationary Time-Series, PartI: Foundation", "authors":["William A. Gardner", "Chad M. Spooner"], "doi":"10.1109/78.340775", "url":"https://cyclostationarity.com/wp-content/uploads/2021/08/The-Cumulant-Theory-of-Cyclostationary-Time-Series-Part-I.pdf", "proximity":"P2: borrowed signal theory, not image-source evidence", "retrieval":"web fetch rejected10,942,902-bytePDF; directHTTP capture succeeded", "bytes":10942902, "sha256":"5f0856560b89fa94d991051db3b910f8716db50ca383604e8f52b3f4ff188d10", "pages":22, "text_layer":"All22 pages return zero bodycharacters; not a text reading", "read":"Initially visuallyPDFpp1-4; afterfirstcontrols continuedpp5-12, printed3387-3398, throughsectionII.C multivariate relations. Remaining10 pages andPartII not read.", "verified_short_quote":"cumulants are cumulative, whereas moments are not.", "quote_locator":"Printed3389/PDFp3 top left", "local":"work/non_neural/generation_mechanisms/cyclostationarity/gardner_spooner_1994_part1.pdf", "boundary":"No novelty claim; finite ensemble controls are not a proof of finite-image FOT/cycloergodic estimation"},
+      {"title":"Discovering and modeling hidden periodicities in science data", "authors":["Antonio Napolitano", "William A. Gardner"], "date":"2025-04-30", "doi":"10.1186/s13634-025-01207-w", "url":"https://link.springer.com/article/10.1186/s13634-025-01207-w", "proximity":"P2", "read":"Abstract metadata,section4.1-4.2 Eq4.1-4.4 andexample5 text; nofigure media audit orcomplete58-page reading", "verified_short_quote":"different conjugation configurations", "quote_locator":"section4.1 complex-valued extension", "boundary":"FOT framework andhigher-order cyclic statistical examples; not learnedimage decoder orpropagation validation"},
+      {"title":"A model validation scale based on multiple indices", "authors":["Danton Diego Ferreira", "Erivelton Geraldo Nepomuceno", "Augusto Santiago Cerqueira", "Thais Martins Mendes"], "doi":"10.1007/s00202-016-0430-1", "url":"https://mural.maynoothuniversity.ie/id/eprint/16823/1/EN_a%20model.pdf", "proximity":"P2", "read":"PDFpp1-3,section2.2 Eq4 andoutlier caution;noise discussionpp8-9 selectedtext. Not complete10-page reading.", "verified_short_quote":"the presence of outliers", "quote_locator":"PDFp3 paragraph afterEq10", "boundary":"Known cumulant andmodel validation context; the paper's Gaussiannoise tolerance does not establish finite detector invariance orAI specificity"},
+      {"title":"Blind estimation of statistical properties of non-stationary random variables", "authors":["Ali Mansour", "Raed Mesleh", "el-Hadi M Aggoune"], "doi":"10.1186/1687-6180-2014-21", "url":"https://link.springer.com/article/10.1186/1687-6180-2014-21", "proximity":"P2", "read":"Sections2-3 andAppendix1.1 selectedrenderedHTML equations; not fullpaper", "boundary":"RenderedEq16/Eq28 differ by a factor in the second-moment squaredterm. No formula imported from that ambiguousrendering; usedstandard k-statistic reference andindependent control instead. No claim about authororiginalPDF correctness."},
+      {"title":"Practical Poissonian-Gaussian noise modeling and fitting for single-image raw-data", "authors":["Alessandro Foi", "Mejdi Trimeche", "Vladimir Katkovnik", "Karen Egiazarian"], "doi":"10.1109/TIP.2008.2001399", "url":"https://webpages.tuni.fi/foi/papers/Foi-PoissonianGaussianClippedRaw-2007-IEEE_TIP.pdf", "version":"Author18-pageTIPfinal manuscript", "proximity":"P2 physical nuisance model", "read":"Abstract,introduction andsectionII Eq1-4/PDFpp1-2; laterparameterestimation/clipping experiments unread", "verified_short_quote":"Poissonian signal-dependent component", "quote_locator":"sectionII firstnoise decomposition", "boundary":"RAW photon plusreadnoise; no ourreproduction, no assumption that conditionalGaussian counterexample modelswholecamera"},
+      {"title":"scipy.stats.kstat", "url":"https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.kstat.html", "read":"API assumptions andNotes raw-sumk4 formula", "boundary":"Primarysoftware/reference crosscheck; scalarformula testedagainstjoint centeredimplementation, not source-detector evidence"}
+    ],
+    "tool_choice":"BootLoops tools/README consulted; no listedfinite-image cumulant engine. Used localNumPy/SciPy plusFraction andquadrature controls;emitall remains claims-integrity tool, not statistical validator.",
+    "protocol":"configs/evaluation/cyclic_cumulant_controls.json",
+    "protocol_commits":["097c28a", "2876833", "aba4219"],
+    "registration_guard":"Full commitSHA andworkingcopy byteidentity required; firstshortSHA call refused beforecomputation. Localcontent/order evidence, not externalpreregistration.",
+    "receipts":["work/non_neural/generation_mechanisms/operator_moments/cumulant_pilot.json", "work/non_neural/generation_mechanisms/operator_moments/cumulant_extended_controls.json", "work/non_neural/generation_mechanisms/operator_moments/cumulant_phase_controls.json"],
+    "checks":"Independent coefficient propagation vsfinitepopulation enumeration;7 wronginterpretations rejected; exactk4 polynomial moments vsGaussianquadrature; scalarSciPy crosscheck",
+    "boundary":"PopulationGaussian invariance, nonzero marginaldenominator, sourceconfounding andfinite estimation are separate. No empiricalGaussian image test, no pretraineddecoder quartic evidence, no imageoriginBA orrealpropagation result.",
+    "not_achieved":["AI-specific mechanism", "Reliable one-image cumulant estimator", "BA>=80 and drop<=2pp", "Independent real data validation", "Complete novel-method literature audit"],
+    "independent_review":{"table":"reports/04_算法研发/机制研究/referee_sim_生成过程差异推导.md sections10-11 append", "main_result":"work/non_neural/generation_mechanisms/referee_high_order/independent_result.json", "noise_result":"work/non_neural/generation_mechanisms/referee_high_order/independent_noise_result.json", "route":"Set-partition Mobius cumulants anddistinct-observation-index U-statistic polynomial, independent of authorcode/raw-sum/kstat/quadrature routes. Sharedtoy distributions andNumPyFFT named.", "findings":"0HIGH and2MEDIUM initially; both scope phrases corrected and reread,0unresolvedHIGH/MEDIUM within sections10-11", "limits":"No images orweights read, noAE inference/classifier rerun, no independentrealdata; originalPDF fetches failed, thus not certification of author's originalreading range. Not a formalproof orscientific acceptance."},
+    "claims_integrity":{"spec":"configs/evaluation/polyphase_operator_claims.json", "receipt":"work/non_neural/generation_mechanisms/operator_moments/emitall_full_chain_cumulants.json", "matches":84, "findings":0, "scope":"Selected publishednumbers against storedreceipts; no evidence oftheory, novelty orperformance. Not all prose claim coverage."}
+  },
+  "followup_software_gate_current":{"as_of":"2026-10-11 after fullchain andcumulant core additions", "tests":471, "seconds":108.50, "log":"work/non_neural/generation_mechanisms/software_tests_2026-10-11.log", "subsequent_changes":"Phase grouping extension control executed successfully aftersuite; documentation/provenance updated. No whole-suite rerun needed for textonlychanges.", "scope":"Software checks, not acceptance of scientific performance"},
+  "followup_architecture_limits": {
+    "as_of":"2026-10-11 section12 anddevelopmentplan section33; independentreading review completed",
+    "queries":["site.stat.berkeley.edu total variation Bayes testing risk data processing Markov kernel lecture", "site.cs.cmu.edu hypothesis testing total variation optimal error lecture", "site.arxiv.org image detection invariant representations information loss transformations maximal invariant"],
+    "sources":[
+      {"title":"Alias-Free Generative Adversarial Networks", "authors":["Tero Karras", "Miika Aittala", "Samuli Laine", "Erik Harkonen", "Janne Hellsten", "Jaakko Lehtinen", "Timo Aila"], "venue_record":"NeurIPS2021 aslistedbyofficialproject", "version":"arXiv2106.12423v3,2021-10-12", "url":"https://arxiv.org/html/2106.12423v3", "project":"https://nvlabs.github.io/stylegan3/", "proximity":"P3 candidate architecturemechanism; supplements stillowed", "read":"Mainbody textsections1-5, Eq1-3 andFigure3/5tabletext; firstcapture output forsections3-5 truncatedpart oftransformed-Fourier/flexible-layers, then specificallyreadthoseparagraphs. Noimage/video inspection orappendices/reference-chain completenessclaim.", "verified_short_quote":"does not commute with fractional translation", "quote_locator":"section2.1 Nonlinearity", "local_capture":"work/non_neural/generation_mechanisms/process_derivation/stylegan3_v3.html", "bytes":736997, "sha256":"75d10036a6c181f5f7e0a41877f04d5ab3b505dffe2820175f320b6b665644da", "retrieval":"Initialwebfulltext succeeded; subsequentlineopens timedout; directHTTPHTMLcapture succeeded; localHTMLParserextraction withmathalttext usedforremaining maintext", "boundary":"Architecture suppression ofaliasing is a contrast condition forgrid-cue hypotheses; doesnot proveabsence ofall sourcecues, ourquartic values, detectoraccuracy orphysicalpropagation. NoStyleGAN3 weights/codeexecution/modeldownload."},
+      {"title":"10-716 AdvancedMachineLearning,lecture15", "course":"Pradeep Ravikumar,CMU,Spring2019; lecturebylinelistsTolaniOlarinre andSrinivasR asscribes", "url":"https://www.cs.cmu.edu/~pradeepr/courses/716/2019-spring/notes/lec15.pdf", "proximity":"P2 standarddecisiontheory", "read":"PDFpp1-2,section15.1 Eq15.1 andA-decisionregion derivation; remainingFano/generalizedLeCam notsystematicallyread", "verified_short_quote":"called the Bayes risk", "quote_locator":"PDFp1 section15.1", "boundary":"Primarycourse notes explicitlylacknormalpublication scrutiny; usedonlystandard equal-prior Bayesidentity, no image-data upperbound orlectureexample replication. Notesnotredistributedinrepository."}
+    ],
+    "unsuccessful_lead":"Yalelecture4 webfetch timedout; directHTTPStool rejectedcertificate name/chain. NoTLSbypass, downloadorimportedformula fromthatrecord.",
+    "derivations":"Finite alphabet Markovkernel TVcontraction bytriangleinequality andrownormalization; featureinvariance identifiesany explicitly assumed cross-source pairlinkedbyanallowedoperation. Basic algebra only, no noveltheorem or universal impossibility claim.",
+    "next_stage":"Actualtrainedchain prediction andintervention, matchedordinaryprocessing/photography exclusions, singleimage measurement uncertainty, then fixeddetector/realpropagation. Existingendpoint remainsBA>=80/drop<=2pp withindependentrealdata.",
+    "independent_review":{"record":"work/non_neural/generation_mechanisms/referee_high_order/section12_reading_review.md", "public_append":"reports/04_算法研发/机制研究/referee_sim_生成过程差异推导.md section12 append", "scope":"Independentlyread StyleGAN3v3 sections2-5 andCMU PDFpp1-2; inspectedfinitekernel inequality andconditionalinvariance statement onpaper. No numeric/image/model execution.", "findings":"0HIGH/0MEDIUM; optionalLOW definingBA* atfirstuse implemented. Futurearchitecture/model validation andfullnoveltyreview remainopen.", "version_note":"Officialarxivv3 identity verifiedbyreviewer; later v4exists. No latest-version orallversions-equivalenceclaim."}
+  },
+  "report": "reports/04_算法研发/机制研究/从生成环节推导可观测差异_2026-10-11.md"
+}

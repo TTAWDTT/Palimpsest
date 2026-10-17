@@ -1,0 +1,10 @@
+{
+  "chronology":"Followup analyticnull proposedafter nativeimage/photorawmetrics inspected; not apriori control for first native run",
+  "field":"I(y,x)=2*(x/255)^2-1 replicatedRGB,256x256; smoothnonperiodic quadraticfield, noNNupsampling/generator",
+  "analysis":"Same patch16,margin16 pipeline. FornonDC xfrequencyk, U_k=A_k*x_origin+B_k. Centeringoverpatches leavesA_k*(x_origin-Eorigin). Jointfourth/autocumulants share nonzero origin-kurtosis, givingnormalized magnitude1 forxcross/xpure",
+  "expected":{"x_cross_float":1,"x_pure_float":1,"y_cross":null,"y_pure":null},
+  "quantized":"Save/reload usingauthoruint8 rule; numericalPNGmeasure isdescriptive, exactfloat identitynotpromisedafterquantization",
+  "tolerance":1e-8,
+  "corruption":"WrongfloatR0 mustbe rejected",
+  "scope":"Content/window-origin confound fordirectempiricalpatchdescriptor; not proofthatallhigher-order orAI detection isimpossible"
+}

@@ -129,6 +129,8 @@ CuRe的[官方文件适配器](palimpsest/detection/baselines/cure.py)是明确�
 
 较大的冻结表示可通过[evaluation/numeric_features.py](palimpsest/evaluation/numeric_features.py)用元数据表与NumPy数组读取，按需提供坐标，避免逐坐标Python对象。来源折划分与OOF统计在[evaluation/source_crossfit.py](palimpsest/evaluation/source_crossfit.py)。二者处理数据，不加载编码器。
 
+生成机制研究使用[evaluation/polyphase.py](palimpsest/evaluation/polyphase.py)的有限算子矩和单场描述统计、[evaluation/cumulants.py](palimpsest/evaluation/cumulants.py)的显式总体／iid四阶估计。它们是机制验证组件，尚未接入来源判别器。特定生成器的源码／权重干预留在[实验目录](../experiments/origin_detection/non_neural/generator_mechanisms/README.md)，不由公共库导入或运行。
+
 [token_statistics.py](palimpsest/detection/representations/token_statistics.py)提供中位数锚定的截断均值与离散度；[frozen_cure_tokens.py](palimpsest/detection/representations/frozen_cure_tokens.py)只读捕获作者PECore归一化patch输出，并要求原均值一致。其特征空间性质不代表图像传播不变性，接入核查和分类效果由实验分别提供。
 
 第六轮新增[残差／顺序统计候选](palimpsest/detection/algorithms/residual_statistics/README.md)，使用[可读JSON特征森林](palimpsest/detection/algorithms/forest.py)实现NumPy推理。实验拟合与像素推理分开，两个候选的真实准入仍需评测；不是默认可用的成功检测器。
